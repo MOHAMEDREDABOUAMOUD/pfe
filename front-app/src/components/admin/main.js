@@ -1,14 +1,14 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import {Button, Alert, Row, Col} from 'react-bootstrap';
-import SlideBar from "./SlideBar"
+import SideBar from "./SideBar"
 
-function SignIn() {
+function MainAdmin() {
     return(
         <div className="App" style={{}}>
-            <SlideBar />
+            <SideBar />
         </div>
     );
 }
 
-export default SignIn;
+export default MainAdmin;

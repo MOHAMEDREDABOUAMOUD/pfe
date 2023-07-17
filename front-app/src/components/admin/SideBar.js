@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './Slidebar.css';
+import './Sidebar.css';
 
 import { Link } from 'react-router-dom';
 
-function SlideBar() {
+function SideBar() {
   useEffect(() => {
     // Function to toggle the lock state of the sidebar
     const toggleLock = () => {
@@ -175,4 +175,4 @@ function SlideBar() {
   );
 }
 
-export default SlideBar;
+export default SideBar;
