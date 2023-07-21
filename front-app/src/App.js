@@ -7,7 +7,7 @@ import MainAdmin from './components/admin/main';
 import CreateUser from './components/admin/createUser';
 import ListUsers from './components/admin/listUsers';
 import UpdateUser from './components/admin/updateUser';
-import LoginForm from "./components/SignIn/LoginForm";
+import SignIn from './components/SignIn/SignIn';
 
 function App() {
   const [rows, setRows] = useState([
@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<LoginForm/>}></Route>
+        <Route path='/' element={<SignIn/>}></Route>
         <Route path='/main' element={<MainAdmin/>}></Route>
         <Route path='/createUser' element={<CreateUser/>}></Route>
         <Route path="/listUsers" element={<ListUsers rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />}/>

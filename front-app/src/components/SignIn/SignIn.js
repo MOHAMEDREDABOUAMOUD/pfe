@@ -1,18 +1,91 @@
-import React from "react";
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.css";
-import {Button, Alert, Row, Col} from 'react-bootstrap';
-import Menu from "./Menu"
-import LoginForm from "./LoginForm"
+import { Button, Alert, Row, Col } from 'react-bootstrap';
+import Menu from "./Menu";
+import './LoginForm.css';
+import axios from 'axios'; // Import Axios
 
 function SignIn() {
-    return(
-        <div className="App" style={{}}>
-            <Menu />
-            <div>
-                <LoginForm />
-            </div>
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const formData = new FormData();
+        formData.append('login', userName);
+        formData.append('pwd', password);
+  
+        const response = await axios.post('http://localhost:80/alOmrane_prj/pfe/backend/login.php', formData, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        });
+  
+        const data = response.data;
+        console.log(data);
+        // You can handle the response here (e.g., show success message, redirect, etc.)
+        if (response.status === 200) {
+            // Login successful, show success message (optional)
+            alert('Login successful!');
+      
+            // Redirect the user to "exemple/exemple"
+            window.location.replace('../admin/main.js');
+          } else {
+            // Login failed, show error message
+            alert(data.error);
+          }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+  return (
+    <div className="App">
+      <Menu />
+      <div>
+        <div className="wrapper bg-light d-flex align-items-center justify-content-center w-100">
+          <div className="login">
+            <h2 className="mb-3">Sign In</h2>
+            <form className="needs-validation" onSubmit={handleSubmit}>
+              <div className="form-group mb-2">
+                <label className="form-label" htmlFor="userName">User Name</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  required
+                  name="login"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+                <div className="invalid-feedback">
+                  Please enter your username
+                </div>
+              </div>
+              <div className="form-group mb-2">
+                <label className="form-label" htmlFor="password">Password</label>
+                <input
+                  className="form-control"
+                  type="password"
+                  required
+                  name="pwd"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div className="invalid-feedback">
+                  Please enter your password
+                </div>
+              </div>
+              <div className="form-group form-check mb-2">
+                <label htmlFor="check" className="form-check-label"><a href=''>Forgot Password?</a></label>
+              </div>
+              <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
+            </form>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default SignIn;
