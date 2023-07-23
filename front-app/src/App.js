@@ -8,8 +8,6 @@ import CreateUser from './components/admin/createUser';
 import ListUsers from './components/admin/listUsers';
 import UpdateUser from './components/admin/updateUser';
 import LoginForm from "./components/SignIn/LoginForm";
-import Settings from './components/admin/settings';
-import Dashboard from './components/admin/dashboard';
 
 function App() {
   const [rows, setRows] = useState([
@@ -68,7 +66,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<LoginForm/>}></Route>
+        <Route path='/' element={<SignIn/>}></Route>
         <Route path='/main' element={<MainAdmin/>}></Route>
         <Route path='/createUser' element={<CreateUser/>}></Route>
         <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />}/>
