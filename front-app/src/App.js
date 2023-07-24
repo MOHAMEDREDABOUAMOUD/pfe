@@ -3,11 +3,13 @@ import "bootstrap/dist/css/bootstrap.css"
 import {BrowserRouter, Route, Routes, Navigate, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import { useState } from "react";
-import MainAdmin from './components/admin/main';
-import CreateUser from './components/admin/createUser';
-import ListUsers from './components/admin/listUsers';
-import UpdateUser from './components/admin/updateUser';
-import LoginForm from "./components/SignIn/LoginForm";
+import MainAdmin from './components/admin/main/main';
+import CreateUser from './components/admin/createUser/createUser';
+import ListUsers from './components/admin/listUsers/listUsers';
+import UpdateUser from './components/admin/updateUser/updateUser';
+import Settings from './components/admin/settings/settings';
+import Dashboard from './components/admin/dashboard/dashboard';
+import LoginForm from "./components/SignIn/SignIn";
 
 function App() {
   const [rows, setRows] = useState([
@@ -66,7 +68,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<SignIn/>}></Route>
+        <Route path='/' element={<LoginForm/>}></Route>
         <Route path='/main' element={<MainAdmin/>}></Route>
         <Route path='/createUser' element={<CreateUser/>}></Route>
         <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />}/>

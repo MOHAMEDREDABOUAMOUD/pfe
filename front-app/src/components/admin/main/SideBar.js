@@ -81,7 +81,7 @@ function SideBar() {
       <nav className={`sidebar ${sidebarLocked ? "locked" : ""} ${sidebarClosed ? "close" : ""}`}>
         <div className="logo_items flex">
           <span className="nav_image">
-            <img src={require('../images/logo-omrane.png')} alt="logo_img" />
+            <img src={require('../../images/logo-omrane.png')} alt="logo_img" />
           </span>
           <span className="logo_name">Al Omrane</span>
           <i className={`bx ${sidebarLocked ? "bx-lock-open-alt" : "bx-lock-alt"}`} id="lock-icon" title="Unlock Sidebar"></i>
@@ -158,7 +158,7 @@ function SideBar() {
           </div>
           <div className="sidebar_profile flex">
             <span className="nav_image">
-              <img src={require('../images/logo-omrane.png')} alt="logo_img" />
+              <img src={require('../../images/logo-omrane.png')} alt="logo_img" />
             </span>
             <div className="data_text">
               <span className="name">Mohammed Raji</span><br/>
