@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
-import "./listUsers.css";
+import "./listEB.css";
+import { Link } from "react-router-dom";
 
-class ListUsers extends Component {
+class ListEB extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,28 +101,40 @@ class ListUsers extends Component {
           <thead>
             <tr>
               <th onClick={() => this.handleSort("id")}>
-                ID {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                Id {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("email")} className="expand">
-                Email {sortBy === "email" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("objet")}>
+                Objet {sortBy === "objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("nom")}>
-                Nom {sortBy === "nom" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("observation")} className="expand">
+                Observation {sortBy === "observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("prenom")}>
-                Prenom {sortBy === "prenom" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("caution")}>
+                Caution {sortBy === "caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("userName")}>
-                UserName {sortBy === "userName" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("estimation")}>
+                Estimation {sortBy === "estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("password")}>
-                Password {sortBy === "password" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("prog_nonProg")}>
+                Prog_nonProg {sortBy === "prog_nonProg" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("fonction")}>
-                Fonction {sortBy === "fonction" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("agence")}>
+                Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => this.handleSort("sexe")}>
-                Sexe {sortBy === "sexe" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              <th onClick={() => this.handleSort("modePassation")}>
+                ModePassation {sortBy === "modePassation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => this.handleSort("secteur")}>
+                Secteur {sortBy === "secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => this.handleSort("qualification")}>
+                Qualification {sortBy === "qualification" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => this.handleSort("operations")}>
+                Operations {sortBy === "operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => this.handleSort("files")}>
+                Files {sortBy === "files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
             </tr>
           </thead>
@@ -130,13 +143,17 @@ class ListUsers extends Component {
               return (
                 <tr key={idx}>
                   <td>{row.id}</td>
-                  <td>{row.email}</td>
-                  <td>{row.nom}</td>
-                  <td>{row.prenom}</td>
-                  <td>{row.userName}</td>
-                  <td>{row.password}</td>
-                  <td>{row.fonction}</td>
-                  <td>{row.sexe}</td>
+                  <td>{row.objet}</td>
+                  <td>{row.agence}</td>
+                  <td>{row.observation}</td>
+                  <td>{row.prog_nonProg}</td>
+                  <td>{row.caution}</td>
+                  <td>{row.estimation}</td>
+                  <td>{row.modePassation}</td>
+                  <td>{row.secteur}</td>
+                  <td>{row.qualification}</td>
+                  <td><Link>operations</Link></td>
+                  <td><Link>files</Link></td>
                   <td className="fit">
                     <span className="actions">
                       <BsFillTrashFill
@@ -159,4 +176,4 @@ class ListUsers extends Component {
   }
 }
 
-export default ListUsers;
+export default ListEB;

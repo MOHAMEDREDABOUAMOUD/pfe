@@ -1,6 +1,6 @@
 import * as React from 'react'
 import "bootstrap/dist/css/bootstrap.css"
-import {BrowserRouter, Route, Routes, Navigate, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import { useState } from "react";
 import MainAdmin from './components/admin/main/main';
@@ -10,6 +10,8 @@ import UpdateUser from './components/admin/updateUser/updateUser';
 import Settings from './components/admin/settings/settings';
 import Dashboard from './components/admin/dashboard/dashboard';
 import LoginForm from "./components/SignIn/SignIn";
+import ListEB from './components/demandeur/listEB/listEB';
+import CreateEB from './components/demandeur/createEB/createEB';
 
 function App() {
   const [rows, setRows] = useState([
@@ -65,16 +67,78 @@ function App() {
       }
     });
   };
+  const [rowsEB, setRowsEB] = useState([
+    {
+      id: "1",
+      objet: "1",
+      agence: "reda@gmail.com",
+      observation: "bouamoud",
+      prog_nonProg: "reda",
+      caution: "reda",
+      estimation: "111111",
+      modePassation: "Demandeur",
+      secteur: "M.",
+      qualification: "M.",
+    },
+    {
+      id: "2",
+      objet: "1",
+      agence: "reda@gmail.com",
+      observation: "bouamoud",
+      prog_nonProg: "reda",
+      caution: "reda",
+      estimation: "111111",
+      modePassation: "Demandeur",
+      secteur: "M.",
+      qualification: "M.",
+    },
+    {
+      id: "3",
+      objet: "1",
+      agence: "reda@gmail.com",
+      observation: "bouamoud",
+      prog_nonProg: "reda",
+      caution: "reda",
+      estimation: "111111",
+      modePassation: "Demandeur",
+      secteur: "M.",
+      qualification: "M.",
+    },
+  ]);
+  // const [rowToEdit, setRowToEdit] = useState(null);
+  const handleDeleteRowEB = (targetIndex) => {
+    setRows(rowsEB.filter((_, idx) => idx !== targetIndex));
+  };
+  const handleEditRowEB = (idx) => {
+    const selectedRow = rowsEB[idx];
+    const { id, objet, agence, observation, prog_nonProg, caution, estimation, modePassation, secteur, qualification } = selectedRow;
+    navigate('/updateUser', {
+      state: {
+        id, 
+        objet, 
+        agence, 
+        observation, 
+        prog_nonProg, 
+        caution, 
+        estimation, 
+        modePassation, 
+        secteur, 
+        qualification,
+      }
+    });
+  };
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<LoginForm/>}></Route>
-        <Route path='/main' element={<MainAdmin/>}></Route>
-        <Route path='/createUser' element={<CreateUser/>}></Route>
-        <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />}/>
-        <Route path='/updateUser' element={<UpdateUser/>}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
-        <Route path='/settings' element={<Settings/>}></Route>
+        <Route path='/' element={<LoginForm />}></Route>
+        <Route path='/main' element={<MainAdmin />}></Route>
+        <Route path='/createUser' element={<CreateUser />}></Route>
+        <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />} />
+        <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
+        <Route path='/updateUser' element={<UpdateUser />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/settings' element={<Settings />}></Route>
+        <Route path='/createEB' element={<CreateEB />}></Route>
       </Routes>
     </div>
   );
