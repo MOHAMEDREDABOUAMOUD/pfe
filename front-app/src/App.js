@@ -16,6 +16,8 @@ import UpdateEB from './components/demandeur/updateEB/updateEB';
 import ListOperations from './components/demandeur/listEB/listOperations';
 import UpdateOp from './components/demandeur/updateEB/updateOp';
 import ListFiles from './components/demandeur/listEB/listFiles';
+import SettingsD from './components/demandeur/settings/settings';
+import DashboardD from './components/demandeur/dashboard/dashboard';
 
 function App() {
   const [rows, setRows] = useState([
@@ -241,12 +243,13 @@ function App() {
         <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
         <Route path='/updateUser' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/dashboardEB' element={<DashboardD />}></Route>
         <Route path='/settings' element={<Settings />}></Route>
+        <Route path='/settingsEB' element={<SettingsD />}></Route>
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path='/updateEB' element={<UpdateEB />}></Route>
         <Route path='/listFiles' element={<ListFiles />}></Route>
-        <Route path='/updateOp' element={<UpdateOp />}></Route>
-
+        <Route path='/updateOp' element={<UpdateOp />}></Route> 
       </Routes>
     </div>
   );

@@ -1,0 +1,26 @@
+/* Dashboard.css */
+.dashboard {
+  width: 100%;
+  height: 100%;
+  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  /* gap: 20px; */
+  /* overflow: auto; */
+  /* max-height: 100; Adjust the max-height as needed */
+}
+
+.dashboard-item {
+  width: 40%;
+  height: auto;
+  /* flex: 1 0 300px;
+    min-width: 300px;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 20px; */
+}
+
+.dashboard {
+  height: 100vh;
+}
