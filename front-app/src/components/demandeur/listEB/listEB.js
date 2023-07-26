@@ -68,7 +68,7 @@ class ListEB extends Component {
   }
 
   render() {
-    const { rows, deleteRow, editRow } = this.props;
+    const { rows, handleOperations, handleFiles, deleteRow, editRow } = this.props;
     const { sortBy, sortAsc, filters } = this.state;
 
     // Sorting Logic
@@ -152,17 +152,17 @@ class ListEB extends Component {
                   <td>{row.modePassation}</td>
                   <td>{row.secteur}</td>
                   <td>{row.qualification}</td>
-                  <td><Link>operations</Link></td>
-                  <td><Link>files</Link></td>
+                  <td><a onClick={()=>handleOperations(row.id, idx)}>operations</a></td>
+                  <td><a onClick={()=>handleFiles(row.id, idx)}>files</a></td>
                   <td className="fit">
                     <span className="actions">
                       <BsFillTrashFill
                         className="delete-btn"
-                        onClick={() => deleteRow(idx)}
+                        onClick={() => deleteRow(row.id, idx)}
                       />
                       <BsFillPencilFill
                         className="edit-btn"
-                        onClick={() => editRow(idx)}
+                        onClick={() => editRow(row.id, idx)}
                       />
                     </span>
                   </td>

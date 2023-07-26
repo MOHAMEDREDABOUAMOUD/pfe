@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import "./createEB.css";
 
 export default class CreateEB extends Component {
+    files = [];
+
+    handleFileUpload = (event) => {
+        event.preventDefault();
+        this.files.push(document.getElementById("file"));
+      }
     render() {
 
         return (
@@ -77,8 +83,8 @@ export default class CreateEB extends Component {
                     </div>
                     <div class="form-group files margin">
                         <input type="libelle" class="form-control" id="exampleFormControlInput1" placeholder="libelle" />
-                        <input class="form-control" type="file" id="formFile" />
-                        <button type="submit" class="btn btn-primary">add</button>
+                        <input class="form-control" type="file" id="file" />
+                        <button type="submit" class="btn btn-primary" onClick={()=>{this.handleAddFile()}}>add</button>
                     </div>
                     <div className='form-group'>
                         <center><h5>Operations</h5></center>
