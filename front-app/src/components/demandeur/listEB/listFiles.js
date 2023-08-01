@@ -1,51 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
-import "./listEB.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
-    const { idEB, idxEB } = useParams();
-    const [sortBy, setSortBy] = useState(null);
-    const [sortAsc, setSortAsc] = useState(true);
-    const [filters, setFilters] = useState({});
-    const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-    const [selectedRows, setSelectedRows] = useState([]);
-
-    
-    const navigate=useNavigate();
-    const handleAddOp = () => {
-        //alert(idEB+" "+idxEB);
-        //const { operations } = rowsEB[idxEB];
-        navigate(`/addOperation/${idEB}/${idxEB}`);
-    };
-
-    useEffect(() => {
-        // Use idEB and idxEB to get the correct rows data.
-        // For example, use them to filter the data and set it in the component state.
-        //alert(idEB + " " + idxEB);
-        const selectedRowsData = rows[parseInt(idxEB)].operations;
-        setSelectedRows(selectedRowsData);
-    }, [idEB, idxEB, rows]);
-
-    const handleSort = (column) => {
-        if (sortBy === column) {
-            setSortAsc(!sortAsc);
-        } else {
-            setSortBy(column);
-            setSortAsc(true);
-        }
-    };
+const ListFiles = (props) => {
+    const location = useLocation();
+    const {
+        initialFiles
+    } = location.state;
+//   const initialFiles1 = [
+//     { id: 1, name: 'file1.txt', content: null },
+//     { id: 2, name: 'file2.txt', content: null },
+//     { id: 3, name: 'file3.txt', content: null },
+//   ];
 
     const toggleFilterDropdown = () => {
         setShowFilterDropdown((prevShow) => !prevShow);
     };
 
-    const handleFilterChange = (column, value) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [column]: value,
-          }));
-    };
+  const handleFileChange = (id, file) => {
+    const updatedFile = { id, content: file };
+    setUpdatedFiles((prevUpdatedFiles) => [
+      ...prevUpdatedFiles.filter((file) => file.id !== id),
+      updatedFile,
+    ]);
+  };
 
     const handleFilterRows = () => {
         // Your filtering logic here based on filters
@@ -74,91 +51,20 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
         sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
     });
 
-    return (
-        <div className="table-wrapper">
-            <button onClick={toggleFilterDropdown}>Filter Rows</button>
-            {showFilterDropdown && (
-                <div className="filter-dropdown">
-                    {columns.map((column) => (
-                        <div key={column} className="filter-input">
-                            <label>{column}</label>
-                            <input
-                                type="text"
-                                value={filters[column] || ""}
-                                onChange={(e) => handleFilterChange(column, e.target.value)}
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort("id")}>
-                            Id {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("agence")}>
-                            Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("imputation")} className="expand">
-                            Imputation {sortBy === "imputation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("nature_projet")}>
-                            nature projet {sortBy === "nature_projet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("operation")}>
-                            Operation {sortBy === "operation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("programme")}>
-                            programme {sortBy === "programme" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("Situation")}>
-                            Situation {sortBy === "Situation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("superficie")}>
-                            Superficie {sortBy === "superficie" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => this.handleSort("type_projet")}>
-                            type projet {sortBy === "type_projet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedRows.map((row, idx) => {
-                        return (
-                            <tr key={idx}>
-                                <td>{row.id}</td>
-                                <td>{row.agence}</td>
-                                <td>{row.imputation}</td>
-                                <td>{row.nature_projet}</td>
-                                <td>{row.operation}</td>
-                                <td>{row.programme}</td>
-                                <td>{row.situation}</td>
-                                <td>{row.superficie}</td>
-                                <td>{row.type_projet}</td>
-                                <td className="fit">
-                                    <span className="actions">
-                                        <BsFillTrashFill
-                                            className="delete-btn"
-                                            onClick={() => deleteRow(idEB, idxEB, row.id, idx)}
-                                        />
-                                        <BsFillPencilFill
-                                            className="edit-btn"
-                                            onClick={() => editRow(idEB, idxEB, row.id, idx)}
-                                        />
-                                    </span>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-            <div className="form-group">
-                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>add</button>
-            </div>
+  return (
+    <div>
+      <h2>Update Files</h2>
+      {files.map((file) => (
+        <div key={file.id}>
+          <h3>{file.name}</h3>
+          <input
+            type="file"
+            onChange={(e) => handleFileChange(file.id, e.target.files[0])}
+          />
         </div>
-    );
-};
-
-export default ListOperations;
+      ))}
+      <button onClick={handleUpdate}>Confirm Update</button>
+    </div>
+  );
+}
 

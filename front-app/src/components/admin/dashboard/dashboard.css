@@ -6,6 +6,8 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  margin-top: 250px;
+  margin-left: 150px;
   /* gap: 20px; */
   /* overflow: auto; */
   /* max-height: 100; Adjust the max-height as needed */

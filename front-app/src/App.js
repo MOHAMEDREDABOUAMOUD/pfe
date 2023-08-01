@@ -18,9 +18,36 @@ import UpdateOp from './components/demandeur/updateEB/updateOp';
 import ListFiles from './components/demandeur/listEB/listFiles';
 import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
-import AddOperation from './components/demandeur/createEB/addOperation';
 
 function App() {
+  const [files, setfiles] = useState([
+    {
+      id: "1",
+      name: "file1.txt",
+      content: null,
+    },
+    {
+      id: "2",
+      name: "file2.txt",
+      content: null,
+    },
+    {
+      id: "3",
+      name: "file3.txt",
+      content: null,
+    },
+  ]);
+  const handleEditfiles = (idfiles, idxfiles) => {
+    const selectedRow = files[idxfiles];
+    const { id, name, content } = selectedRow; // Define 'name' and 'content' here
+    navigate('/updateEB', {
+      state: {
+        id,
+        name,
+        content,
+      },
+    });
+  };
   const [rows, setRows] = useState([
     {
       id: "1",
@@ -74,6 +101,8 @@ function App() {
       }
     });
   };
+  
+  
   const [rowsEB, setRowsEB] = useState([
     {
       id: "1",
@@ -116,6 +145,23 @@ function App() {
         superficie: '2',
         type_projet: '2',
       },],
+      files:[
+        {
+          id: "1",
+          name: "file1.txt",
+          content: null,
+        },
+        {
+          id: "2",
+          name: "file2.txt",
+          content: null,
+        },
+        {
+          id: "3",
+          name: "file3.txt",
+          content: null,
+        },
+      ]
     },
     {
       id: "2",
@@ -164,6 +210,7 @@ function App() {
       },],
     },
   ]);
+  
   // const [rowToEdit, setRowToEdit] = useState(null);
   const handleDeleteRowEB = (target, targetIndex) => {
     setRowsEB(rowsEB.filter((_, idx) => idx !== targetIndex));
@@ -187,6 +234,7 @@ function App() {
       }
     });
   };
+  
   const handleDeleteRowOP = (idEB, idxEB, target, targetIndex) => {
     setRowsEB((prevRowsEB) => {
       const updatedRowsEB = prevRowsEB.map((row) => {
@@ -227,14 +275,12 @@ function App() {
       }
     });
   };
-  const handleFiles = (idEB, idxEB) => {
-    const selectedRow = rowsEB[idxEB];
-    const { files } = selectedRow;
+  const handleFiles = (target, targetIndex) => {
+    const selectedRow = rowsEB[targetIndex];
+    const { id } = selectedRow;
     navigate('/listFiles', {
       state: {
-        idEB,
-        idxEB,
-        files,
+        id,
       }
     });
   }
@@ -277,7 +323,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<LoginForm />}></Route>
-        <Route path='/main' element={<MainAdmin />}></Route>
+        <Route path='/admin/main' element={<MainAdmin />}></Route>
+        <Route path='/demandeur/main' element={<MainDemandeur />}></Route>
         <Route path='/createUser' element={<CreateUser />}></Route>
         <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />} />
         <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
@@ -290,8 +337,7 @@ function App() {
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path='/updateEB' element={<UpdateEB />}></Route>
         <Route path='/listFiles' element={<ListFiles />}></Route>
-        <Route path='/updateOp' element={<UpdateOp />}></Route>
-        <Route path='/addOperation/:idEB/:idxEB' element={<AddOperation handleAdd={handleAdd}/>}></Route>
+        <Route path='/updateOp' element={<UpdateOp />}></Route> 
       </Routes>
     </div>
   );
