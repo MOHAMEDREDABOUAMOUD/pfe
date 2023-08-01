@@ -106,20 +106,20 @@ class ListEB extends Component {
               <th onClick={() => this.handleSort("objet")}>
                 Objet {sortBy === "objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
+              <th onClick={() => this.handleSort("agence")}>
+                Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
               <th onClick={() => this.handleSort("observation")} className="expand">
                 Observation {sortBy === "observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => this.handleSort("prog_nonProg")}>
+                Prog_nonProg {sortBy === "prog_nonProg" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
               <th onClick={() => this.handleSort("caution")}>
                 Caution {sortBy === "caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
               <th onClick={() => this.handleSort("estimation")}>
                 Estimation {sortBy === "estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("prog_nonProg")}>
-                Prog_nonProg {sortBy === "prog_nonProg" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("agence")}>
-                Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
               <th onClick={() => this.handleSort("modePassation")}>
                 ModePassation {sortBy === "modePassation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}

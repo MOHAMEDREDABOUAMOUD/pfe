@@ -18,6 +18,8 @@ import UpdateOp from './components/demandeur/updateEB/updateOp';
 import ListFiles from './components/demandeur/listEB/listFiles';
 import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
+import MainDemandeur from './components/demandeur/main/main';
+import View from './components/demandeur/listEB/view'
 
 function App() {
   const [files, setfiles] = useState([
@@ -101,8 +103,8 @@ function App() {
       }
     });
   };
-  
-  
+
+
   const [rowsEB, setRowsEB] = useState([
     {
       id: "1",
@@ -115,14 +117,6 @@ function App() {
       modePassation: "Demandeur",
       secteur: "M.",
       qualification: "M.",
-      files: [{
-        id: 1,
-        libelle: 'App',
-      },
-      {
-        id: 2,
-        libelle: 'index',
-      },],
       operations: [{
         id: '1',
         agence: '1',
@@ -210,7 +204,7 @@ function App() {
       },],
     },
   ]);
-  
+
   // const [rowToEdit, setRowToEdit] = useState(null);
   const handleDeleteRowEB = (target, targetIndex) => {
     setRowsEB(rowsEB.filter((_, idx) => idx !== targetIndex));
@@ -234,7 +228,7 @@ function App() {
       }
     });
   };
-  
+
   const handleDeleteRowOP = (idEB, idxEB, target, targetIndex) => {
     setRowsEB((prevRowsEB) => {
       const updatedRowsEB = prevRowsEB.map((row) => {
@@ -275,50 +269,15 @@ function App() {
       }
     });
   };
-  const handleFiles = (target, targetIndex) => {
-    const selectedRow = rowsEB[targetIndex];
-    const { id } = selectedRow;
-    navigate('/listFiles', {
-      state: {
-        id,
-      }
-    });
-  }
+  const handleFiles = (idEB, idxEB) => {
+
+    navigate(`/listFiles/${idEB}/${idxEB}`);
+  };
   const handleOperations = (idEB, idxEB) => {
     //alert(idEB+" "+idxEB);
     //const { operations } = rowsEB[idxEB];
     navigate(`/listOperations/${idEB}/${idxEB}`);
   };
-  const handleAdd = (idEB, idxEB, agence, imputation, nature_projet, operation, programme, situation, superficie, type_projet) => {
-    const newOperation = {
-      id: new Date().getTime().toString(), // Generate a unique ID for the new operation (you can adjust this as needed)
-      agence,
-      imputation,
-      nature_projet,
-      operation,
-      programme,
-      situation,
-      superficie,
-      type_projet,
-    };
-
-    // Find the row with the given idxEB
-    const rowToUpdate = rowsEB.find((row) => row.id === idEB);
-
-    alert("done "+agence);
-    if (rowToUpdate) {
-      // Update the operations array of the found row by adding the new operation
-      rowToUpdate.operations.push(newOperation);
-
-      // Update the rowsEB state
-      setRowsEB((prevRowsEB) =>
-        prevRowsEB.map((row) => (row.id === idEB ? rowToUpdate : row))
-      );
-      alert("done");
-      navigate(`/listOperations/${idEB}/${idxEB}`);
-      alert("done");
-    }
-  }
   return (
     <div className="App">
       <Routes>
@@ -328,7 +287,7 @@ function App() {
         <Route path='/createUser' element={<CreateUser />}></Route>
         <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />} />
         <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
-        <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={["id", "agence", "imputation", "nature_projet", "operation", "programme", "situation", "superficie", "type_projet"]} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
+        <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
         <Route path='/updateUser' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/dashboardEB' element={<DashboardD />}></Route>
@@ -336,11 +295,11 @@ function App() {
         <Route path='/settingsEB' element={<SettingsD />}></Route>
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path='/updateEB' element={<UpdateEB />}></Route>
-        <Route path='/listFiles' element={<ListFiles />}></Route>
+        <Route path='/view' element={<View/>}></Route>
+        <Route path='/listFiles/:idEB/:idxEB' element={<ListFiles rows={rowsEB} columns={Object.keys(rowsEB[0].files[0])} />}></Route>
         <Route path='/updateOp' element={<UpdateOp />}></Route> 
       </Routes>
     </div>
   );
 }
-
 export default App;
