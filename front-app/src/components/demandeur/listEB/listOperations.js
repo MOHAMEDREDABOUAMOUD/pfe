@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
+const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
     const { idEB, idxEB } = useParams();
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});
     const [showFilterDropdown, setShowFilterDropdown] = useState(false);
     const [selectedRows, setSelectedRows] = useState([]);
+
+    
+    const navigate=useNavigate();
+    const handleAddOp = () => {
+        //alert(idEB+" "+idxEB);
+        //const { operations } = rowsEB[idxEB];
+        navigate(`/addOperation/${idEB}/${idxEB}`);
+    };
 
     useEffect(() => {
         // Use idEB and idxEB to get the correct rows data.
@@ -36,7 +44,7 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
             [column]: value,
-        }));
+          }));
     };
 
     const handleFilterRows = () => {
@@ -77,7 +85,7 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
                             <input
                                 type="text"
                                 value={filters[column] || ""}
-                                onChange={(e) => this.handleFilterChange(column, e.target.value)}
+                                onChange={(e) => handleFilterChange(column, e.target.value)}
                             />
                         </div>
                     ))}
@@ -145,6 +153,9 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
                     })}
                 </tbody>
             </table>
+            <div className="form-group">
+                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>add</button>
+            </div>
         </div>
     );
 };
