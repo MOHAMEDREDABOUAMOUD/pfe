@@ -4,7 +4,7 @@ import { Button, Alert, Row, Col } from 'react-bootstrap';
 import SideBar from "./SideBar"
 import "./main.css"
 
-function MainAdmin() {
+function MainDemandeur() {
   // State to track the active component in MainAdmin
   const [activeComponent, setActiveComponent] = React.useState(null);
 
@@ -27,4 +27,4 @@ function MainAdmin() {
   );
 }
 
-export default MainAdmin;
+export default MainDemandeur;

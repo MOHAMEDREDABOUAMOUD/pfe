@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Sidebar.css';
 import Dashboard from '../dashboard/dashboard';
-import ListUsers from '../listUsers/listUsers';
 import Settings from '../settings/settings';
 import { Icon } from '@iconify/react';
-import UpdateUser from '../updateUser/updateUser';
+import CreateEB from '../createEB/createEB';
+import ListEB from '../listEB/listEB';
+import UpdateEB from '../updateEB/updateEB';
+
 
 import { Link } from 'react-router-dom';
 
@@ -16,14 +18,16 @@ function SideBar({ setActiveContent }) {
       case 'dashboard':
         setActiveContent(<Dashboard />);
         break;
-      case 'listusers':
-        setActiveContent(<ListUsers />);
+      case 'createEB':
+        setActiveContent(<CreateEB />);
         break;
-        case 'updateusers':
-          setActiveContent(<UpdateUser />);
+        case 'listEB':
+          setActiveContent(<ListEB />);
           break;  
       case 'settings':
         setActiveContent(<Settings />);
+      case 'updateEB':
+        setActiveContent(<UpdateEB />);
         break;
       default:
         setActiveContent(null);
@@ -126,14 +130,21 @@ function SideBar({ setActiveContent }) {
               <li className="item">
                 <Link to="#" className="link flex">
                   <i className="bx bx-dashboard-alt"><Icon icon="clarity:list-line" /></i>
-                  <span onClick={() => handleSidebarItemClick('listusers')}>List Users</span>
+                  <span onClick={() => handleSidebarItemClick('listEB')}>List Expression de Besoin</span>
                 </Link>
               </li>
               <li className="item">
                 <Link to="#" className="link flex">
                   <i className="bx bx-dashboard-alt"><Icon icon="bx:edit" />
 </i>
-                  <span onClick={() => handleSidebarItemClick('updateusers')}>Update Users</span>
+                  <span onClick={() => handleSidebarItemClick('updateEB')}>Update Expression de Besoin</span>
+                </Link>
+              </li>
+              <li className="item">
+                <Link to="#" className="link flex">
+                  <i className="bx bx-dashboard-alt"><Icon icon="gridicons:create" />
+</i>
+                  <span onClick={() => handleSidebarItemClick('createEB')}>Create Expression de Besoin</span>
                 </Link>
               </li>
             </ul>
