@@ -1,26 +1,37 @@
 // qualificationDAO.js
 
-import { query as _query } from './db';
 
+const pool = require('./db');
 class QualificationDAO {
-  static create(qualification) {
-    const query = `
+  static async create(qualification) {
+    const _query = `
       INSERT INTO Qualification (qualification, numSecteur)
       VALUES (?, ?)
     `;
 
     const values = [qualification.qualification, qualification.numSecteur];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(qualification) {
-    const query = `
+  static async update(qualification) {
+    const _query = `
       UPDATE Qualification
       SET qualification=?, numSecteur=?
       WHERE num=?
@@ -28,49 +39,91 @@ class QualificationDAO {
 
     const values = [qualification.qualification, qualification.numSecteur, qualification.num];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM Qualification WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM Qualification WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM Qualification WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM Qualification WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const qualification = new Qualification(...Object.values(rows[0]));
-        resolve(qualification);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new Qualification(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM Qualification';
+  static async getAll() {
+    const _query = 'SELECT * FROM Qualification';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const qualificationList = rows.map((row) => new Qualification(...Object.values(row)));
-        resolve(qualificationList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new Qualification(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default QualificationDAO;
+module.exports=QualificationDAO;

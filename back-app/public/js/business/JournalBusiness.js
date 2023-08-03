@@ -1,4 +1,4 @@
-import JournalDAO from "../dao/JournalDAO";
+const JournalDAO = require("../dao/JournalDAO");
 class JournalBusiness {
     static Add(journal) {
         return JournalDAO.create(journal);
@@ -20,4 +20,4 @@ class JournalBusiness {
         return JournalDAO.getAll();
     }
 }
-export default AODAO;
+module.exports=JournalBusiness;

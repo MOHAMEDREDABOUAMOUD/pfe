@@ -1,9 +1,11 @@
 class Facture {
-    constructor(num, dateFacture, montant, numJournal) {
-        this.num = num;
-        this.dateFacture = dateFacture;
-        this.montant = montant;
-        this.numJournal = numJournal;
+    constructor(factureData) {
+      this.num = factureData.num;
+      this.dateFacture = factureData.dateFacture;
+      this.montant = factureData.montant;
+      this.numJournal = factureData.numJournal;
     }
-}
-export default Facture;
+  }
+  
+  module.exports = Facture;
+  

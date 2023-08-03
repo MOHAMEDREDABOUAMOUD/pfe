@@ -1,4 +1,4 @@
-import UtilisateurDAO from "../dao/UtilisateurDAO";
+const UtilisateurDAO = require("../dao/UtilisateurDAO");
 
 class UtilisateurBusiness {
     static Add(utilisateur) {
@@ -17,8 +17,12 @@ class UtilisateurBusiness {
         return UtilisateurDAO.getByNum(num);
     }
 
+    static async getByUserNameAndPassword(userName, password){
+        return await UtilisateurDAO.getByUserNameAndPassword(userName, password);
+    }
+
     static getAll() {
         return UtilisateurDAO.getAll();
     }
 }
-export default UtilisateurBusiness;
+module.exports=UtilisateurBusiness;

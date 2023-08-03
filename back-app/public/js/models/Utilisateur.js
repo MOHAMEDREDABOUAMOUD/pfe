@@ -1,13 +1,13 @@
 class Utilisateur {
-    constructor(login, pwd, nom, prenom, email, fonction, sexe) {
-      this.login = login;
-      this.pwd = pwd;
-      this.nom=nom;
-      this.prenom=prenom;
-      this.email=email;
-      this.fonction=fonction;
-      this.sexe=sexe;
-    }
+  constructor(userData) {
+    this.immatricule = userData.immatricule;
+    this.login = userData.login;
+    this.pwd = userData.pwd;
+    this.nom = userData.nom;
+    this.prenom = userData.prenom;
+    this.email = userData.email;
+    this.fonction = userData.fonction;
+    this.sexe = userData.sexe;
   }
-  
-  export default Utilisateur;
+  }
+  module.exports=Utilisateur;

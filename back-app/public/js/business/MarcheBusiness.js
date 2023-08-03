@@ -1,5 +1,5 @@
-import MarcheDAO from "../dao/MarcheDAO";
-class AOBusiness {
+const MarcheDAO = require("../dao/MarcheDAO");
+class MarcheBusiness {
     static Add(marche) {
         return MarcheDAO.create(marche);
     }
@@ -20,4 +20,4 @@ class AOBusiness {
         return MarcheDAO.getAll();
     }
 }
-export default AODAO;
+module.exports=MarcheBusiness;

@@ -1,10 +1,9 @@
 // aoDAO.js
-
-import { query as _query } from './db';
+const pool = require('./db');
 
 class AODAO {
-  static create(ao) {
-    const query = `
+  static async create(ao) {
+    const _query = `
       INSERT INTO AO (num, etat, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -22,16 +21,27 @@ class AODAO {
       ao.numLettreCommission,
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(ao) {
-    const query = `
+  static async update(ao) {
+    const _query = `
       UPDATE AO
       SET etat=?, dateOuverturePlis=?, heureOuverturePlis=?, datePublicationPortail=?, dateEntreDM=?, dateAchevementTravauxCommission=?, avis=?, numEB=?, numLettreCommission=?
       WHERE num=?
@@ -50,49 +60,91 @@ class AODAO {
       ao.num, // Assuming you have a property named 'num' to store the primary key value
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM AO WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM AO WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM AO WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM AO WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const ao = new AO(...Object.values(rows[0]));
-        resolve(ao);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new AO(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM AO';
+  static async getAll() {
+    const _query = 'SELECT * FROM AO';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const aoList = rows.map((row) => new AO(...Object.values(row)));
-        resolve(aoList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new AO(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default AODAO;
+module.exports=AODAO;

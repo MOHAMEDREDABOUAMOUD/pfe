@@ -1,76 +1,177 @@
 // utilisateurDAO.js
 
-import { query as _query } from './db';
+const Utilisateur = require('../models/utilisateur');
+const pool = require('./db');
+// const { createPool } = require('mysql');
+
+// // Create the database connection pool
+// const pool = createPool({
+//     host: '127.0.0.1',
+//     port: '3306',
+//     database: 'pfe',
+//     user: 'root',
+//     password: ''
+// });
 
 class UtilisateurDAO {
-  static create(user) {
-    const query = `
-      INSERT INTO Utilisateur (name, username)
-      VALUES (?, ?)
+  static async create(user) {
+    const _query = `
+      INSERT INTO Utilisateur (login, pwd, nom, prenom, email, fonction, sexe)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
-    const values = [user.name, user.username];
+    const values = [user.login, user.pwd, user.nom, user.prenom, user.email, user.fonction, user.sexe];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(user) {
-    const query = `
+
+  static async update(user) {
+    const _query = `
       UPDATE Utilisateur
-      SET name=?, username=?
+      SET login=?, pwd=?, nom=?, prenom=?, email=?, fonction=?, sexe=?
       WHERE immatricule=?
     `;
 
-    const values = [user.name, user.username, user.immatricule];
+    const values = [user.login, user.pwd, user.nom, user.prenom, user.email, user.fonction, user.sexe, user.immatricule];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(immatricule) {
-    const query = 'DELETE FROM Utilisateur WHERE immatricule=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [immatricule], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+  static async delete(immatricule) {
+    const _query = 'DELETE FROM Utilisateur WHERE immatricule=?';
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [immatricule], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByImmatricule(immatricule) {
-    const query = 'SELECT * FROM Utilisateur WHERE immatricule=?';
+  static async getByImmatricule(immatricule) {
+    const _query = 'SELECT * FROM Utilisateur WHERE immatricule=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [immatricule], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const user = rows[0];
-        resolve(user);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [immatricule], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) {
+        return null;
+      }
+      const user = rows[0];
+      return user ? new Utilisateur(user) : null;;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM Utilisateur';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const userList = rows.map((row) => row);
-        resolve(userList);
+  static async getByUserNameAndPassword(userName, password) {
+    const _query = 'SELECT * FROM Utilisateur WHERE login=? and pwd=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [userName, password], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) {
+        console.log("0");
+        return {};
+      }
+
+      const user = JSON.parse(JSON.stringify(rows[0]));
+      console.log(user);
+      return user ? new Utilisateur(user) : null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async getAll() {
+    const _query = 'SELECT * FROM Utilisateur';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      const userList = rows.map((user) => new Utilisateur(user));
+      return userList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
-
-export default UtilisateurDAO;
+// const user=UtilisateurDAO.getByUserNameAndPassword("1", "1111");
+// console.log(user);
+module.exports = UtilisateurDAO;

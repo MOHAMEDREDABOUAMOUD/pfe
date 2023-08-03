@@ -1,8 +1,10 @@
 class Qualification {
-    constructor(num, qualification, numSecteur) {
-        this.num = num;
-        this.qualification = qualification;
-        this.numSecteur = numSecteur;
+    constructor(qualificationData) {
+      this.num = qualificationData.num;
+      this.qualification = qualificationData.qualification;
+      this.numSecteur = qualificationData.numSecteur;
     }
-}
-export default Qualification;
+  }
+  
+  module.exports = Qualification;
+  

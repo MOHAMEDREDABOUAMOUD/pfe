@@ -1,4 +1,4 @@
-import QualificationDAO from "../dao/QualificationDAO";
+const QualificationDAO = require("../dao/QualificationDAO");
 
 class QualificationBusiness {
     static Add(qualification) {
@@ -21,4 +21,4 @@ class QualificationBusiness {
         return QualificationDAO.getAll();
     }
 }
-export default QualificationBusiness;
+module.exports=QualificationBusiness;

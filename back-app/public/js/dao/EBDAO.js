@@ -1,10 +1,10 @@
 // ebDAO.js
 
-import { query as _query } from './db';
+const pool = require('./db');
 
 class EBDAO {
-  static create(eb) {
-    const query = `
+  static async create(eb) {
+    const _query = `
       INSERT INTO EB (objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, numQualification)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -25,16 +25,27 @@ class EBDAO {
       eb.numQualification,
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(eb) {
-    const query = `
+  static async update(eb) {
+    const _query = `
       UPDATE EB
       SET objet=?, agence=?, observation=?, prog_nonprog=?, classe=?, caution=?, estimation=?, dateEB=?, modePassation=?, dateValidation=?, validerPar=?, numUtilisateur=?, numQualification=?
       WHERE num=?
@@ -57,49 +68,91 @@ class EBDAO {
       eb.num, // Assuming you have a property named 'num' to store the primary key value
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM EB WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM EB WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM EB WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM EB WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const eb = new EB(...Object.values(rows[0]));
-        resolve(eb);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new EB(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM EB';
+  static async getAll() {
+    const _query = 'SELECT * FROM EB';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const ebList = rows.map((row) => new EB(...Object.values(row)));
-        resolve(ebList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new EB(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default EBDAO;
+module.exports=EBDAO;

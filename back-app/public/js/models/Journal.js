@@ -1,13 +1,15 @@
 class Journal {
-    constructor(num, numEnvoie, format, fournisseur, dateEnvoie, datePublication, lettreJournal, numAo) {
-        this.num = num;
-        this.numEnvoie = numEnvoie;
-        this.format = format;
-        this.fournisseur = fournisseur;
-        this.dateEnvoie = dateEnvoie;
-        this.datePublication = datePublication;
-        this.lettreJournal = lettreJournal;
-        this.numAo = numAo;
+    constructor(journalData) {
+      this.num = journalData.num;
+      this.numEnvoie = journalData.numEnvoie;
+      this.format = journalData.format;
+      this.fournisseur = journalData.fournisseur;
+      this.dateEnvoie = journalData.dateEnvoie;
+      this.datePublication = journalData.datePublication;
+      this.lettreJournal = journalData.lettreJournal;
+      this.numAo = journalData.numAo;
     }
-}
-export default Journal;
+  }
+  
+  module.exports = Journal;
+  

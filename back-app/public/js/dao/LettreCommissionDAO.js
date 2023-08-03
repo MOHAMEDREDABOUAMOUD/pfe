@@ -1,26 +1,37 @@
 // lettreCommissionDAO.js
 
-import { query as _query } from './db';
+const pool = require('./db');
 
 class LettreCommissionDAO {
-  static create(lettreCommission) {
-    const query = `
+  static async create(lettreCommission) {
+    const _query = `
       INSERT INTO LettreCommission (numEnvoie, dateEnvoie, destinataire, lettreCommission)
       VALUES (?, ?, ?, ?)
     `;
 
     const values = [lettreCommission.numEnvoie, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.lettreCommission];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(lettreCommission) {
-    const query = `
+  static async update(lettreCommission) {
+    const _query = `
       UPDATE LettreCommission
       SET numEnvoie=?, dateEnvoie=?, destinataire=?, lettreCommission=?
       WHERE num=?
@@ -28,49 +39,91 @@ class LettreCommissionDAO {
 
     const values = [lettreCommission.numEnvoie, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.lettreCommission, lettreCommission.num];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM LettreCommission WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM LettreCommission WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM LettreCommission WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM LettreCommission WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const lettreCommission = new LettreCommission(...Object.values(rows[0]));
-        resolve(lettreCommission);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new LettreCommission(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM LettreCommission';
+  static async getAll() {
+    const _query = 'SELECT * FROM LettreCommission';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const lettreCommissionList = rows.map((row) => new LettreCommission(...Object.values(row)));
-        resolve(lettreCommissionList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new LettreCommission(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default LettreCommissionDAO;
+module.exports=LettreCommissionDAO;

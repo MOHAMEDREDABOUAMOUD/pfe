@@ -1,4 +1,4 @@
-import PieceDAO from "../dao/PieceDAO";
+const PieceDAO = require("../dao/PieceDAO");
 class PieceBusiness {
     static Add(piece) {
         return PieceDAO.create(piece);
@@ -20,4 +20,4 @@ class PieceBusiness {
         return PieceDAO.getAll();
     }
 }
-export default PieceBusiness;
+module.exports=PieceBusiness;

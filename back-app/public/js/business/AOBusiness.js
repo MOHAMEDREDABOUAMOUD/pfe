@@ -1,4 +1,4 @@
-import AODAO from "../dao/AODAO";
+const AODAO = require("../dao/AODAO");
 
 class AOBusiness {
     static Add(ao) {
@@ -21,4 +21,4 @@ class AOBusiness {
         return AODAO.getAll();
     }
 }
-export default AOBusiness;
+module.exports=AOBusiness;

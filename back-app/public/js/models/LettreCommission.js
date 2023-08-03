@@ -1,10 +1,12 @@
 class LettreCommission {
-    constructor(num, numEnvoie, dateEnvoie, destinataire, lettreCommission) {
-        this.num = num;
-        this.numEnvoie = numEnvoie;
-        this.dateEnvoie = dateEnvoie;
-        this.destinataire = destinataire;
-        this.lettreCommission = lettreCommission;
+    constructor(lettreCommissionData) {
+      this.num = lettreCommissionData.num;
+      this.numEnvoie = lettreCommissionData.numEnvoie;
+      this.dateEnvoie = lettreCommissionData.dateEnvoie;
+      this.destinataire = lettreCommissionData.destinataire;
+      this.lettreCommission = lettreCommissionData.lettreCommission;
     }
-}
-export default LettreCommission;
+  }
+  
+  module.exports = LettreCommission;
+  

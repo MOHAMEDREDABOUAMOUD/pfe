@@ -4,41 +4,55 @@ import { Button, Alert, Row, Col } from 'react-bootstrap';
 import Menu from "./Menu";
 import './LoginForm.css';
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const formData = new FormData();
-        formData.append('login', userName);
-        formData.append('pwd', password);
-  
-        const response = await axios.post('http://localhost:80/alOmrane_prj/pfe/backend/login.php', formData, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('login', userName);
+      formData.append('pwd', password);
+
+      axios
+        .post("/signIn", { userName : userName, password : password })
+        .then((response) => {
+          console.log(response.data); // You can handle the response here if needed
+          // Redirect the user to a different page upon successful sign-in
+          navigate("/createUser");
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          //navigate("/createUser");
         });
-  
-        const data = response.data;
-        console.log(data);
-        // You can handle the response here (e.g., show success message, redirect, etc.)
-        if (response.status === 200) {
-            // Login successful, show success message (optional)
-            alert('Login successful!');
-      
-            // Redirect the user to "exemple/exemple"
-            window.location.replace('../admin/main.js');
-          } else {
-            // Login failed, show error message
-            alert(data.error);
-          }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
+
+      // const response = await axios.post('http://localhost:80/alOmrane_prj/pfe/backend/login.php', formData, {
+      //   headers: {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   }
+      // });
+
+      // const data = response.data;
+      // console.log(data);
+      // // You can handle the response here (e.g., show success message, redirect, etc.)
+      // if (response.status === 200) {
+      //   // Login successful, show success message (optional)
+      //   alert('Login successful!');
+
+      //   // Redirect the user to "exemple/exemple"
+      //   window.location.replace('../admin/main.js');
+      // } else {
+      //   // Login failed, show error message
+      //   alert(data.error);
+      // }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div className="App">
