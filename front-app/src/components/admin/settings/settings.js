@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Sidebar from "../../sidebar/sideBar";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState("informations");
@@ -9,6 +10,7 @@ const Settings = () => {
 
   return (
     <div className="container mt-5">
+    <Sidebar/>
       <ul className="nav nav-tabs">
         <li className="nav-item">
           <button

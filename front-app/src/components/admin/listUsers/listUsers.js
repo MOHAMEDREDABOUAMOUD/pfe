@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listUsers.css";
+import Sidebar from "../../sidebar/sideBar";
 
 class ListUsers extends Component {
   constructor(props) {
@@ -94,6 +95,7 @@ class ListUsers extends Component {
 
     return (
       <div className="table-wrapper">
+      <Sidebar/>
         <button onClick={this.toggleFilterDropdown}>Filter Rows</button>
         {this.renderFilterDropdown()}
         <table className="table">

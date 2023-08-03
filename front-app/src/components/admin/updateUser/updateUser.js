@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "query-string"
 import { useLocation } from 'react-router-dom';
+import Sidebar from '../../sidebar/sideBar';
 
 export default function UpdateUser() {
     const location = useLocation();
@@ -8,6 +9,7 @@ export default function UpdateUser() {
 
     return (
         <div className='formCreateUser'>
+        <Sidebar/>
             <form>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlInput1">E-mail</label><br />

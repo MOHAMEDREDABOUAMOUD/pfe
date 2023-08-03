@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Row, Col } from 'react-bootstrap';
 import SideBar from "./SideBar"
 import "./main.css"
+import Sidebar from "../../sidebar/sideBar";
 
 function MainAdmin() {
   // State to track the active component in MainAdmin
@@ -15,14 +16,15 @@ function MainAdmin() {
 
   return (
     <div className="App">
-        <div className="big-containt">
+        {/* <div className="big-containt">
         <SideBar setActiveContent={setActiveContent} />
       <center>
       <div id="containt" className="containt">
         {activeComponent}
       </div>
       </center>
-        </div>
+        </div> */}
+      <Sidebar/>
     </div>
   );
 }

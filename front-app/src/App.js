@@ -19,10 +19,11 @@ import ListFiles from './components/demandeur/listEB/listFiles';
 import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
 import MainDemandeur from './components/demandeur/main/main';
-import View from './components/demandeur/listEB/view'
+import View from './components/demandeur/listEB/view';
+import Sidebar from './components/sidebar/sideBar';
 
 function App() {
-  
+
   const [files, setfiles] = useState([
     {
       id: "1",

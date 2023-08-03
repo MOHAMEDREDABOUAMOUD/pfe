@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import "./createUser.css";
+import Sidebar from '../../sidebar/sideBar';
 
 export default class CreateUser extends Component {
     render() {
         return (
             <div className='formCreateUser'>
+                <Sidebar/>
                 <form>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">E-mail</label><br />
