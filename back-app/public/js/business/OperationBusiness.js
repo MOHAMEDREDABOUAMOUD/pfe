@@ -1,4 +1,4 @@
-import OperationDAO from "../dao/OperationDAO";
+const OperationDAO = require("../dao/OperationDAO");
 class OperationBusiness {
     static Add(operation) {
         return OperationDAO.create(operation);
@@ -20,4 +20,4 @@ class OperationBusiness {
         return OperationDAO.getAll();
     }
 }
-export default OperationBusiness;
+module.exports=OperationBusiness;

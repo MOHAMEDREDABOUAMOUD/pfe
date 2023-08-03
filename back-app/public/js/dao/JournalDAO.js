@@ -1,10 +1,9 @@
 // journalDAO.js
-
-import { query as _query } from './db';
+const pool = require('./db');
 
 class JournalDAO {
   static create(journal) {
-    const query = `
+    const _query = `
       INSERT INTO Journal (numEnvoie, format, fournisseur, dateEnvoie, datePublication, lettreJournal, numAo)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
@@ -20,7 +19,7 @@ class JournalDAO {
     ];
 
     return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
+      pool.query(_query, values, (err, result) => {
         if (err) reject(err);
         resolve(result.insertId);
       });
@@ -28,7 +27,7 @@ class JournalDAO {
   }
 
   static update(journal) {
-    const query = `
+    const _query = `
       UPDATE Journal
       SET numEnvoie=?, format=?, fournisseur=?, dateEnvoie=?, datePublication=?, lettreJournal=?, numAo=?
       WHERE num=?
@@ -46,7 +45,7 @@ class JournalDAO {
     ];
 
     return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
+      pool.query(_query, values, (err, result) => {
         if (err) reject(err);
         resolve(result.affectedRows);
       });
@@ -54,10 +53,10 @@ class JournalDAO {
   }
 
   static delete(num) {
-    const query = 'DELETE FROM Journal WHERE num=?';
+    const _query = 'DELETE FROM Journal WHERE num=?';
 
     return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
+      pool.query(_query, [num], (err, result) => {
         if (err) reject(err);
         resolve(result.affectedRows);
       });
@@ -65,10 +64,10 @@ class JournalDAO {
   }
 
   static getByNum(num) {
-    const query = 'SELECT * FROM Journal WHERE num=?';
+    const _query = 'SELECT * FROM Journal WHERE num=?';
 
     return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
+      pool.query(_query, [num], (err, rows) => {
         if (err) reject(err);
         if (rows.length === 0) resolve(null);
         const journal = new Journal(...Object.values(rows[0]));
@@ -78,10 +77,10 @@ class JournalDAO {
   }
 
   static getAll() {
-    const query = 'SELECT * FROM Journal';
+    const _query = 'SELECT * FROM Journal';
 
     return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
+      pool.query(_query, (err, rows) => {
         if (err) reject(err);
         const journalList = rows.map((row) => new Journal(...Object.values(row)));
         resolve(journalList);
@@ -89,5 +88,4 @@ class JournalDAO {
     });
   }
 }
-
-export default JournalDAO;
+module.exports=JournalDAO;

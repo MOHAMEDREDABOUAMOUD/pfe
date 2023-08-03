@@ -1,10 +1,10 @@
 // operationDAO.js
 
-import { query as _query } from './db';
+const pool = require('./db');
 
 class OperationDAO {
-  static create(operation) {
-    const query = `
+  static async create(operation) {
+    const _query = `
       INSERT INTO Operation (code, agence, DA, imputation, natureProjet, operation, programme, situation, superficie, typeProjet, numEB)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
@@ -23,16 +23,27 @@ class OperationDAO {
       operation.numEB,
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(operation) {
-    const query = `
+  static async update(operation) {
+    const _query = `
       UPDATE Operation
       SET code=?, agence=?, DA=?, imputation=?, natureProjet=?, operation=?, programme=?, situation=?, superficie=?, typeProjet=?, numEB=?
       WHERE code=?
@@ -53,49 +64,91 @@ class OperationDAO {
       operation.code, // Assuming you have a property named 'code' to store the primary key value
     ];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(code) {
-    const query = 'DELETE FROM Operation WHERE code=?';
+  static async delete(code) {
+    const _query = 'DELETE FROM Operation WHERE code=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [code], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [code], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByCode(code) {
-    const query = 'SELECT * FROM Operation WHERE code=?';
+  static async getByCode(code) {
+    const _query = 'SELECT * FROM Operation WHERE code=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [code], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const operation = new Operation(...Object.values(rows[0]));
-        resolve(operation);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [code], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new Operation(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM Operation';
+  static async getAll() {
+    const _query = 'SELECT * FROM Operation';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const operationList = rows.map((row) => new Operation(...Object.values(row)));
-        resolve(operationList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new Operation(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default OperationDAO;
+module.exports=OperationDAO;

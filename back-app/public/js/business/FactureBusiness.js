@@ -1,4 +1,4 @@
-import FactureDAO from "../dao/FactureDAO";
+const FactureDAO = require("../dao/FactureDAO");
 class FactureBusiness {
     static Add(facture) {
         return FactureDAO.create(facture);
@@ -20,4 +20,4 @@ class FactureBusiness {
         return FactureDAO.getAll();
     }
 }
-export default FactureBusiness;
+module.exports=FactureBusiness;

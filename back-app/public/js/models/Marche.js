@@ -1,9 +1,11 @@
 class Marche {
-    constructor(num, numCommande, marche, numAO) {
-        this.num = num;
-        this.numCommande = numCommande;
-        this.marche = marche;
-        this.numAO = numAO;
+    constructor(marcheData) {
+      this.num = marcheData.num;
+      this.numCommande = marcheData.numCommande;
+      this.marche = marcheData.marche;
+      this.numAO = marcheData.numAO;
     }
-}
-export default Marche;
+  }
+  
+  module.exports = Marche;
+  

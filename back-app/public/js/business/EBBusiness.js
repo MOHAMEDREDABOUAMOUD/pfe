@@ -1,4 +1,4 @@
-import EBDAO from "../dao/EBDAO";
+const EBDAO = require("../dao/EBDAO");
 
 class EBBusiness {
     static Add(eb) {
@@ -21,4 +21,4 @@ class EBBusiness {
         return EBDAO.getAll();
     }
 }
-export default EBBusiness;
+module.exports=EBBusiness;

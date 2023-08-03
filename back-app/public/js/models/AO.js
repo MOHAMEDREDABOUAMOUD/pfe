@@ -1,15 +1,17 @@
 class AO {
-    constructor(num, etat, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission) {
-        this.num = num;
-        this.etat = etat;
-        this.dateOuverturePlis = dateOuverturePlis;
-        this.heureOuverturePlis = heureOuverturePlis;
-        this.datePublicationPortail = datePublicationPortail;
-        this.dateEntreDM = dateEntreDM;
-        this.dateAchevementTravauxCommission = dateAchevementTravauxCommission;
-        this.avis = avis;
-        this.numEB = numEB;
-        this.numLettreCommission = numLettreCommission;
+    constructor(aoData) {
+      this.num = aoData.num;
+      this.etat = aoData.etat;
+      this.dateOuverturePlis = aoData.dateOuverturePlis;
+      this.heureOuverturePlis = aoData.heureOuverturePlis;
+      this.datePublicationPortail = aoData.datePublicationPortail;
+      this.dateEntreDM = aoData.dateEntreDM;
+      this.dateAchevementTravauxCommission = aoData.dateAchevementTravauxCommission;
+      this.avis = aoData.avis;
+      this.numEB = aoData.numEB;
+      this.numLettreCommission = aoData.numLettreCommission;
     }
-}
-export default AO;
+  }
+  
+  module.exports = AO;
+  

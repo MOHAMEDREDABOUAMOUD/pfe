@@ -1,4 +1,4 @@
-import SecteurDAO from "../dao/SecteurDAO";
+const SecteurDAO = require("../dao/SecteurDAO");
 
 class SecteurBusiness {
     static Add(secteur) {
@@ -21,4 +21,4 @@ class SecteurBusiness {
         return SecteurDAO.getAll();
     }
 }
-export default SecteurBusiness;
+module.exports=SecteurBusiness;

@@ -1,20 +1,20 @@
 class EB {
-    constructor(num, objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, numQualification) {
-      this.num=num;
-      this.objet = objet;
-      this.agence = agence;
-      this.observation = observation;
-      this.prog_nonprog = prog_nonprog;
-      this.classe = classe;
-      this.caution = caution;
-      this.estimation = estimation;
-      this.dateEB = dateEB;
-      this.modePassation = modePassation;
-      this.dateValidation = dateValidation;
-      this.validerPar = validerPar;
-      this.numUtilisateur = numUtilisateur;
-      this.numQualification = numQualification;
-    }
+  constructor(ebData) {
+    this.num = ebData.num;
+    this.objet = ebData.objet;
+    this.agence = ebData.agence;
+    this.observation = ebData.observation;
+    this.prog_nonprog = ebData.prog_nonprog;
+    this.classe = ebData.classe;
+    this.caution = ebData.caution;
+    this.estimation = ebData.estimation;
+    this.dateEB = ebData.dateEB;
+    this.modePassation = ebData.modePassation;
+    this.dateValidation = ebData.dateValidation;
+    this.validerPar = ebData.validerPar;
+    this.numUtilisateur = ebData.numUtilisateur;
+    this.numQualification = ebData.numQualification;
+  }
 }
 
-export default EB;
+module.exports = EB;

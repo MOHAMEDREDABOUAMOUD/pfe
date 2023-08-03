@@ -1,10 +1,11 @@
 class Piece {
-    constructor(num, libelle, piece, numEB) {
-        this.num = num;
-        this.libelle = libelle;
-        this.piece = piece;
-        this.numEB = numEB;
+    constructor(pieceData) {
+      this.num = pieceData.num;
+      this.libelle = pieceData.libelle;
+      this.piece = pieceData.piece;
+      this.numEB = pieceData.numEB;
     }
-}
-
-export default Piece;
+  }
+  
+  module.exports = Piece;
+  

@@ -1,26 +1,37 @@
 // pieceDAO.js
 
-import { query as _query } from './db';
 
+const pool = require('./db');
 class PieceDAO {
-  static create(piece) {
-    const query = `
+  static async create(piece) {
+    const _query = `
       INSERT INTO Piece (libelle, piece, numEB)
       VALUES (?, ?, ?)
     `;
 
     const values = [piece.libelle, piece.piece, piece.numEB];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(piece) {
-    const query = `
+  static async update(piece) {
+    const _query = `
       UPDATE Piece
       SET libelle=?, piece=?, numEB=?
       WHERE num=?
@@ -28,49 +39,91 @@ class PieceDAO {
 
     const values = [piece.libelle, piece.piece, piece.numEB, piece.num];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM Piece WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM Piece WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM Piece WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM Piece WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const piece = new Piece(...Object.values(rows[0]));
-        resolve(piece);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new Piece(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM Piece';
+  static async getAll() {
+    const _query = 'SELECT * FROM Piece';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const pieceList = rows.map((row) => new Piece(...Object.values(row)));
-        resolve(pieceList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new Piece(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default PieceDAO;
+module.exports=PieceDAO;

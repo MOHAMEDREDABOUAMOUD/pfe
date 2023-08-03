@@ -1,7 +1,9 @@
 class Secteur {
-    constructor(num, secteur) {
-        this.num = num;
-        this.secteur = secteur;
+    constructor(secteurData) {
+      this.num = secteurData.num;
+      this.secteur = secteurData.secteur;
     }
-}
-export default Secteur;
+  }
+  
+  module.exports = Secteur;
+  

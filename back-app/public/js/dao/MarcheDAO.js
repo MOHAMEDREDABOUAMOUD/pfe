@@ -1,26 +1,37 @@
 // marcheDAO.js
 
-import { query as _query } from './db';
+const pool = require('./db');
 
 class MarcheDAO {
-  static create(marche) {
-    const query = `
+  static async create(marche) {
+    const _query = `
       INSERT INTO Marche (num, numCommande, marche, numAO)
       VALUES (?, ?, ?, ?)
     `;
 
     const values = [marche.num, marche.numCommande, marche.marche, marche.numAO];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static update(marche) {
-    const query = `
+  static async update(marche) {
+    const _query = `
       UPDATE Marche
       SET numCommande=?, marche=?, numAO=?
       WHERE num=?
@@ -28,49 +39,91 @@ class MarcheDAO {
 
     const values = [marche.numCommande, marche.marche, marche.numAO, marche.num];
 
-    return new Promise((resolve, reject) => {
-      _query(query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
-    const query = 'DELETE FROM Marche WHERE num=?';
+  static async delete(num) {
+    const _query = 'DELETE FROM Marche WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getByNum(num) {
-    const query = 'SELECT * FROM Marche WHERE num=?';
+  static async getByNum(num) {
+    const _query = 'SELECT * FROM Marche WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      _query(query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const marche = new Marche(...Object.values(rows[0]));
-        resolve(marche);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      return new Marche(...Object.values(rows[0]));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
-    const query = 'SELECT * FROM Marche';
+  static async getAll() {
+    const _query = 'SELECT * FROM Marche';
 
-    return new Promise((resolve, reject) => {
-      _query(query, (err, rows) => {
-        if (err) reject(err);
-        const marcheList = rows.map((row) => new Marche(...Object.values(row)));
-        resolve(marcheList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      return rows.map((row) => new Marche(...Object.values(row)));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
-export default MarcheDAO;
+module.exports = MarcheDAO;

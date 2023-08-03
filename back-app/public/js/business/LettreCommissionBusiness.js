@@ -1,4 +1,4 @@
-import LettreCommissionDAO from "../dao/LettreCommissionDAO";
+const LettreCommissionDAO = require("../dao/LettreCommissionDAO");
 class LettreCommissionBusiness {
     static Add(lettreCommission) {
         return LettreCommissionDAO.create(lettreCommission);
@@ -20,4 +20,4 @@ class LettreCommissionBusiness {
         return LettreCommissionDAO.getAll();
     }
 }
-export default LettreCommissionBusiness;
+module.exports=LettreCommissionBusiness;
