@@ -1,19 +1,35 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf';
 
-function View() {
+const View = () => {
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(10); // Set initial page number to 10
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   return (
-    <>
-      <div style={{ width: '100%', height: '650px' }}>
-        <Document file="./TP_CoucheOSI-Wireshark.pdf">
-          <Page pageNumber={10} width={window.innerWidth} />
-        </Document>
-      </div>
-    </>
+    <div>
+      <Document
+        file="path dyalk ykopn f public"
+        onLoadSuccess={onDocumentLoadSuccess}
+      >
+        {numPages && <Page pageNumber={pageNumber} />} {}
+      </Document>
+      {numPages && ( 
+        <p>
+          Page {pageNumber} of {numPages}
+        </p>
+      )}
+      <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber <= 1}>
+        Previous
+      </button>
+      <button onClick={() => setPageNumber(pageNumber + 1)} disabled={pageNumber >= numPages}>
+        Next
+      </button>
+    </div>
   );
-}
+};
 
 export default View;
