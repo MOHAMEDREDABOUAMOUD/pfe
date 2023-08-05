@@ -13,6 +13,7 @@ const QualificationBusiness = require('../business/QualificationBusiness');
 const SecteurBusiness = require('../business/SecteurBusiness');
 const UtilisateurBusiness = require('../business/UtilisateurBusiness');
 const bodyParser = require('body-parser');
+const Utilisateur = require('../models/utilisateur');
 
 const app = express();
 app.use(bodyParser.json());
@@ -50,6 +51,30 @@ app.post("/signIn", async (req, res) => {
     }
     else{
         res.status(200).json(r);
+    }
+});
+app.post("/getUsers", async (req,res)=>{
+    const {id}= req.body;
+    const r=await UtilisateurBusiness.getAll();
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/deleteUser", async (req,res)=>{
+    const {id}= req.body;
+    const r=await UtilisateurBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+// await axios.post("/createUser", { email:email, nom:nom, prenom:prenom, userName:userName, password:password, fonction:fonction, sexe:sexe });
+
+app.post("/createUser", async (req,res)=>{
+    const {email, nom, prenom, userName, password, fonction, sexe}= req.body;
+    try {
+        const r=await UtilisateurBusiness.Add(new Utilisateur({immatricule:0, email:email, nom:nom, prenom:prenom, login:userName, pwd:password, fonction:fonction, sexe:sexe }));
+    // console.log(r);
+    res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
     }
 });
 

@@ -287,7 +287,7 @@ function App() {
         <Route path='/admin/main' element={<MainAdmin />}></Route>
         <Route path='/demandeur/main' element={<MainDemandeur />}></Route>
         <Route path='/createUser' element={<CreateUser />}></Route>
-        <Route path="/listUsers" element={<ListUsers rows={rows} columns={Object.keys(rows[0])} deleteRow={handleDeleteRow} editRow={handleEditRow} />} />
+        <Route path="/listUsers" element={<ListUsers/>} />{/*  rows={rows} columns={Object.keys(rows[0])}  deleteRow={handleDeleteRow} editRow={handleEditRow} */}
         <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
         <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
         <Route path='/updateUser' element={<UpdateUser />}></Route>

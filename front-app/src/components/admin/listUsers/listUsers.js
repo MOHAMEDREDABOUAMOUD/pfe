@@ -1,164 +1,189 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listUsers.css";
 import Sidebar from "../../sidebar/sideBar";
+import axios from "axios";
 
-class ListUsers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sortBy: null,
-      sortAsc: true,
-      filters: {},
-      showFilterDropdown: false,
-    };
-  }
+const ListUsers = () => {
+  const [sortBy, setSortBy] = useState(null);
+  const [sortAsc, setSortAsc] = useState(true);
+  const [filters, setFilters] = useState({});
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
 
-  handleSort = (column) => {
-    const { sortBy, sortAsc } = this.state;
-    if (sortBy === column) {
-      this.setState({ sortAsc: !sortAsc });
-    } else {
-      this.setState({ sortBy: column, sortAsc: true });
-    }
+
+  const toggleFilterDropdown = () => {
+    setShowFilterDropdown((prevState) => !prevState);
   };
 
-  toggleFilterDropdown = () => {
-    this.setState((prevState) => ({
-      showFilterDropdown: !prevState.showFilterDropdown,
+  const handleFilterChange = (column, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [column]: value,
     }));
   };
 
-  handleFilterChange = (column, value) => {
-    this.setState((prevState) => ({
-      filters: {
-        ...prevState.filters,
-        [column]: value,
-      },
-    }));
-  };
-  handleFilterRows = () => {
-    // Your filtering logic here based on this.state.filters
+  const handleFilterRows = () => {
+    // Your filtering logic here based on filters state
     // You can apply the filters to the rows and update the state accordingly
     // For now, let's just log the filters
-    console.log(this.state.filters);
+    console.log(filters);
   };
 
-  renderFilterDropdown() {
-    const { showFilterDropdown, filters } = this.state;
-    const { columns } = this.props;
-
-    if (!showFilterDropdown) return null;
-
-    return (
-      <div className="filter-dropdown">
-        {columns.map((column) => (
-          <div key={column} className="filter-input">
-            <label>{column}</label>
-            <input
-              type="text"
-              value={filters[column] || ""}
-              onChange={(e) => this.handleFilterChange(column, e.target.value)}
-            />
-          </div>
-        ))}
-        {/* <button onClick={this.handleFilterRows}>Apply Filters</button> */}
-      </div>
-    );
-  }
-
-  render() {
-    const { rows, deleteRow, editRow } = this.props;
-    const { sortBy, sortAsc, filters } = this.state;
-
-    // Sorting Logic
-    let sortedRows = rows.slice();
-    if (sortBy) {
-      sortedRows.sort((a, b) => {
-        const aValue = a[sortBy];
-        const bValue = b[sortBy];
-        if (sortAsc) {
-          return aValue.localeCompare(bValue);
-        } else {
-          return bValue.localeCompare(aValue);
-        }
-      });
+  const getUsers = async () => {
+    try {
+      const response = await axios.post("/getUsers", { id: "1" });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
+  };
 
-    // Filtering Logic
-    Object.keys(filters).forEach((column) => {
-      const filterValue = filters[column].toLowerCase();
-      sortedRows = sortedRows.filter((row) =>
-        row[column].toLowerCase().includes(filterValue)
-      );
+  const getRows = async () => {
+    console.log("eeeeeeeeeeeeee")
+    const u = await getUsers();
+    console.log(u);
+    setRows(u);
+    const c = Object.keys(u[0]);
+    setColumns(c);
+    console.log(c);
+  };
+
+  useEffect(() => {
+    getRows();
+  }, []);
+
+  const handleSort = (column) => {
+    if (sortBy === column) {
+      setSortAsc((prevSortAsc) => !prevSortAsc);
+    } else {
+      setSortBy(column);
+      setSortAsc(true);
+    }
+  };
+  
+  // ...
+  
+  // Sorting Logic
+  let sortedRows = [...rows];
+  if (sortBy) {
+    sortedRows.sort((a, b) => {
+      const aValue = a[sortBy];
+      const bValue = b[sortBy];
+  
+      // Convert values to numbers if applicable
+      const aValueAsNumber = isNaN(aValue) ? aValue : parseFloat(aValue);
+      const bValueAsNumber = isNaN(bValue) ? bValue : parseFloat(bValue);
+  
+      if (sortAsc) {
+        return aValueAsNumber - bValueAsNumber; // Ascending sort for numbers
+      } else {
+        return bValueAsNumber - aValueAsNumber; // Descending sort for numbers
+      }
     });
-
-    return (
-      <div className="table-wrapper">
-      <Sidebar/>
-        <button onClick={this.toggleFilterDropdown}>Filter Rows</button>
-        {this.renderFilterDropdown()}
-        <table className="table">
-          <thead>
-            <tr>
-              <th onClick={() => this.handleSort("id")}>
-                ID {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("email")} className="expand">
-                Email {sortBy === "email" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("nom")}>
-                Nom {sortBy === "nom" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("prenom")}>
-                Prenom {sortBy === "prenom" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("userName")}>
-                UserName {sortBy === "userName" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("password")}>
-                Password {sortBy === "password" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("fonction")}>
-                Fonction {sortBy === "fonction" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("sexe")}>
-                Sexe {sortBy === "sexe" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedRows.map((row, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{row.id}</td>
-                  <td>{row.email}</td>
-                  <td>{row.nom}</td>
-                  <td>{row.prenom}</td>
-                  <td>{row.userName}</td>
-                  <td>{row.password}</td>
-                  <td>{row.fonction}</td>
-                  <td>{row.sexe}</td>
-                  <td className="fit">
-                    <span className="actions">
-                      <BsFillTrashFill
-                        className="delete-btn"
-                        onClick={() => deleteRow(idx)}
-                      />
-                      <BsFillPencilFill
-                        className="edit-btn"
-                        onClick={() => editRow(idx)}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
   }
-}
+
+  // Filtering Logic
+  let filteredRows = sortedRows;
+  Object.keys(filters).forEach((column) => {
+    const filterValue = filters[column].toString().toLowerCase(); // Convert to string
+    filteredRows = filteredRows.filter((row) =>
+      row[column].toString().toLowerCase().includes(filterValue) // Convert to string
+    );
+  });
+
+
+  const deleteRow = async (idx) => {
+    console.log(rows[idx]["immatricule"]);
+    await axios.post("/deleteUser", { id: rows[idx]["immatricule"] });
+    getRows();
+  }
+
+  const editRow = (idx) => {
+    console.log(idx);
+  }
+
+  return (
+    <div className="table-wrapper">
+      <Sidebar />
+      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      {showFilterDropdown && (
+        <div className="filter-dropdown">
+          {columns.map((column) => (
+            <div key={column} className="filter-input">
+              <label>{column}</label>
+              <input
+                type="text"
+                value={filters[column] || ""}
+                onChange={(e) => handleFilterChange(column, e.target.value)}
+              />
+            </div>
+          ))}
+          {/* <button onClick={handleFilterRows}>Apply Filters</button> */}
+        </div>
+      )}
+      <table className="table">
+        <thead>
+          <tr>
+            <th onClick={() => handleSort(columns[0])}>
+              Immatricule {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[1])} className="expand">
+              Email {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[2])}>
+              Nom {sortBy === columns[2] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[3])}>
+              Prenom {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[4])}>
+              Login {sortBy === columns[4] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[5])}>
+              Pwd {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[6])}>
+              Fonction {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[7])}>
+              Sexe {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredRows.map((row, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{row.immatricule}</td>
+                <td>{row.email}</td>
+                <td>{row.nom}</td>
+                <td>{row.prenom}</td>
+                <td>{row.login}</td>
+                <td>{row.pwd}</td>
+                <td>{row.fonction}</td>
+                <td>{row.sexe}</td>
+                <td className="fit">
+                  <span className="actions">
+                    <BsFillTrashFill
+                      className="delete-btn"
+                      onClick={() => deleteRow(idx)}
+                    />
+                    <BsFillPencilFill
+                      className="edit-btn"
+                      onClick={() => editRow(idx)}
+                    />
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default ListUsers;

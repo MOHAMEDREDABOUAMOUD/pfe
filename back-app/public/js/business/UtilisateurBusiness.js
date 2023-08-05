@@ -21,8 +21,8 @@ class UtilisateurBusiness {
         return await UtilisateurDAO.getByUserNameAndPassword(userName, password);
     }
 
-    static getAll() {
-        return UtilisateurDAO.getAll();
+    static async getAll() {
+        return await UtilisateurDAO.getAll();
     }
 }
 module.exports=UtilisateurBusiness;

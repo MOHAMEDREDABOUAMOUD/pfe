@@ -18,12 +18,18 @@ function SignIn() {
       formData.append('login', userName);
       formData.append('pwd', password);
 
-      axios
+      await axios
         .post("/signIn", { userName : userName, password : password })
         .then((response) => {
-          console.log(response.data); // You can handle the response here if needed
+          //console.log(response.data); // You can handle the response here if needed
           // Redirect the user to a different page upon successful sign-in
-          navigate("/createUser");
+          //console.log(response.data["fonction"]);
+          if(response.data["fonction"]==="Admin"){
+            navigate("/listUsers");
+          }
+          else{
+            navigate("/");
+          }
         })
         .catch((error) => {
           console.log(error.response.data);

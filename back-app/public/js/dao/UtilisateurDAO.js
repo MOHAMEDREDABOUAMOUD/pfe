@@ -85,7 +85,7 @@ class UtilisateurDAO {
           }
         });
       });
-
+      
       return result.affectedRows;
     } catch (error) {
       console.error(error);
@@ -111,7 +111,7 @@ class UtilisateurDAO {
       if (rows.length === 0) {
         return null;
       }
-      const user = rows[0];
+      const user = JSON.parse(JSON.stringify(rows[0]));
       return user ? new Utilisateur(user) : null;;
     } catch (error) {
       console.error(error);
@@ -150,7 +150,7 @@ class UtilisateurDAO {
   }
 
   static async getAll() {
-    const _query = 'SELECT * FROM Utilisateur';
+    const _query = 'SELECT immatricule, email, nom, prenom, login, pwd, fonction, sexe FROM Utilisateur';
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -163,8 +163,11 @@ class UtilisateurDAO {
           }
         });
       });
-
-      const userList = rows.map((user) => new Utilisateur(user));
+      const userList = rows.map((user) => {
+        // Convert the user object to plain JSON format
+        return JSON.parse(JSON.stringify(user));
+      });
+      
       return userList;
     } catch (error) {
       console.error(error);
