@@ -1,39 +1,112 @@
-import React, { Component } from 'react';
-import "query-string"
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../sidebar/sideBar';
+import axios from 'axios';
 
-export default function UpdateUser() {
-    const location = useLocation();
-    const { id, email, nom, prenom, userName, password, fonction, sexe } = location.state;
+const UpdateUser = () => {
+    const { id } = useParams();
+
+    const [email, setEmail] = useState('');
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [fonction, setFonction] = useState('Demandeur');
+    const [sexe, setSexe] = useState('M.');
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        await axios.post("/updateUser", { id: id, email: email, nom: nom, prenom: prenom, login: userName, pwd: password, fonction: fonction, sexe: sexe });
+        navigate("/listUsers");
+    };
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getUser", { id: id });
+                setEmail(userData.data["email"]);
+                setNom(userData.data["nom"]);
+                setPrenom(userData.data["prenom"]);
+                setUserName(userData.data["login"]);
+                setPassword(userData.data["pwd"]);
+                setFonction(userData.data["fonction"]);
+                setSexe(userData.data["sexe"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, [id]);
 
     return (
         <div className='formCreateUser'>
-        <Sidebar/>
-            <form>
+            <Sidebar />
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput1">E-mail</label><br />
-                    <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value={email} />
+                    <label htmlFor="emailInput">E-mail</label><br />
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="emailInput"
+                        placeholder="name@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput1">Nom</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Nom" value={nom} />
+                    <label htmlFor="nomInput">Nom</label><br />
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="nomInput"
+                        placeholder="Nom"
+                        value={nom}
+                        onChange={(e) => setNom(e.target.value)}
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput1">Prenom</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Prenom" value={prenom} />
+                    <label htmlFor="prenomInput">Prenom</label><br />
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="prenomInput"
+                        placeholder="Prenom"
+                        value={prenom}
+                        onChange={(e) => setPrenom(e.target.value)}
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput1">UserName</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="userName" value={userName} />
+                    <label htmlFor="userNameInput">UserName</label><br />
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="userNameInput"
+                        placeholder="userName"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput1">Password</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="password" value={password} />
+                    <label htmlFor="passwordInput">Password</label><br />
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="passwordInput"
+                        placeholder="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">Fonction</label><br />
-                    <select className="form-control" id="exampleFormControlSelect1" value={fonction}>
+                    <label htmlFor="fonctionSelect">Fonction</label><br />
+                    <select
+                        className="form-control"
+                        id="fonctionSelect"
+                        value={fonction}
+                        onChange={(e) => setFonction(e.target.value)}
+                    >
                         <option>Demandeur</option>
                         <option>DM</option>
                         <option>DTI</option>
@@ -41,8 +114,13 @@ export default function UpdateUser() {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">Sexe</label><br />
-                    <select className="form-control" id="exampleFormControlSelect1" value={sexe}>
+                    <label htmlFor="sexeSelect">Sexe</label><br />
+                    <select
+                        className="form-control"
+                        id="sexeSelect"
+                        value={sexe}
+                        onChange={(e) => setSexe(e.target.value)}
+                    >
                         <option>M.</option>
                         <option>Mme.</option>
                     </select>
@@ -52,3 +130,5 @@ export default function UpdateUser() {
         </div>
     );
 }
+
+export default UpdateUser;

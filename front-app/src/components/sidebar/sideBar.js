@@ -72,7 +72,7 @@ const Sidebar = () => {
                                 <span className="name">Mohamed-Reda</span><br />
                                 <span className="email">reda@gmail.com</span>
                             </div>
-                            <AiIcons.AiOutlineLogout />
+                            <AiIcons.AiOutlineLogout/>
                         </div>
                     </SidebarWrap>
                 </SidebarNav>

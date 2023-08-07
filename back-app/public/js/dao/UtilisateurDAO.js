@@ -41,7 +41,6 @@ class UtilisateurDAO {
     }
   }
 
-
   static async update(user) {
     const _query = `
       UPDATE Utilisateur
@@ -50,6 +49,62 @@ class UtilisateurDAO {
     `;
 
     const values = [user.login, user.pwd, user.nom, user.prenom, user.email, user.fonction, user.sexe, user.immatricule];
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async updateIP(user) {
+    const _query = `
+      UPDATE Utilisateur
+      SET nom=?, prenom=?, email=?
+      WHERE immatricule=?
+    `;
+
+    const values = [user.nom, user.prenom, user.email, user.immatricule];
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async updateS(user) {
+    const _query = `
+      UPDATE Utilisateur
+      SET login=?, pwd=?
+      WHERE immatricule=?
+    `;
+
+    const values = [user.login, user.pwd, user.immatricule];
 
     try {
       const result = await new Promise((resolve, reject) => {
@@ -85,7 +140,7 @@ class UtilisateurDAO {
           }
         });
       });
-      
+
       return result.affectedRows;
     } catch (error) {
       console.error(error);
@@ -94,7 +149,7 @@ class UtilisateurDAO {
   }
 
   static async getByImmatricule(immatricule) {
-    const _query = 'SELECT * FROM Utilisateur WHERE immatricule=?';
+    const _query = 'SELECT immatricule, email, nom, prenom, login , pwd , fonction, sexe FROM Utilisateur WHERE immatricule=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -109,10 +164,13 @@ class UtilisateurDAO {
       });
 
       if (rows.length === 0) {
-        return null;
+        console.log("0");
+        return {};
       }
+
       const user = JSON.parse(JSON.stringify(rows[0]));
-      return user ? new Utilisateur(user) : null;;
+      //console.log(user);
+      return user ? new Utilisateur(user) : null;
     } catch (error) {
       console.error(error);
       return null;

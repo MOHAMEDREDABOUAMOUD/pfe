@@ -290,7 +290,7 @@ function App() {
         <Route path="/listUsers" element={<ListUsers/>} />{/*  rows={rows} columns={Object.keys(rows[0])}  deleteRow={handleDeleteRow} editRow={handleEditRow} */}
         <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
         <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
-        <Route path='/updateUser' element={<UpdateUser />}></Route>
+        <Route path='/updateUser/:id' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/dashboardEB' element={<DashboardD />}></Route>
         <Route path='/settings' element={<Settings />}></Route>

@@ -9,12 +9,20 @@ class UtilisateurBusiness {
         return UtilisateurDAO.update(utilisateur);
     }
 
+    static updateIP(utilisateur) {
+        return UtilisateurDAO.updateIP(utilisateur);
+    }
+    
+    static updateS(utilisateur) {
+        return UtilisateurDAO.updateS(utilisateur);
+    }
+
     static delete(num) {
         return UtilisateurDAO.delete(num);
     }
 
-    static searchByNum(num) {
-        return UtilisateurDAO.getByNum(num);
+    static async searchByNum(num) {
+        return await UtilisateurDAO.getByImmatricule(num);
     }
 
     static async getByUserNameAndPassword(userName, password){

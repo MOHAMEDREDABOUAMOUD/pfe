@@ -3,6 +3,7 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listUsers.css";
 import Sidebar from "../../sidebar/sideBar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ListUsers = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -100,9 +101,9 @@ const ListUsers = () => {
     await axios.post("/deleteUser", { id: rows[idx]["immatricule"] });
     getRows();
   }
-
-  const editRow = (idx) => {
-    console.log(idx);
+  const navigate = useNavigate();
+  const editRow = async (idx) => {
+    navigate(`/updateUser/${rows[idx]["immatricule"]}`);
   }
 
   return (
