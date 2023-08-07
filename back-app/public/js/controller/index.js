@@ -62,6 +62,12 @@ app.post("/getUsers", async (req, res) => {
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/getEBs", async (req, res)=>{
+    const {id}=req.body;
+    const r = await EBBusiness.getByUserId(currentUser);
+    console.log(r);
+    res.status(200).json(r);
+});
 app.post("/getUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.searchByNum(id);
@@ -85,6 +91,12 @@ app.post("/createUser", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+app.post("/createEB", async (req, res)=>{
+    const { objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
+    console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
+    EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 
 app.post("/updateUser", async (req, res) => {

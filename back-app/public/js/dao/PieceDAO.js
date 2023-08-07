@@ -8,9 +8,9 @@ class PieceDAO {
       INSERT INTO Piece (libelle, piece, numEB)
       VALUES (?, ?, ?)
     `;
-
+  
     const values = [piece.libelle, piece.piece, piece.numEB];
-
+  
     try {
       const result = await new Promise((resolve, reject) => {
         pool.query(_query, values, (err, result) => {
@@ -22,13 +22,14 @@ class PieceDAO {
           }
         });
       });
-
+  
       return result.insertId;
     } catch (error) {
       console.error(error);
       return null;
     }
   }
+  
 
   static async update(piece) {
     const _query = `
@@ -126,4 +127,4 @@ class PieceDAO {
   }
 }
 
-module.exports=PieceDAO;
+module.exports = PieceDAO;

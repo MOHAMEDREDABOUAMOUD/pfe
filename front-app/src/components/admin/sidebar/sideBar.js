@@ -66,7 +66,7 @@ const Sidebar = () => {
                         })}
                         <div className="sidebar_profile flex">
                             <span className="nav_image">
-                                <img src={require('../images/logo-omrane.png')} alt="logo_img" />
+                                <img src={require('../../images/logo-omrane.png')} alt="logo_img" />
                             </span>
                             <div className="data_text">
                                 <span className="name">Mohamed-Reda</span><br />

@@ -20,7 +20,7 @@ import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
 import MainDemandeur from './components/demandeur/main/main';
 import View from './components/demandeur/listEB/view';
-import Sidebar from './components/sidebar/sideBar';
+import Sidebar from './components/admin/sidebar/sideBar';
 
 function App() {
 
@@ -284,16 +284,17 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<LoginForm />}></Route>
-        <Route path='/admin/main' element={<MainAdmin />}></Route>
-        <Route path='/demandeur/main' element={<MainDemandeur />}></Route>
+        {/* <Route path='/admin/main' element={<MainAdmin />}></Route> */}
+        {/* <Route path='/demandeur/main' element={<MainDemandeur />}></Route> */}
         <Route path='/createUser' element={<CreateUser />}></Route>
         <Route path="/listUsers" element={<ListUsers/>} />{/*  rows={rows} columns={Object.keys(rows[0])}  deleteRow={handleDeleteRow} editRow={handleEditRow} */}
-        <Route path="/listEB" element={<ListEB rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB} />} />
-        <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
         <Route path='/updateUser/:id' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
-        <Route path='/dashboardEB' element={<DashboardD />}></Route>
         <Route path='/settings' element={<Settings />}></Route>
+        
+        <Route path="/listEB" element={<ListEB/>} />{/* rows={rowsEB} columns={Object.keys(rowsEB[0])} handleOperations={handleOperations} handleFiles={handleFiles} deleteRow={handleDeleteRowEB} editRow={handleEditRowEB}  */}
+        <Route path="/listOperations/:idEB/:idxEB" element={<ListOperations rows={rowsEB} columns={Object.keys(rowsEB[0].operations[0])} deleteRow={handleDeleteRowOP} editRow={handleEditRowOP} />} />
+        <Route path='/dashboardEB' element={<DashboardD />}></Route>
         <Route path='/settingsEB' element={<SettingsD />}></Route>
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path='/updateEB' element={<UpdateEB />}></Route>

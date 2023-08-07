@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Row, Col } from 'react-bootstrap';
 import SideBar from "./SideBar"
 import "./main.css"
-import Sidebar from "../../sidebar/sideBar";
+import Sidebar from "../sidebar/sideBar";
 
 function MainAdmin() {
   // State to track the active component in MainAdmin

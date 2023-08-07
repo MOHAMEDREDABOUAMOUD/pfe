@@ -5,12 +5,11 @@ const pool = require('./db');
 class OperationDAO {
   static async create(operation) {
     const _query = `
-      INSERT INTO Operation (code, agence, DA, imputation, natureProjet, operation, programme, situation, superficie, typeProjet, numEB)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO Operation (agence, DA, imputation, natureProjet, operation, programme, situation, superficie, typeProjet, numEB)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
-      operation.code,
       operation.agence,
       operation.DA,
       operation.imputation,
@@ -45,12 +44,11 @@ class OperationDAO {
   static async update(operation) {
     const _query = `
       UPDATE Operation
-      SET code=?, agence=?, DA=?, imputation=?, natureProjet=?, operation=?, programme=?, situation=?, superficie=?, typeProjet=?, numEB=?
+      SET agence=?, DA=?, imputation=?, natureProjet=?, operation=?, programme=?, situation=?, superficie=?, typeProjet=?, numEB=?
       WHERE code=?
     `;
 
     const values = [
-      operation.code,
       operation.agence,
       operation.DA,
       operation.imputation,

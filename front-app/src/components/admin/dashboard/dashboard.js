@@ -3,7 +3,7 @@ import { Bar, Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import "./dashboard.css";
-import Sidebar from "../../sidebar/sideBar";
+import Sidebar from "../sidebar/sideBar";
 
 const Dashboard = () => {
   Chart.register(CategoryScale);

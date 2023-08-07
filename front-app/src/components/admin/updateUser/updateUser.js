@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Sidebar from '../../sidebar/sideBar';
+import Sidebar from '../sidebar/sideBar';
 import axios from 'axios';
 
 const UpdateUser = () => {

@@ -1,5 +1,6 @@
 // ebDAO.js
 
+const EB = require('../models/EB');
 const pool = require('./db');
 
 class EBDAO {
@@ -125,7 +126,35 @@ class EBDAO {
       });
 
       if (rows.length === 0) return null;
-      return new EB(...Object.values(rows[0]));
+      const eb = JSON.parse(JSON.stringify(rows[0]));
+      return eb ? new EB(eb) : null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async getByUserId(id) {
+    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, qualification.qualification, secteur.secteur FROM EB inner join qualification inner join secteur on EB.numQualification=qualification.num and qualification.numSecteur=secteur.num WHERE numUtilisateur=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [id], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      if (rows.length === 0) return null;
+      const ebList = rows.map((eb) => {
+        return JSON.parse(JSON.stringify(eb));
+      });
+      
+      return ebList;
     } catch (error) {
       console.error(error);
       return null;
@@ -147,7 +176,12 @@ class EBDAO {
         });
       });
 
-      return rows.map((row) => new EB(...Object.values(row)));
+      const ebList = rows.map((eb) => {
+        // Convert the user object to plain JSON format
+        return JSON.parse(JSON.stringify(eb));
+      });
+      
+      return ebList;
     } catch (error) {
       console.error(error);
       return [];

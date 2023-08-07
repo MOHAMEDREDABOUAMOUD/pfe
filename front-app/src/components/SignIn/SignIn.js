@@ -27,9 +27,9 @@ function SignIn() {
           if(response.data["fonction"]==="Admin"){
             navigate("/listUsers");
           }
-          // else if(response.data["fonction"]==="Demandeur"){
-          //   navigate("/listEB");
-          // }
+          else if(response.data["fonction"]==="Demandeur"){
+            navigate("/listEB");
+          }
           else{
             navigate("/");
           }

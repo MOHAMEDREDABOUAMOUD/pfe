@@ -1,53 +1,69 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Sidebar from "../sidebar/sideBar";
 
-class ListEB extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sortBy: null,
-      sortAsc: true,
-      filters: {},
-      showFilterDropdown: false,
-    };
-  }
+const ListEB = () => {
+  const [sortBy, setSortBy] = useState(null);
+  const [sortAsc, setSortAsc] = useState(true);
+  const [filters, setFilters] = useState({});
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
 
-  handleSort = (column) => {
-    const { sortBy, sortAsc } = this.state;
+  const handleSort = (column) => {
     if (sortBy === column) {
-      this.setState({ sortAsc: !sortAsc });
+      setSortAsc((prevSortAsc) => !prevSortAsc);
     } else {
-      this.setState({ sortBy: column, sortAsc: true });
+      setSortBy(column);
+      setSortAsc(true);
     }
   };
 
-  toggleFilterDropdown = () => {
-    this.setState((prevState) => ({
-      showFilterDropdown: !prevState.showFilterDropdown,
+  const toggleFilterDropdown = () => {
+    setShowFilterDropdown((prevState) => !prevState);
+  };
+
+  const handleFilterChange = (column, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [column]: value,
     }));
   };
 
-  handleFilterChange = (column, value) => {
-    this.setState((prevState) => ({
-      filters: {
-        ...prevState.filters,
-        [column]: value,
-      },
-    }));
-  };
-  handleFilterRows = () => {
-    // Your filtering logic here based on this.state.filters
+  const handleFilterRows = () => {
+    // Your filtering logic here based on filters state
     // You can apply the filters to the rows and update the state accordingly
     // For now, let's just log the filters
-    console.log(this.state.filters);
+    console.log(filters);
+  };
+//////////////////////////////////////////////////////////////
+  const getEBs = async () => {
+    try {
+      const response = await axios.post("/getEBs", { id: "1" });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   };
 
-  renderFilterDropdown() {
-    const { showFilterDropdown, filters } = this.state;
-    const { columns } = this.props;
+  const getRows = async () => {
+    const u = await getEBs();
+    console.log(u);
+    setRows(u);
+    const c = Object.keys(u[0]);
+    setColumns(c);
+    console.log(c);
+  };
 
+  useEffect(() => {
+    getRows();
+  }, []);
+////////////////////////////////////////////////////////////////
+  const renderFilterDropdown = () => {
     if (!showFilterDropdown) return null;
 
     return (
@@ -58,122 +74,139 @@ class ListEB extends Component {
             <input
               type="text"
               value={filters[column] || ""}
-              onChange={(e) => this.handleFilterChange(column, e.target.value)}
+              onChange={(e) => handleFilterChange(column, e.target.value)}
             />
           </div>
         ))}
-        {/* <button onClick={this.handleFilterRows}>Apply Filters</button> */}
+        {/* <button onClick={handleFilterRows}>Apply Filters</button> */}
       </div>
     );
-  }
+  };
 
-  render() {
-    const { rows, handleOperations, handleFiles, deleteRow, editRow } = this.props;
-    const { sortBy, sortAsc, filters } = this.state;
-
-    // Sorting Logic
-    let sortedRows = rows.slice();
-    if (sortBy) {
-      sortedRows.sort((a, b) => {
-        const aValue = a[sortBy];
-        const bValue = b[sortBy];
-        if (sortAsc) {
-          return aValue.localeCompare(bValue);
-        } else {
-          return bValue.localeCompare(aValue);
-        }
-      });
-    }
-
-    // Filtering Logic
-    Object.keys(filters).forEach((column) => {
-      const filterValue = filters[column].toLowerCase();
-      sortedRows = sortedRows.filter((row) =>
-        row[column].toLowerCase().includes(filterValue)
-      );
+  // Sorting Logic
+  let sortedRows = rows.slice();
+  if (sortBy) {
+    sortedRows.sort((a, b) => {
+      const aValue = a[sortBy];
+      const bValue = b[sortBy];
+      if (sortAsc) {
+        return aValue.localeCompare(bValue);
+      } else {
+        return bValue.localeCompare(aValue);
+      }
     });
-
-    return (
-      <div className="table-wrapper">
-        <button onClick={this.toggleFilterDropdown}>Filter Rows</button>
-        {this.renderFilterDropdown()}
-        <table className="table">
-          <thead>
-            <tr>
-              <th onClick={() => this.handleSort("id")}>
-                Id {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("objet")}>
-                Objet {sortBy === "objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("agence")}>
-                Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("observation")} className="expand">
-                Observation {sortBy === "observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("prog_nonProg")}>
-                Prog_nonProg {sortBy === "prog_nonProg" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("caution")}>
-                Caution {sortBy === "caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("estimation")}>
-                Estimation {sortBy === "estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("modePassation")}>
-                ModePassation {sortBy === "modePassation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("secteur")}>
-                Secteur {sortBy === "secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("qualification")}>
-                Qualification {sortBy === "qualification" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("operations")}>
-                Operations {sortBy === "operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-              <th onClick={() => this.handleSort("files")}>
-                Files {sortBy === "files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedRows.map((row, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{row.id}</td>
-                  <td>{row.objet}</td>
-                  <td>{row.agence}</td>
-                  <td>{row.observation}</td>
-                  <td>{row.prog_nonProg}</td>
-                  <td>{row.caution}</td>
-                  <td>{row.estimation}</td>
-                  <td>{row.modePassation}</td>
-                  <td>{row.secteur}</td>
-                  <td>{row.qualification}</td>
-                  <td><a onClick={()=>handleOperations(row.id, idx)}>operations</a></td>
-                  <td><a onClick={()=>handleFiles(row.id, idx)}>files</a></td>
-                  <td className="fit">
-                    <span className="actions">
-                      <BsFillTrashFill
-                        className="delete-btn"
-                        onClick={() => deleteRow(row.id, idx)}
-                      />
-                      <BsFillPencilFill
-                        className="edit-btn"
-                        onClick={() => editRow(row.id, idx)}
-                      />
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
   }
-}
+
+  // Filtering Logic
+  Object.keys(filters).forEach((column) => {
+    const filterValue = filters[column].toLowerCase();
+    sortedRows = sortedRows.filter((row) =>
+      row[column].toLowerCase().includes(filterValue)
+    );
+  });
+
+  const editRow=(id)=>{
+
+  }
+  const deleteRow=(id)=>{
+
+  }
+  const handleFiles=(id)=>{
+
+  }
+  const handleOperations=(id)=>{
+
+  }
+
+  return (
+    <div className="table-wrapper">
+    <Sidebar/>
+      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      {renderFilterDropdown()}
+      <table className="table">
+        <thead>
+          <tr>
+            <th onClick={() => handleSort(columns[0])}>
+              Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[1])}>
+              Objet {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[2])}>
+              Agence {sortBy === columns[2] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[3])} className="expand">
+              Observation {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[4])}>
+              Prog_nonProg {sortBy === columns[4] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[5])}>
+              Classe {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[6])}>
+              Caution {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[7])}>
+              Estimation {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[8])}>
+              Date EB {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[9])}>
+              Mode de Passation {sortBy === columns[9] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[10])}>
+              Qualification {sortBy === columns[10] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[11])}>
+              Secteur {sortBy === columns[11] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[12])}>
+              Operations {sortBy === columns[12] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[13])}>
+              Files {sortBy === columns[13] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedRows.map((row, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{row.num}</td>
+                <td>{row.objet}</td>
+                <td>{row.agence}</td>
+                <td>{row.observation}</td>
+                <td>{row.prog_nonprog}</td>
+                <td>{row.classe}</td>
+                <td>{row.caution}</td>
+                <td>{row.estimation}</td>
+                <td>{row.dateEB}</td>
+                <td>{row.modePassation}</td>
+                <td>{row.qualification}</td>
+                <td>{row.secteur}</td>
+                <td><a onClick={() => handleOperations(row.id)}>operations</a></td>
+                <td><a onClick={() => handleFiles(row.id)}>files</a></td>
+                <td className="fit">
+                  <span className="actions">
+                    <BsFillTrashFill
+                      className="delete-btn"
+                      onClick={() => deleteRow(row.id)}
+                    />
+                    <BsFillPencilFill
+                      className="edit-btn"
+                      onClick={() => editRow(row.id)}
+                    />
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default ListEB;

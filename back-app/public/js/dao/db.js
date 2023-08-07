@@ -1,5 +1,5 @@
 // db.js
-const { createPool } = require('mysql');
+const { createPool } = require('mysql2');
 
 // Create the database connection pool
 const pool = createPool({

@@ -1,0 +1,23 @@
+.openMenu{
+    position: absolute;
+  top: 0;
+  left: 0;
+}
+.open{
+    background-color: rgb(197, 197, 197);
+}
+.close{
+    height: 80px;
+}
+.sidebar_profile{
+    position: absolute;
+    bottom: 0;
+  left: 0;
+  margin-bottom: 20px;
+}
+.name{
+    color:white;
+}
+.email{
+    color: white;
+}

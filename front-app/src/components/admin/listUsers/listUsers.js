@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listUsers.css";
-import Sidebar from "../../sidebar/sideBar";
+import Sidebar from "../sidebar/sideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
