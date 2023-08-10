@@ -13,7 +13,8 @@ class EB {
     this.dateValidation = ebData.dateValidation;
     this.validerPar = ebData.validerPar;
     this.numUtilisateur = ebData.numUtilisateur;
-    this.numQualification = ebData.numQualification;
+    this.qualification=ebData.qualification;
+    this.secteur=ebData.secteur;
   }
 }
 

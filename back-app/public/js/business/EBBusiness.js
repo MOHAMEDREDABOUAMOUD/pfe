@@ -2,12 +2,8 @@ const EBDAO = require("../dao/EBDAO");
 const EB = require("../models/EB");
 const Operation = require("../models/Operation");
 const Piece = require("../models/Piece");
-const Qualification = require("../models/Qualification");
-const Secteur = require("../models/secteur");
 const OperationBusiness = require("./OperationBusiness");
 const PieceBusiness = require("./PieceBusiness");
-const QualificationBusiness = require("./QualificationBusiness");
-const SecteurBusiness = require("./SecteurBusiness");
 
 class EBBusiness {
     static Add(eb) {
@@ -28,11 +24,7 @@ class EBBusiness {
     }
 
     static async Add(object, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser) {
-        const idS = await SecteurBusiness.Add(new Secteur({ num: -1, secteur: secteur }));
-        console.log("secteur added : " + idS);
-        const idq = await QualificationBusiness.Add(new Qualification({ num: -1, qualification: qualification, numSecteur: idS }));
-        console.log("qualification added : " + idq + " " + currentUser);
-        const eb = new EB({ num: -1, objet: object, agence: agence, observation: observation, prog_nonprog: progNonProg, classe: this.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: this.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: this.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: currentUser, numQualification: idq });
+        const eb = new EB({ num: -1, objet: object, agence: agence, observation: observation, prog_nonprog: progNonProg, classe: this.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: this.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: this.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: currentUser, qualification:qualification, secteur:secteur });
         const idEB = await EBDAO.create(eb);
         console.log("eb added : " + idEB);
         for (let i = 0; i < fileList.length; i++) {

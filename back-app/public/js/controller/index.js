@@ -9,11 +9,11 @@ const LettreCommissionBusiness = require('../business/LettreCommissionBusiness')
 const MarcheBusiness = require('../business/MarcheBusiness');
 const OperationBusiness = require('../business/OperationBusiness');
 const PieceBusiness = require('../business/PieceBusiness');
-const QualificationBusiness = require('../business/QualificationBusiness');
-const SecteurBusiness = require('../business/SecteurBusiness');
 const UtilisateurBusiness = require('../business/UtilisateurBusiness');
 const bodyParser = require('body-parser');
 const Utilisateur = require('../models/utilisateur');
+const EB = require('../models/EB');
+const Operation = require('../models/Operation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -74,12 +74,61 @@ app.post("/getUser", async (req, res) => {
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/getEB", async (req, res) => {
+    const { id } = req.body;
+    const r = await EBBusiness.searchByNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getOperations", async (req, res) => {
+    const { id } = req.body;
+    const r = await OperationBusiness.searchByEBNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getOperation", async (req, res) => {
+    const { id } = req.body;
+    const r = await OperationBusiness.searchByNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getFiles", async (req, res) => {
+    const { id } = req.body;
+    const r = await PieceBusiness.searchByEBNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getFile", async (req, res) => {
+    const { id } = req.body;
+    const r = await PieceBusiness.getPiece(id);
+    console.log(r);
+    res.status(200).json(r);
+});
 app.post("/deleteUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.delete(id);
     // console.log(r);
     res.status(200).json(r);
 });
+app.post("/deleteEB", async (req, res) => {
+    const { id } = req.body;
+    const r = await EBBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+app.post("/deleteOperation", async (req, res) => {
+    const { id } = req.body;
+    const r = await OperationBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+app.post("/deleteFile", async (req, res) => {
+    const { id } = req.body;
+    const r = await PieceBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+//deleteEB
 // await axios.post("/createUser", { email:email, nom:nom, prenom:prenom, userName:userName, password:password, fonction:fonction, sexe:sexe });
 
 app.post("/createUser", async (req, res) => {
@@ -99,6 +148,12 @@ app.post("/createEB", async (req, res)=>{
     EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 
+app.post("/addOperation", async (req, res)=>{
+    const { id, agence, imputation, nature_projet, operation, programme, situation, superficie, type_projet, piece} = req.body;
+    //console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
+    OperationBusiness.Add(new Operation({code:-1, agence:agence, DA:piece, imputation:imputation, natureProjet:nature_projet, operation:operation, programme:programme, situation:situation, superficie:superficie, typeProjet:type_projet, numEB:id}));
+});
+
 app.post("/updateUser", async (req, res) => {
     const { id, email, nom, prenom, login, pwd, fonction, sexe } = req.body;
     try {
@@ -109,6 +164,23 @@ app.post("/updateUser", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+app.post("/updateEB", async (req, res) => {
+    const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification } = req.body;
+    try {
+        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe:EBBusiness.getClasse(), caution: caution, estimation: estimation, dateEB:EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation:EBBusiness.getCurrentDateInMySQLFormat(), validerPar:"", numUtilisateur:currentUser, secteur:secteur, qualification:qualification});
+        //, secteur:secteur, qualification:qualification 
+        const r = await EBBusiness.update(eb);
+        console.warn(r);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
+app.post("/updateOperation", async (req, res)=>{
+    const { id, agence, imputation, nature_projet, operation, programme, situation, superficie, type_projet, piece} = req.body;
+    //console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
+    OperationBusiness.update(new Operation({code:id, agence:agence, DA:piece, imputation:imputation, natureProjet:nature_projet, operation:operation, programme:programme, situation:situation, superficie:superficie, typeProjet:type_projet, numEB:-1}));
 });
 app.post("/getCurrentUserData", async (req, res) => {
     const { id } = req.body;

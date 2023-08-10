@@ -1,13 +1,15 @@
 // ebDAO.js
 
 const EB = require('../models/EB');
+const OperationDAO = require('./OperationDAO');
+const PieceDAO = require('./PieceDAO');
 const pool = require('./db');
 
 class EBDAO {
   static async create(eb) {
     const _query = `
-      INSERT INTO EB (objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, numQualification)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO EB (objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, qualification, secteur)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
@@ -23,7 +25,8 @@ class EBDAO {
       eb.dateValidation,
       eb.validerPar,
       eb.numUtilisateur,
-      eb.numQualification,
+      eb.qualification,
+      eb.secteur,
     ];
 
     try {
@@ -48,7 +51,7 @@ class EBDAO {
   static async update(eb) {
     const _query = `
       UPDATE EB
-      SET objet=?, agence=?, observation=?, prog_nonprog=?, classe=?, caution=?, estimation=?, dateEB=?, modePassation=?, dateValidation=?, validerPar=?, numUtilisateur=?, numQualification=?
+      SET objet=?, agence=?, observation=?, prog_nonprog=?, classe=?, caution=?, estimation=?, dateEB=?, modePassation=?, dateValidation=?, validerPar=?, numUtilisateur=?, qualification=?, secteur=?
       WHERE num=?
     `;
 
@@ -65,7 +68,8 @@ class EBDAO {
       eb.dateValidation,
       eb.validerPar,
       eb.numUtilisateur,
-      eb.numQualification,
+      eb.qualification,
+      eb.secteur,
       eb.num, // Assuming you have a property named 'num' to store the primary key value
     ];
 
@@ -92,6 +96,8 @@ class EBDAO {
     const _query = 'DELETE FROM EB WHERE num=?';
 
     try {
+      PieceDAO.deleteWithNum(num);
+      OperationDAO.deleteWithNum(num);
       const result = await new Promise((resolve, reject) => {
         pool.query(_query, [num], (err, result) => {
           if (err) {
@@ -111,7 +117,7 @@ class EBDAO {
   }
 
   static async getByNum(num) {
-    const _query = 'SELECT * FROM EB WHERE num=?';
+    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation FROM EB WHERE EB.num=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -135,7 +141,7 @@ class EBDAO {
   }
 
   static async getByUserId(id) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, qualification.qualification, secteur.secteur FROM EB inner join qualification inner join secteur on EB.numQualification=qualification.num and qualification.numSecteur=secteur.num WHERE numUtilisateur=?';
+    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur FROM EB WHERE numUtilisateur=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {

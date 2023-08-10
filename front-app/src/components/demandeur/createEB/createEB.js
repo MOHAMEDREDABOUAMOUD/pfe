@@ -10,7 +10,7 @@ const CreateEB = () => {
     const [caution, setCaution] = useState("");
     const [estimation, setEstimation] = useState("");
     const [progNonProgram, setProgNonProgram] = useState(false);
-    const [progNonProg, setProgNonProg] = useState(0);
+    const [progNonProg, setProgNonProg] = useState("Non");
     const [agence, setAgence] = useState("Fes");
     const [agenceOp, setAgenceOp] = useState("Fes");
     const [modePassation, setModePassation] = useState("B.C");
@@ -104,7 +104,7 @@ const CreateEB = () => {
         event.preventDefault();
         // Combine all data into the EB dictionary
         console.log(fileList);
-        const progValue = progNonProgram ? 1 : 0;
+        const progValue = progNonProgram ? "Non" : "Oui";
         setProgNonProg(progValue);
         console.log(progNonProg);
         const EBData = {

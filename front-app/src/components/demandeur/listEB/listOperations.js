@@ -2,30 +2,57 @@ import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
-const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
-    const { idEB, idxEB } = useParams();
+const ListOperations = () => {
+    const { id } = useParams();
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});
     const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-    const [selectedRows, setSelectedRows] = useState([]);
+    //const [selectedRows, setSelectedRows] = useState([]);
+    const [rows, setRows] = useState([]);
+    const [columns, setColumns] = useState([]);
 
-    
-    const navigate=useNavigate();
-    const handleAddOp = () => {
-        //alert(idEB+" "+idxEB);
-        //const { operations } = rowsEB[idxEB];
-        navigate(`/addOperation/${idEB}/${idxEB}`);
+    //////////////////////////////////////////////////////////////
+    const getOperations = async () => {
+        try {
+            const response = await axios.post("/getOperations", { id: id });
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    };
+
+    const getRows = async () => {
+        const u = await getOperations();
+        console.log(u);
+        setRows(u);
+        const c = Object.keys(u[0]);
+        setColumns(c);
+        console.log(c);
     };
 
     useEffect(() => {
-        // Use idEB and idxEB to get the correct rows data.
-        // For example, use them to filter the data and set it in the component state.
-        //alert(idEB + " " + idxEB);
-        const selectedRowsData = rows[parseInt(idxEB)].operations;
-        setSelectedRows(selectedRowsData);
-    }, [idEB, idxEB, rows]);
+        getRows();
+    }, []);
+    ////////////////////////////////////////////////////////////////
+
+    const navigate = useNavigate();
+    const handleAddOp = () => {
+        //alert(idEB+" "+idxEB);
+        //const { operations } = rowsEB[idxEB];
+        navigate(`/addOperation/${id}`);
+    };
+
+    // useEffect(() => {
+    //     // Use idEB and idxEB to get the correct rows data.
+    //     // For example, use them to filter the data and set it in the component state.
+    //     //alert(idEB + " " + idxEB);
+    //     const selectedRowsData = rows[parseInt(idxEB)].operations;
+    //     setSelectedRows(selectedRowsData);
+    // }, [idEB, idxEB, rows]);
 
     const handleSort = (column) => {
         if (sortBy === column) {
@@ -44,7 +71,7 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
         setFilters((prevFilters) => ({
             ...prevFilters,
             [column]: value,
-          }));
+        }));
     };
 
     const handleFilterRows = () => {
@@ -55,7 +82,7 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
     };
 
     // Sorting Logic
-    let sortedRows = selectedRows.slice();
+    let sortedRows = rows.slice();
     if (sortBy) {
         sortedRows.sort((a, b) => {
             const aValue = a[sortBy];
@@ -73,6 +100,14 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
         const filterValue = filters[column].toLowerCase();
         sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
     });
+
+    const deleteRow=async(id)=>{
+        await axios.post("/deleteOperation", { id: id });
+        getRows();
+    }
+    const editRow=(id)=>{
+        navigate(`/updateOperation/${id}`);
+    }
 
     return (
         <div className="table-wrapper">
@@ -94,32 +129,32 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th onClick={() => handleSort("id")}>
-                            Id {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => handleSort(columns[0])}>
+                            Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("agence")}>
-                            Agence {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[1])}>
+                            Agence {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("imputation")} className="expand">
-                            Imputation {sortBy === "imputation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[2])} className="expand">
+                            Imputation {sortBy === columns[2] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("nature_projet")}>
-                            nature projet {sortBy === "nature_projet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[3])}>
+                            nature projet {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("operation")}>
-                            Operation {sortBy === "operation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[4])}>
+                            Operation {sortBy === columns[4] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("programme")}>
-                            programme {sortBy === "programme" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[5])}>
+                            programme {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("Situation")}>
-                            Situation {sortBy === "Situation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[6])}>
+                            Situation {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("superficie")}>
-                            Superficie {sortBy === "superficie" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[7])}>
+                            Superficie {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort("type_projet")}>
-                            type projet {sortBy === "type_projet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => this.handleSort(columns[8])}>
+                            type projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
                     </tr>
                 </thead>
@@ -127,24 +162,24 @@ const ListOperations = ({ rows, columns, deleteRow, editRow}) => {
                     {sortedRows.map((row, idx) => {
                         return (
                             <tr key={idx}>
-                                <td>{row.id}</td>
+                                <td>{row.code}</td>
                                 <td>{row.agence}</td>
                                 <td>{row.imputation}</td>
-                                <td>{row.nature_projet}</td>
+                                <td>{row.natureProjet}</td>
                                 <td>{row.operation}</td>
                                 <td>{row.programme}</td>
                                 <td>{row.situation}</td>
                                 <td>{row.superficie}</td>
-                                <td>{row.type_projet}</td>
+                                <td>{row.typeProjet}</td>
                                 <td className="fit">
                                     <span className="actions">
                                         <BsFillTrashFill
                                             className="delete-btn"
-                                            onClick={() => deleteRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => deleteRow(row.code)}
                                         />
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                            onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => editRow(row.code)}
                                         />
                                     </span>
                                 </td>

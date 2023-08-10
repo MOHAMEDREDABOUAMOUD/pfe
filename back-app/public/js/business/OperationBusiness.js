@@ -13,11 +13,15 @@ class OperationBusiness {
     }
 
     static searchByNum(num) {
-        return OperationDAO.getByNum(num);
+        return OperationDAO.getByCode(num);
     }
 
     static getAll() {
         return OperationDAO.getAll();
+    }
+
+    static searchByEBNum(id){
+        return OperationDAO.searchByEBNum(id);
     }
 }
 module.exports=OperationBusiness;

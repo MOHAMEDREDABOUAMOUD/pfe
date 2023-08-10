@@ -3,22 +3,42 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp, BsFillEyeFil
 import "./listEB.css";
 import "./listFiles.css"
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
-const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
-  const { idEB, idxEB } = useParams();
+const ListFiles = () => {
+  const { id } = useParams();
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
   const [filters, setFilters] = useState({});
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
+
+  //////////////////////////////////////////////////////////////
+  const getFiles = async () => {
+    try {
+      const response = await axios.post("/getFiles", { id: id });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  };
+
+  const getRows = async () => {
+    const u = await getFiles();
+    console.log(u);
+    setRows(u);
+    const c = Object.keys(u[0]);
+    setColumns(c);
+    console.log(c);
+  };
 
   useEffect(() => {
-    // Use idEB and idxEB to get the correct rows data.
-    // For example, use them to filter the data and set it in the component state.
-    //alert(idEB + " " + idxEB);
-    const selectedRowsData = rows[parseInt(idxEB)].files;
-    setSelectedRows(selectedRowsData);
-  }, [idEB, idxEB, rows]);
+    getRows();
+  }, []);
+  ////////////////////////////////////////////////////////////////
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -48,7 +68,7 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
   };
 
   // Sorting Logic
-  let sortedRows = selectedRows.slice();
+  let sortedRows = rows.slice();
   if (sortBy) {
     sortedRows.sort((a, b) => {
       const aValue = a[sortBy];
@@ -66,6 +86,41 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
     const filterValue = filters[column].toLowerCase();
     sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
   });
+
+  const deleteRow = async (id) => {
+    await axios.post("/deleteFile", { id: id });
+    getRows();
+  }
+
+  // const editRow=(id)=>{
+  //     navigate(`/updateFile/${id}`);
+  // }
+
+  const handleDownload = async (id) => {
+    const r = await axios.post("/getFile", { id: id });
+    // Convert base64 string to Uint8Array
+    const base64FileData = r.data["piece"]["data"];
+    const uint8Array = new Uint8Array(atob(base64FileData).split('').map(char => char.charCodeAt(0)));
+
+    // Create a Blob from the Uint8Array
+    const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+    // Create a download URL for the Blob
+    const downloadUrl = URL.createObjectURL(blob);
+
+    // Create a link element for downloading
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'filename.txt'; // Specify the desired filename
+    document.body.appendChild(link);
+
+    // Programmatically click the link to trigger the download
+    link.click();
+
+    // Clean up by revoking the Blob URL
+    URL.revokeObjectURL(downloadUrl);
+
+  };
 
   return (
     <div className="table-wrapper">
@@ -87,11 +142,11 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => handleSort("id")}>
-              Id {sortBy === "id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort(columns[0])}>
+              Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => this.handleSort("agence")}>
-              Name {sortBy === "agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => this.handleSort(columns[1])}>
+              Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
         </thead>
@@ -99,27 +154,27 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
           {sortedRows.map((row, idx) => {
             return (
               <tr key={idx}>
-                <td>{row.id}</td>
-                <td>{row.name}</td>
+                <td>{row.num}</td>
+                <td>{row.libelle}</td>
 
                 <td className="fit">
                   <span className="actions">
                     <BsFillTrashFill
                       className="edit-btn"
                       id="delete"
-                      onClick={() => deleteRow(idEB, idxEB, row.id, idx)}
+                      onClick={() => deleteRow(row.num)}
                     />
                     <BsFillPencilFill
                       className="edit-btn"
-                      onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                    // onClick={() => editRow(idEB, idxEB, row.id, idx)}
                     />
                     <BsFillEyeFill
                       className="edit-btn"
-                      onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                    // onClick={() => editRow(idEB, idxEB, row.id, idx)}
                     />
                     <BsBoxArrowDown
                       className="edit-btn"
-                      onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                      onClick={() => handleDownload(row.num)}
                     />
 
                   </span>
@@ -133,4 +188,4 @@ const ListOperations = ({ rows, columns, deleteRow, editRow }) => {
   );
 };
 
-export default ListOperations;
+export default ListFiles;

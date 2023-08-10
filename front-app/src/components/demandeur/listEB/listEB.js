@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../sidebar/sideBar";
 
@@ -104,18 +104,19 @@ const ListEB = () => {
       row[column].toLowerCase().includes(filterValue)
     );
   });
-
+  const navigate=useNavigate();
   const editRow=(id)=>{
-
+    navigate(`/updateEB/${id}`);
   }
-  const deleteRow=(id)=>{
-
+  const deleteRow= async (id)=>{
+    await axios.post("/deleteEB", { id: id });
+    getRows();
   }
   const handleFiles=(id)=>{
-
+    navigate(`/listFiles/${id}`);
   }
   const handleOperations=(id)=>{
-
+    navigate(`/listOperations/${id}`);
   }
 
   return (
@@ -186,17 +187,17 @@ const ListEB = () => {
                 <td>{row.modePassation}</td>
                 <td>{row.qualification}</td>
                 <td>{row.secteur}</td>
-                <td><a onClick={() => handleOperations(row.id)}>operations</a></td>
-                <td><a onClick={() => handleFiles(row.id)}>files</a></td>
+                <td><a onClick={() => handleOperations(row.num)}>operations</a></td>
+                <td><a onClick={() => handleFiles(row.num)}>files</a></td>
                 <td className="fit">
                   <span className="actions">
                     <BsFillTrashFill
                       className="delete-btn"
-                      onClick={() => deleteRow(row.id)}
+                      onClick={() => deleteRow(row.num)}
                     />
                     <BsFillPencilFill
                       className="edit-btn"
-                      onClick={() => editRow(row.id)}
+                      onClick={() => editRow(row.num)}
                     />
                   </span>
                 </td>
