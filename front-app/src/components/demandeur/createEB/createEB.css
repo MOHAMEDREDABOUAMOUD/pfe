@@ -1,7 +1,8 @@
 .formCreateUser{
     height: 100vh;
-    margin-top: 200px;
-    margin-left: 100px;
+    margin-top: 700px;
+    margin-left: 250px;
+    width: 60%;
 }
 .files{
     display: flex;
@@ -17,6 +18,19 @@
     height: 30px;
     margin-top: 0px;
 }
+.bara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    width: 70px;
+  }
 button{
     width: 70px;
 }

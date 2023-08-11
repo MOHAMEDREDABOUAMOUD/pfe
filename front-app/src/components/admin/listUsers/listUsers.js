@@ -4,6 +4,7 @@ import "./listUsers.css";
 import Sidebar from "../sidebar/sideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import logo from "./logo-omrane.png";
 
 const ListUsers = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -108,6 +109,9 @@ const ListUsers = () => {
 
   return (
     <div className="table-wrapper">
+      <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
       <Sidebar />
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {showFilterDropdown && (
@@ -117,6 +121,7 @@ const ListUsers = () => {
               <label>{column}</label>
               <input
                 type="text"
+                className="filter-input"
                 value={filters[column] || ""}
                 onChange={(e) => handleFilterChange(column, e.target.value)}
               />

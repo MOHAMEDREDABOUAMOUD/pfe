@@ -1,3 +1,17 @@
-.container{
-    height: 100vh;
+.settings-all{
+    width: 500px;
+    margin-left: -300px;
 }
+.bara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    width: 70px;
+  }

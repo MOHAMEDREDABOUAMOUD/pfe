@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Row, Col } from 'react-bootstrap';
-import Menu from "./Menu";
 import './LoginForm.css';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import logo from "./logo-omrane.png"; // Import Axios
 import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
@@ -65,7 +65,10 @@ function SignIn() {
 
   return (
     <div className="App">
-      <Menu />
+      <div className='app2'>
+      <div className="bara">
+          <img src={logo} className="image"></img>
+      </div>
       <div>
         <div className="wrapper bg-light d-flex align-items-center justify-content-center w-100">
           <div className="login">
@@ -106,6 +109,7 @@ function SignIn() {
             </form>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

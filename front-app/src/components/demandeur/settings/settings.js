@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../sidebar/sideBar";
+import Sidebar from '../../sidebar_dem/sideBar';
+import logo from "./logo-omrane.png";
 import axios from "axios";
 
 const Settings = () => {
@@ -41,7 +42,12 @@ const Settings = () => {
   };
 
   return (
+    <center>
+      <div className="all-settings">
     <div className="container mt-5">
+    <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
       <Sidebar />
       <ul className="nav nav-tabs">
         <li className="nav-item">
@@ -138,6 +144,8 @@ const Settings = () => {
         )}
       </div>
     </div>
+    </div>
+    </center>
   );
 };
 

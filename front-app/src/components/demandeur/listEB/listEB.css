@@ -1,5 +1,4 @@
 .table-wrapper{
-    height: 100vh;
     width: 100%;
 }
 .table{
@@ -14,6 +13,44 @@
     max-width: 80%;
     margin: auto;
     overflow-x: auto;
+}
+.bara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    width: 70px;
+  }
+  .inputat{
+    width: 100px;
+}
+.filter-dropdown{
+   
+}
+.filter-input{
+    margin-left: 10px;
+}
+.filter{
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 150px;
+    border-radius: 10px;
+    height: 50px;
+    border: 1px solid #777;
+}
+.input-fil{
+    width: 80px;
+    border-radius: 3px;
+}
+label{
+    font-size: 14px;
 }
 .table thead{
     background-color: #ccc;

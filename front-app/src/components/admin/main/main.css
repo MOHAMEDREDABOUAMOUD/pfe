@@ -16,6 +16,23 @@
         margin-left: 0px;
     }
   }
-
+.bara{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  padding: 40px;
+}
+.image{
+  position: fixed;
+  top: 10px;
+  width: 70px;
+}
+.App{
+  background-color: #fff;
+  background-size:cover;
+  height: 753px;
+  width: 100%;
+}
   
   
