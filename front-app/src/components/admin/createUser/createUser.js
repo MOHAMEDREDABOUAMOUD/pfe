@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './createUser.css';
 import Sidebar from '../sidebar/sideBar';
 import axios from 'axios';
+import logo from "./logo-omrane.png";
 import { useNavigate } from 'react-router-dom';
 
 const CreateUser = () => {
@@ -22,7 +23,11 @@ const CreateUser = () => {
 };
 
   return (
+    <div className='all-div'>
     <div className='formCreateUser'>
+      <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
       <Sidebar />
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
@@ -108,6 +113,7 @@ const CreateUser = () => {
         </div>
         <button type='submit' className='btn btn-primary'>Creer</button>
       </form>
+    </div>
     </div>
   );
 };

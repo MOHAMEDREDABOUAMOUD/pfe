@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
+import Sidebar from '../../sidebar_dem/sideBar';
+import logo from "./logo-omrane.png";
 import "./dashboard.css";
 
 const DashboardD = () => {
@@ -79,6 +81,11 @@ const DashboardD = () => {
 
   return (
     <div className="dashboard">
+      <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
+      <Sidebar />
+    <div className="dashboard">
       <div className="dashboard-item">
         <h2>Number of Users: {numberOfUsersData}</h2>
       </div>
@@ -102,6 +109,7 @@ const DashboardD = () => {
         </div>
         <Bar data={marcheData} options={barOptions} />
       </div>
+    </div>
     </div>
   );
 };

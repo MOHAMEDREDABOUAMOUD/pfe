@@ -1,3 +1,27 @@
-.formCreateUser{
-    height: 100vh;
+body, html {
+    height: 100%;
 }
+
+.formCreateUser {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.all-div{
+    margin-top: -500px;
+    margin-left: -200px;
+}
+.bara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    width: 70px;
+  }

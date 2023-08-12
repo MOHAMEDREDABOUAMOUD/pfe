@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./createEB.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../sidebar/sideBar";
+import logo from "./logo-omrane.png";
+import Sidebar from '../../sidebar_dem/sideBar';
 
 const CreateEB = () => {
     const [objet, setObjet] = useState("");
@@ -141,7 +142,7 @@ const CreateEB = () => {
 
     return (
         <div className="formCreateUser">
-            <Sidebar />
+            <Sidebar/>
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <center>

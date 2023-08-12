@@ -3,6 +3,7 @@ import { Bar, Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import "./dashboard.css";
+import logo from "./logo-omrane.png";
 import Sidebar from "../sidebar/sideBar";
 
 const Dashboard = () => {
@@ -79,6 +80,10 @@ const Dashboard = () => {
   };
 
   return (
+    <div className="dashboard-all">
+      <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
     <div className="dashboard">
       <Sidebar/>
       <div className="dashboard-item">
@@ -104,6 +109,7 @@ const Dashboard = () => {
         </div>
         <Bar data={marcheData} options={barOptions} />
       </div>
+    </div>
     </div>
   );
 };

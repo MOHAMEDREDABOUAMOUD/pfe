@@ -3,7 +3,8 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../sidebar/sideBar";
+import logo from "./logo-omrane.png";
+import Sidebar from '../../sidebar_dem/sideBar';
 
 const ListEB = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -53,12 +54,12 @@ const ListEB = () => {
   const getRows = async () => {
     const u = await getEBs();
     console.log(u);
-    if(u!=null){
+    if (u != null) {
       setRows(u);
     }
     else setRows([]);
     const c = Object.keys(u[0]);
-    if(c!=null){
+    if (c != null) {
       setColumns(c);
     }
     else {
@@ -81,6 +82,7 @@ const ListEB = () => {
             <label>{column}</label>
             <input
               type="text"
+              className="inputat"
               value={filters[column] || ""}
               onChange={(e) => handleFilterChange(column, e.target.value)}
             />
@@ -129,6 +131,9 @@ const ListEB = () => {
 
   return (
     <div className="table-wrapper">
+      <div className="bara">
+        <center><img src={logo} className="image"></img></center>
+      </div>
       <Sidebar />
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {renderFilterDropdown()}
