@@ -5,6 +5,7 @@ import SideBar from "./SideBar"
 import "./main.css"
 import Sidebar from "../sidebar/sideBar";
 import logo from "./logo-omrane.png";
+import welcome from "./welcome.png"
 
 function MainAdmin() {
   // State to track the active component in MainAdmin
@@ -20,6 +21,9 @@ function MainAdmin() {
       <div className="bara">
           <center><img src={logo} className="image"></img></center>
       </div>
+      <center>
+        <img src={welcome} className="welcome"></img>
+      </center>
         {/* <div className="big-containt">
         <SideBar setActiveContent={setActiveContent} />
       <center>

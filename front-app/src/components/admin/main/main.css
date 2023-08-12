@@ -16,6 +16,11 @@
         margin-left: 0px;
     }
   }
+  .welcome{
+    margin-left: 60px;
+    width: 700px;
+    margin-top: -200px;
+  }
 .bara{
   position: fixed;
   top: 0;

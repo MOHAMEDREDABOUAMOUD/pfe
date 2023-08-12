@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate, Link, useNavigate } from 'react
 import './App.css';
 import { useState } from "react";
 import MainAdmin from './components/admin/main/main';
+import Maindem from './components/demandeur/main/main';
 import CreateUser from './components/admin/createUser/createUser';
 import ListUsers from './components/admin/listUsers/listUsers';
 import UpdateUser from './components/admin/updateUser/updateUser';
@@ -22,6 +23,7 @@ import AddOperation from './components/demandeur/createEB/addOperation';
 // import MainDemandeur from './components/demandeur/main/main';
 import View from './components/demandeur/listEB/view';
 import Sidebar from './components/admin/sidebar/sideBar';
+import Maindti from './components/dti/main/main';
 
 function App() {
   return (
@@ -33,7 +35,9 @@ function App() {
         <Route path='/updateUser/:id' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/settings' element={<Settings />}></Route>
-        
+        <Route path='/demandeur/main' element={<Maindem />}></Route>
+        <Route path='/admin/main' element={<MainAdmin />}></Route>
+        <Route path='/dti/main' element={<Maindti />}></Route>
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path="/listEB" element={<ListEB/>} />
         <Route path='/updateEB/:id' element={<UpdateEB />}></Route>

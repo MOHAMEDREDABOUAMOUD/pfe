@@ -24,7 +24,12 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
-          }
+          },
+          {
+            title: 'Dashboard',
+            path: '/dashboard',
+            icon: <FaIcons.FaCartPlus />
+          },
         ]
     },
     // {
@@ -74,16 +79,22 @@ export const SidebarData = [
     //     //   }
     //     // ]
     // },
+    
     {
-        title: 'Dashboard',
-        path: '/dashboard',
-        icon: <FaIcons.FaCartPlus />
-    },
-    {
-        title: 'settings',
-        path: '/settings',
-        icon: <IoIcons.IoMdPeople />
-    }
+      title: 'Securité',
+      path: '',
+      icon: <AiIcons.AiFillHome />,
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+
+      subNav: [
+        {
+          title: 'informations personelles',
+      path: '/settings',
+      icon: <AiIcons.AiFillHome />
+        }
+      ]
+  },
     //   ,{
     //     title: 'Messages',
     //     path: '/messages',

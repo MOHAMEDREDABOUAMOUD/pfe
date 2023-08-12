@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sideBar";
 import axios from "axios";
 import logo from "./logo-omrane.png";
+import './settings.css'
 
 const Settings = () => {
   const [email, setEmail] = useState("");
