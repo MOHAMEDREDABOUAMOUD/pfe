@@ -42,7 +42,7 @@ function App() {
         <Route path='/addOperation/:id' element={<AddOperation/>}></Route>
         <Route path='/dashboardEB' element={<DashboardD />}></Route>
         <Route path='/settingsEB' element={<SettingsD />}></Route>
-        <Route path='/view' element={<View/>}></Route>
+        <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
       </Routes>
     </div>

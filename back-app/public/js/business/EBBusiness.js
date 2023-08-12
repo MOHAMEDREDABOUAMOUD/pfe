@@ -28,7 +28,7 @@ class EBBusiness {
         const idEB = await EBDAO.create(eb);
         console.log("eb added : " + idEB);
         for (let i = 0; i < fileList.length; i++) {
-            await PieceBusiness.Add(new Piece({ num: -1, libelle: fileList[i]["name"], piece: fileList[i]["file"], numEB: idEB }));
+            await PieceBusiness.Add(new Piece({ num: -1, libelle: fileList[i]["name"], piece: fileList[i]["file"], fileName: fileList[i]["fileName"], numEB: idEB }));
             console.log(fileList);//[i]["file"]
         }
         console.log("pieces added");

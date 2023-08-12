@@ -18,7 +18,9 @@ const CreateEB = () => {
     const [qualification, setQualification] = useState("000");
     const [libelle, setLibelle] = useState("");
     const [piece, setPiece] = useState([]);
+    const [fileName, setFileName] = useState("");
     const [daFile, setDaFile] = useState([]);
+    const [daFileName, setDaFileName] = useState("");
     const [imputation, setImputation] = useState("");
     const [natureProjet, setNatureProjet] = useState("");
     const [operation, setOperation] = useState("");
@@ -35,11 +37,13 @@ const CreateEB = () => {
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
+        const fileName = selectedFile.name;
         const fileReader = new FileReader();
         fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
+            const fileData = event.target.result;
+            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
             setPiece(base64FileData);
+            setFileName(fileName);
         };
         fileReader.readAsArrayBuffer(selectedFile);
     };
@@ -47,11 +51,13 @@ const CreateEB = () => {
     const handleDAFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
+        const fileName = selectedFile.name;
         const fileReader = new FileReader();
         fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
+            const fileData = event.target.result;
+            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
             setDaFile(base64FileData);
+            setDaFileName(fileName);
         };
         fileReader.readAsArrayBuffer(selectedFile);
     };
@@ -61,12 +67,14 @@ const CreateEB = () => {
         // Handle file upload logic here
         const filee = {
             name: libelle,
+            fileName:fileName,
             file: piece,
         };
         console.log("piece : " + piece);
         setFileList((prevFileList) => [...prevFileList, filee]);
         setLibelle("");
         setPiece([]);
+        setFileName("");
         //console.log(fileList);
     };
 
@@ -77,6 +85,7 @@ const CreateEB = () => {
         const op = {
             agence: agenceOp,
             daFile: daFile,
+            daFileName : daFileName,
             imputation: imputation,
             natureProjet: natureProjet,
             operation: operation,
@@ -89,6 +98,7 @@ const CreateEB = () => {
         setOperationList((prevOperationList) => [...prevOperationList, op]);
         setAgence("Fes");
         setDaFile([]);
+        setDaFileName("");
         setImputation("");
         setNatureProjet("");
         setOperation("");
@@ -104,7 +114,7 @@ const CreateEB = () => {
         event.preventDefault();
         // Combine all data into the EB dictionary
         console.log(fileList);
-        const progValue = progNonProgram ? "Non" : "Oui";
+        const progValue = progNonProgram ? "Oui" : "Non";
         setProgNonProg(progValue);
         console.log(progNonProg);
         const EBData = {
@@ -131,7 +141,7 @@ const CreateEB = () => {
 
     return (
         <div className="formCreateUser">
-            <Sidebar/>
+            <Sidebar />
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <center>

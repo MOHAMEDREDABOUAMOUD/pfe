@@ -144,7 +144,6 @@ app.post("/createUser", async (req, res) => {
 
 app.post("/createEB", async (req, res)=>{
     const { objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
-    console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
     EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 
@@ -159,7 +158,6 @@ app.post("/updateUser", async (req, res) => {
     try {
         const user = new Utilisateur({ immatricule: id, email: email, nom: nom, prenom: prenom, login: login, pwd: pwd, fonction: fonction, sexe: sexe });
         const r = await UtilisateurBusiness.update(user);
-        console.log(r);
         res.status(200).json(r);
     } catch (error) {
         console.log(error);
@@ -186,7 +184,6 @@ app.post("/getCurrentUserData", async (req, res) => {
     const { id } = req.body;
     try {
         const user = await UtilisateurBusiness.searchByNum(currentUser);
-        console.log(user);
         res.status(200).json(user);
     } catch (error) {
         console.log(error);
@@ -198,7 +195,6 @@ app.post("/updateSettingsIP", async (req, res) => {
     try {
         const user = new Utilisateur({ immatricule: currentUser, email: email, nom: nom, prenom: prenom, login: "", pwd: "", fonction: "", sexe: "" });
         const r = await UtilisateurBusiness.updateIP(user);
-        console.log(r);
         res.status(200).json(r);
     } catch (error) {
         console.log(error);
@@ -210,7 +206,6 @@ app.post("/updateSettingsS", async (req, res) => {
     try {
         const user = new Utilisateur({ immatricule: currentUser, email: "", nom: "", prenom: "", login: login, pwd: pwd, fonction: "", sexe: "" });
         const r = await UtilisateurBusiness.updateS(user);
-        console.log(r);
         res.status(200).json(r);
     } catch (error) {
         console.log(error);

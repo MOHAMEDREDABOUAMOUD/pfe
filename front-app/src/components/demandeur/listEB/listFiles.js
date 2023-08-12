@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp, BsFillEyeFill, BsBoxArrowDown } from "react-icons/bs";
 import "./listEB.css";
 import "./listFiles.css"
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const ListFiles = () => {
@@ -29,9 +29,19 @@ const ListFiles = () => {
   const getRows = async () => {
     const u = await getFiles();
     console.log(u);
-    setRows(u);
+    if(u!=null){
+      setRows(u);
+    }
+    else {
+      setRows([]);
+    }
     const c = Object.keys(u[0]);
-    setColumns(c);
+    if(c!=null){
+      setColumns(c);
+    }
+    else{
+      setColumns([]);
+    }
     console.log(c);
   };
 
@@ -69,7 +79,7 @@ const ListFiles = () => {
 
   // Sorting Logic
   let sortedRows = rows.slice();
-  if (sortBy) {
+  if (rows.length > 0 && sortBy) {
     sortedRows.sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
@@ -82,10 +92,12 @@ const ListFiles = () => {
   }
 
   // Filtering Logic
-  Object.keys(filters).forEach((column) => {
-    const filterValue = filters[column].toLowerCase();
-    sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
-  });
+  if (rows.length > 0) {
+    Object.keys(filters).forEach((column) => {
+      const filterValue = filters[column].toLowerCase();
+      sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+    });
+  }
 
   const deleteRow = async (id) => {
     await axios.post("/deleteFile", { id: id });
@@ -97,30 +109,42 @@ const ListFiles = () => {
   // }
 
   const handleDownload = async (id) => {
-    const r = await axios.post("/getFile", { id: id });
-    // Convert base64 string to Uint8Array
-    const base64FileData = r.data["piece"]["data"];
-    const uint8Array = new Uint8Array(atob(base64FileData).split('').map(char => char.charCodeAt(0)));
+    try {
+      const response = await axios.post("/getFile", { id: id });
+      const buffer = new Uint8Array(response.data["piece"].data);
+      const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
+      //console.log(binaryString);
+      // Create a Blob from the Uint8Array
+      const decodedData = atob(binaryString);
+      const uint8Array = new Uint8Array(decodedData.length);
+      for (let i = 0; i < decodedData.length; i++) {
+        uint8Array[i] = decodedData.charCodeAt(i);
+      }
+      const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
 
-    // Create a Blob from the Uint8Array
-    const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+      // Create a download URL for the Blob
+      const downloadUrl = URL.createObjectURL(blob);
 
-    // Create a download URL for the Blob
-    const downloadUrl = URL.createObjectURL(blob);
+      // Create a link element for downloading
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = response.data["fileName"]; // Specify the desired filename
+      document.body.appendChild(link);
 
-    // Create a link element for downloading
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = 'filename.txt'; // Specify the desired filename
-    document.body.appendChild(link);
+      // Programmatically click the link to trigger the download
+      link.click();
 
-    // Programmatically click the link to trigger the download
-    link.click();
-
-    // Clean up by revoking the Blob URL
-    URL.revokeObjectURL(downloadUrl);
-
+      // Clean up by revoking the Blob URL
+      URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
   };
+
+  const navigate = useNavigate();
+  const viewFile=async(id)=>{
+    navigate(`/view/${id}`);
+  }
 
   return (
     <div className="table-wrapper">
@@ -170,7 +194,7 @@ const ListFiles = () => {
                     />
                     <BsFillEyeFill
                       className="edit-btn"
-                    // onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                      onClick={() => viewFile(row.num)}
                     />
                     <BsBoxArrowDown
                       className="edit-btn"

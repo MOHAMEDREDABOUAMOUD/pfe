@@ -46,9 +46,19 @@ const ListUsers = () => {
     console.log("eeeeeeeeeeeeee")
     const u = await getUsers();
     console.log(u);
-    setRows(u);
+    if(u!=null){
+      setRows(u);
+    }
+    else{
+      setRows([]);
+    }
     const c = Object.keys(u[0]);
-    setColumns(c);
+    if(c!=null){
+      setColumns(c);
+    }
+    else{
+      setColumns([]);
+    }
     console.log(c);
   };
 

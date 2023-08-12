@@ -164,7 +164,6 @@ class UtilisateurDAO {
       });
 
       if (rows.length === 0) {
-        console.log("0");
         return {};
       }
 
@@ -194,12 +193,10 @@ class UtilisateurDAO {
       });
 
       if (rows.length === 0) {
-        console.log("0");
         return {};
       }
 
       const user = JSON.parse(JSON.stringify(rows[0]));
-      console.log(user);
       return user ? new Utilisateur(user) : null;
     } catch (error) {
       console.error(error);

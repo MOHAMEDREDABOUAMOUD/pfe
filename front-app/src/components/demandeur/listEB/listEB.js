@@ -39,7 +39,7 @@ const ListEB = () => {
     // For now, let's just log the filters
     console.log(filters);
   };
-//////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////
   const getEBs = async () => {
     try {
       const response = await axios.post("/getEBs", { id: "1" });
@@ -53,16 +53,24 @@ const ListEB = () => {
   const getRows = async () => {
     const u = await getEBs();
     console.log(u);
-    setRows(u);
+    if(u!=null){
+      setRows(u);
+    }
+    else setRows([]);
     const c = Object.keys(u[0]);
-    setColumns(c);
+    if(c!=null){
+      setColumns(c);
+    }
+    else {
+      setColumns([]);
+    }
     console.log(c);
   };
 
   useEffect(() => {
     getRows();
   }, []);
-////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
   const renderFilterDropdown = () => {
     if (!showFilterDropdown) return null;
 
@@ -85,7 +93,7 @@ const ListEB = () => {
 
   // Sorting Logic
   let sortedRows = rows.slice();
-  if (sortBy) {
+  if (rows.length > 0 && sortBy) {
     sortedRows.sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
@@ -98,76 +106,76 @@ const ListEB = () => {
   }
 
   // Filtering Logic
-  Object.keys(filters).forEach((column) => {
-    const filterValue = filters[column].toLowerCase();
-    sortedRows = sortedRows.filter((row) =>
-      row[column].toLowerCase().includes(filterValue)
-    );
-  });
-  const navigate=useNavigate();
-  const editRow=(id)=>{
+  if (rows.length > 0) {
+    Object.keys(filters).forEach((column) => {
+      const filterValue = filters[column].toLowerCase();
+      sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+    });
+  }
+  const navigate = useNavigate();
+  const editRow = (id) => {
     navigate(`/updateEB/${id}`);
   }
-  const deleteRow= async (id)=>{
+  const deleteRow = async (id) => {
     await axios.post("/deleteEB", { id: id });
     getRows();
   }
-  const handleFiles=(id)=>{
+  const handleFiles = (id) => {
     navigate(`/listFiles/${id}`);
   }
-  const handleOperations=(id)=>{
+  const handleOperations = (id) => {
     navigate(`/listOperations/${id}`);
   }
 
   return (
     <div className="table-wrapper">
-    <Sidebar/>
+      <Sidebar />
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => handleSort(columns[0])}>
-              Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Id")}>
+              Id {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[1])}>
-              Objet {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Objet")}>
+              Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[2])}>
-              Agence {sortBy === columns[2] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Agence")}>
+              Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[3])} className="expand">
-              Observation {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Observation")} className="expand">
+              Observation {sortBy === "Observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[4])}>
-              Prog_nonProg {sortBy === columns[4] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("prog/non pog")}>
+              Prog_nonProg {sortBy === "prog/non pog" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[5])}>
-              Classe {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Classe")}>
+              Classe {sortBy === "Classe" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[6])}>
-              Caution {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Caution")}>
+              Caution {sortBy === "Caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[7])}>
-              Estimation {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Estimation")}>
+              Estimation {sortBy === "Estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[8])}>
-              Date EB {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Date EB")}>
+              Date EB {sortBy === "Date EB" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[9])}>
-              Mode de Passation {sortBy === columns[9] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Mode de passation")}>
+              Mode de Passation {sortBy === "Mode de passation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[10])}>
-              Qualification {sortBy === columns[10] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Qualification")}>
+              Qualification {sortBy === "Qualification" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[11])}>
-              Secteur {sortBy === columns[11] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Secteur")}>
+              Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[12])}>
-              Operations {sortBy === columns[12] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Operations")}>
+              Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[13])}>
-              Files {sortBy === columns[13] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            <th onClick={() => handleSort("Files")}>
+              Files {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
         </thead>
