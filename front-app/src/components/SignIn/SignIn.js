@@ -5,6 +5,7 @@ import './LoginForm.css';
 import axios from 'axios';
 import logo from "./logo-omrane.png"; // Import Axios
 import { useNavigate } from 'react-router-dom';
+import titre from './titre.png'
 
 function SignIn() {
   const [userName, setUserName] = useState('');
@@ -68,9 +69,10 @@ function SignIn() {
       <div className='app2'>
       <div className="bara">
           <img src={logo} className="image"></img>
+          
       </div>
       <div>
-        <div className="wrapper bg-light d-flex align-items-center justify-content-center w-100">
+        <div className="wrapper d-flex align-items-center justify-content-center w-100">
           <div className="login">
             <h2 className="mb-3">Sign In</h2>
             <form className="needs-validation" onSubmit={handleSubmit}>

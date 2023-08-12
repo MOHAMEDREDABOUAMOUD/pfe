@@ -6,67 +6,50 @@ import * as RiIcons from 'react-icons/ri';
 
 export const SidebarData = [
   {
-    title: 'create EB',
-    path: '/createEB',
+    title: 'Gestion Expression Besoin',
+    path: '',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
-    // subNav: [
-    //   {
-    //     title: 'Users',
-    //     path: '/overview/users',
-    //     icon: <IoIcons.IoIosPaper />
-    //   },
-    //   {
-    //     title: 'Revenue',
-    //     path: '/overview/revenue',
-    //     icon: <IoIcons.IoIosPaper />
-    //   }
-    // ]
+    subNav: [
+      {
+        title: 'create EB',
+        path: '/createEB',
+        icon: <AiIcons.AiFillHome />,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+      },
+      {
+        title: 'list EB',
+        path: '/listEB',
+        icon: <IoIcons.IoIosPaper />,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+      },
+
+      {
+        title: 'Dashboard',
+        path: '/dashboard',
+        icon: <FaIcons.FaCartPlus />
+      },
+    ]
   },
   {
-    title: 'list EB',
-    path: '/listEB',
-    icon: <IoIcons.IoIosPaper />,
+    title: 'Securité',
+    path: '',
+    icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
-    // subNav: [
-    //   {
-    //     title: 'Reports',
-    //     path: '/reports/reports1',
-    //     icon: <IoIcons.IoIosPaper />,
-    //     cName: 'sub-nav'
-    //   },
-    //   {
-    //     title: 'Reports 2',
-    //     path: '/reports/reports2',
-    //     icon: <IoIcons.IoIosPaper />,
-    //     cName: 'sub-nav'
-    //   },
-    //   {
-    //     title: 'Reports 3',
-    //     path: '/reports/reports3',
-    //     icon: <IoIcons.IoIosPaper />
-    //   }
-    // ]
+    subNav: [
+      {
+        title: 'Informations personnels',
+        path: '/settingsEB',
+        icon: <IoIcons.IoMdPeople />
+      }
+    ]
   },
-  {
-    title: 'Update EB',
-    path: '/updateEB',
-    icon: <IoIcons.IoMdPeople />
-  },
-  {
-    title: 'Dashboard',
-    path: '/dashboardEB',
-    icon: <FaIcons.FaCartPlus />
-  },
-  {
-    title: 'settings',
-    path: '/settingsEB',
-    icon: <IoIcons.IoMdPeople />
-  }
 //   ,{
 //     title: 'Messages',
 //     path: '/messages',

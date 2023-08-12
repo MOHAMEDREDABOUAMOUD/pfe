@@ -13,6 +13,7 @@ const Nav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  
 `;
 
 const NavIcon = styled(Link)`
@@ -21,11 +22,12 @@ const NavIcon = styled(Link)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  
 `;
 
 const SidebarNav = styled.nav`
-  background: #15171c;
-  width: 250px;
+  background: #e2e3e5;
+  width: 260px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -34,6 +36,7 @@ const SidebarNav = styled.nav`
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 350ms;
   z-index: 10;
+  
 `;
 
 const SidebarWrap = styled.div`
@@ -48,7 +51,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#fff' }}>
+            <IconContext.Provider value={{ color: '#000' }}>
                 <div className='openMenu'>
                     <Nav>
                         <NavIcon className="open" to='#'>
