@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { useParams } from 'react-router-dom';
+import Sidebar from '../sidebar/sideBar';
 
 const View = () => {
   const { id } = useParams();
@@ -41,6 +42,7 @@ const View = () => {
 
   return (
     <div className='document'>
+      <Sidebar/>
       {data}
     </div>
   );

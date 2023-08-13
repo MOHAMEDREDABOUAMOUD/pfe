@@ -3,9 +3,8 @@ import "./createEB.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
-import Sidebar from '../../sidebar_dti/sideBar';
-
-const CreateEB = () => {
+import Sidebar from '../sidebar/sideBar';
+const CreateEBDti = () => {
     const [objet, setObjet] = useState("");
     const [observation, setObservation] = useState("");
     const [caution, setCaution] = useState("");
@@ -133,7 +132,7 @@ const CreateEB = () => {
         };
         setEB(EBData);
         await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progNonProg, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList, });
-        navigate("/listEB");
+        navigate("/listEBDti");
     };
 
     useEffect(() => {
@@ -417,4 +416,4 @@ const CreateEB = () => {
     );
 };
 
-export default CreateEB;
+export default CreateEBDti;

@@ -3,7 +3,7 @@ import React, { Component, useEffect, useState } from 'react'
 import Sidebar from '../sidebar/sideBar';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-export default function UpdateOp() {
+export default function UpdateOpDti() {
     const { id} = useParams();
 
     const [agence, setAgence] = useState('');

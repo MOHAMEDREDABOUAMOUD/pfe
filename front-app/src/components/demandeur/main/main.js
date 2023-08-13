@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Row, Col } from 'react-bootstrap';
 import "./main.css"
-import Sidebar from '../../sidebar_dem/sideBar';
+import Sidebar from '../sidebar/sideBar';
 import logo from "./logo-omrane.png";
 import welcome from "./welcome.png"
 
@@ -17,6 +17,7 @@ function Maindem() {
 
   return (
     <div className="App">
+      <Sidebar/>
       <div className="bara">
           <center><img src={logo} className="image"></img></center>
       </div>

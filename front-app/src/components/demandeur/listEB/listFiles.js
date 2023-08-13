@@ -4,6 +4,7 @@ import "./listEB.css";
 import "./listFiles.css"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Sidebar from '../sidebar/sideBar';
 
 const ListFiles = () => {
   const { id } = useParams();
@@ -94,8 +95,8 @@ const ListFiles = () => {
   // Filtering Logic
   if (rows.length > 0) {
     Object.keys(filters).forEach((column) => {
-      const filterValue = filters[column].toLowerCase();
-      sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+      const filterValue = filters[column].toString().toLowerCase();
+      sortedRows = sortedRows.filter((row) => row[column].toString().toLowerCase().includes(filterValue));
     });
   }
 
@@ -148,6 +149,7 @@ const ListFiles = () => {
 
   return (
     <div className="table-wrapper">
+      <Sidebar/>
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {showFilterDropdown && (
         <div className="filter-dropdown">
@@ -169,7 +171,7 @@ const ListFiles = () => {
             <th onClick={() => handleSort(columns[0])}>
               Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => this.handleSort(columns[1])}>
+            <th onClick={() => handleSort(columns[1])}>
               Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
@@ -178,8 +180,8 @@ const ListFiles = () => {
           {sortedRows.map((row, idx) => {
             return (
               <tr key={idx}>
-                <td>{row.num}</td>
-                <td>{row.libelle}</td>
+                <td>{row.num.toString()}</td>
+                <td>{row.libelle.toString()}</td>
 
                 <td className="fit">
                   <span className="actions">

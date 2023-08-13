@@ -1,7 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Row, Col } from 'react-bootstrap';
-import SideBar from "./SideBar"
 import "./main.css"
 import Sidebar from "../sidebar/sideBar";
 import logo from "./logo-omrane.png";

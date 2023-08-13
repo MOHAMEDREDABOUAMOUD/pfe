@@ -4,9 +4,9 @@ import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
-import Sidebar from '../../sidebar_dti/sideBar';
+import Sidebar from '../sidebar/sideBar';
 
-const ListEB = () => {
+const ListEBDti = () => {
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
   const [filters, setFilters] = useState({});
@@ -116,17 +116,17 @@ const ListEB = () => {
   }
   const navigate = useNavigate();
   const editRow = (id) => {
-    navigate(`/updateEB/${id}`);
+    navigate(`/updateEBDti/${id}`);
   }
   const deleteRow = async (id) => {
     await axios.post("/deleteEB", { id: id });
     getRows();
   }
   const handleFiles = (id) => {
-    navigate(`/listFiles/${id}`);
+    navigate(`/listFilesDti/${id}`);
   }
   const handleOperations = (id) => {
-    navigate(`/listOperations/${id}`);
+    navigate(`/listOperationsDti/${id}`);
   }
 
   return (
@@ -223,4 +223,4 @@ const ListEB = () => {
   );
 };
 
-export default ListEB;
+export default ListEBDti;

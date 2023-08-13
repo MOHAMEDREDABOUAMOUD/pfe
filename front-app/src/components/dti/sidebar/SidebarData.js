@@ -15,12 +15,12 @@ export const SidebarData = [
     subNav: [
       {
         title: 'create EB',
-        path: '/createEB',
+        path: '/createEBDti',
         icon: <AiIcons.AiFillHome />
       },
       {
         title: 'list expression des besoins',
-        path: '/listEB',
+        path: '/listEBDti',
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -29,12 +29,12 @@ export const SidebarData = [
   },
   {
     title: 'Dashboard',
-    path: '/dashboardEB',
+    path: '/dashboardEBDti',
     icon: <FaIcons.FaCartPlus />
   },
   {
     title: 'settings',
-    path: '/settingsEB',
+    path: '/settingsEBDti',
     icon: <IoIcons.IoMdPeople />
   }
 ];

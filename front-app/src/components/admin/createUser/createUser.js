@@ -24,11 +24,11 @@ const CreateUser = () => {
 
   return (
     <div className='all-div'>
+    <div className="bara">
+        <center><img src={logo} className="image"></img></center>
+    </div>
     <div className='formCreateUser'>
-      <div className="bara">
-          <center><img src={logo} className="image"></img></center>
-      </div>
-      <Sidebar />
+    <Sidebar />
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label htmlFor='exampleFormControlInput1'>E-mail</label><br />

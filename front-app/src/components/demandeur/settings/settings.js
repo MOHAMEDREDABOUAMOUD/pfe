@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from '../../sidebar_dem/sideBar';
+import Sidebar from '../sidebar/sideBar';
 import logo from "./logo-omrane.png";
 import axios from "axios";
 import './settings.css'

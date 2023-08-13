@@ -4,11 +4,7 @@
   left: 0;
 }
 .open{
-    background-color: transparent;
-    
-}
-.items{
-    color: black;
+    background-color: rgb(197, 197, 197);
 }
 .close{
     height: 80px;

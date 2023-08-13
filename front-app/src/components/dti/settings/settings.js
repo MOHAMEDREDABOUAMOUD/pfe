@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from '../../sidebar_dti/sideBar';
+import Sidebar from '../sidebar/sideBar';
 import logo from "./logo-omrane.png";
 import axios from "axios";
 import './settings.css'
 
-const Settings = () => {
+const SettingsDti = () => {
   const [email, setEmail] = useState("");
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
@@ -150,4 +150,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsDti;

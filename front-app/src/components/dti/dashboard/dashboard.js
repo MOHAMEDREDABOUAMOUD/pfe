@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
-import Sidebar from '../../sidebar_dti/sideBar';
+import Sidebar from '../sidebar/sideBar';
 import logo from "./logo-omrane.png";
 import "./dashboard.css";
 
-const DashboardD = () => {
+const DashboardDti = () => {
   Chart.register(CategoryScale);
   // Sample data for the dashboard
   const [numberOfUsersData, setNumberOfUsersData] = useState(0);
@@ -114,4 +114,4 @@ const DashboardD = () => {
   );
 };
 
-export default DashboardD;
+export default DashboardDti;

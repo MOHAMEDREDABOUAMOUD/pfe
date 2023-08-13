@@ -3,6 +3,7 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listEB.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Sidebar from '../sidebar/sideBar';
 
 const ListOperations = () => {
     const { id } = useParams();
@@ -82,35 +83,56 @@ const ListOperations = () => {
     };
 
     // Sorting Logic
+    // Sorting Logic
     let sortedRows = rows.slice();
     if (sortBy) {
         sortedRows.sort((a, b) => {
             const aValue = a[sortBy];
             const bValue = b[sortBy];
+
+            // if (sortBy === 'code') {
+            //     if (typeof aValue === 'number' && typeof bValue === 'number') {
+            //         return sortAsc ? aValue - bValue : bValue - aValue; // Numeric sorting
+            //     } else {
+            //         return sortAsc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+            //     }
+            // }
+
             if (sortAsc) {
-                return aValue.localeCompare(bValue);
+                return aValue.toString().localeCompare(bValue.toString());
             } else {
-                return bValue.localeCompare(aValue);
+                return bValue.toString().localeCompare(aValue.toString());
             }
         });
     }
 
+
     // Filtering Logic
     Object.keys(filters).forEach((column) => {
         const filterValue = filters[column].toLowerCase();
-        sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+        sortedRows = sortedRows.filter((row) => {
+            return row[column].toString().toLowerCase().includes(filterValue);
+            // if (column === 'code') {
+            //     return row[column].toString().toLowerCase().includes(filterValue);
+            // } else if (row[column] && typeof row[column] === 'string') {
+            //     return row[column].toLowerCase().includes(filterValue);
+            // }
+            // return false; // Exclude rows that don't have the specified column or aren't strings
+        });
     });
 
-    const deleteRow=async(id)=>{
+
+    const deleteRow = async (id) => {
         await axios.post("/deleteOperation", { id: id });
         getRows();
     }
-    const editRow=(id)=>{
+    const editRow = (id) => {
         navigate(`/updateOperation/${id}`);
     }
 
     return (
         <div className="table-wrapper">
+            <Sidebar/>
             <button onClick={toggleFilterDropdown}>Filter Rows</button>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
@@ -132,29 +154,29 @@ const ListOperations = () => {
                         <th onClick={() => handleSort(columns[0])}>
                             Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[1])}>
+                        <th onClick={() => handleSort(columns[1])}>
                             Agence {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[2])} className="expand">
+                        <th onClick={() => handleSort(columns[2])}>
                             Imputation {sortBy === columns[2] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[3])}>
-                            nature projet {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => handleSort(columns[3])}>
+                            Nature Projet {sortBy === columns[3] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[4])}>
+                        <th onClick={() => handleSort(columns[4])}>
                             Operation {sortBy === columns[4] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[5])}>
-                            programme {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => handleSort(columns[5])}>
+                            Programme {sortBy === columns[5] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[6])}>
+                        <th onClick={() => handleSort(columns[6])}>
                             Situation {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[7])}>
+                        <th onClick={() => handleSort(columns[7])}>
                             Superficie {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => this.handleSort(columns[8])}>
-                            type projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        <th onClick={() => handleSort(columns[8])}>
+                            Type Projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
                     </tr>
                 </thead>
@@ -162,15 +184,15 @@ const ListOperations = () => {
                     {sortedRows.map((row, idx) => {
                         return (
                             <tr key={idx}>
-                                <td>{row.code}</td>
-                                <td>{row.agence}</td>
-                                <td>{row.imputation}</td>
-                                <td>{row.natureProjet}</td>
-                                <td>{row.operation}</td>
-                                <td>{row.programme}</td>
-                                <td>{row.situation}</td>
-                                <td>{row.superficie}</td>
-                                <td>{row.typeProjet}</td>
+                                <td>{row.code.toString()}</td>
+                                <td>{row.agence.toString()}</td>
+                                <td>{row.imputation.toString()}</td>
+                                <td>{row.natureProjet.toString()}</td>
+                                <td>{row.operation.toString()}</td>
+                                <td>{row.programme.toString()}</td>
+                                <td>{row.situation.toString()}</td>
+                                <td>{row.superficie.toString()}</td>
+                                <td>{row.typeProjet.toString()}</td>
                                 <td className="fit">
                                     <span className="actions">
                                         <BsFillTrashFill

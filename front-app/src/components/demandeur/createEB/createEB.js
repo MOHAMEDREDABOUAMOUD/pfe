@@ -3,7 +3,7 @@ import "./createEB.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
-import Sidebar from '../../sidebar_dem/sideBar';
+import Sidebar from '../sidebar/sideBar';
 
 const CreateEB = () => {
     const [objet, setObjet] = useState("");
@@ -68,7 +68,7 @@ const CreateEB = () => {
         // Handle file upload logic here
         const filee = {
             name: libelle,
-            fileName:fileName,
+            fileName: fileName,
             file: piece,
         };
         console.log("piece : " + piece);
@@ -86,7 +86,7 @@ const CreateEB = () => {
         const op = {
             agence: agenceOp,
             daFile: daFile,
-            daFileName : daFileName,
+            daFileName: daFileName,
             imputation: imputation,
             natureProjet: natureProjet,
             operation: operation,
@@ -132,7 +132,7 @@ const CreateEB = () => {
             operationList: operationList,
         };
         setEB(EBData);
-        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progNonProg, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList, });
+        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progNonProg, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
         navigate("/listEB");
     };
 
@@ -143,9 +143,9 @@ const CreateEB = () => {
     return (
         <div className="formCreateUser">
             <div className="bara">
-          <center><img src={logo} className="image"></img></center>
-      </div>
-            <Sidebar/>
+                <center><img src={logo} className="image"></img></center>
+            </div>
+            <Sidebar />
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <center>

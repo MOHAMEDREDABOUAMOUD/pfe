@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Sidebar from '../sidebar/sideBar';
 
-const AddOperation = () => {
+const AddOperationDti = () => {
     const [agence, setAgence] = useState('Fes');
     const [imputation, setImputation] = useState('');
     const [nature_projet, setNatureProjet] = useState('');
@@ -18,8 +19,8 @@ const AddOperation = () => {
     const navigate=useNavigate();
     const handleAddOperation =async (event) => {
         event.preventDefault();
-        await axios.post("/addOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet:type_projet, piece:piece});
-        navigate(`/listEB/${id}`);
+        await axios.post("/addOperationDti", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet:type_projet, piece:piece});
+        navigate(`/listEBDti`);
     };
     
     const handleFileUpload = (event) => {
@@ -36,6 +37,7 @@ const AddOperation = () => {
 
     return (
         <div className='formCreateUser'>
+            <Sidebar/>
             <form onSubmit={handleAddOperation}>
                 <div className='form-group'>
                     <center><h5>Add operation</h5></center>
@@ -93,4 +95,4 @@ const AddOperation = () => {
     );
 }
 
-export default AddOperation;
+export default AddOperationDti;

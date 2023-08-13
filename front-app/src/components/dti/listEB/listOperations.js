@@ -3,8 +3,9 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listEB.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Sidebar from '../sidebar/sideBar';
 
-const ListOperations = () => {
+const ListOperationsDti = () => {
     const { id } = useParams();
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
@@ -43,7 +44,7 @@ const ListOperations = () => {
     const handleAddOp = () => {
         //alert(idEB+" "+idxEB);
         //const { operations } = rowsEB[idxEB];
-        navigate(`/addOperation/${id}`);
+        navigate(`/addOperationDti/${id}`);
     };
 
     // useEffect(() => {
@@ -106,11 +107,12 @@ const ListOperations = () => {
         getRows();
     }
     const editRow=(id)=>{
-        navigate(`/updateOperation/${id}`);
+        navigate(`/updateOperationDti/${id}`);
     }
 
     return (
         <div className="table-wrapper">
+            <Sidebar/>
             <button onClick={toggleFilterDropdown}>Filter Rows</button>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
@@ -195,5 +197,5 @@ const ListOperations = () => {
     );
 };
 
-export default ListOperations;
+export default ListOperationsDti;
 

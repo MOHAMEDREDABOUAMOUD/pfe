@@ -24,8 +24,8 @@ const NavIcon = styled(Link)`
 `;
 
 const SidebarNav = styled.nav`
-  background: #e2e3e5;
-  width: 260px;
+  background: #15171c;
+  width: 250px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -48,7 +48,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#000' }}>
+            <IconContext.Provider value={{ color: '#fff' }}>
                 <div className='openMenu'>
                     <Nav>
                         <NavIcon className="open" to='#'>
@@ -56,23 +56,23 @@ const Sidebar = () => {
                         </NavIcon>
                     </Nav>
                 </div>
-                <SidebarNav sidebar={sidebar} className='sid'>
+                <SidebarNav sidebar={sidebar}>
                     <SidebarWrap>
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
                         {SidebarData.map((item, index) => {
-                            return <SubMenu item={item} className='items' key={index} />;
+                            return <SubMenu item={item} key={index} />;
                         })}
                         <div className="sidebar_profile flex">
                             <span className="nav_image">
-                                <img src={require('../images/logo-omrane.png')} alt="logo_img" />
+                                <img src={require('../../images/logo-omrane.png')} alt="logo_img" />
                             </span>
                             <div className="data_text">
                                 <span className="name">Mohamed-Reda</span><br />
                                 <span className="email">reda@gmail.com</span>
                             </div>
-                            <AiIcons.AiOutlineLogout />
+                            <AiIcons.AiOutlineLogout/>
                         </div>
                     </SidebarWrap>
                 </SidebarNav>

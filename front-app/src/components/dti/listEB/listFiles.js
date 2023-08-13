@@ -4,8 +4,9 @@ import "./listEB.css";
 import "./listFiles.css"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Sidebar from '../sidebar/sideBar';
 
-const ListFiles = () => {
+const ListFilesDti = () => {
   const { id } = useParams();
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
@@ -143,11 +144,12 @@ const ListFiles = () => {
 
   const navigate = useNavigate();
   const viewFile=async(id)=>{
-    navigate(`/view/${id}`);
+    navigate(`/viewDti/${id}`);
   }
 
   return (
     <div className="table-wrapper">
+      <Sidebar/>
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {showFilterDropdown && (
         <div className="filter-dropdown">
@@ -212,4 +214,4 @@ const ListFiles = () => {
   );
 };
 
-export default ListFiles;
+export default ListFilesDti;

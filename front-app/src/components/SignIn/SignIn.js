@@ -26,10 +26,13 @@ function SignIn() {
           // Redirect the user to a different page upon successful sign-in
           //console.log(response.data["fonction"]);
           if(response.data["fonction"]==="Admin"){
-            navigate("/listUsers");
+            navigate("/admin/main");
           }
           else if(response.data["fonction"]==="Demandeur"){
-            navigate("/listEB");
+            navigate("/demandeur/main");
+          }
+          else if(response.data["fonction"]==="DTI"){
+            navigate("/dti/main");
           }
           else{
             navigate("/");
@@ -69,7 +72,6 @@ function SignIn() {
       <div className='app2'>
       <div className="bara">
           <img src={logo} className="image"></img>
-          
       </div>
       <div>
         <div className="wrapper d-flex align-items-center justify-content-center w-100">
