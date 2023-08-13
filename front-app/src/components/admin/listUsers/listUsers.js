@@ -127,11 +127,11 @@ const ListUsers = () => {
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
-            <div key={column} className="filter-input">
+            <div key={column} className="filter">
               <label>{column}</label>
               <input
                 type="text"
-                className="filter-input"
+                className="input-fil"
                 value={filters[column] || ""}
                 onChange={(e) => handleFilterChange(column, e.target.value)}
               />

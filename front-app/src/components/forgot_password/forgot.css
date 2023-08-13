@@ -1,0 +1,42 @@
+.wrapper{
+    height: 100vh;
+}
+.app2{
+    background-image: url('./back.jpg');
+    background-size:cover;
+    height: 753px;
+    width: 100%;
+}
+.App{
+    
+    
+}
+.titre{
+    width: 300px;
+}
+.login {
+    width: 300px;
+    padding: 20px;
+    height: min-content;
+    border-radius: 5px;
+    color: black;
+    border: 3px solid green;
+    background-color: #fff;
+}
+.bara{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
+  }
+  .image{
+    position: absolute;
+    top: 10px;
+    width: 70px;
+    margin-left: 0px;
+  }
+  .btn{
+    background-color: green;
+  }

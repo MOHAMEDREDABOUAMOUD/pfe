@@ -36,6 +36,8 @@ import SettingsDti from './components/dti/settings/settings';
 import DashboardDti from './components/dti/dashboard/dashboard';
 import AddOperationDti from './components/dti/createEB/addOperation';
 import ViewDti from './components/dti/listEB/view';
+
+import ForgotPassword from './components/forgot_password/forgot';
 function App() {
   return (
     <div className="App">
@@ -72,6 +74,8 @@ function App() {
         <Route path='/settingsEBDti' element={<SettingsDti />}></Route>
         <Route path='/viewDti/:id' element={<ViewDti/>}></Route>
         <Route path='/listFilesDti/:id' element={<ListFilesDti/>}></Route>
+
+        <Route path='/forgotpass' element={<ForgotPassword />}></Route>
       </Routes>
     </div>
   );

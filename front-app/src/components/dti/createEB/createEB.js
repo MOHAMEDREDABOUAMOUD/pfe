@@ -141,6 +141,9 @@ const CreateEBDti = () => {
 
     return (
         <div className="formCreateUser">
+                  <div className="bara">
+          <center><img src={logo} className="image"></img></center>
+      </div>
             <Sidebar/>
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">

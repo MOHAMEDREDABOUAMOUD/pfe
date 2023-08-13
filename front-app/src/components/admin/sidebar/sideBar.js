@@ -64,18 +64,19 @@ const Sidebar = () => {
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
+                        <h1 className='espace'>Espace Admin</h1>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}
                         <div className="sidebar_profile flex">
                             <span className="nav_image">
-                                <img src={require('../../images/logo-omrane.png')} alt="logo_img" />
+                                <img src={require('../../images/logo-omrane.png')} className='img' alt="logo_img" />
                             </span>
                             <div className="data_text">
                                 <span className="name">Mohamed-Reda</span><br />
                                 <span className="email">reda@gmail.com</span>
                             </div>
-                            <AiIcons.AiOutlineLogout/>
+                            
                         </div>
                     </SidebarWrap>
                 </SidebarNav>

@@ -80,6 +80,7 @@ const DashboardD = () => {
   };
 
   return (
+    <div className="all">
     <div className="dashboard">
       <div className="bara">
           <center><img src={logo} className="image"></img></center>
@@ -109,6 +110,7 @@ const DashboardD = () => {
         </div>
         <Bar data={marcheData} options={barOptions} />
       </div>
+    </div>
     </div>
     </div>
   );
