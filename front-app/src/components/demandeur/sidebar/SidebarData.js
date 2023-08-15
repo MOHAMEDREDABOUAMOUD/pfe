@@ -22,8 +22,6 @@ export const SidebarData = [
         title: 'list EB',
         path: '/listEB',
         icon: <IoIcons.IoIosPaper />,
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
       },
     ]
   },

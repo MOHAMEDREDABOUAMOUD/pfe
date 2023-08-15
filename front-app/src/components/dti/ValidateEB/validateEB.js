@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../sidebar/sideBar';
 
-const UpdateEB = () => {
+const ValidateEBDti = () => {
     const { id } = useParams();
 
     const [objet, setObjet] = useState('');
@@ -17,20 +17,21 @@ const UpdateEB = () => {
     const [modePassation, setModePassation] = useState('');
     const [secteur, setSecteur] = useState('');
     const [qualification, setQualification] = useState('');
+    const [validerPar, setValiderPar] = useState('');
     const [numUtilisateur, setNumUtilisateur] = useState('');
 
     const navigate = useNavigate();
     const handleOperations = (id) => {
-        navigate(`/listOperations/${id}`);
+        navigate(`/listOperationsDti/${id}`);
     };
-    const handleSubmit = async (event) => {
+    const handleSubmitV = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
-        console.log("numUtilisateur : "+numUtilisateur);
+
         const progValue = progNonProgram ? "Oui" : "Non";
         setProg_nonprog(progValue);
 
         try {
-            await axios.post("/updateEB", {
+            await axios.post("/validateEBDti", {
                 id: id,
                 objet: objet,
                 agence: agence,
@@ -41,12 +42,33 @@ const UpdateEB = () => {
                 modePassation: modePassation,
                 secteur: secteur,
                 qualification: qualification,
-                numUtilisateur:numUtilisateur
+                numUtilisateur: numUtilisateur
             });
-            navigate("/listEB");
+            navigate("/listEBDti");
         } catch (error) {
             console.error(error);
         }
+    };
+    const handleSubmitR = async (event) => {
+        let email="";
+        if(validerPar.toString()!=""){
+            try {
+                const userData = await axios.post("/getUser", { id: validerPar });
+                email=userData.data["email"];
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        else{
+            try {
+                const userData = await axios.post("/getUser", { id: numUtilisateur });
+                email=userData.data["email"];
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        //send mail to email
+        navigate("/listEBDti");
     };
 
     useEffect(() => {
@@ -64,6 +86,7 @@ const UpdateEB = () => {
                 setModePassation(userData.data["modePassation"]);
                 setSecteur(userData.data["secteur"]);
                 setQualification(userData.data["qualification"]);
+                setValiderPar(userData.data["validerPar"]);
                 setNumUtilisateur(userData.data["numUtilisateur"]);
             } catch (error) {
                 console.error(error);
@@ -75,7 +98,7 @@ const UpdateEB = () => {
     return (
         <div className='formCreateUser'>
             <Sidebar />
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className='form-group'>
                     <center><h3>Creation d'une expression des besoins</h3></center>
                 </div>
@@ -151,11 +174,14 @@ const UpdateEB = () => {
                     <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>Update operations</button>
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" className="btn btn-primary big-btn">Update</button></center>
+                    <center><button type="submit" onClick={handleSubmitV} className="btn btn-primary big-btn">Valider l'expression des besoins</button></center>
+                </div>
+                <div className="form-group">
+                    <center><button type="submit" onClick={handleSubmitR} className="btn btn-primary big-btn">Refuser l'expression des besoins</button></center>
                 </div>
             </form>
         </div>
     );
 };
 
-export default UpdateEB;
+export default ValidateEBDti;

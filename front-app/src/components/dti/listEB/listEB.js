@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
+import { BsCheckCircle, BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -43,7 +43,7 @@ const ListEBDti = () => {
   //////////////////////////////////////////////////////////////
   const getEBs = async () => {
     try {
-      const response = await axios.post("/getEBs", { id: "1" });
+      const response = await axios.post("/getEBsDti", { id: "1" });
       return response.data;
     } catch (error) {
       console.error(error);
@@ -117,6 +117,9 @@ const ListEBDti = () => {
   const navigate = useNavigate();
   const editRow = (id) => {
     navigate(`/updateEBDti/${id}`);
+  }
+  const validateRow = (id) => {
+    navigate(`/validateEBDti/${id}`);
   }
   const deleteRow = async (id) => {
     await axios.post("/deleteEB", { id: id });
@@ -204,14 +207,23 @@ const ListEBDti = () => {
                 <td><a onClick={() => handleFiles(row.num)}>files</a></td>
                 <td className="fit">
                   <span className="actions">
-                    <BsFillTrashFill
+                    {/* <BsFillTrashFill
                       className="delete-btn"
                       onClick={() => deleteRow(row.num)}
-                    />
-                    <BsFillPencilFill
-                      className="edit-btn"
-                      onClick={() => editRow(row.num)}
-                    />
+                    /> */}
+                    {(row.numUtilisateur.toString() === row.currentUser.toString() && row.validerPar.toString()==='') || (row.numUtilisateur.toString()!=row.currentUser.toString() && row.validerPar.toString()===row.currentUser.toString())? (
+                      // Render the edit icon if numUtilisateur === currentUser
+                      <BsFillPencilFill
+                        className="edit-btn"
+                        onClick={() => editRow(row.num)}
+                      />
+                    ) : row.numUtilisateur != row.currentUser && (row.validerPar === row.currentUser || row.validerPar === '') ? (
+                      // Render the validate icon if validerPar matches currentUser or validerPar is not empty
+                      <BsCheckCircle
+                        className="validate-btn"
+                        onClick={() => validateRow(row.num)}
+                      />
+                    ) : null}
                   </span>
                 </td>
               </tr>
