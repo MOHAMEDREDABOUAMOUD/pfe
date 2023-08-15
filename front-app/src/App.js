@@ -39,12 +39,25 @@ import DashboardDti from './components/dti/dashboard/dashboard';
 import AddOperationDti from './components/dti/createEB/addOperation';
 import ViewDti from './components/dti/listEB/view';
 
+import MainCM from './components/CM/main/main';
+import ListEBCM from './components/CM/listEB/listEB';
+import UpdateEBCM from './components/CM/updateEB/updateEB';
+import ValidateEBCM from './components/CM/ValidateEB/validateEB';
+import ListOperationsCM from './components/CM/listEB/listOperations';
+import UpdateOpCM from './components/CM/updateEB/updateOp';
+import ListFilesCM from './components/CM/listEB/listFiles';
+import SettingsCM from './components/CM/settings/settings';
+import DashboardCM from './components/CM/dashboard/dashboard';
+import AddOperationCM from './components/CM/addOperation/addOperation';
+import ViewCM from './components/CM/listEB/view';
+
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={<LoginForm />}></Route>
         <Route path='/forgotPassword' element={<ForgotPassword/>}></Route>
+        <Route path='/forgotpass' element={<ForgotPassword />}></Route>
 
         <Route path='/admin/main' element={<MainAdmin />}></Route>
         <Route path='/createUser' element={<CreateUser />}></Route>
@@ -78,7 +91,17 @@ function App() {
         <Route path='/viewDti/:id' element={<ViewDti/>}></Route>
         <Route path='/listFilesDti/:id' element={<ListFilesDti/>}></Route>
 
-        <Route path='/forgotpass' element={<ForgotPassword />}></Route>
+        <Route path='/CM/main' element={<MainCM />}></Route>
+        <Route path="/listEBCM" element={<ListEBCM/>} />
+        <Route path='/updateEBCM/:id' element={<UpdateEBCM />}></Route>
+        <Route path='/validateEBCM/:id' element={<ValidateEBCM />}></Route>
+        <Route path="/listOperationsCM/:id" element={<ListOperationsCM/>} />
+        <Route path='/updateOperationCM/:id' element={<UpdateOpCM />}></Route> 
+        <Route path='/addOperationCM/:id' element={<AddOperationCM/>}></Route>
+        <Route path='/dashboardEBCM' element={<DashboardCM />}></Route>
+        <Route path='/settingsEBCM' element={<SettingsCM />}></Route>
+        <Route path='/viewCM/:id' element={<ViewCM/>}></Route>
+        <Route path='/listFilesCM/:id' element={<ListFilesCM/>}></Route>
       </Routes>
     </div>
   );

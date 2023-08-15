@@ -88,10 +88,19 @@ const ListOperationsDti = () => {
         sortedRows.sort((a, b) => {
             const aValue = a[sortBy];
             const bValue = b[sortBy];
+
+            // if (sortBy === 'code') {
+            //     if (typeof aValue === 'number' && typeof bValue === 'number') {
+            //         return sortAsc ? aValue - bValue : bValue - aValue; // Numeric sorting
+            //     } else {
+            //         return sortAsc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+            //     }
+            // }
+
             if (sortAsc) {
-                return aValue.localeCompare(bValue);
+                return aValue.toString().localeCompare(bValue.toString());
             } else {
-                return bValue.localeCompare(aValue);
+                return bValue.toString().localeCompare(aValue.toString());
             }
         });
     }
@@ -99,7 +108,15 @@ const ListOperationsDti = () => {
     // Filtering Logic
     Object.keys(filters).forEach((column) => {
         const filterValue = filters[column].toLowerCase();
-        sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+        sortedRows = sortedRows.filter((row) => {
+            return row[column].toString().toLowerCase().includes(filterValue);
+            // if (column === 'code') {
+            //     return row[column].toString().toLowerCase().includes(filterValue);
+            // } else if (row[column] && typeof row[column] === 'string') {
+            //     return row[column].toLowerCase().includes(filterValue);
+            // }
+            // return false; // Exclude rows that don't have the specified column or aren't strings
+        });
     });
 
     const deleteRow=async(id)=>{

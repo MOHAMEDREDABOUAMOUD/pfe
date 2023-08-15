@@ -193,6 +193,34 @@ class EBDAO {
       return [];
     }
   }
+  static async getDem(currentUser){
+    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar FROM EB inner join Utilisateur on EB.num=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?)";
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query,[currentUser] , (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+      const ebList = rows.map((eb) => {
+        // Convert the user object to plain JSON format
+        const ebObject = JSON.parse(JSON.stringify(eb));
+        // Add the currentUser field to the ebObject
+        ebObject.currentUser = currentUser;
+        return ebObject;
+      });
+      console.info(ebList);
+      return ebList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
 
 }
 

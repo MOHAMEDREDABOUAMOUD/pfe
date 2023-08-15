@@ -34,6 +34,9 @@ function SignIn() {
           else if(response.data["fonction"]==="DTI"){
             navigate("/dti/main");
           }
+          else if(response.data["fonction"]==="CM"){
+            navigate("/CM/main");
+          }
           else{
             navigate("/");
           }

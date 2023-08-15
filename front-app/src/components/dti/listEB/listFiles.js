@@ -95,8 +95,8 @@ const ListFilesDti = () => {
   // Filtering Logic
   if (rows.length > 0) {
     Object.keys(filters).forEach((column) => {
-      const filterValue = filters[column].toLowerCase();
-      sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+      const filterValue = filters[column].toString().toLowerCase();
+      sortedRows = sortedRows.filter((row) => row[column].toString().toLowerCase().includes(filterValue));
     });
   }
 
