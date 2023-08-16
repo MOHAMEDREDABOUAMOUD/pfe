@@ -4,7 +4,10 @@ import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
+import styled from 'styled-components';
+import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
+import Operation from './listOperations'
 
 const ListEB = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -13,6 +16,22 @@ const ListEB = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+
+  const NavIcon = styled(Link)`
+  margin-left: 2rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+`;
+
+  const [showOperation, setShowOperation] = useState(false);
+  const [ido, setido] = useState(0);
+
+  const handleButtonClick = () => {
+    setShowOperation(true);
+  };
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -82,7 +101,7 @@ const ListEB = () => {
             <label>{column}</label>
             <input
               type="text"
-              className="inputat"
+              className="input-fil"
               value={filters[column] || ""}
               onChange={(e) => handleFilterChange(column, e.target.value)}
             />
@@ -124,6 +143,7 @@ const ListEB = () => {
       }
     });
   }
+  
 
   // Filtering Logic
   Object.keys(filters).forEach((column) => {
@@ -150,8 +170,12 @@ const ListEB = () => {
     navigate(`/listFiles/${id}`);
   }
   const handleOperations = (id) => {
-    navigate(`/listOperations/${id}`);
+    setido(id);
+    setShowOperation(true);
   }
+  const handleCloseOperation = () => {
+    setShowOperation(false);
+  };
 
   return (
     <div className="table-wrapper">
@@ -159,7 +183,7 @@ const ListEB = () => {
         <center><img src={logo} className="image"></img></center>
       </div>
       <Sidebar />
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
@@ -201,7 +225,9 @@ const ListEB = () => {
               Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Operations")}>
+            <th onClick={handleButtonClick}>
               Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
             </th>
             <th onClick={() => handleSort("Files")}>
               Files {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -243,6 +269,14 @@ const ListEB = () => {
           })}
         </tbody>
       </table>
+      {showOperation && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseOperation} />
+          </NavIcon>
+          <Operation id={ido}/>
+        </div>
+      )}
     </div>
   );
 };

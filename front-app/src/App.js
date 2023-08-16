@@ -55,7 +55,7 @@ function App() {
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path="/listEB" element={<ListEB/>} />
         <Route path='/updateEB/:id' element={<UpdateEB />}></Route>
-        <Route path="/listOperations/:id" element={<ListOperations/>} />
+        <Route path="/listOperations" element={<ListOperations/>} />
         <Route path='/updateOperation/:id' element={<UpdateOp />}></Route> 
         <Route path='/addOperation/:id' element={<AddOperation/>}></Route>
         <Route path='/dashboardEB' element={<DashboardD />}></Route>

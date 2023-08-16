@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./updateEB.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
 
 const UpdateEB = () => {
@@ -70,7 +71,12 @@ const UpdateEB = () => {
     }, [id]);
 
     return (
+        <center>
+        <div className='all'>
         <div className='formCreateUser'>
+            <div className="bara">
+        <center><img src={logo} className="image"></img></center>
+      </div>
             <Sidebar />
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
@@ -152,6 +158,8 @@ const UpdateEB = () => {
                 </div>
             </form>
         </div>
+        </div>
+        </center>
     );
 };
 
