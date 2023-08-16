@@ -4,7 +4,7 @@ import { Button, Alert, Row, Col } from 'react-bootstrap';
 import './LoginForm.css';
 import axios from 'axios';
 import logo from "./logo-omrane.png"; // Import Axios
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import titre from './titre.png'
 
 function SignIn() {
@@ -33,6 +33,9 @@ function SignIn() {
           }
           else if(response.data["fonction"]==="DTI"){
             navigate("/dti/main");
+          }
+          else if(response.data["fonction"]==="CM"){
+            navigate("/CM/main");
           }
           else{
             navigate("/");
@@ -107,7 +110,7 @@ function SignIn() {
                 </div>
               </div>
               <div className="form-group form-check mb-2">
-                <label htmlFor="check" className="form-check-label"><a href=''>Forgot Password?</a></label>
+                <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">Forgot Password?</Link></label>
               </div>
               <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
             </form>

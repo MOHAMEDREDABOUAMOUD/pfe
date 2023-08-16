@@ -17,19 +17,22 @@ const UpdateEBDti = () => {
     const [modePassation, setModePassation] = useState('');
     const [secteur, setSecteur] = useState('');
     const [qualification, setQualification] = useState('');
+    const [numUtilisateur, setNumUtilisateur] = useState('');
+    const [validerPar, setValiderPar] = useState('');
 
     const navigate = useNavigate();
     const handleOperations = (id) => {
-        navigate(`/listOperations/${id}`);
+        navigate(`/listOperationsDti/${id}`);
     };
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
 
         const progValue = progNonProgram ? "Oui" : "Non";
         setProg_nonprog(progValue);
+        console.log("validerPar : "+validerPar+"\nqual : "+qualification);
 
         try {
-            await axios.post("/updateEB", {
+            await axios.post("/updateEBDti", {
                 id: id,
                 objet: objet,
                 agence: agence,
@@ -39,12 +42,14 @@ const UpdateEBDti = () => {
                 estimation: estimation,
                 modePassation: modePassation,
                 secteur: secteur,
-                qualification: qualification
+                qualification: qualification,
+                numUtilisateur: numUtilisateur,
+                validerPar: validerPar
             });
-            navigate("/listEB");
         } catch (error) {
             console.error(error);
         }
+        navigate("/listEBDti");
     };
 
     useEffect(() => {
@@ -62,6 +67,8 @@ const UpdateEBDti = () => {
                 setModePassation(userData.data["modePassation"]);
                 setSecteur(userData.data["secteur"]);
                 setQualification(userData.data["qualification"]);
+                setNumUtilisateur(userData.data["numUtilisateur"]);
+                setValiderPar(userData.data["validerPar"]);
             } catch (error) {
                 console.error(error);
             }
@@ -155,4 +162,4 @@ const UpdateEBDti = () => {
     );
 };
 
-export default UpdateEB;
+export default UpdateEBDti;

@@ -254,14 +254,16 @@ const ListEB = () => {
                 <td><a onClick={() => handleFiles(row.num)}>files</a></td>
                 <td className="fit">
                   <span className="actions">
-                    <BsFillTrashFill
+                    {/* <BsFillTrashFill
                       className="delete-btn"
                       onClick={() => deleteRow(row.num)}
-                    />
-                    <BsFillPencilFill
-                      className="edit-btn"
-                      onClick={() => editRow(row.num)}
-                    />
+                    /> */}
+                    {row.validerPar === '' && (
+                      <BsFillPencilFill
+                        className="edit-btn"
+                        onClick={() => editRow(row.num)}
+                      />
+                    )}
                   </span>
                 </td>
               </tr>

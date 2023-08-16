@@ -54,8 +54,12 @@ class EBBusiness {
         return EBDAO.getByUserId(id);
     }
 
-    static getAll() {
-        return EBDAO.getAll();
+    static getAll(currentUser) {
+        return EBDAO.getAll(currentUser);
+    }
+
+    static getDem(currentUser){
+        return EBDAO.getDem(currentUser);
     }
 }
 module.exports = EBBusiness;

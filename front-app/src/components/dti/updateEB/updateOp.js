@@ -21,7 +21,7 @@ export default function UpdateOpDti() {
     const handleUpdate=async(event)=>{
         event.preventDefault();
         await axios.post("/updateOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet:type_projet, piece:piece});
-        navigate(`/listEB`);
+        navigate(`/listEBDti`);
     }
     const handleFileUpload = (event) => {
         event.preventDefault();

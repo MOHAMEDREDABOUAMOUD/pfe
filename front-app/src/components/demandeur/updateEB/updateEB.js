@@ -18,6 +18,7 @@ const UpdateEB = () => {
     const [modePassation, setModePassation] = useState('');
     const [secteur, setSecteur] = useState('');
     const [qualification, setQualification] = useState('');
+    const [numUtilisateur, setNumUtilisateur] = useState('');
 
     const navigate = useNavigate();
     const handleOperations = (id) => {
@@ -25,7 +26,7 @@ const UpdateEB = () => {
     };
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
-
+        console.log("numUtilisateur : "+numUtilisateur);
         const progValue = progNonProgram ? "Oui" : "Non";
         setProg_nonprog(progValue);
 
@@ -40,7 +41,8 @@ const UpdateEB = () => {
                 estimation: estimation,
                 modePassation: modePassation,
                 secteur: secteur,
-                qualification: qualification
+                qualification: qualification,
+                numUtilisateur:numUtilisateur
             });
             navigate("/listEB");
         } catch (error) {
@@ -63,6 +65,7 @@ const UpdateEB = () => {
                 setModePassation(userData.data["modePassation"]);
                 setSecteur(userData.data["secteur"]);
                 setQualification(userData.data["qualification"]);
+                setNumUtilisateur(userData.data["numUtilisateur"]);
             } catch (error) {
                 console.error(error);
             }

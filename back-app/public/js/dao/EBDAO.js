@@ -117,8 +117,7 @@ class EBDAO {
   }
 
   static async getByNum(num) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation FROM EB WHERE EB.num=?';
-
+    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar FROM EB WHERE EB.num=?';
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, [num], (err, rows) => {
@@ -141,8 +140,7 @@ class EBDAO {
   }
 
   static async getByUserId(id) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur FROM EB WHERE numUtilisateur=?';
-
+    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur, EB.validerPar, EB.numUtilisateur FROM EB WHERE numUtilisateur=?';
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, [id], (err, rows) => {
@@ -159,7 +157,7 @@ class EBDAO {
       const ebList = rows.map((eb) => {
         return JSON.parse(JSON.stringify(eb));
       });
-      
+
       return ebList;
     } catch (error) {
       console.error(error);
@@ -167,7 +165,7 @@ class EBDAO {
     }
   }
 
-  static async getAll() {
+  static async getAll(currentUser) {
     const _query = 'SELECT * FROM EB';
 
     try {
@@ -181,18 +179,49 @@ class EBDAO {
           }
         });
       });
-
       const ebList = rows.map((eb) => {
         // Convert the user object to plain JSON format
-        return JSON.parse(JSON.stringify(eb));
+        const ebObject = JSON.parse(JSON.stringify(eb));
+        // Add the currentUser field to the ebObject
+        ebObject.currentUser = currentUser;
+        return ebObject;
       });
-      
+      console.info(ebList);
       return ebList;
     } catch (error) {
       console.error(error);
       return [];
     }
   }
+  static async getDem(currentUser){
+    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar FROM EB inner join Utilisateur on EB.num=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?)";
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query,[currentUser] , (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+      const ebList = rows.map((eb) => {
+        // Convert the user object to plain JSON format
+        const ebObject = JSON.parse(JSON.stringify(eb));
+        // Add the currentUser field to the ebObject
+        ebObject.currentUser = currentUser;
+        return ebObject;
+      });
+      console.info(ebList);
+      return ebList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
 }
 
-module.exports=EBDAO;
+module.exports = EBDAO;

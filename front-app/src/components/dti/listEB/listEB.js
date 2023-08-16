@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
+import { BsCheckCircle, BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -43,7 +43,7 @@ const ListEBDti = () => {
   //////////////////////////////////////////////////////////////
   const getEBs = async () => {
     try {
-      const response = await axios.post("/getEBs", { id: "1" });
+      const response = await axios.post("/getEBsDti", { id: "1" });
       return response.data;
     } catch (error) {
       console.error(error);
@@ -95,10 +95,28 @@ const ListEBDti = () => {
 
   // Sorting Logic
   let sortedRows = rows.slice();
-  if (rows.length > 0 && sortBy) {
+  if (sortBy) {
     sortedRows.sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
+
+      if (aValue === null || aValue === undefined) {
+        return sortAsc ? 1 : -1; // Null or undefined values appear at the end when ascending, and at the beginning when descending
+      }
+      if (bValue === null || bValue === undefined) {
+        return sortAsc ? -1 : 1; // Null or undefined values appear at the beginning when ascending, and at the end when descending
+      }
+
+      if (sortBy === 'num') {
+        return sortAsc ? aValue - bValue : bValue - aValue; // Numeric sorting
+      }
+
+      if (sortBy === 'dateEB') {
+        const aDate = new Date(aValue).getTime();
+        const bDate = new Date(bValue).getTime();
+        return sortAsc ? aDate - bDate : bDate - aDate; // Date sorting
+      }
+
       if (sortAsc) {
         return aValue.localeCompare(bValue);
       } else {
@@ -108,15 +126,24 @@ const ListEBDti = () => {
   }
 
   // Filtering Logic
-  if (rows.length > 0) {
-    Object.keys(filters).forEach((column) => {
-      const filterValue = filters[column].toLowerCase();
-      sortedRows = sortedRows.filter((row) => row[column].toLowerCase().includes(filterValue));
+  Object.keys(filters).forEach((column) => {
+    const filterValue = filters[column].toLowerCase();
+    sortedRows = sortedRows.filter((row) => {
+      if (column === 'num') {
+        return row[column].toString().toLowerCase().includes(filterValue);
+      } else if (row[column] && typeof row[column] === 'string') {
+        return row[column].toLowerCase().includes(filterValue);
+      }
+      return false; // Exclude rows that don't have the specified column or aren't strings
     });
-  }
+  });
+  
   const navigate = useNavigate();
   const editRow = (id) => {
     navigate(`/updateEBDti/${id}`);
+  }
+  const validateRow = (id) => {
+    navigate(`/validateEBDti/${id}`);
   }
   const deleteRow = async (id) => {
     await axios.post("/deleteEB", { id: id });
@@ -204,14 +231,23 @@ const ListEBDti = () => {
                 <td><a onClick={() => handleFiles(row.num)}>files</a></td>
                 <td className="fit">
                   <span className="actions">
-                    <BsFillTrashFill
+                    {/* <BsFillTrashFill
                       className="delete-btn"
                       onClick={() => deleteRow(row.num)}
-                    />
-                    <BsFillPencilFill
-                      className="edit-btn"
-                      onClick={() => editRow(row.num)}
-                    />
+                    /> */}
+                    {(row.numUtilisateur.toString() === row.currentUser.toString() && row.validerPar.toString()==='') || (row.numUtilisateur.toString()!=row.currentUser.toString() && row.validerPar.toString()===row.currentUser.toString())? (
+                      // Render the edit icon if numUtilisateur === currentUser
+                      <BsFillPencilFill
+                        className="edit-btn"
+                        onClick={() => editRow(row.num)}
+                      />
+                    ) : row.numUtilisateur != row.currentUser && (row.validerPar === row.currentUser || row.validerPar === '') ? (
+                      // Render the validate icon if validerPar matches currentUser or validerPar is not empty
+                      <BsCheckCircle
+                        className="validate-btn"
+                        onClick={() => validateRow(row.num)}
+                      />
+                    ) : null}
                   </span>
                 </td>
               </tr>
