@@ -80,6 +80,12 @@ app.post("/getEBsCM", async (req, res)=>{
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/getEBsDM", async (req, res)=>{
+    const {id}=req.body;
+    let r = await EBBusiness.getForCM(currentUser);//
+    console.log(r);
+    res.status(200).json(r);
+});
 app.post("/getUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.searchByNum(id);

@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from '../sidebar/sideBar';
 
-const ListFilesDti = () => {
+const ListFilesCM = () => {
   const { id } = useParams();
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
@@ -214,4 +214,4 @@ const ListFilesDti = () => {
   );
 };
 
-export default ListFilesDti;
+export default ListFilesCM;

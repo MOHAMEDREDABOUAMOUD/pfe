@@ -51,6 +51,18 @@ import DashboardCM from './components/CM/dashboard/dashboard';
 import AddOperationCM from './components/CM/addOperation/addOperation';
 import ViewCM from './components/CM/listEB/view';
 
+import MainDM from './components/DM/main/main';
+import ListEBDM from './components/DM/listEB/listEB';
+// import UpdateEBDM from './components/DM/updateEB/updateEB';
+import ValidateEBDM from './components/DM/ValidateEB/validateEB';
+import ListOperationsDM from './components/DM/listEB/listOperations';
+import UpdateOpDM from './components/DM/updateOp/updateOp';
+import ListFilesDM from './components/DM/listEB/listFiles';
+import SettingsDM from './components/DM/settings/settings';
+import DashboardDM from './components/DM/dashboard/dashboard';
+import AddOperationDM from './components/DM/addOperation/addOperation';
+import ViewDM from './components/DM/listEB/view';
+
 function App() {
   return (
     <div className="App">
@@ -102,6 +114,19 @@ function App() {
         <Route path='/settingsEBCM' element={<SettingsCM />}></Route>
         <Route path='/viewCM/:id' element={<ViewCM/>}></Route>
         <Route path='/listFilesCM/:id' element={<ListFilesCM/>}></Route>
+        
+        <Route path='/DM/main' element={<MainDM />}></Route>
+        <Route path="/listEBDM" element={<ListEBDM/>} />
+        {/* <Route path='/updateEBDM/:id' element={<UpdateEBDM />}></Route> */}
+        <Route path='/validateEBDM/:id' element={<ValidateEBDM />}></Route>
+        <Route path="/listOperationsDM/:id" element={<ListOperationsDM/>} />
+        <Route path='/updateOperationDM/:id' element={<UpdateOpDM />}></Route> 
+        <Route path='/addOperationDM/:id' element={<AddOperationDM/>}></Route>
+        <Route path='/dashboardEBDM' element={<DashboardDM />}></Route>
+        <Route path='/settingsEBDM' element={<SettingsDM />}></Route>
+        <Route path='/viewDM/:id' element={<ViewDM/>}></Route>
+        <Route path='/listFilesDM/:id' element={<ListFilesDM/>}></Route>
+
       </Routes>
     </div>
   );

@@ -61,5 +61,9 @@ class EBBusiness {
     static getDem(currentUser){
         return EBDAO.getDem(currentUser);
     }
+
+    static getForCM(currentUser){
+        return EBDAO.getForDM(currentUser);
+    }
 }
 module.exports = EBBusiness;
