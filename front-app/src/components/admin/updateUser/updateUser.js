@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
 import axios from 'axios';
+import './updateUser.css'
+import logo from "./logo-omrane.png";
 
 const UpdateUser = () => {
     const { id } = useParams();
@@ -41,7 +43,12 @@ const UpdateUser = () => {
     }, [id]);
 
     return (
+        <center>
+            <div className='all'>
         <div className='formCreateUser'>
+                <div className="bara">
+        <center><img src={logo} className="image"></img></center>
+    </div>
             <Sidebar />
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -128,6 +135,8 @@ const UpdateUser = () => {
                 <button type="submit" className="btn btn-primary">Update</button>
             </form>
         </div>
+        </div>
+        </center>
     );
 }
 

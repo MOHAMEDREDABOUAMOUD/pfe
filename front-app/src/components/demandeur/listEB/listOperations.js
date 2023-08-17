@@ -5,8 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from '../sidebar/sideBar';
 
-const ListOperations = () => {
-    const { id } = useParams();
+const ListOperations = ({id}) => {
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});
@@ -131,9 +130,8 @@ const ListOperations = () => {
     }
 
     return (
-        <div className="table-wrapper">
-            <Sidebar/>
-            <button onClick={toggleFilterDropdown}>Filter Rows</button>
+        <div className="table-wrappero">
+            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
                     {columns.map((column) => (
@@ -141,6 +139,7 @@ const ListOperations = () => {
                             <label>{column}</label>
                             <input
                                 type="text"
+                                className="input-fil"
                                 value={filters[column] || ""}
                                 onChange={(e) => handleFilterChange(column, e.target.value)}
                             />
@@ -211,7 +210,9 @@ const ListOperations = () => {
                 </tbody>
             </table>
             <div className="form-group">
+                <center>
                 <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>add</button>
+                </center>
             </div>
         </div>
     );

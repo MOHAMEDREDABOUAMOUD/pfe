@@ -64,7 +64,7 @@ const Sidebar = () => {
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
-                        <h1 className='espace'>Espace Admin</h1>
+                        <h1 className='espace'>Espace Demandeur</h1>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}

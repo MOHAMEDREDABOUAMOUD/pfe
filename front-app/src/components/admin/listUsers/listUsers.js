@@ -123,11 +123,11 @@ const ListUsers = () => {
           <center><img src={logo} className="image"></img></center>
       </div>
       <Sidebar />
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
-            <div key={column} className="filter">
+            <div key={column} className="filter-input">
               <label>{column}</label>
               <input
                 type="text"

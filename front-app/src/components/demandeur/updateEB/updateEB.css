@@ -1,5 +1,11 @@
+.all{
+    margin-top: -350px;
+}
 .formCreateUser{
     height: 100vh;
+    margin-top: 0px;
+    margin-left: 400px;
+    width: 60%;
 }
 .files{
     display: flex;
