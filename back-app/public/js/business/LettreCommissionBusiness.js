@@ -1,7 +1,7 @@
 const LettreCommissionDAO = require("../dao/LettreCommissionDAO");
 class LettreCommissionBusiness {
-    static Add(lettreCommission) {
-        return LettreCommissionDAO.create(lettreCommission);
+    static async Add(lettreCommission) {
+        return await LettreCommissionDAO.create(lettreCommission);
     }
 
     static update(lettreCommission) {

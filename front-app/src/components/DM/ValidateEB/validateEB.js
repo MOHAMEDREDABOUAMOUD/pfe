@@ -44,7 +44,7 @@ const ValidateEBDM = () => {
                 qualification: qualification,
                 numUtilisateur: numUtilisateur
             });
-            navigate("/listEBDM");
+            navigate(`/createAODM/${id}`);
         } catch (error) {
             console.error(error);
         }

@@ -55,6 +55,7 @@ import MainDM from './components/DM/main/main';
 import ListEBDM from './components/DM/listEB/listEB';
 // import UpdateEBDM from './components/DM/updateEB/updateEB';
 import ValidateEBDM from './components/DM/ValidateEB/validateEB';
+import CreateAO from './components/DM/ValidateEB/createAO';
 import ListOperationsDM from './components/DM/listEB/listOperations';
 import UpdateOpDM from './components/DM/updateOp/updateOp';
 import ListFilesDM from './components/DM/listEB/listFiles';
@@ -119,6 +120,7 @@ function App() {
         <Route path="/listEBDM" element={<ListEBDM/>} />
         {/* <Route path='/updateEBDM/:id' element={<UpdateEBDM />}></Route> */}
         <Route path='/validateEBDM/:id' element={<ValidateEBDM />}></Route>
+        <Route path='/createAODM/:id' element={<CreateAO />}></Route>
         <Route path="/listOperationsDM/:id" element={<ListOperationsDM/>} />
         <Route path='/updateOperationDM/:id' element={<UpdateOpDM />}></Route> 
         <Route path='/addOperationDM/:id' element={<AddOperationDM/>}></Route>

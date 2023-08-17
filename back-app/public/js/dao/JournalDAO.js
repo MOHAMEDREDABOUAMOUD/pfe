@@ -2,7 +2,7 @@
 const pool = require('./db');
 
 class JournalDAO {
-  static create(journal) {
+  static async create(journal) {
     const _query = `
       INSERT INTO Journal (numEnvoie, format, fournisseur, dateEnvoie, datePublication, lettreJournal, numAo)
       VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -18,12 +18,23 @@ class JournalDAO {
       journal.numAo,
     ];
 
-    return new Promise((resolve, reject) => {
-      pool.query(_query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
   static update(journal) {

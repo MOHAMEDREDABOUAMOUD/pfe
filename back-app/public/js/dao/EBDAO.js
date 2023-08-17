@@ -222,7 +222,7 @@ class EBDAO {
     }
   }
   static async getForDM(currentUser){
-    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE Utilisateur.fonction='DTI' or Utilisateur.fonction='CM'";
+    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE Utilisateur.fonction='DTI' or Utilisateur.fonction='CM' or Utilisateur.fonction='DM'";
 
     try {
       const rows = await new Promise((resolve, reject) => {

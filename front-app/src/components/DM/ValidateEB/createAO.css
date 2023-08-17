@@ -1,0 +1,46 @@
+.formCreateUser{
+    height: 100vh;
+}
+.files{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 10px;
+    align-items: center;
+}
+.files input{
+    height: 30px;
+}
+.files button{
+    height: 30px;
+    margin-top: 0px;
+}
+button{
+    width: 200px;
+}
+.big-btn{
+    width: 200px;
+}
+h5{
+    width: fit-content;
+    border-bottom: 1px solid black;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+h3{
+    width: fit-content;
+    border-bottom: 1px solid black;
+}
+.flex-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+label{
+    min-width: fit-content;
+    width: 200px;
+}
+.margin input{
+    margin-right: 10px;
+}
