@@ -37,6 +37,9 @@ function SignIn() {
           else if(response.data["fonction"]==="CM"){
             navigate("/CM/main");
           }
+          else if(response.data["fonction"]==="DM"){
+            navigate("/DM/main");
+          }
           else{
             navigate("/");
           }
