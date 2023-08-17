@@ -3,11 +3,17 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listEB.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.css";
 import logo from "./logo-omrane.png";
 import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
-import Operation from './listOperations'
+import Operation from './listOperations';
+import Files from './listFiles';
+import Nav from 'react-bootstrap/Nav';
+import { SlLogout } from 'react-icons/sl';
+import {FaUserTie} from 'react-icons/fa';
+import Navbar from 'react-bootstrap/Navbar';
 
 const ListEB = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -27,6 +33,7 @@ const ListEB = () => {
 `;
 
   const [showOperation, setShowOperation] = useState(false);
+  const [showFile, setShowFile] = useState(false);
   const [ido, setido] = useState(0);
 
   const handleButtonClick = () => {
@@ -167,7 +174,8 @@ const ListEB = () => {
     getRows();
   }
   const handleFiles = (id) => {
-    navigate(`/listFiles/${id}`);
+    setido(id);
+    setShowFile(true);
   }
   const handleOperations = (id) => {
     setido(id);
@@ -176,12 +184,25 @@ const ListEB = () => {
   const handleCloseOperation = () => {
     setShowOperation(false);
   };
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   return (
     <div className="table-wrapper">
-      <div className="bara">
-        <center><img src={logo} className="image"></img></center>
-      </div>
+      <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            <h1 href="#login" className="espacee">Espace Demandeur</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login" className="logout"><SlLogout/></a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
       <Sidebar />
       <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
       {renderFilterDropdown()}
@@ -277,6 +298,14 @@ const ListEB = () => {
             <AiIcons.AiOutlineClose onClick={handleCloseOperation} />
           </NavIcon>
           <Operation id={ido}/>
+        </div>
+      )}
+      {showFile && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+          </NavIcon>
+          <Files id={ido}/>
         </div>
       )}
     </div>

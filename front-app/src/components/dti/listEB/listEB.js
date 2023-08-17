@@ -5,6 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
+import Operation from './listOperations';
+import * as AiIcons from 'react-icons/ai';
+import styled from 'styled-components';
+import Files from './listFiles';
+import { SlLogout } from 'react-icons/sl';
+import {FaUserTie} from 'react-icons/fa';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 const ListEBDti = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -13,6 +21,22 @@ const ListEBDti = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+
+  const NavIcon = styled(Link)`
+  margin-left: 2rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+`;
+const [showOperation, setShowOperation] = useState(false);
+const [showFile, setShowFile] = useState(false);
+const [ido, setido] = useState(0);
+
+const handleButtonClick = () => {
+  setShowOperation(true);
+};
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -82,7 +106,7 @@ const ListEBDti = () => {
             <label>{column}</label>
             <input
               type="text"
-              className="inputat"
+              className="input-fil"
               value={filters[column] || ""}
               onChange={(e) => handleFilterChange(column, e.target.value)}
             />
@@ -150,19 +174,37 @@ const ListEBDti = () => {
     getRows();
   }
   const handleFiles = (id) => {
-    navigate(`/listFilesDti/${id}`);
+    setido(id);
+    setShowFile(true);
   }
   const handleOperations = (id) => {
-    navigate(`/listOperationsDti/${id}`);
+    setido(id);
+    setShowOperation(true);
   }
+  const handleCloseOperation = () => {
+    setShowOperation(false);
+  };
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   return (
     <div className="table-wrapper">
-      <div className="bara">
-        <center><img src={logo} className="image"></img></center>
-      </div>
+            <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            <h1 href="#login" className="espacee">Espace DTI</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login" className="logout"><SlLogout/></a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
       <Sidebar />
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
@@ -255,6 +297,22 @@ const ListEBDti = () => {
           })}
         </tbody>
       </table>
+      {showOperation && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseOperation} />
+          </NavIcon>
+          <Operation id={ido}/>
+        </div>
+      )}
+      {showFile && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+          </NavIcon>
+          <Files id={ido}/>
+        </div>
+      )}
     </div>
   );
 };

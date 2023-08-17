@@ -7,6 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
+import logo from './logo-omrane.png';
 
 const Nav = styled.div`
   height: 80px;
@@ -64,7 +65,7 @@ const Sidebar = () => {
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
-                        <h1 className='espace'>Espace Admin</h1>
+                        <center><img src={logo} className='espace'></img></center>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}
