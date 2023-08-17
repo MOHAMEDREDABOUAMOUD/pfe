@@ -3,6 +3,10 @@ import "./updateEB.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../sidebar/sideBar';
+import { SlLogout } from 'react-icons/sl';
+import {FaUserTie} from 'react-icons/fa';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 const ValidateEBDti = () => {
     const { id } = useParams();
@@ -97,6 +101,19 @@ const ValidateEBDti = () => {
 
     return (
         <div className='formCreateUser'>
+                        <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            <h1 href="#login" className="espacee">Espace DTI</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login" className="logout"><SlLogout/></a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
             <Sidebar />
             <form>
                 <div className='form-group'>

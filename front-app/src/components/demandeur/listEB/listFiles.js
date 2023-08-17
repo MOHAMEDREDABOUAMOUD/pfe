@@ -6,8 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from '../sidebar/sideBar';
 
-const ListFiles = () => {
-  const { id } = useParams();
+const ListFiles = ({id}) => {
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
   const [filters, setFilters] = useState({});
@@ -150,7 +149,7 @@ const ListFiles = () => {
   return (
     <div className="table-wrapper">
       <Sidebar/>
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
@@ -158,6 +157,7 @@ const ListFiles = () => {
               <label>{column}</label>
               <input
                 type="text"
+                className="input-fil"
                 value={filters[column] || ""}
                 onChange={(e) => handleFilterChange(column, e.target.value)}
               />

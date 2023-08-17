@@ -5,6 +5,10 @@ import { CategoryScale } from 'chart.js';
 import "./dashboard.css";
 import logo from "./logo-omrane.png";
 import Sidebar from "../sidebar/sideBar";
+import { SlLogout } from 'react-icons/sl';
+import {FaUserTie} from 'react-icons/fa';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 const Dashboard = () => {
   Chart.register(CategoryScale);
@@ -81,9 +85,19 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-all">
-      <div className="bara">
-          <center><img src={logo} className="image"></img></center>
-      </div>
+      <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            <h1 href="#login" className="espacee">Espace Admin</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login" className="logout"><SlLogout/></a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
     <div className="dashboard">
       <Sidebar/>
       <div className="dashboard-item">

@@ -4,7 +4,11 @@ import { Button, Alert, Row, Col } from 'react-bootstrap';
 import "./main.css"
 import Sidebar from "../sidebar/sideBar";
 import logo from "./logo-omrane.png";
-import welcome from "./welcome.png"
+import welcome from "./welcome.png";
+import { SlLogout } from 'react-icons/sl';
+import {FaUserTie} from 'react-icons/fa';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 function MainAdmin() {
   // State to track the active component in MainAdmin
@@ -17,9 +21,19 @@ function MainAdmin() {
 
   return (
     <div className="App">
-      <div className="bara">
-          <center><img src={logo} className="image"></img></center>
-      </div>
+            <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text>
+            <h1 href="#login" className="espacee">Espace Admin</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <a href="#login" className="logout"><SlLogout/></a>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
       <center>
         <img src={welcome} className="welcome"></img>
       </center>

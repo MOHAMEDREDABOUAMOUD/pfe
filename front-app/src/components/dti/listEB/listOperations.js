@@ -5,8 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from '../sidebar/sideBar';
 
-const ListOperationsDti = () => {
-    const { id } = useParams();
+const ListOperationsDti = ({id}) => {
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});
