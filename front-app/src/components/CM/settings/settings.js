@@ -3,6 +3,12 @@ import Sidebar from '../sidebar/sideBar';
 import logo from "./logo-omrane.png";
 import axios from "axios";
 import './settings.css'
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import {IoMdNotifications} from 'react-icons/io';
+import { SlLogout } from 'react-icons/sl';
+import Navbar from 'react-bootstrap/Navbar';
 
 const SettingsCM = () => {
   const [email, setEmail] = useState("");
@@ -46,9 +52,27 @@ const SettingsCM = () => {
     <center>
       <div className="all-settings">
     <div className="container mt-5">
-    <div className="bara">
-          <center><img src={logo} className="image"></img></center>
-      </div>
+    <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace CM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
       <Sidebar />
       <ul className="nav nav-tabs">
         <li className="nav-item">

@@ -22,7 +22,7 @@
   font-weight: bold;
 }
 .barad{
-  position: fixed;
+  position: absolute;
   top: 0;
   height: 70px;
   width: 100%;

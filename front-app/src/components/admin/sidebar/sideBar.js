@@ -7,7 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
-import logo from './logo-omrane.png';
+import logo from './logo-omrane.png'
 
 const Nav = styled.div`
   height: 80px;
@@ -73,10 +73,7 @@ const Sidebar = () => {
                             <span className="nav_image">
                                 <img src={require('../../images/logo-omrane.png')} className='img' alt="logo_img" />
                             </span>
-                            <div className="data_text">
-                                <span className="name">Mohamed-Reda</span><br />
-                                <span className="email">reda@gmail.com</span>
-                            </div>
+                           
                             
                         </div>
                     </SidebarWrap>

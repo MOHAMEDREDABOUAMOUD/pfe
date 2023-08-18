@@ -7,6 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
+import logo from './logo-omrane.png'
 
 const Nav = styled.div`
   height: 80px;
@@ -64,20 +65,11 @@ const Sidebar = () => {
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
-                        <h1 className='espace'>Espace DTI</h1>
+                        <center><img src={logo} className='espace'></img></center>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}
-                        <div className="sidebar_profile flex">
-                            <span className="nav_image">
-                                <img src={require('../../images/logo-omrane.png')} className='img' alt="logo_img" />
-                            </span>
-                            <div className="data_text">
-                                <span className="name">Mohamed-Reda</span><br />
-                                <span className="email">reda@gmail.com</span>
-                            </div>
-                            
-                        </div>
+                        
                     </SidebarWrap>
                 </SidebarNav>
             </IconContext.Provider>

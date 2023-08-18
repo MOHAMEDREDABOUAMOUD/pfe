@@ -62,6 +62,11 @@ import SettingsDM from './components/DM/settings/settings';
 import DashboardDM from './components/DM/dashboard/dashboard';
 import AddOperationDM from './components/DM/addOperation/addOperation';
 import ViewDM from './components/DM/listEB/view';
+import DashboardAll from './components/admin/dashboard/dashboard_all';
+import DashboardAllDM from './components/demandeur/dashboard/dashboard_all';
+import DashboardAllDTI from './components/dti/dashboard/dashboard_all';
+import DashboardAllCM from './components/CM/dashboard/dashboard_all';
+import DashboardAllDMM from './components/DM/dashboard/dashboard_all';
 
 function App() {
   return (
@@ -75,7 +80,7 @@ function App() {
         <Route path='/createUser' element={<CreateUser />}></Route>
         <Route path="/listUsers" element={<ListUsers/>} />
         <Route path='/updateUser/:id' element={<UpdateUser />}></Route>
-        <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/dashboard' element={<DashboardAll />}></Route>
         <Route path='/settings' element={<Settings />}></Route>
 
         <Route path='/demandeur/main' element={<Maindem />}></Route>
@@ -85,7 +90,7 @@ function App() {
         <Route path="/listOperations" element={<ListOperations/>} />
         <Route path='/updateOperation/:id' element={<UpdateOp />}></Route> 
         <Route path='/addOperation/:id' element={<AddOperation/>}></Route>
-        <Route path='/dashboardEB' element={<DashboardD />}></Route>
+        <Route path='/dashboardEB' element={<DashboardAllDM />}></Route>
         <Route path='/settingsEB' element={<SettingsD />}></Route>
         <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
@@ -98,7 +103,7 @@ function App() {
         <Route path="/listOperationsDti/:id" element={<ListOperationsDti/>} />
         <Route path='/updateOperationDti/:id' element={<UpdateOpDti />}></Route> 
         <Route path='/addOperationDti/:id' element={<AddOperationDti/>}></Route>
-        <Route path='/dashboardEBDti' element={<DashboardDti />}></Route>
+        <Route path='/dashboardEBDti' element={<DashboardAllDTI />}></Route>
         <Route path='/settingsEBDti' element={<SettingsDti />}></Route>
         <Route path='/viewDti/:id' element={<ViewDti/>}></Route>
         <Route path='/listFilesDti/:id' element={<ListFilesDti/>}></Route>
@@ -110,7 +115,7 @@ function App() {
         <Route path="/listOperationsCM/:id" element={<ListOperationsCM/>} />
         <Route path='/updateOperationCM/:id' element={<UpdateOpCM />}></Route> 
         <Route path='/addOperationCM/:id' element={<AddOperationCM/>}></Route>
-        <Route path='/dashboardEBCM' element={<DashboardCM />}></Route>
+        <Route path='/dashboardEBCM' element={<DashboardAllCM />}></Route>
         <Route path='/settingsEBCM' element={<SettingsCM />}></Route>
         <Route path='/viewCM/:id' element={<ViewCM/>}></Route>
         <Route path='/listFilesCM/:id' element={<ListFilesCM/>}></Route>
@@ -122,7 +127,7 @@ function App() {
         <Route path="/listOperationsDM/:id" element={<ListOperationsDM/>} />
         <Route path='/updateOperationDM/:id' element={<UpdateOpDM />}></Route> 
         <Route path='/addOperationDM/:id' element={<AddOperationDM/>}></Route>
-        <Route path='/dashboardEBDM' element={<DashboardDM />}></Route>
+        <Route path='/dashboardEBDM' element={<DashboardAllDMM />}></Route>
         <Route path='/settingsEBDM' element={<SettingsDM />}></Route>
         <Route path='/viewDM/:id' element={<ViewDM/>}></Route>
         <Route path='/listFilesDM/:id' element={<ListFilesDM/>}></Route>

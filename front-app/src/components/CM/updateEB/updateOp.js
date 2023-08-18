@@ -2,6 +2,12 @@ import axios from 'axios';
 import React, { Component, useEffect, useState } from 'react'
 import Sidebar from '../sidebar/sideBar';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import {IoMdNotifications} from 'react-icons/io';
+import { SlLogout } from 'react-icons/sl';
+import Navbar from 'react-bootstrap/Navbar';
 
 export default function UpdateOpCM() {
     const { id} = useParams();
@@ -55,6 +61,27 @@ export default function UpdateOpCM() {
 
     return (
         <div className='formCreateUser'>
+                        <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace CM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
             <Sidebar/>
             <form onSubmit={handleUpdate}>
                 <div className='form-group'>

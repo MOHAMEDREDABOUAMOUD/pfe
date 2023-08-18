@@ -3,6 +3,12 @@ import "./updateEB.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../sidebar/sideBar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { SlLogout } from 'react-icons/sl';
+import {IoMdNotifications} from 'react-icons/io';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 const UpdateEBCM = () => {
     const { id } = useParams();
@@ -78,6 +84,27 @@ const UpdateEBCM = () => {
 
     return (
         <div className='formCreateUser'>
+                        <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace CM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
             <Sidebar />
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>

@@ -5,6 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import { SlLogout } from 'react-icons/sl';
+import {IoMdNotifications} from 'react-icons/io';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 const ListEBDM = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -158,9 +165,27 @@ const ListEBDM = () => {
 
   return (
     <div className="table-wrapper">
-      <div className="bara">
-        <center><img src={logo} className="image"></img></center>
-      </div>
+      <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace DM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
       <Sidebar />
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {renderFilterDropdown()}

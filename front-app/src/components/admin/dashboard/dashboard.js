@@ -7,8 +7,13 @@ import logo from "./logo-omrane.png";
 import Sidebar from "../sidebar/sideBar";
 import { SlLogout } from 'react-icons/sl';
 import {FaUserTie} from 'react-icons/fa';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+
 
 const Dashboard = () => {
   Chart.register(CategoryScale);
@@ -31,6 +36,7 @@ const Dashboard = () => {
         return [];
     }
   };
+  
   useEffect(() => {
     // Fetch the number of users from your data source or API
     // For now, I'll simulate the data with a timeout
@@ -87,15 +93,23 @@ const Dashboard = () => {
     <div className="dashboard-all">
       <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text>
+        <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Admin</h1>
           </Navbar.Text>
         </Navbar.Collapse>
-        <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            <a href="#login" className="logout"><SlLogout/></a>
-          </Navbar.Text>
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     <div className="dashboard">
