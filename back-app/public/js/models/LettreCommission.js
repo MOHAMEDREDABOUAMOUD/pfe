@@ -5,6 +5,7 @@ class LettreCommission {
       this.dateEnvoie = lettreCommissionData.dateEnvoie;
       this.destinataire = lettreCommissionData.destinataire;
       this.lettreCommission = lettreCommissionData.lettreCommission;
+      this.fileName = lettreCommissionData.fileName;
     }
   }
   

@@ -8,6 +8,7 @@ class AO {
       this.dateEntreDM = aoData.dateEntreDM;
       this.dateAchevementTravauxCommission = aoData.dateAchevementTravauxCommission;
       this.avis = aoData.avis;
+      this.fileName = aoData.fileName;
       this.numEB = aoData.numEB;
       this.numLettreCommission = aoData.numLettreCommission;
     }

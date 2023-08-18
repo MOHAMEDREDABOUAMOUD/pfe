@@ -193,13 +193,13 @@ const ListEB = () => {
       <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
+            <h1 href="/" className="espacee">Espace Demandeur</h1>
           </Navbar.Text>
         </Navbar.Collapse>
         <h3 className="absolutely-positioned"><FaUserTie/> Mohammed Raji</h3>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <a href="#login" className="logout"><SlLogout/></a>
+            <a href="/" className="logout"><SlLogout/></a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>

@@ -17,6 +17,10 @@ class AOBusiness {
         return AODAO.getByNum(num);
     }
 
+    static getByUserId(currentUser){
+        return AODAO.getByUserId(currentUser);
+    }
+
     static getAll() {
         return AODAO.getAll();
     }

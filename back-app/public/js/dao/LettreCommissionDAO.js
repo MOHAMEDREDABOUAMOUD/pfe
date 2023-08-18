@@ -1,15 +1,16 @@
 // lettreCommissionDAO.js
 
+const LettreCommission = require('../models/LettreCommission');
 const pool = require('./db');
 
 class LettreCommissionDAO {
   static async create(lettreCommission) {
     const _query = `
-      INSERT INTO LettreCommission (numEnvoie, dateEnvoie, destinataire, lettreCommission)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO LettreCommission (numEnvoie, filename, dateEnvoie, destinataire, lettreCommission)
+      VALUES (?, ?, ?, ?, ?)
     `;
 
-    const values = [lettreCommission.numEnvoie, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.lettreCommission];
+    const values = [lettreCommission.numEnvoie, lettreCommission.fileName, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.lettreCommission];
 
     try {
       const result = await new Promise((resolve, reject) => {
@@ -96,7 +97,8 @@ class LettreCommissionDAO {
       });
 
       if (rows.length === 0) return null;
-      return new LettreCommission(...Object.values(rows[0]));
+      const j = JSON.parse(JSON.stringify(rows[0]));
+      return j ? new LettreCommission(j) : null;
     } catch (error) {
       console.error(error);
       return null;
@@ -118,7 +120,11 @@ class LettreCommissionDAO {
         });
       });
 
-      return rows.map((row) => new LettreCommission(...Object.values(row)));
+      
+      const lcList = rows.map((eb) => {
+        return JSON.parse(JSON.stringify(eb));
+      });
+      return lcList;
     } catch (error) {
       console.error(error);
       return [];

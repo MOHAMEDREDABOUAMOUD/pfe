@@ -1,15 +1,17 @@
 // aoDAO.js
+const AO = require('../models/AO');
 const pool = require('./db');
 
 class AODAO {
   static async create(ao) {
     const _query = `
-      INSERT INTO AO (num, etat, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO AO (num, fileName, etat, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
       ao.num,
+      ao.fileName,
       ao.etat,
       ao.dateOuverturePlis,
       ao.heureOuverturePlis,
@@ -117,15 +119,42 @@ class AODAO {
       });
 
       if (rows.length === 0) return null;
-      return new AO(...Object.values(rows[0]));
+      const ao = JSON.parse(JSON.stringify(rows[0]));
+      return eb ? new AO(ao) : null;
     } catch (error) {
       console.error(error);
       return null;
     }
   }
 
+  static async getByUserId(currentUser) {
+    const _query = 'SELECT AO.num, AO.etat, AO.dateOuverturePlis, AO.heureOuverturePlis, AO.datePublicationPortail, AO.dateEntreDM, AO.dateAchevementTravauxCommission, AO.avis, AO.numEB, AO.numLettreCommission, AO.fileName FROM AO inner join EB on AO.numEB=EB.num where EB.numUtilisateur=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [currentUser], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      const aoList = rows.map((ao) => {
+        return JSON.parse(JSON.stringify(ao));
+      });
+
+      return aoList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
   static async getAll() {
-    const _query = 'SELECT * FROM AO';
+    const _query = 'SELECT * FROM AO where num not in (select numAO from marche)';
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -139,7 +168,11 @@ class AODAO {
         });
       });
 
-      return rows.map((row) => new AO(...Object.values(row)));
+      const aoList = rows.map((ao) => {
+        return JSON.parse(JSON.stringify(ao));
+      });
+
+      return aoList;
     } catch (error) {
       console.error(error);
       return [];
@@ -147,4 +180,4 @@ class AODAO {
   }
 }
 
-module.exports=AODAO;
+module.exports = AODAO;

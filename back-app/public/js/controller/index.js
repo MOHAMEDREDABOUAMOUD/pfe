@@ -17,6 +17,7 @@ const Operation = require('../models/Operation');
 const LettreCommission = require('../models/LettreCommission');
 const Journal = require('../models/Journal');
 const AO = require('../models/AO');
+const sendEmail = require('../business/sendMail');
 
 const app = express();
 app.use(bodyParser.json());
@@ -59,6 +60,12 @@ app.post("/signIn", async (req, res) => {
         res.status(200).json(r);
     }
 });
+app.post("/getPassword", async (req, res) => {
+    const { email } = req.body;
+    const r = await UtilisateurBusiness.getPassword(email);
+    console.log(r);
+    res.status(200).json(r);
+});
 app.post("/getUsers", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.getAll();
@@ -68,6 +75,36 @@ app.post("/getUsers", async (req, res) => {
 app.post("/getEBs", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.getByUserId(currentUser);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getJournals", async (req, res) => {
+    const { id } = req.body;
+    const r = await JournalBusiness.getByNumAO(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getAOs", async (req, res) => {
+    const { id } = req.body;
+    const r = await AOBusiness.getByUserId(currentUser);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getAllAOs", async (req, res) => {
+    const { id } = req.body;
+    const r = await AOBusiness.getAll();
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/sendpassword", async (req, res) => {
+    const { email } = req.body;
+    const r = await sendEmail(email);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getLettreCommission", async (req, res)=>{
+    const { id } = req.body;
+    const r = await LettreCommissionBusiness.searchByNum(id);
     console.log(r);
     res.status(200).json(r);
 });
@@ -85,7 +122,7 @@ app.post("/getEBsCM", async (req, res) => {
 });
 app.post("/getEBsDM", async (req, res) => {
     const { id } = req.body;
-    let r = await EBBusiness.getForCM(currentUser);//
+    let r = await EBBusiness.getForDM(currentUser);//
     console.log(r);
     res.status(200).json(r);
 });
@@ -97,6 +134,7 @@ app.post("/getUser", async (req, res) => {
 });
 app.post("/getEB", async (req, res) => {
     const { id } = req.body;
+    console.log("numEB : "+id);
     const r = await EBBusiness.searchByNum(id);
     console.log(r);
     res.status(200).json(r);
@@ -128,6 +166,18 @@ app.post("/getFile", async (req, res) => {
 app.post("/deleteUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+app.post("/deleteJournal", async (req, res) => {
+    const { id } = req.body;
+    const r = await JournalBusiness.delete(id);
+    // console.log(r);
+    res.status(200).json(r);
+});
+app.post("/deleteLettreCommission", async (req, res) => {
+    const { id } = req.body;
+    const r = await LettreCommissionBusiness.delete(id);
     // console.log(r);
     res.status(200).json(r);
 });
@@ -168,11 +218,13 @@ app.post("/createEB", async (req, res) => {
     EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
-    console.log("enter to createAO");
-    const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, dateEnvoieJournal, datePublicationJournal, formatJournal, fournisseurJournal, numEnvoieJournal, lettreJournal } = req.body;
-    const re = await LettreCommissionBusiness.Add(new LettreCommission({ num: -1, numEnvoie: numEnvoieLettreCommission, dateEnvoie: dateEnvoieLettreCommission, destinataire: destinataire, lettreCommission: lettreCommission }));
-    const r = await AOBusiness.Add(new AO({ num: num, etat: 'en cours', dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
-    await JournalBusiness.Add(new Journal({ num: -1, numEnvoie: numEnvoieJournal, format: formatJournal, fournisseur: fournisseurJournal, dateEnvoie: dateEnvoieJournal, datePublication: datePublicationJournal, lettreJournal: lettreJournal, numAo: r }));
+    const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, fileNameAvis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, fileNameLC, listJournal } = req.body;
+    console.log(fileNameAvis+", "+fileNameLC);
+    const re = await LettreCommissionBusiness.Add(new LettreCommission({ num: -1, fileName: fileNameLC, numEnvoie: numEnvoieLettreCommission, dateEnvoie: dateEnvoieLettreCommission, destinataire: destinataire, lettreCommission: lettreCommission }));
+    await AOBusiness.Add(new AO({ num: num, fileName: fileNameAvis, etat: 'en cours', dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
+    for (let i = 0; i < listJournal.length; i++) {
+        await JournalBusiness.Add(new Journal({ num: -1, fileName: listJournal[i]["fileNameJ"], numEnvoie: listJournal[i]["numEnvoieJournal"], format: listJournal[i]["formatJournal"], fournisseur: listJournal[i]["fournisseurJournal"], dateEnvoie: listJournal[i]["dateEnvoieJournal"], datePublication: listJournal[i]["datePublicationJournal"], lettreJournal: listJournal[i]["lettreJournal"], numAo: num }));        
+    }
 });
 
 app.post("/addOperation", async (req, res) => {

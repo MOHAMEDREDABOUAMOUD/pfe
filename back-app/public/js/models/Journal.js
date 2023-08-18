@@ -7,6 +7,7 @@ class Journal {
       this.dateEnvoie = journalData.dateEnvoie;
       this.datePublication = journalData.datePublication;
       this.lettreJournal = journalData.lettreJournal;
+      this.fileName = journalData.fileName;
       this.numAo = journalData.numAo;
     }
   }

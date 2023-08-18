@@ -26,6 +26,13 @@ export const SidebarData = [
     ]
   },
   {
+    title: 'List AO',
+    path: '/listAO',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
     title: 'Dashboard',
     path: '/dashboardEB',
     icon: <AiIcons.AiFillHome />,

@@ -63,6 +63,10 @@ import SettingsDM from './components/DM/settings/settings';
 import DashboardDM from './components/DM/dashboard/dashboard';
 import AddOperationDM from './components/DM/addOperation/addOperation';
 import ViewDM from './components/DM/listEB/view';
+import ListAO from './components/demandeur/listAO/listAO';
+import ListAODti from './components/dti/listAO/listAO';
+import ListAOCM from './components/CM/listAO/listAO';
+import ListAODM from './components/DM/listAO/listAO';
 
 function App() {
   return (
@@ -90,6 +94,7 @@ function App() {
         <Route path='/settingsEB' element={<SettingsD />}></Route>
         <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
+        <Route path='/listAO' element={<ListAO/>}></Route>
         
         <Route path='/dti/main' element={<Maindti />}></Route>
         <Route path='/createEBDti' element={<CreateEBDti />}></Route>
@@ -103,6 +108,7 @@ function App() {
         <Route path='/settingsEBDti' element={<SettingsDti />}></Route>
         <Route path='/viewDti/:id' element={<ViewDti/>}></Route>
         <Route path='/listFilesDti/:id' element={<ListFilesDti/>}></Route>
+        <Route path='/listAODti' element={<ListAODti/>}></Route>
 
         <Route path='/CM/main' element={<MainCM />}></Route>
         <Route path="/listEBCM" element={<ListEBCM/>} />
@@ -115,6 +121,7 @@ function App() {
         <Route path='/settingsEBCM' element={<SettingsCM />}></Route>
         <Route path='/viewCM/:id' element={<ViewCM/>}></Route>
         <Route path='/listFilesCM/:id' element={<ListFilesCM/>}></Route>
+        <Route path='/listAOCM' element={<ListAOCM/>}></Route>
         
         <Route path='/DM/main' element={<MainDM />}></Route>
         <Route path="/listEBDM" element={<ListEBDM/>} />
@@ -128,6 +135,7 @@ function App() {
         <Route path='/settingsEBDM' element={<SettingsDM />}></Route>
         <Route path='/viewDM/:id' element={<ViewDM/>}></Route>
         <Route path='/listFilesDM/:id' element={<ListFilesDM/>}></Route>
+        <Route path='/listAODM' element={<ListAODM/>}></Route>
 
       </Routes>
     </div>

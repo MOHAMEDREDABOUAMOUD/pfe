@@ -11,20 +11,46 @@ export default function CreateAO() {
     const [dateOuverturePlis, setDateOuverturePlis] = useState('');
     const [heureOuverturePlis, setHeureOuverturePlis] = useState('');
     const [datePublicationPortail, setDatePublicationPortail] = useState('');
-    const [avisAO, setAvisAO] = useState('');
+    const [avisAO, setAvisAO] = useState([]);
+    const [fileNameAvis, setFileNameAvis] = useState('');
 
     const [dateEnvoieLettreCommission, setDateEnvoieLettreCommission] = useState('');
     const [dateAchevementTravauxCommission, setDateAchevementTravauxCommission] = useState('');
     const [destinataire, setDestinataire] = useState('');
     const [numEnvoieLettreCommission, setNumEnvoieLettreCommission] = useState('');
-    const [lettreCommission, setLettreCommission] = useState('');
+    const [lettreCommission, setLettreCommission] = useState([]);
+    const [fileNameLC, setFileNameLC] = useState('');
+
+    const [listJournal, setListJournal] = useState([]);
 
     const [dateEnvoieJournal, setDateEnvoieJournal] = useState('');
     const [datePublicationJournal, setDatePublicationJournal] = useState('');
     const [formatJournal, setFormatJournal] = useState('');
     const [fournisseurJournal, setFournisseurJournal] = useState('');
     const [numEnvoieJournal, setNumEnvoieJournal] = useState('');
-    const [lettreJournal, setLettreJournal] = useState('');
+    const [lettreJournal, setLettreJournal] = useState([]);
+    const [fileNameJ, setFileNameJ] = useState('');
+
+    const handleSubmitAJ = (event) => {
+        event.preventDefault();
+        const j = {
+            dateEnvoieJournal: dateEnvoieJournal,
+            datePublicationJournal: datePublicationJournal,
+            formatJournal: formatJournal,
+            fournisseurJournal: fournisseurJournal,
+            numEnvoieJournal: numEnvoieJournal,
+            lettreJournal: lettreJournal,
+            fileNameJ: fileNameJ
+        };
+        setListJournal((prevListJournal) => [...prevListJournal, j]);
+        setDateEnvoieJournal("");
+        setLettreJournal([]);
+        setDatePublicationJournal("");
+        setFormatJournal("");
+        setFournisseurJournal("");
+        setNumEnvoieJournal("");
+        setFileNameJ("");
+    }
 
     const navigate=useNavigate();
     const handleSubmit = async (event) => {
@@ -34,7 +60,7 @@ export default function CreateAO() {
         selectedTime.setHours(hours, minutes, 0, 0);
 
         console.log("enter handleSubmit");
-        await axios.post("/createAO", { num: numAO, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: selectedTime, datePublicationPortail: datePublicationPortail, dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avisAO, numEB: id, dateEnvoieLettreCommission: dateEnvoieLettreCommission, destinataire: destinataire, numEnvoieLettreCommission: numEnvoieLettreCommission, lettreCommission: lettreCommission, dateEnvoieJournal: dateEnvoieJournal, datePublicationJournal: datePublicationJournal, formatJournal: formatJournal, fournisseurJournal: fournisseurJournal, numEnvoieJournal: numEnvoieJournal, lettreJournal: lettreJournal});
+        await axios.post("/createAO", { num: numAO, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: selectedTime, datePublicationPortail: datePublicationPortail, dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avisAO, fileNameAvis: fileNameAvis, numEB: id, dateEnvoieLettreCommission: dateEnvoieLettreCommission, destinataire: destinataire, numEnvoieLettreCommission: numEnvoieLettreCommission, lettreCommission: lettreCommission, fileNameLC: fileNameLC, listJournal: listJournal});
         navigate("/listEBDM");
     }
     const handleFileUpload = (event) => {
@@ -45,6 +71,7 @@ export default function CreateAO() {
             const fileData = event.target.result; // This is the binary buffer
             const base64FileData = btoa(fileData);
             setAvisAO(base64FileData);
+            setFileNameAvis(selectedFile.name);
         };
         fileReader.readAsArrayBuffer(selectedFile);
     };
@@ -56,6 +83,7 @@ export default function CreateAO() {
             const fileData = event.target.result; // This is the binary buffer
             const base64FileData = btoa(fileData);
             setLettreCommission(base64FileData);
+            setFileNameLC(selectedFile.name);
         };
         fileReader.readAsArrayBuffer(selectedFile);
     };
@@ -67,6 +95,7 @@ export default function CreateAO() {
             const fileData = event.target.result; // This is the binary buffer
             const base64FileData = btoa(fileData);
             setLettreJournal(base64FileData);
+            setFileNameJ(selectedFile.name);
         };
         fileReader.readAsArrayBuffer(selectedFile);
     };
@@ -74,6 +103,9 @@ export default function CreateAO() {
         <div className='formCreateUser'>
             <Sidebar />
             <form>
+                <div className='form-group margin-top'>
+                    <center><h3>Creation d'un AO</h3></center>
+                </div>
                 <div className='form-group'>
                     <label htmlFor="numAO">num AO</label><br />
                     <input type="text" className="form-control" id="numAO" placeholder="num AO" value={numAO} onChange={(e) => setNumAO(e.target.value)} />
@@ -123,6 +155,9 @@ export default function CreateAO() {
                     />
                 </div>
                 <div className='form-group'>
+                    <center><h3>Commission</h3></center>
+                </div>
+                <div className='form-group'>
                     <label htmlFor="dateAchevementTravauxCommission">Date achevement travaux commission</label><br />
                     <input
                         type="date"
@@ -143,6 +178,9 @@ export default function CreateAO() {
                 <div class="form-group flex-row">
                     <label for="lettreCommission" class="form-label">Lettre commission : </label>
                     <input class="form-control" type="file" id="lettreCommission" onChange={(e) => handleFileUploadC(e)}/>
+                </div>
+                <div className='form-group'>
+                    <center><h3>Journal</h3></center>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="dateEnvoieJournal">Date envoie journal</label><br />
@@ -180,7 +218,9 @@ export default function CreateAO() {
                     <label for="lettreJournal" class="form-label">Lettre Journal : </label>
                     <input class="form-control" type="file" id="lettreJournal" onChange={(e) => handleFileUploadJ(e)}/>
                 </div>
-
+                <div className="form-group">
+                    <center><button type="button" onClick={handleSubmitAJ} className="btn btn-primary big-btn">Ajouter journal</button></center>
+                </div>
                 <div className="form-group">
                     <center><button type="button" onClick={handleSubmit} className="btn btn-primary big-btn">Creer l'AO</button></center>
                 </div>
