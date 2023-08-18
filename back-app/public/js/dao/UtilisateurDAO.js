@@ -204,6 +204,33 @@ class UtilisateurDAO {
     }
   }
 
+  static async getPassword(email){
+    const _query = 'SELECT * FROM Utilisateur WHERE email=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [email], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      if (rows.length === 0) {
+        return {};
+      }
+
+      const user = JSON.parse(JSON.stringify(rows[0]));
+      return user ? new Utilisateur(user) : null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   static async getAll() {
     const _query = 'SELECT immatricule, email, nom, prenom, login, pwd, fonction, sexe FROM Utilisateur';
 

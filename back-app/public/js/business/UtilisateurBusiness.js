@@ -29,6 +29,10 @@ class UtilisateurBusiness {
         return await UtilisateurDAO.getByUserNameAndPassword(userName, password);
     }
 
+    static async getPassword(email){
+        return await UtilisateurDAO.getPassword(email);
+    }
+
     static async getAll() {
         return await UtilisateurDAO.getAll();
     }

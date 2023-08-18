@@ -19,5 +19,9 @@ class JournalBusiness {
     static getAll() {
         return JournalDAO.getAll();
     }
+
+    static getByNumAO(num){
+        return JournalDAO.getByNumAO(num);
+    }
 }
 module.exports=JournalBusiness;

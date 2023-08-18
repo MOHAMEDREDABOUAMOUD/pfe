@@ -62,7 +62,7 @@ class EBBusiness {
         return EBDAO.getDem(currentUser);
     }
 
-    static getForCM(currentUser){
+    static getForDM(currentUser){
         return EBDAO.getForDM(currentUser);
     }
 }

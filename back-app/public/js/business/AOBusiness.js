@@ -1,8 +1,8 @@
 const AODAO = require("../dao/AODAO");
 
 class AOBusiness {
-    static Add(ao) {
-        return AODAO.create(ao);
+    static async Add(ao) {
+        return await AODAO.create(ao);
     }
 
     static update(ao) {
@@ -15,6 +15,10 @@ class AOBusiness {
 
     static searchByNum(num) {
         return AODAO.getByNum(num);
+    }
+
+    static getByUserId(currentUser){
+        return AODAO.getByUserId(currentUser);
     }
 
     static getAll() {

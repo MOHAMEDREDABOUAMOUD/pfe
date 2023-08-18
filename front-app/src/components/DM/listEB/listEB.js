@@ -272,7 +272,7 @@ const ListEBDM = () => {
                         onClick={() => validateRow(row.num)}
                       />
                     )} */}
-                    {(row.validerPar!=row.numUtilisateur)? (
+                    {(row.validerPar!=row.currentUser)? (
                       <BsCheckCircle
                       className="validate-btn"
                       onClick={() => validateRow(row.num)}

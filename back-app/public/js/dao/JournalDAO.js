@@ -2,14 +2,15 @@
 const pool = require('./db');
 
 class JournalDAO {
-  static create(journal) {
+  static async create(journal) {
     const _query = `
-      INSERT INTO Journal (numEnvoie, format, fournisseur, dateEnvoie, datePublication, lettreJournal, numAo)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO Journal (numEnvoie, fileName, format, fournisseur, dateEnvoie, datePublication, lettreJournal, numAo)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
       journal.numEnvoie,
+      journal.fileName,
       journal.format,
       journal.fournisseur,
       journal.dateEnvoie,
@@ -18,12 +19,23 @@ class JournalDAO {
       journal.numAo,
     ];
 
-    return new Promise((resolve, reject) => {
-      pool.query(_query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.insertId);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
   static update(journal) {
@@ -63,29 +75,76 @@ class JournalDAO {
     });
   }
 
-  static getByNum(num) {
+  static async getByNum(num) {
     const _query = 'SELECT * FROM Journal WHERE num=?';
-
-    return new Promise((resolve, reject) => {
-      pool.query(_query, [num], (err, rows) => {
-        if (err) reject(err);
-        if (rows.length === 0) resolve(null);
-        const journal = new Journal(...Object.values(rows[0]));
-        resolve(journal);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+
+      if (rows.length === 0) return null;
+      const j = JSON.parse(JSON.stringify(rows[0]));
+      return j ? new Journal(j) : null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static getAll() {
+  static async getAll() {
     const _query = 'SELECT * FROM Journal';
 
-    return new Promise((resolve, reject) => {
-      pool.query(_query, (err, rows) => {
-        if (err) reject(err);
-        const journalList = rows.map((row) => new Journal(...Object.values(row)));
-        resolve(journalList);
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
       });
-    });
+      const jList = rows.map((eb) => {
+        return JSON.parse(JSON.stringify(eb));
+      });
+      return jList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  static async getByNumAO(num){
+    const _query = 'SELECT * FROM Journal where numAo=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+      
+      const jList = rows.map((eb) => {
+        return JSON.parse(JSON.stringify(eb));
+      });
+      return jList;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 module.exports=JournalDAO;

@@ -5,11 +5,11 @@ create table Utilisateur(immatricule int primary key auto_increment, login varch
 create table EB(num  int primary key auto_increment, objet varchar(50), agence varchar(50), observation varchar(50), prog_nonprog int, classe varchar(50), caution double, estimation double, dateEB date, modePassation varchar(50), dateValidation date, validerPar varchar(50), numUtilisateur int, secteur varchar(50), qualification varchar(50));
 create table Operation(code int primary key auto_increment, agence varchar(50), DA longblob, imputation varchar(50), natureProjet varchar(50), operation varchar(50), programme varchar(50), situation varchar(50), superficie varchar(50), typeProjet varchar(50), numEB int);
 create table Piece(num int primary key auto_increment, libelle varchar(50), piece longblob, fileName varchar(50), numEB int);
-create table AO(num varchar(50) primary key, etat varchar(50), dateOuverturePlis date, heureOuverturePlis timestamp, datePublicationPortail date, dateEntreDM date, dateAchevementTravauxCommission date, avis longblob, numEB int, numLettreCommission int);
+create table AO(num varchar(50) primary key, etat varchar(50), dateOuverturePlis date, heureOuverturePlis timestamp, datePublicationPortail date, dateEntreDM date, dateAchevementTravauxCommission date, avis longblob, fileName varchar(50), numEB int, numLettreCommission int);
 create table Marche(num varchar(50) primary key, numCommande varchar(50), marche varchar(50), numAO varchar(50));
-create table Journal(num int primary key auto_increment, numEnvoie int, format varchar(50), fournisseur varchar(50), dateEnvoie date, datePublication date, lettreJournal longblob, numAo varchar(50));
+create table Journal(num int primary key auto_increment, fileName varchar(50), numEnvoie int, format varchar(50), fournisseur varchar(50), dateEnvoie date, datePublication date, lettreJournal longblob, numAo varchar(50));
 create table Facture(num int primary key auto_increment, dateFacture date, montant double, numJournal int);
-create table LettreCommission(num int primary key auto_increment, numEnvoie int, dateEnvoie date, destinataire varchar(50), lettreCommission longblob);
+create table LettreCommission(num int primary key auto_increment, fileName varchar(50), numEnvoie int, dateEnvoie date, destinataire varchar(50), lettreCommission longblob);
 alter table EB add foreign key (numUtilisateur) references Utilisateur(immatricule);
 alter table Operation add foreign key (numEB) references EB(num);
 alter table Piece add foreign key (numEB) references EB(num);
