@@ -1,4 +1,5 @@
 import axios from 'axios';
+import './add.css'
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
@@ -6,7 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { SlLogout } from 'react-icons/sl';
 import {IoMdNotifications} from 'react-icons/io';
-import './add.css'
+
 import Navbar from 'react-bootstrap/Navbar';
 import Sidebar from '../sidebar/sideBar';
 

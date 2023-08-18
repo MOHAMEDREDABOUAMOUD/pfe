@@ -15,6 +15,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Journal from "./journal";
 import EB from "./eb";
 import LettreCommission from "./lettreCommission";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+
+import {IoMdNotifications} from 'react-icons/io';
 
 const ListAODM = () => {
     const [sortBy, setSortBy] = useState(null);
@@ -235,19 +239,27 @@ const ListAODM = () => {
 
     return (
         <div className="table-wrapper">
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        <h1 href="/" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <h3 className="absolutely-positioned"><FaUserTie /> Mohammed Raji</h3>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        <a href="/" className="logout"><SlLogout /></a>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-            </Navbar>
+                        <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace DM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
             <Sidebar />
             <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {renderFilterDropdown()}
