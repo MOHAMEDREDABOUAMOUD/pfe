@@ -9,16 +9,17 @@ import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Journal from "./journal";
 import EB from "./eb";
 import LettreCommission from "./lettreCommission";
+import UpdateAvis from "./Avis/updateAvis";
 
 const ListAO = () => {
     const [sortBy, setSortBy] = useState(null);
@@ -40,6 +41,7 @@ const ListAO = () => {
     const [showJournal, setShowJournal] = useState(false);
     const [showEB, setShowEB] = useState(false);
     const [showLettreCommission, setShowLettreCommission] = useState(false);
+    const [showUpdateAvis, setShowUpdateAvis] = useState(false);
     const [ido, setido] = useState(0);
 
     const handleButtonClick = () => {
@@ -172,9 +174,10 @@ const ListAO = () => {
     });
 
     const navigate = useNavigate();
-    // const editRow = (id) => {
-    //     navigate(`/updateAO/${id}`);
-    // }
+    const editRow = (id) => {
+        setido(id);
+        setShowUpdateAvis(true);
+    }
 
     //   const deleteRow = async (id) => {
     //     await axios.post("/deleteEB", { id: id });
@@ -201,37 +204,44 @@ const ListAO = () => {
     const handleCloseLettreCommission = () => {
         setShowLettreCommission(false);
     };
+    const handleUpdateAvis = (id) => {
+        setido(id);
+        setShowUpdateAvis(true);
+    }
+    const handleCloseUpdateAvis = () => {
+        setShowUpdateAvis(false);
+    };
     const handleDownload = async (file, fileName) => {
-      try {
-        //const response = await axios.post("/getFile", { id: id });
-        const buffer = new Uint8Array(file);
-        const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
-        //console.log(binaryString);
-        // Create a Blob from the Uint8Array
-        const decodedData = atob(binaryString);
-        const uint8Array = new Uint8Array(decodedData.length);
-        for (let i = 0; i < decodedData.length; i++) {
-          uint8Array[i] = decodedData.charCodeAt(i);
+        try {
+            //const response = await axios.post("/getFile", { id: id });
+            const buffer = new Uint8Array(file);
+            const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
+            //console.log(binaryString);
+            // Create a Blob from the Uint8Array
+            const decodedData = atob(binaryString);
+            const uint8Array = new Uint8Array(decodedData.length);
+            for (let i = 0; i < decodedData.length; i++) {
+                uint8Array[i] = decodedData.charCodeAt(i);
+            }
+            const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+            // Create a download URL for the Blob
+            const downloadUrl = URL.createObjectURL(blob);
+
+            // Create a link element for downloading
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = fileName; // Specify the desired filename
+            document.body.appendChild(link);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+
+            // Clean up by revoking the Blob URL
+            URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error downloading file:", error);
         }
-        const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
-  
-        // Create a download URL for the Blob
-        const downloadUrl = URL.createObjectURL(blob);
-  
-        // Create a link element for downloading
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = fileName; // Specify the desired filename
-        document.body.appendChild(link);
-  
-        // Programmatically click the link to trigger the download
-        link.click();
-  
-        // Clean up by revoking the Blob URL
-        URL.revokeObjectURL(downloadUrl);
-      } catch (error) {
-        console.error("Error downloading file:", error);
-      }
     };
     // const viewFile=async(id)=>{
     //   navigate(`/viewAO/${id}`);
@@ -240,26 +250,26 @@ const ListAO = () => {
     return (
         <div className="table-wrapper">
             <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text className="left">
+                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title="Mohammed Raji"
+                            menuVariant="dark"
+                        >
+                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">
+                                <SlLogout /> Logout
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
             <Sidebar />
             <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {renderFilterDropdown()}
@@ -316,11 +326,11 @@ const ListAO = () => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                            //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleUpdateAvis(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
-                                            //onClick={() => viewFile(row.num)}
+                                        //onClick={() => viewFile(row.num)}
                                         />
                                         <BsBoxArrowDown
                                             className="edit-btn"
@@ -367,6 +377,14 @@ const ListAO = () => {
                         <AiIcons.AiOutlineClose onClick={handleCloseEB} />
                     </NavIcon>
                     <EB id={ido} />
+                </div>
+            )}
+            {showUpdateAvis && (
+                <div className="overlay">
+                    <NavIcon className="close-icon" to='#'>
+                        <AiIcons.AiOutlineClose onClick={handleCloseUpdateAvis} />
+                    </NavIcon>
+                    <UpdateAvis id={ido} />
                 </div>
             )}
             {showLettreCommission && (

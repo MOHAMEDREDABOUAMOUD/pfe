@@ -74,6 +74,8 @@ import ListAO from './components/demandeur/listAO/listAO';
 import ListAODti from './components/dti/listAO/listAO';
 import ListAOCM from './components/CM/listAO/listAO';
 import ListAODM from './components/DM/listAO/listAO';
+import UpdateJournal from './components/demandeur/listAO/Journal/updateJournal';
+import UpdateCommission from './components/demandeur/listAO/LettreCommission/updateCommission';
 
 
 function App() {
@@ -95,6 +97,8 @@ function App() {
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path="/listEB" element={<ListEB/>} />
         <Route path='/updateEB/:id' element={<UpdateEB />}></Route>
+        <Route path='/updateJournal/:id' element={<UpdateJournal />}></Route>
+        <Route path='/updateCommission/:id' element={<UpdateCommission />}></Route>
         <Route path="/listOperations" element={<ListOperations/>} />
         <Route path='/updateOperation/:id' element={<UpdateOp />}></Route> 
         <Route path='/addOperation/:id' element={<AddOperation/>}></Route>

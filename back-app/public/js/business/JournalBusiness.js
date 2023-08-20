@@ -8,6 +8,10 @@ class JournalBusiness {
         return JournalDAO.update(journal);
     }
 
+    static updateLettreJournal(piece, fileName, id){
+        return JournalDAO.updateLettreJournal(piece, fileName, id);
+    }
+
     static delete(num) {
         return JournalDAO.delete(num);
     }

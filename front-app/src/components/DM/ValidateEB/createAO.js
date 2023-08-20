@@ -211,7 +211,7 @@ export default function CreateAO() {
                     <input type="text" className="form-control" id="fournisseurJournal" placeholder="fournisseur journal" value={fournisseurJournal} onChange={(e) => setFournisseurJournal(e.target.value)} />
                 </div>
                 <div className='form-group'>
-                    <label htmlFor="numEnvoieJournal">num envoie lettre commission</label><br />
+                    <label htmlFor="numEnvoieJournal">num envoie lettre journal</label><br />
                     <input type="text" className="form-control" id="numEnvoieJournal" placeholder="num envoie journal" value={numEnvoieJournal} onChange={(e) => setNumEnvoieJournal(e.target.value)} />
                 </div>
                 <div class="form-group flex-row">

@@ -24,5 +24,9 @@ class AOBusiness {
     static getAll() {
         return AODAO.getAll();
     }
+
+    static updateAvis(piece, fileName, id){
+        return AODAO.updateAvis(piece, fileName, id);
+    }
 }
 module.exports=AOBusiness;

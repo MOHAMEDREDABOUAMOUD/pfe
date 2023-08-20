@@ -31,14 +31,42 @@ class LettreCommissionDAO {
     }
   }
 
-  static async update(lettreCommission) {
+  static async updateLettreCommission(piece, fileName, id){
     const _query = `
       UPDATE LettreCommission
-      SET numEnvoie=?, dateEnvoie=?, destinataire=?, lettreCommission=?
+      SET lettreCommission=?, fileName=?
       WHERE num=?
     `;
 
-    const values = [lettreCommission.numEnvoie, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.lettreCommission, lettreCommission.num];
+    const values = [piece, fileName, id];
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async update(lettreCommission) {
+    const _query = `
+      UPDATE LettreCommission
+      SET numEnvoie=?, dateEnvoie=?, destinataire=?
+      WHERE num=?
+    `;
+
+    const values = [lettreCommission.numEnvoie, lettreCommission.dateEnvoie, lettreCommission.destinataire, lettreCommission.num];
 
     try {
       const result = await new Promise((resolve, reject) => {
