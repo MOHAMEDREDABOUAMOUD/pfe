@@ -44,7 +44,7 @@ const UpdateEB = () => {
                 objet: objet,
                 agence: agence,
                 observation: observation,
-                prog_nonprog: prog_nonprog,
+                prog_nonprog: progValue,
                 caution: caution,
                 estimation: estimation,
                 modePassation: modePassation,
@@ -65,7 +65,7 @@ const UpdateEB = () => {
                 setObjet(userData.data["objet"]);
                 setAgence(userData.data["agence"]);
                 setObservation(userData.data["observation"]);
-                if (userData.data["prog_nonprog"] == "Non") setProgNonProgram(false);
+                if (userData.data["prog_nonprog"] === "Non") setProgNonProgram(false);
                 else setProgNonProgram(true);
                 //console.log(progNonProgram);
                 setCaution(userData.data["caution"]);

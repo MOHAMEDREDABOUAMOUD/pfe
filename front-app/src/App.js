@@ -25,6 +25,9 @@ import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
 import AddOperation from './components/demandeur/createEB/addOperation';
 import View from './components/demandeur/listEB/view';
+import UpdateJournal from './components/demandeur/listAO/Journal/updateJournal';
+import UpdateCommission from './components/demandeur/listAO/LettreCommission/updateCommission';
+import Notifications from './components/demandeur/notifications/notifications';
 
 import Maindti from './components/dti/main/main';
 import CreateEBDti from './components/dti/createEB/createEB';
@@ -74,8 +77,6 @@ import ListAO from './components/demandeur/listAO/listAO';
 import ListAODti from './components/dti/listAO/listAO';
 import ListAOCM from './components/CM/listAO/listAO';
 import ListAODM from './components/DM/listAO/listAO';
-import UpdateJournal from './components/demandeur/listAO/Journal/updateJournal';
-import UpdateCommission from './components/demandeur/listAO/LettreCommission/updateCommission';
 
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
         <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
         <Route path='/listAO' element={<ListAO/>}></Route>
+        <Route path='/notifications' element={<Notifications/>}></Route>
         
         <Route path='/dti/main' element={<Maindti />}></Route>
         <Route path='/createEBDti' element={<CreateEBDti />}></Route>

@@ -227,6 +227,7 @@ app.post("/createUser", async (req, res) => {
 
 app.post("/createEB", async (req, res) => {
     const { objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
+    console.log("prognonprog : "+progNonProg);
     EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
@@ -357,7 +358,15 @@ app.post("/getCurrentUserData", async (req, res) => {
         console.log(error);
     }
 });
-
+app.post("/getNotifications", async (req, res) => {
+    const { id } = req.body;
+    try {
+        const user = await UtilisateurBusiness.getNotifications(currentUser);
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+    }
+});
 app.post("/updateSettingsIP", async (req, res) => {
     const { email, nom, prenom } = req.body;
     try {

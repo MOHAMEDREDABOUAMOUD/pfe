@@ -153,7 +153,94 @@ class AODAO {
 
       if (rows.length === 0) return null;
       const ao = JSON.parse(JSON.stringify(rows[0]));
-      return eb ? new AO(ao) : null;
+      if (ao) {
+        const dateOuverturePlis = new Date(ao.dateOuverturePlis);
+        dateOuverturePlis.setDate(dateOuverturePlis.getDate() + 1);
+        const modifieddateOuverturePlis = dateOuverturePlis.toISOString().split('T')[0];
+        
+        const heureOuverturePlis = new Date(ao.heureOuverturePlis);
+        heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        
+        const datePublicationPortail = new Date(ao.datePublicationPortail);
+        datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
+        const modifieddatePublicationPortail = datePublicationPortail.toISOString().split('T')[0];
+        
+        const dateEntreDM = new Date(ao.dateEntreDM);
+        dateEntreDM.setDate(dateEntreDM.getDate() + 1);
+        const modifieddateEntreDM = dateEntreDM.toISOString().split('T')[0];
+        
+        const dateAchevementTravauxCommission = new Date(ao.dateAchevementTravauxCommission);
+        dateAchevementTravauxCommission.setDate(dateAchevementTravauxCommission.getDate() + 1);
+        const modifieddateAchevementTravauxCommission = dateAchevementTravauxCommission.toISOString().split('T')[0];
+        
+        return new AO({
+          ...ao,
+          dateOuverturePlis: modifieddateOuverturePlis,
+          heureOuverturePlis: modifiedheureOuverturePlis,
+          datePublicationPortail: modifieddatePublicationPortail,
+          dateEntreDM: modifieddateEntreDM,
+          dateAchevementTravauxCommission: modifieddateAchevementTravauxCommission
+        });
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async getByEBNum(num){
+    const _query = 'SELECT * FROM AO WHERE numEB=?';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, [num], (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      if (rows.length === 0) return null;
+      
+      const ao = JSON.parse(JSON.stringify(rows[0]));
+      if (ao) {
+        const dateOuverturePlis = new Date(ao.dateOuverturePlis);
+        dateOuverturePlis.setDate(dateOuverturePlis.getDate() + 1);
+        const modifieddateOuverturePlis = dateOuverturePlis.toISOString().split('T')[0];
+        
+        const heureOuverturePlis = new Date(ao.heureOuverturePlis);
+        heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        
+        const datePublicationPortail = new Date(ao.datePublicationPortail);
+        datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
+        const modifieddatePublicationPortail = datePublicationPortail.toISOString().split('T')[0];
+        
+        const dateEntreDM = new Date(ao.dateEntreDM);
+        dateEntreDM.setDate(dateEntreDM.getDate() + 1);
+        const modifieddateEntreDM = dateEntreDM.toISOString().split('T')[0];
+        
+        const dateAchevementTravauxCommission = new Date(ao.dateAchevementTravauxCommission);
+        dateAchevementTravauxCommission.setDate(dateAchevementTravauxCommission.getDate() + 1);
+        const modifieddateAchevementTravauxCommission = dateAchevementTravauxCommission.toISOString().split('T')[0];
+        
+        return new AO({
+          ...ao,
+          dateOuverturePlis: modifieddateOuverturePlis,
+          heureOuverturePlis: modifiedheureOuverturePlis,
+          datePublicationPortail: modifieddatePublicationPortail,
+          dateEntreDM: modifieddateEntreDM,
+          dateAchevementTravauxCommission: modifieddateAchevementTravauxCommission
+        });
+      } else {
+        return null;
+      }
     } catch (error) {
       console.error(error);
       return null;
@@ -176,7 +263,35 @@ class AODAO {
       });
 
       const aoList = rows.map((ao) => {
-        return JSON.parse(JSON.stringify(ao));
+        // Assuming dateEB and dateValidation are in 'YYYY-MM-DD' format
+        const dateOuverturePlis = new Date(ao.dateOuverturePlis);
+        dateOuverturePlis.setDate(dateOuverturePlis.getDate() + 1);
+        const modifieddateOuverturePlis = dateOuverturePlis.toISOString().split('T')[0];
+        
+        const heureOuverturePlis = new Date(ao.heureOuverturePlis);
+        heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        
+        const datePublicationPortail = new Date(ao.datePublicationPortail);
+        datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
+        const modifieddatePublicationPortail = datePublicationPortail.toISOString().split('T')[0];
+        
+        const dateEntreDM = new Date(ao.dateEntreDM);
+        dateEntreDM.setDate(dateEntreDM.getDate() + 1);
+        const modifieddateEntreDM = dateEntreDM.toISOString().split('T')[0];
+        
+        const dateAchevementTravauxCommission = new Date(ao.dateAchevementTravauxCommission);
+        dateAchevementTravauxCommission.setDate(dateAchevementTravauxCommission.getDate() + 1);
+        const modifieddateAchevementTravauxCommission = dateAchevementTravauxCommission.toISOString().split('T')[0];
+        
+        return {
+          ...ao,
+          dateOuverturePlis: modifieddateOuverturePlis,
+          heureOuverturePlis: modifiedheureOuverturePlis,
+          datePublicationPortail: modifieddatePublicationPortail,
+          dateEntreDM: modifieddateEntreDM,
+          dateAchevementTravauxCommission: modifieddateAchevementTravauxCommission
+        };
       });
 
       return aoList;
@@ -202,7 +317,35 @@ class AODAO {
       });
 
       const aoList = rows.map((ao) => {
-        return JSON.parse(JSON.stringify(ao));
+        // Assuming dateEB and dateValidation are in 'YYYY-MM-DD' format
+        const dateOuverturePlis = new Date(ao.dateOuverturePlis);
+        dateOuverturePlis.setDate(dateOuverturePlis.getDate() + 1);
+        const modifieddateOuverturePlis = dateOuverturePlis.toISOString().split('T')[0];
+        
+        const heureOuverturePlis = new Date(ao.heureOuverturePlis);
+        heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        
+        const datePublicationPortail = new Date(ao.datePublicationPortail);
+        datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
+        const modifieddatePublicationPortail = datePublicationPortail.toISOString().split('T')[0];
+        
+        const dateEntreDM = new Date(ao.dateEntreDM);
+        dateEntreDM.setDate(dateEntreDM.getDate() + 1);
+        const modifieddateEntreDM = dateEntreDM.toISOString().split('T')[0];
+        
+        const dateAchevementTravauxCommission = new Date(ao.dateAchevementTravauxCommission);
+        dateAchevementTravauxCommission.setDate(dateAchevementTravauxCommission.getDate() + 1);
+        const modifieddateAchevementTravauxCommission = dateAchevementTravauxCommission.toISOString().split('T')[0];
+        
+        return {
+          ...ao,
+          dateOuverturePlis: modifieddateOuverturePlis,
+          heureOuverturePlis: modifiedheureOuverturePlis,
+          datePublicationPortail: modifieddatePublicationPortail,
+          dateEntreDM: modifieddateEntreDM,
+          dateAchevementTravauxCommission: modifieddateAchevementTravauxCommission
+        };
       });
 
       return aoList;

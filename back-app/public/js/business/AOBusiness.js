@@ -25,6 +25,10 @@ class AOBusiness {
         return AODAO.getAll();
     }
 
+    static getByEBNum(num){
+        return AODAO.getByEBNum(num);
+    }
+
     static updateAvis(piece, fileName, id){
         return AODAO.updateAvis(piece, fileName, id);
     }
