@@ -4,7 +4,7 @@
 .app2{
     background-image: url('./back.jpg');
     background-size:cover;
-    height: 753px;
+    height: 100%;
     width: 100%;
 }
 .App{

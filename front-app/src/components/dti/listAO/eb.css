@@ -5,6 +5,8 @@
     width: 200%;
 }
 .table{
+  position: relative;
+  top: 150px;
     display: block;
     overflow: hidden;
     table-layout: auto;
@@ -135,18 +137,33 @@
     color: #e10d05;
 }
 .filter-dropdown{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-left: -100px;
+  width: 100%;
 }
 .filter{
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    width: 150px;
-    border-radius: 10px;
-    height: 50px;
-    border: 1px solid #777;
+  position: relative;
+  top: 150px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  width: 150px;
+  border-radius: 10px;
+  height: 50px;
+  border: 1px solid #777;
+}
+.filter-input{
+  position: relative;
+  top: 150px;
+margin-bottom: 20px;
+align-items: center;
+justify-content: center;
+margin: 0;
+margin: -100px;
+width: 50%;
 }
 .bara{
     position: absolute;
@@ -161,14 +178,7 @@
     top: 10px;
     width: 70px;
   }
-.filter-input{
-    width: 100px;
-    margin-bottom: 20px;
-    align-items: center;
-    justify-content: center;
-    margin-left: 100px;
-    
-}
+
 .nav-image{
     width: 200px;
 }
