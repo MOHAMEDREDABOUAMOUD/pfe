@@ -2,6 +2,8 @@
     width: 100%;
 }
 .table{
+    position: relative;
+    top: 150px;
     display: block;
     overflow: hidden;
     table-layout: auto;
@@ -61,6 +63,8 @@
 }
 .filter-dropdown{
     display: flex;
+    position: relative;
+    top: 150px;
     align-items: center;
     justify-content: center;
 }
@@ -77,7 +81,7 @@
     font-weight: bold;
   }
   .barad{
-    position: fixed;
+    position:static;
     top: 0;
     height: 70px;
     width: 100%;
@@ -97,6 +101,8 @@
   }
 .filter{
     align-items: center;
+    position: relative;
+    top: 150px;
     justify-content: center;
     margin-bottom: 30px;
     width: 150px;

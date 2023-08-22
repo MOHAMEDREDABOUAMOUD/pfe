@@ -31,6 +31,10 @@ body, html {
     width: 100%;
     background: #e2e3e5;
   }
+  body,html{
+    height: 100%;
+    background-color: #fff;
+  }
   .absolutely-positioned {
     position: absolute;
     top: 50%;
