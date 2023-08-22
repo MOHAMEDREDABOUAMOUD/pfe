@@ -10,6 +10,7 @@ import titre from './titre.png'
 function SignIn() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,32 +21,34 @@ function SignIn() {
       formData.append('pwd', password);
 
       await axios
-        .post("/signIn", { userName : userName, password : password })
+        .post("/signIn", { userName: userName, password: password })
         .then((response) => {
           //console.log(response.data); // You can handle the response here if needed
           // Redirect the user to a different page upon successful sign-in
           //console.log(response.data["fonction"]);
-          if(response.data["fonction"]==="Admin"){
+          if (response.data["fonction"] === "Admin") {
             navigate("/admin/main");
           }
-          else if(response.data["fonction"]==="Demandeur"){
+          else if (response.data["fonction"] === "Demandeur") {
             navigate("/demandeur/main");
           }
-          else if(response.data["fonction"]==="DTI"){
+          else if (response.data["fonction"] === "DTI") {
             navigate("/dti/main");
           }
-          else if(response.data["fonction"]==="CM"){
+          else if (response.data["fonction"] === "CM") {
             navigate("/CM/main");
           }
-          else if(response.data["fonction"]==="DM"){
+          else if (response.data["fonction"] === "DM") {
             navigate("/DM/main");
           }
-          else{
+          else {
             navigate("/");
           }
+          setError(null);
         })
         .catch((error) => {
           console.log(error.response.data);
+          setError('User not found');
           //navigate("/createUser");
         });
 
@@ -76,50 +79,51 @@ function SignIn() {
   return (
     <div className="App">
       <div className='app2'>
-      <div className="bara">
+        <div className="bara">
           <img src={logo} className="image"></img>
-      </div>
-      <div>
-        <div className="wrapper d-flex align-items-center justify-content-center w-100">
-          <div className="login">
-            <h2 className="mb-3">Sign In</h2>
-            <form className="needs-validation" onSubmit={handleSubmit}>
-              <div className="form-group mb-2">
-                <label className="form-label" htmlFor="userName">User Name</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  required
-                  name="login"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                <div className="invalid-feedback">
-                  Please enter your username
+        </div>
+        <div>
+          <div className="wrapper d-flex align-items-center justify-content-center w-100">
+            <div className="login">
+              <h2 className="mb-3">Sign In</h2>
+              <form className="needs-validation" onSubmit={handleSubmit}>
+                <div className="form-group mb-2">
+                  <label className="form-label" htmlFor="userName">User Name</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    required
+                    name="login"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                  />
+                  <div className="invalid-feedback">
+                    Please enter your username
+                  </div>
                 </div>
-              </div>
-              <div className="form-group mb-2">
-                <label className="form-label" htmlFor="password">Password</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  required
-                  name="pwd"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <div className="invalid-feedback">
-                  Please enter your password
+                <div className="form-group mb-2">
+                  <label className="form-label" htmlFor="password">Password</label>
+                  <input
+                    className="form-control"
+                    type="password"
+                    required
+                    name="pwd"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <div className="invalid-feedback">
+                    Please enter your password
+                  </div>
                 </div>
-              </div>
-              <div className="form-group form-check mb-2">
-                <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">Forgot Password?</Link></label>
-              </div>
-              <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
-            </form>
+                <div className="form-group form-check mb-2">
+                  <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">Forgot Password?</Link></label>
+                </div>
+                <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
+                {error && <p className="text-danger mt-2">{error}</p>}
+              </form>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
