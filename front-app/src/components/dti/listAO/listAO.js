@@ -19,6 +19,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Journal from "./journal";
 import EB from "./eb";
 import LettreCommission from "./lettreCommission";
+import UpdateAvis from "./Avis/updateAvis";
 
 const ListAODti = () => {
     const [sortBy, setSortBy] = useState(null);
@@ -41,6 +42,7 @@ const ListAODti = () => {
     const [showEB, setShowEB] = useState(false);
     const [showLettreCommission, setShowLettreCommission] = useState(false);
     const [ido, setido] = useState(0);
+    const [showUpdateAvis, setShowUpdateAvis] = useState(false);
 
     const handleButtonClick = () => {
         setShowJournal(true);
@@ -201,6 +203,13 @@ const ListAODti = () => {
     const handleCloseLettreCommission = () => {
         setShowLettreCommission(false);
     };
+    const handleUpdateAvis = (id) => {
+        setido(id);
+        setShowUpdateAvis(true);
+    }
+    const handleCloseUpdateAvis = () => {
+        setShowUpdateAvis(false);
+    };
     const handleDownload = async (file, fileName) => {
       try {
         //const response = await axios.post("/getFile", { id: id });
@@ -316,7 +325,7 @@ const ListAODti = () => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                            //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleUpdateAvis(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
@@ -367,6 +376,14 @@ const ListAODti = () => {
                         <AiIcons.AiOutlineClose onClick={handleCloseEB} />
                     </NavIcon>
                     <EB id={ido} />
+                </div>
+            )}
+            {showUpdateAvis && (
+                <div className="overlay">
+                    <NavIcon className="close-icon" to='#'>
+                        <AiIcons.AiOutlineClose onClick={handleCloseUpdateAvis} />
+                    </NavIcon>
+                    <UpdateAvis id={ido} />
                 </div>
             )}
             {showLettreCommission && (

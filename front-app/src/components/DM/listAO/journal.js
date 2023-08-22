@@ -8,15 +8,15 @@ import logo from "./logo-omrane.png";
 import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
-import Nav from 'react-bootstrap/Nav';
 import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
-import Navbar from 'react-bootstrap/Navbar';
-
-
+import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
+
+import Navbar from 'react-bootstrap/Navbar';
+import UpdateLettreJournal from "./Journal/updatelettreJournal";
 
 const Journal = (props) => {
     const [sortBy, setSortBy] = useState(null);
@@ -25,7 +25,9 @@ const Journal = (props) => {
     const [showFilterDropdown, setShowFilterDropdown] = useState(false);
     const [rows, setRows] = useState([]);
     const [columns, setColumns] = useState([]);
-    const id=props.id;
+    const [ido, setido] = useState(0);
+    const [showLettreJournal, setShowLettreJournal] = useState(false);
+    const id = props.id;
 
     const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -163,13 +165,21 @@ const Journal = (props) => {
     });
 
     const navigate = useNavigate();
-    //   const editRow = (id) => {
-    //     navigate(`/updateJournal/${id}`);
-    //   }
+    const editRow = (id) => {
+        navigate(`/updateJournal/${id}`);
+    }
     const deleteRow = async (id) => {
         await axios.post("/deleteJournal", { id: id });
         getRows();
     }
+    
+    const handleLettreJournal = (id) => {
+        setido(id);
+        setShowLettreJournal(true);
+    }
+    const handleCloseLettreJournal = () => {
+        setShowLettreJournal(false);
+    };
     //   const handleFiles = (id) => {
     //     setido(id);
     //     setShowFile(true);
@@ -187,60 +197,60 @@ const Journal = (props) => {
 
     const handleDownload = async (file, fileName) => {
         try {
-          //const response = await axios.post("/getFile", { id: id });
-          const buffer = new Uint8Array(file);
-          const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
-          //console.log(binaryString);
-          // Create a Blob from the Uint8Array
-          const decodedData = atob(binaryString);
-          const uint8Array = new Uint8Array(decodedData.length);
-          for (let i = 0; i < decodedData.length; i++) {
-            uint8Array[i] = decodedData.charCodeAt(i);
-          }
-          const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
-    
-          // Create a download URL for the Blob
-          const downloadUrl = URL.createObjectURL(blob);
-    
-          // Create a link element for downloading
-          const link = document.createElement('a');
-          link.href = downloadUrl;
-          link.download = fileName; // Specify the desired filename
-          document.body.appendChild(link);
-    
-          // Programmatically click the link to trigger the download
-          link.click();
-    
-          // Clean up by revoking the Blob URL
-          URL.revokeObjectURL(downloadUrl);
+            //const response = await axios.post("/getFile", { id: id });
+            const buffer = new Uint8Array(file);
+            const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
+            //console.log(binaryString);
+            // Create a Blob from the Uint8Array
+            const decodedData = atob(binaryString);
+            const uint8Array = new Uint8Array(decodedData.length);
+            for (let i = 0; i < decodedData.length; i++) {
+                uint8Array[i] = decodedData.charCodeAt(i);
+            }
+            const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+            // Create a download URL for the Blob
+            const downloadUrl = URL.createObjectURL(blob);
+
+            // Create a link element for downloading
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = fileName; // Specify the desired filename
+            document.body.appendChild(link);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+
+            // Clean up by revoking the Blob URL
+            URL.revokeObjectURL(downloadUrl);
         } catch (error) {
-          console.error("Error downloading file:", error);
+            console.error("Error downloading file:", error);
         }
-      };
+    };
 
     return (
         <div className="table-wrapper">
-                        <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DM</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+            <Navbar className="barad">
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text className="left">
+                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title="Mohammed Raji"
+                            menuVariant="dark"
+                        >
+                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">
+                                <SlLogout /> Logout
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
             <Sidebar />
             <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {renderFilterDropdown()}
@@ -284,7 +294,7 @@ const Journal = (props) => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                        //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleLettreJournal(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
@@ -296,11 +306,31 @@ const Journal = (props) => {
                                         />
                                     </span>
                                 </td>
+                                <td className="fit">
+                                    <span className="actions">
+                                        <BsFillTrashFill
+                                            className="delete-btn"
+                                            onClick={() => deleteRow(row.num)}
+                                        />
+                                        <BsFillPencilFill
+                                            className="edit-btn"
+                                            onClick={() => editRow(row.num)}
+                                        />
+                                    </span>
+                                </td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
+            {showLettreJournal && (
+                <div className="overlay">
+                    <NavIcon className="close-icon" to='#'>
+                        <AiIcons.AiOutlineClose onClick={handleCloseLettreJournal} />
+                    </NavIcon>
+                    <UpdateLettreJournal id={ido} />
+                </div>
+            )}
         </div>
     );
 };

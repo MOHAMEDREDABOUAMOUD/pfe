@@ -18,7 +18,7 @@ const CreateEB = () => {
     const [observation, setObservation] = useState("");
     const [caution, setCaution] = useState("");
     const [estimation, setEstimation] = useState("");
-    const [progNonProgram, setProgNonProgram] = useState(false);
+    const [progNonProgram, setProgNonProgram] = useState(true);
     const [progNonProg, setProgNonProg] = useState("Non");
     const [agence, setAgence] = useState("Fes");
     const [agenceOp, setAgenceOp] = useState("Fes");
@@ -140,7 +140,7 @@ const CreateEB = () => {
             operationList: operationList,
         };
         setEB(EBData);
-        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progNonProg, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
         navigate("/listEB");
     };
 

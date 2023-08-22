@@ -19,6 +19,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Journal from "./journal";
 import EB from "./eb";
 import LettreCommission from "./lettreCommission";
+import UpdateAvis from "./Avis/updateAvis";
 
 const ListAOCM = () => {
     const [sortBy, setSortBy] = useState(null);
@@ -40,6 +41,7 @@ const ListAOCM = () => {
     const [showJournal, setShowJournal] = useState(false);
     const [showEB, setShowEB] = useState(false);
     const [showLettreCommission, setShowLettreCommission] = useState(false);
+    const [showUpdateAvis, setShowUpdateAvis] = useState(false);
     const [ido, setido] = useState(0);
 
     const handleButtonClick = () => {
@@ -172,9 +174,10 @@ const ListAOCM = () => {
     });
 
     const navigate = useNavigate();
-    // const editRow = (id) => {
-    //     navigate(`/updateAO/${id}`);
-    // }
+    const editRow = (id) => {
+        setido(id);
+        setShowUpdateAvis(true);
+    }
 
     //   const deleteRow = async (id) => {
     //     await axios.post("/deleteEB", { id: id });
@@ -200,6 +203,13 @@ const ListAOCM = () => {
     }
     const handleCloseLettreCommission = () => {
         setShowLettreCommission(false);
+    };
+    const handleUpdateAvis = (id) => {
+        setido(id);
+        setShowUpdateAvis(true);
+    }
+    const handleCloseUpdateAvis = () => {
+        setShowUpdateAvis(false);
     };
     const handleDownload = async (file, fileName) => {
       try {
@@ -316,7 +326,7 @@ const ListAOCM = () => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                            //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleUpdateAvis(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
@@ -367,6 +377,14 @@ const ListAOCM = () => {
                         <AiIcons.AiOutlineClose onClick={handleCloseEB} />
                     </NavIcon>
                     <EB id={ido} />
+                </div>
+            )}
+            {showUpdateAvis && (
+                <div className="overlay">
+                    <NavIcon className="close-icon" to='#'>
+                        <AiIcons.AiOutlineClose onClick={handleCloseUpdateAvis} />
+                    </NavIcon>
+                    <UpdateAvis id={ido} />
                 </div>
             )}
             {showLettreCommission && (

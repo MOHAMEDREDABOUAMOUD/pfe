@@ -8,17 +8,15 @@ import logo from "./logo-omrane.png";
 import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
-import Nav from 'react-bootstrap/Nav';
 import { SlLogout } from 'react-icons/sl';
-import { FaUserTie } from 'react-icons/fa';
-import Navbar from 'react-bootstrap/Navbar';
-
+import {FaUserTie} from 'react-icons/fa';
+import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
 
 import {IoMdNotifications} from 'react-icons/io';
 
-
+import Navbar from 'react-bootstrap/Navbar';
+import UpdateLettreCommission from "./LettreCommission/updatelettreCpmmission";
 const LettreCommission = (props) => {
     const id=props.id;
     const [sortBy, setSortBy] = useState(null);
@@ -27,6 +25,8 @@ const LettreCommission = (props) => {
     const [showFilterDropdown, setShowFilterDropdown] = useState(false);
     const [rows, setRows] = useState([]);
     const [columns, setColumns] = useState([]);
+    const [ido, setido] = useState(0);
+    const [showLettreCommission, setShowLettreCommission] = useState(false);
 
     const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -163,13 +163,21 @@ const LettreCommission = (props) => {
     });
 
     const navigate = useNavigate();
-    //   const editRow = (id) => {
-    //     navigate(`/updateLettreCommission/${id}`);
-    //   }
+    const editRow = (id) => {
+        navigate(`/updateCommission/${id}`);
+    }
     const deleteRow = async (id) => {
         await axios.post("/deleteLettreCommission", { id: id });
         getRows();
     }
+
+    const handleLettreCommission = (id) => {
+        setido(id);
+        setShowLettreCommission(true);
+    }
+    const handleCloseLettreCommission = () => {
+        setShowLettreCommission(false);
+    };
     //   const handleFiles = (id) => {
     //     setido(id);
     //     setShowFile(true);
@@ -220,10 +228,10 @@ const LettreCommission = (props) => {
 
     return (
         <div className="table-wrapper">
-                        <Navbar className="barad">
+            <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DM</h1>
+            <h1 href="#login" className="espacee">Espace Demandeur</h1>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
@@ -276,11 +284,11 @@ const LettreCommission = (props) => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                        //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleLettreCommission(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
-                                        //onClick={() => viewFile(row.num)}
+                                            //onClick={() => viewFile(row.num)}
                                         />
                                         <BsBoxArrowDown
                                             className="edit-btn"
@@ -294,12 +302,10 @@ const LettreCommission = (props) => {
                                             className="delete-btn"
                                             onClick={() => deleteRow(row.num)}
                                         />
-                                        {row.validerPar === '' && (
-                                            <BsFillPencilFill
-                                                className="edit-btn"
-                                            //onClick={() => editRow(row.num)}
-                                            />
-                                        )}
+                                        <BsFillPencilFill
+                                            className="edit-btn"
+                                            onClick={() => editRow(row.num)}
+                                        />
                                     </span>
                                 </td>
                             </tr>
@@ -307,6 +313,14 @@ const LettreCommission = (props) => {
                     })}
                 </tbody>
             </table>
+            {showLettreCommission && (
+                <div className="overlay">
+                    <NavIcon className="close-icon" to='#'>
+                        <AiIcons.AiOutlineClose onClick={handleCloseLettreCommission} />
+                    </NavIcon>
+                    <UpdateLettreCommission id={ido} />
+                </div>
+            )}
         </div>
     );
 };

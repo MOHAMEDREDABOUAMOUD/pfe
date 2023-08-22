@@ -84,6 +84,18 @@ app.post("/getJournals", async (req, res) => {
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/getJournal", async (req, res) => {
+    const { id } = req.body;
+    const r = await JournalBusiness.searchByNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getCommission", async (req, res) => {
+    const { id } = req.body;
+    const r = await LettreCommissionBusiness.searchByNum(id);
+    console.log(r);
+    res.status(200).json(r);
+});
 app.post("/getAOs", async (req, res) => {
     const { id } = req.body;
     const r = await AOBusiness.getByUserId(currentUser);
@@ -215,6 +227,7 @@ app.post("/createUser", async (req, res) => {
 
 app.post("/createEB", async (req, res) => {
     const { objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
+    console.log("prognonprog : "+progNonProg);
     EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
@@ -243,6 +256,33 @@ app.post("/updateUser", async (req, res) => {
         console.log(error);
     }
 });
+app.post("/updateAvis", async (req, res) => {
+    const { piece, fileName, id } = req.body;
+    try {
+        const r = await AOBusiness.updateAvis(piece, fileName, id);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
+app.post("/updateLettreJournal", async (req, res) => {
+    const { piece, fileName, id } = req.body;
+    try {
+        const r = await JournalBusiness.updateLettreJournal(piece, fileName, id);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
+app.post("/updateLettreCommission", async (req, res) => {
+    const { piece, fileName, id } = req.body;
+    try {
+        const r = await LettreCommissionBusiness.updateLettreCommission(piece, fileName, id);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
 app.post("/updateEB", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
@@ -250,6 +290,28 @@ app.post("/updateEB", async (req, res) => {
         const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
+        console.warn(r);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
+app.post("/updateJournal", async (req, res) => {
+    const { num, fileName, numEnvoie, format, fournisseur, dateEnvoie, datePublication} = req.body;
+    try {
+        const j=new Journal({ num, fileName, numEnvoie, format, fournisseur, dateEnvoie, datePublication});
+        const r = await JournalBusiness.update(j);
+        console.warn(r);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
+app.post("/updateCommission", async (req, res) => {
+    const { num,numEnvoie, destinataire, dateEnvoie} = req.body;
+    try {
+        const j=new LettreCommission({ num,numEnvoie, destinataire, dateEnvoie});
+        const r = await LettreCommissionBusiness.update(j);
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
@@ -296,7 +358,15 @@ app.post("/getCurrentUserData", async (req, res) => {
         console.log(error);
     }
 });
-
+app.post("/getNotifications", async (req, res) => {
+    const { id } = req.body;
+    try {
+        const user = await UtilisateurBusiness.getNotifications(currentUser);
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+    }
+});
 app.post("/updateSettingsIP", async (req, res) => {
     const { email, nom, prenom } = req.body;
     try {

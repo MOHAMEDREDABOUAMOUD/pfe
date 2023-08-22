@@ -1,4 +1,5 @@
 // journalDAO.js
+const Journal = require('../models/Journal');
 const pool = require('./db');
 
 class JournalDAO {
@@ -38,10 +39,42 @@ class JournalDAO {
     }
   }
 
-  static update(journal) {
+  static async updateLettreJournal(piece, fileName, id){
     const _query = `
       UPDATE Journal
-      SET numEnvoie=?, format=?, fournisseur=?, dateEnvoie=?, datePublication=?, lettreJournal=?, numAo=?
+      SET lettreJournal=?, fileName=?
+      WHERE num=?
+    `;
+
+    const values = [
+      piece,
+      fileName,
+      id // Assuming you have a property named 'num' to store the primary key value
+    ];
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async update(journal) {
+    const _query = `
+      UPDATE Journal
+      SET numEnvoie=?, format=?, fournisseur=?, dateEnvoie=?, datePublication=?
       WHERE num=?
     `;
 
@@ -51,28 +84,48 @@ class JournalDAO {
       journal.fournisseur,
       journal.dateEnvoie,
       journal.datePublication,
-      journal.lettreJournal,
-      journal.numAo,
       journal.num, // Assuming you have a property named 'num' to store the primary key value
     ];
 
-    return new Promise((resolve, reject) => {
-      pool.query(_query, values, (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
-  static delete(num) {
+  static async delete(num) {
     const _query = 'DELETE FROM Journal WHERE num=?';
 
-    return new Promise((resolve, reject) => {
-      pool.query(_query, [num], (err, result) => {
-        if (err) reject(err);
-        resolve(result.affectedRows);
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
       });
-    });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
   static async getByNum(num) {

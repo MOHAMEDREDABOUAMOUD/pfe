@@ -8,6 +8,10 @@ class LettreCommissionBusiness {
         return LettreCommissionDAO.update(lettreCommission);
     }
 
+    static updateLettreCommission(piece, fileName, id){
+        return LettreCommissionDAO.updateLettreCommission(piece, fileName, id);
+    }
+
     static delete(num) {
         return LettreCommissionDAO.delete(num);
     }

@@ -25,6 +25,9 @@ import SettingsD from './components/demandeur/settings/settings';
 import DashboardD from './components/demandeur/dashboard/dashboard';
 import AddOperation from './components/demandeur/createEB/addOperation';
 import View from './components/demandeur/listEB/view';
+import UpdateJournal from './components/demandeur/listAO/Journal/updateJournal';
+import UpdateCommission from './components/demandeur/listAO/LettreCommission/updateCommission';
+import Notifications from './components/demandeur/notifications/notifications';
 
 import Maindti from './components/dti/main/main';
 import CreateEBDti from './components/dti/createEB/createEB';
@@ -95,6 +98,8 @@ function App() {
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path="/listEB" element={<ListEB/>} />
         <Route path='/updateEB/:id' element={<UpdateEB />}></Route>
+        <Route path='/updateJournal/:id' element={<UpdateJournal />}></Route>
+        <Route path='/updateCommission/:id' element={<UpdateCommission />}></Route>
         <Route path="/listOperations" element={<ListOperations/>} />
         <Route path='/updateOperation/:id' element={<UpdateOp />}></Route> 
         <Route path='/addOperation/:id' element={<AddOperation/>}></Route>
@@ -103,6 +108,7 @@ function App() {
         <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
         <Route path='/listAO' element={<ListAO/>}></Route>
+        <Route path='/notifications' element={<Notifications/>}></Route>
         
         <Route path='/dti/main' element={<Maindti />}></Route>
         <Route path='/createEBDti' element={<CreateEBDti />}></Route>

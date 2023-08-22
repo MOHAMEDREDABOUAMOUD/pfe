@@ -292,12 +292,10 @@ const LettreCommission = (props) => {
                                             className="delete-btn"
                                             onClick={() => deleteRow(row.num)}
                                         />
-                                        {row.validerPar === '' && (
-                                            <BsFillPencilFill
-                                                className="edit-btn"
+                                        <BsFillPencilFill
+                                            className="edit-btn"
                                             //onClick={() => editRow(row.num)}
-                                            />
-                                        )}
+                                        />
                                     </span>
                                 </td>
                             </tr>

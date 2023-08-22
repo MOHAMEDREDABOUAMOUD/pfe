@@ -14,6 +14,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from "react-router-dom";
 
 function Maindem() {
   // State to track the active component in MainAdmin
@@ -23,6 +24,11 @@ function Maindem() {
   const setActiveContent = (component) => {
     setActiveComponent(component);
   };
+
+  const navigate=useNavigate();
+  const handleNotifications=()=>{
+    navigate(`/notifications`);
+  }
 
   return (
     <div className="App">
@@ -40,8 +46,8 @@ function Maindem() {
               title="Mohammed Raji"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item onClick={handleNotifications}><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item>
                 <SlLogout/> Logout
               </NavDropdown.Item>
             </NavDropdown>
