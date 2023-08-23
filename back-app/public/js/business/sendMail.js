@@ -1,24 +1,25 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail', // Remplacez par le service de messagerie que vous utilisez
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
     auth: {
-        user: 'system.AlOmrane@gmail.com', // Remplacez par votre adresse e-mail
-        pass: 'systemAlOmrane', // Remplacez par votre mot de passe
+        user: 'kevin.tillman16@ethereal.email', // Remplacez par votre adresse e-mail
+        pass: 'mWj72cJD9HUdnvX3am', // Remplacez par votre mot de passe
     },
 });
 
 // Function to send an email
 const sendEmail = async (to, subject, text) => {
-    const mailOptions = {
-        from: 'system.alomrane@gmail.com',
-        to,
-        subject,
-        text,
-    };
-
     try {
-        const info = await transporter.sendMail(mailOptions);
+        const info = await transporter.sendMail({
+            from: 'system.alomrane@gmail.com', // sender address
+            to: to, // list of receivers
+            subject: subject, // Subject line
+            text: text, // plain text body
+            html: "<b>Send mail</b>", // html body
+          });
         console.log('Email sent: ', info.response);
         return true;
     } catch (error) {
