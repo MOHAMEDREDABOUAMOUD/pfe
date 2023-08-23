@@ -1,6 +1,8 @@
-.formCreateUser{
+.formCreateUserad{
     height: 100vh;
-    margin-top: -350px;
+    margin-top: 150px;
+    margin-left: 0px;
+    width: 400px;
 }
 .all{
     margin-top: -350px;

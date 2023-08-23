@@ -8,7 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import {IoMdNotifications} from 'react-icons/io';
-
+import "./updateOp.css"
 import Navbar from 'react-bootstrap/Navbar';
 
 export default function UpdateOp() {
@@ -62,7 +62,7 @@ export default function UpdateOp() {
     }, [id]);
 
     return (
-        <div className='formCreateUser'>
+        <div className='formCreateUserop'>
                   <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">

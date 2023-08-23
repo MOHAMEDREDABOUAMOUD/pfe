@@ -61,7 +61,7 @@ export default function UpdateOpDM() {
     }, [id]);
 
     return (
-        <div className='formCreateUser'>
+        <div className='formCreateUserop'>
             <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">

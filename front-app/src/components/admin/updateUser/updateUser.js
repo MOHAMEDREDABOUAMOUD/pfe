@@ -53,7 +53,7 @@ const UpdateUser = () => {
     return (
         <center>
             <div className='all'>
-        <div className='formCreateUser'>
+        <div className='formCreateUserad'>
         <Navbar className="barad">
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
@@ -78,6 +78,7 @@ const UpdateUser = () => {
             <Sidebar />
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
+                <center><h5>Update User</h5></center>
                     <label htmlFor="emailInput">E-mail</label><br />
                     <input
                         type="email"
