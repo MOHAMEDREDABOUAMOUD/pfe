@@ -185,8 +185,8 @@
     align-items: center;
     justify-content: center;
     margin-top: 100px;
-    margin-left: -100px;
-    width: 100%;
+    top: 0px;
+    width: 70%;
 }
 .filter{
     align-items: center;
