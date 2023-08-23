@@ -2,7 +2,7 @@
     width: 100%;
 }
 .table{
-    position: relative;
+    position: sticky;
     top: 150px;
     display: block;
     overflow: hidden;
