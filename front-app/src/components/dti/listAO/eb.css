@@ -5,8 +5,6 @@
     width: 200%;
 }
 .table{
-  position: relative;
-  top: 150px;
     display: block;
     overflow: hidden;
     table-layout: auto;
@@ -145,8 +143,6 @@
   width: 100%;
 }
 .filter{
-  position: relative;
-  top: 150px;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
@@ -156,8 +152,6 @@
   border: 1px solid #777;
 }
 .filter-input{
-  position: relative;
-  top: 150px;
 margin-bottom: 20px;
 align-items: center;
 justify-content: center;

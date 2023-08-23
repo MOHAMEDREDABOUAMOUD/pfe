@@ -2,8 +2,6 @@
     width: 100%;
 }
 .table{
-    position: relative;
-    top: 150px;
     display: block;
     overflow: hidden;
     table-layout: auto;
@@ -104,8 +102,6 @@
     width: 100%;
   }
 .filter{
-    position: relative;
-    top: 150px;
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
