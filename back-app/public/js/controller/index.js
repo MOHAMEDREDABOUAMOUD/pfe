@@ -388,6 +388,7 @@ app.post("/updateSettingsS", async (req, res) => {
         console.log(error);
     }
 });
+//jhjhjhjhjh
 
 // Demarrage du serveur
 app.listen(port, () => {
