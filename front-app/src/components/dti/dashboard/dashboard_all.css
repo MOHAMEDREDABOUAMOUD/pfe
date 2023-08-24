@@ -16,6 +16,16 @@ body {
     line-height: 1px;
     font-size: 26px;
   }
+  .fixside{
+    position: absolute;
+    top: 0;
+  }
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
   .icon, .icon_header {
     margin-right: 5px;
   }

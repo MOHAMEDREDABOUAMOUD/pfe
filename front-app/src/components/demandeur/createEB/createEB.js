@@ -396,6 +396,9 @@ const CreateEB = () => {
     return (
         <div className="formCreateUser">
             <Navbar className="barad">
+            <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text className="left">
                         <h1 href="#login" className="espacee">Espace Demandeur</h1>
@@ -415,8 +418,8 @@ const CreateEB = () => {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
+                <Sidebar />
             </Navbar>
-            <Sidebar />
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <center>

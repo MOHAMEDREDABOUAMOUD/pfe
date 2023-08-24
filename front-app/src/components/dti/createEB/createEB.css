@@ -4,6 +4,10 @@
     margin-left: 250px;
     width: 60%;
 }
+.formCreateUseraddop{
+  margin-top: 230px;
+  margin-left: 0px;
+}
 .files{
     display: flex;
     flex-wrap: wrap;
@@ -13,6 +17,12 @@
 }
 .files input{
     height: 30px;
+}
+.imgleft{
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: 70px;
 }
 body,html{
   height: 100%;

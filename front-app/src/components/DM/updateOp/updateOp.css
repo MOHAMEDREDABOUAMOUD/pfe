@@ -21,6 +21,12 @@
     width: 100%;
     background: #e2e3e5;
   }
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
   .absolutely-positioned {
     position: absolute;
     top: 50%;

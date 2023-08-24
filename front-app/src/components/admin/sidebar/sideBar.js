@@ -69,13 +69,7 @@ const Sidebar = () => {
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}
-                        <div className="sidebar_profile flex">
-                            <span className="nav_image">
-                                <img src={require('../../images/logo-omrane.png')} className='img' alt="logo_img" />
-                            </span>
-                           
-                            
-                        </div>
+                        
                     </SidebarWrap>
                 </SidebarNav>
             </IconContext.Provider>

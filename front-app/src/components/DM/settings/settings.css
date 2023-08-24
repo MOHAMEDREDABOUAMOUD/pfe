@@ -14,7 +14,12 @@
     background-color: white;
     padding: 40px;
   }
-  
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
 .espacee{
   color: #000;
   font-size: 24px;

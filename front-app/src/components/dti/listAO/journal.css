@@ -20,6 +20,12 @@
 .filter{
     
 }
+.imgleft{
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: 70px;
+}
 .overlay {
     position: fixed;
     top: 0;

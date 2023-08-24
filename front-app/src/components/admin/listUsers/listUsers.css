@@ -127,6 +127,12 @@
     margin-left: 100px;
     
 }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
 .nav-image{
     width: 200px;
 }

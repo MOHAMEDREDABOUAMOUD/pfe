@@ -5,9 +5,19 @@
     width: 100%;
     background-color: #fff;
 }
+.formCreateUseraddop{
+  margin-top: 230px;
+  margin-left: 0px;
+}
 body,html{
   height: 100%;
   background-color: #fff;
+}
+.imgleft{
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: 70px;
 }
 .files{
     display: flex;

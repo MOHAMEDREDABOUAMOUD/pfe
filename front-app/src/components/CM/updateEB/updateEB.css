@@ -15,6 +15,16 @@
     height: 30px;
     margin-top: 0px;
 }
+.formCreateUserup{
+    margin-top: 430px;
+    margin-bottom: 0px;
+  }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
 button{
     width: 200px;
 }

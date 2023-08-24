@@ -326,8 +326,11 @@ const UpdateEB = () => {
     return (
         <center>
         <div className='all'>
-        <div className='formCreateUser'>
+        <div className='formCreateUserup'>
         <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Demandeur</h1>
@@ -347,8 +350,8 @@ const UpdateEB = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar />
       </Navbar>
-            <Sidebar />
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
                     <center><h3>Creation d'une expression des besoins</h3></center>

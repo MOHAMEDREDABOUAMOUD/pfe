@@ -87,14 +87,14 @@ function App() {
         <Route path='/forgotPassword' element={<ForgotPassword/>}></Route>
         <Route path='/forgotpass' element={<ForgotPassword />}></Route>
 
-        <Route path='/admin/main' element={<MainAdmin />}></Route>
+        <Route path='/admin/main' element={<DashboardAll />}></Route>
         <Route path='/createUser' element={<CreateUser />}></Route>
         <Route path="/listUsers" element={<ListUsers/>} />
         <Route path='/updateUser/:id' element={<UpdateUser />}></Route>
         <Route path='/dashboard' element={<DashboardAll />}></Route>
         <Route path='/settings' element={<Settings />}></Route>
 
-        <Route path='/demandeur/main' element={<Maindem />}></Route>
+        <Route path='/demandeur/main' element={<DashboardAllDM />}></Route>
         <Route path='/createEB' element={<CreateEB />}></Route>
         <Route path="/listEB" element={<ListEB/>} />
         <Route path='/updateEB/:id' element={<UpdateEB />}></Route>
@@ -110,7 +110,7 @@ function App() {
         <Route path='/listAO' element={<ListAO/>}></Route>
         <Route path='/notifications' element={<Notifications/>}></Route>
         
-        <Route path='/dti/main' element={<Maindti />}></Route>
+        <Route path='/dti/main' element={<DashboardAllDTI />}></Route>
         <Route path='/createEBDti' element={<CreateEBDti />}></Route>
         <Route path="/listEBDti" element={<ListEBDti/>} />
         <Route path='/updateEBDti/:id' element={<UpdateEBDti />}></Route>
@@ -124,7 +124,7 @@ function App() {
         <Route path='/listFilesDti/:id' element={<ListFilesDti/>}></Route>
         <Route path='/listAODti' element={<ListAODti/>}></Route>
 
-        <Route path='/CM/main' element={<MainCM />}></Route>
+        <Route path='/CM/main' element={<DashboardAllCM />}></Route>
         <Route path="/listEBCM" element={<ListEBCM/>} />
         <Route path='/updateEBCM/:id' element={<UpdateEBCM />}></Route>
         <Route path='/validateEBCM/:id' element={<ValidateEBCM />}></Route>
@@ -137,7 +137,7 @@ function App() {
         <Route path='/listFilesCM/:id' element={<ListFilesCM/>}></Route>
         <Route path='/listAOCM' element={<ListAOCM/>}></Route>
         
-        <Route path='/DM/main' element={<MainDM />}></Route>
+        <Route path='/DM/main' element={<DashboardAllDMM />}></Route>
         <Route path="/listEBDM" element={<ListEBDM/>} />
         {/* <Route path='/updateEBDM/:id' element={<UpdateEBDM />}></Route> */}
         <Route path='/validateEBDM/:id' element={<ValidateEBDM />}></Route>

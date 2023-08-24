@@ -14,7 +14,7 @@ import { SlLogout } from 'react-icons/sl';
 import {FaUserTie} from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import logo from "./logo-omrane.png";
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -141,6 +141,9 @@ function DashboardAllCM() {
   return (
     <main className='main-container'>
         <Navbar className="barad">
+        <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace CM</h1>
@@ -161,8 +164,10 @@ function DashboardAllCM() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <div className='fixside'>
+      <Sidebar/>
+      </div>
         <div className='main-title'>
-        <Sidebar/>
         </div>
 
         <div className='main-cards'>

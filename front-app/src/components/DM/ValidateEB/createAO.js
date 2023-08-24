@@ -3,6 +3,13 @@ import Sidebar from '../sidebar/sideBar'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import "./createAO.css";
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import logo from "./logo-omrane.png";
+import { SlLogout } from 'react-icons/sl';
+import {IoMdNotifications} from 'react-icons/io';
+
+import Navbar from 'react-bootstrap/Navbar';
 
 export default function CreateAO() {
     const { id } = useParams();
@@ -101,7 +108,31 @@ export default function CreateAO() {
     };
     return (
         <div className='formCreateUser'>
-            <Sidebar />
+                        <Navbar className="barad">
+                        <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Text className="left">
+            <h1 href="#login" className="espacee">Espace DM</h1>
+          </Navbar.Text>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+        <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Mohammed Raji"
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <SlLogout/> Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+        <Sidebar />
+      </Navbar>
             <form>
                 <div className='form-group margin-top'>
                     <center><h3>Creation d'un AO</h3></center>

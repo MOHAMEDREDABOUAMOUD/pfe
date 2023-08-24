@@ -26,6 +26,9 @@ function Maindti() {
   return (
     <div className="App">
                     <Navbar className="barad">
+                    <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace DTI</h1>
@@ -45,6 +48,7 @@ function Maindti() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar/>
       </Navbar>
       <center>
         <img src={welcome} className="welcome"></img>
@@ -57,7 +61,6 @@ function Maindti() {
       </div>
       </center>
         </div> */}
-      <Sidebar/>
     </div>
   );
 }

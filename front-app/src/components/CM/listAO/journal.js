@@ -231,6 +231,9 @@ const Journal = (props) => {
     return (
         <div className="table-wrapper">
             <Navbar className="barad">
+            <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text className="left">
                         <h1 href="#login" className="espacee">Espace Demandeur</h1>
@@ -250,8 +253,8 @@ const Journal = (props) => {
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
+                <Sidebar />
             </Navbar>
-            <Sidebar />
             <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {renderFilterDropdown()}
             <table className="table">

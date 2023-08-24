@@ -1,0 +1,10 @@
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
+  .formCreateUserop{
+    margin-top: 430px;
+    margin-bottom: 0px;
+  }

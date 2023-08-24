@@ -2,3 +2,9 @@
     margin-top: 250px;
     margin-left: 50px;
 }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }

@@ -14,6 +14,16 @@
     margin-left: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
+  .formCreateUserup{
+    margin-top: 430px;
+    margin-bottom: 0px;
+  }
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
   .logout{
     margin-right: 20px;
     font-size: 24px;

@@ -34,6 +34,9 @@ function Maindem() {
     <div className="App">
       <Sidebar/>
       <Navbar className="barad">
+      <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Demandeur</h1>
@@ -53,6 +56,7 @@ function Maindem() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar/>
       </Navbar>
       <center>
         <img src={welcome} className="welcome"></img>
@@ -65,7 +69,6 @@ function Maindem() {
       </div>
       </center>
         </div> */}
-      <Sidebar/>
     </div>
   );
 }

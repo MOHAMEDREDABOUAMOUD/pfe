@@ -17,6 +17,12 @@
     margin: auto;
     overflow-x: auto;
 }
+.imgleft{
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: 70px;
+}
 .filter-dropdown{
   display: flex;
   align-items: center;

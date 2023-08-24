@@ -21,6 +21,12 @@
 button{
     width: 200px;
 }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
 .big-btn{
     width: 200px;
 }

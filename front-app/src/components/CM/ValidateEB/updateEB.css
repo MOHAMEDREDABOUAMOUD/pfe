@@ -1,5 +1,6 @@
-.formCreateUser{
+.formCreateUsercm{
     height: 100vh;
+    margin-top: 150px;
 }
 .files{
     display: flex;
@@ -15,6 +16,12 @@
     height: 30px;
     margin-top: 0px;
 }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
 button{
     width: 200px;
 }

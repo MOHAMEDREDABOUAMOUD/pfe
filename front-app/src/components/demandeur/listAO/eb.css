@@ -156,6 +156,12 @@
     margin-left: -100px;
     width: 100%;
 }
+.imgleft{
+  position: fixed;
+  top: 5px;
+  left: 80px;
+  width: 70px;
+}
 .filter{
     align-items: center;
     justify-content: center;

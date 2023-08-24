@@ -166,6 +166,9 @@ const ListEBDM = () => {
   return (
     <div className="table-wrapper">
       <Navbar className="barad">
+      <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace DM</h1>
@@ -185,8 +188,8 @@ const ListEBDM = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar />
       </Navbar>
-      <Sidebar />
       <button onClick={toggleFilterDropdown}>Filter Rows</button>
       {renderFilterDropdown()}
       <table className="table">

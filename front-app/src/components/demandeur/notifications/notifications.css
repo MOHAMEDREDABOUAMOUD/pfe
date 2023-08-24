@@ -11,7 +11,12 @@
     align-items: center;
     /* min-height: 100vh;*/
   }
-  
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
   /* Add styles to the inner content */
   .conte {
     width: 800%;

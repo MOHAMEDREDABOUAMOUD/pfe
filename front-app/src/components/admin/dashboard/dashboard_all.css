@@ -16,6 +16,12 @@ body {
     line-height: 1px;
     font-size: 26px;
   }
+  .imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }
   .icon, .icon_header {
     margin-right: 5px;
   }
@@ -153,6 +159,10 @@ body {
     font-size: 22px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bold;
+  }
+  .fixside{
+    position: absolute;
+    top: 0;
   }
   .num{
     color: aliceblue;

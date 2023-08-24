@@ -33,6 +33,9 @@ const CreateUser = () => {
   return (
     <div className='all-div'>
     <Navbar className="barad">
+    <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Admin</h1>
@@ -52,9 +55,9 @@ const CreateUser = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar />
       </Navbar>
     <div className='formCreateUser'>
-    <Sidebar />
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label htmlFor='exampleFormControlInput1'>E-mail</label><br />

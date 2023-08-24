@@ -76,3 +76,9 @@ label{
 .margin input{
     margin-right: 10px;
 }
+.imgleft{
+    position: fixed;
+    top: 5px;
+    left: 80px;
+    width: 70px;
+  }

@@ -4,7 +4,7 @@ import Sidebar from '../sidebar/sideBar';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import logo from './logo-omrane.png'
 import {IoMdNotifications} from 'react-icons/io';
 import { SlLogout } from 'react-icons/sl';
 import Navbar from 'react-bootstrap/Navbar';
@@ -60,8 +60,11 @@ export default function UpdateOpCM() {
     }, [id]);
 
     return (
-        <div className='formCreateUser'>
+        <div className='formCreateUserop'>
                         <Navbar className="barad">
+                        <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace CM</h1>
@@ -81,8 +84,8 @@ export default function UpdateOpCM() {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar/>
       </Navbar>
-            <Sidebar/>
             <form onSubmit={handleUpdate}>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>

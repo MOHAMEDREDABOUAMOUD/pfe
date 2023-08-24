@@ -5,7 +5,7 @@ import axios from 'axios';
 import Sidebar from '../sidebar/sideBar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import logo from "./logo-omrane.png";
 import { SlLogout } from 'react-icons/sl';
 import {IoMdNotifications} from 'react-icons/io';
 
@@ -368,8 +368,8 @@ const ValidateEBDM = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar />
       </Navbar>
-            <Sidebar />
             <form>
                 <div className='form-group'>
                     <center><h3>Creation d'une expression des besoins</h3></center>

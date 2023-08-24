@@ -54,6 +54,9 @@ const Settings = () => {
   return (
     <div className="settings-all">
       <Navbar className="barad">
+      <Navbar.Collapse className="justify-content-start">
+              <img src={logo} className="imgleft"></img>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Admin</h1>
@@ -73,9 +76,10 @@ const Settings = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Sidebar />
       </Navbar>
     <div className="container mt-5">
-      <Sidebar />
+      
       <ul className="nav nav-tabs">
         <li className="nav-item">
           <button
