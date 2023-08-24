@@ -370,7 +370,6 @@ const CreateEB = () => {
         }
         const progValue = progNonProgram ? "Oui" : "Non";
         setProgNonProg(progValue);
-        console.log(progNonProg);
         const EBData = {
             objet: objet,
             observation: observation,
@@ -385,8 +384,13 @@ const CreateEB = () => {
             operationList: operationList,
         };
         setEB(EBData);
-        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
-        navigate("/listEB");
+        try {
+            alert("EB bien creer");
+            navigate("/listEB");
+            await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -396,9 +400,9 @@ const CreateEB = () => {
     return (
         <div className="formCreateUser">
             <Navbar className="barad">
-            <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-start">
+                    <img src={logo} className="imgleft"></img>
+                </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text className="left">
                         <h1 href="#login" className="espacee">Espace Demandeur</h1>

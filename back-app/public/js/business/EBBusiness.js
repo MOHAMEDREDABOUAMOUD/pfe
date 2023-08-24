@@ -165,7 +165,7 @@ class EBBusiness {
                 return "8-6";
             }
         }
-        else if(secteur==="Gros -œuvres"){
+        else if(secteur==="Gros-œuvres"){
             if(estimation==="1.02"){
                 return "9-1";
             }

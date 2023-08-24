@@ -287,7 +287,7 @@ app.post("/updateEB", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
     try {
-        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
+        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
         console.warn(r);
@@ -322,7 +322,7 @@ app.post("/updateEBDti", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur, validerPar } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
     try {
-        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: validerPar, numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, });
+        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: validerPar, numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
         console.warn(r);
@@ -335,7 +335,7 @@ app.post("/validateEBDti", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
     try {
-        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, validerPar: currentUser });
+        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, validerPar: currentUser });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
         console.warn(r);

@@ -384,8 +384,13 @@ const CreateEBDti = () => {
             operationList: operationList,
         };
         setEB(EBData);
-        await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
-        navigate("/listEBDti");
+        try {
+            alert("EB bien creer");
+            navigate("/listEB");
+            await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {

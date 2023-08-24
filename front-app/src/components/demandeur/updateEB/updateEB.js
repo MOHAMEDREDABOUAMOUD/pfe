@@ -265,6 +265,9 @@ const UpdateEB = () => {
     const handleOperations = (id) => {
         navigate(`/listOperations/${id}`);
     };
+    const handleFiles = (id) => {
+        navigate(`/listFiles/${id}`);
+    };
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
         if (
@@ -431,11 +434,11 @@ const UpdateEB = () => {
                         ))}
                     </select>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="formFile" className="form-label">files</label>
+                <div className='form-group'>
+                    <center><h5>files</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">Update files</button>
+                    <button type="submit" className="btn btn-primary" onClick={() => { handleFiles(id) }}>Update files</button>
                 </div>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>

@@ -15,64 +15,52 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('login', userName);
-      formData.append('pwd', password);
+    if (userName === "" || password === "") {
+      setError('fill all the inputs');
+    }
+    else {
+      try {
+        const formData = new FormData();
+        formData.append('login', userName);
+        formData.append('pwd', password);
 
-      await axios
-        .post("/signIn", { userName: userName, password: password })
-        .then((response) => {
-          //console.log(response.data); // You can handle the response here if needed
-          // Redirect the user to a different page upon successful sign-in
-          //console.log(response.data["fonction"]);
-          if (response.data["fonction"] === "Admin") {
-            navigate("/admin/main");
-          }
-          else if (response.data["fonction"] === "Demandeur") {
-            navigate("/demandeur/main");
-          }
-          else if (response.data["fonction"] === "DTI") {
-            navigate("/dti/main");
-          }
-          else if (response.data["fonction"] === "CM") {
-            navigate("/CM/main");
-          }
-          else if (response.data["fonction"] === "DM") {
-            navigate("/DM/main");
-          }
-          else {
-            navigate("/");
-          }
-          setError(null);
-        })
-        .catch((error) => {
-          console.log(error.response.data);
-          setError('User not found');
-          //navigate("/createUser");
-        });
-
-      // const response = await axios.post('http://localhost:80/alOmrane_prj/pfe/backend/login.php', formData, {
-      //   headers: {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   }
-      // });
-
-      // const data = response.data;
-      // console.log(data);
-      // // You can handle the response here (e.g., show success message, redirect, etc.)
-      // if (response.status === 200) {
-      //   // Login successful, show success message (optional)
-      //   alert('Login successful!');
-
-      //   // Redirect the user to "exemple/exemple"
-      //   window.location.replace('../admin/main.js');
-      // } else {
-      //   // Login failed, show error message
-      //   alert(data.error);
-      // }
-    } catch (error) {
-      console.error('Error:', error);
+        await axios
+          .post("/signIn", { userName: userName, password: password })
+          .then((response) => {
+            //console.log(response.data); // You can handle the response here if needed
+            // Redirect the user to a different page upon successful sign-in
+            //console.log(response.data["fonction"]);
+            if (response.data["fonction"] === "Admin") {
+              navigate("/admin/main");
+              setError(null);
+            }
+            else if (response.data["fonction"] === "Demandeur") {
+              navigate("/demandeur/main");
+              setError(null);
+            }
+            else if (response.data["fonction"] === "DTI") {
+              navigate("/dti/main");
+              setError(null);
+            }
+            else if (response.data["fonction"] === "CM") {
+              navigate("/CM/main");
+              setError(null);
+            }
+            else if (response.data["fonction"] === "DM") {
+              navigate("/DM/main");
+              setError(null);
+            }
+            else {
+            setError('User not found');
+            }
+          })
+          .catch((error) => {
+            console.log(error.response.data);
+            setError('User not found');
+          });
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
