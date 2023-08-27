@@ -234,12 +234,12 @@ app.post("/createUser", async (req, res) => {
 app.post("/createEB", async (req, res) => {
     const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
     console.log("prognonprog : "+progNonProg);
-    EBBusiness.Add("En vours de validation par la dti", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
+    EBBusiness.Add("En cours de validation par la dti", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createEBDti", async (req, res) => {
     const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
     console.log("prognonprog : "+progNonProg);
-    EBBusiness.Add("En vours de validation par le CM", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
+    EBBusiness.Add("En cours de validation par le CM", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
     const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, fileNameAvis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, fileNameLC, listJournal } = req.body;
