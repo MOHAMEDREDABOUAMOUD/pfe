@@ -11,11 +11,11 @@ import Sidebar from '../sidebar/sideBar';
 import Operation from './listOperations';
 import Files from './listFiles';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -35,6 +35,28 @@ const ListEB = () => {
   align-items: center;
   
 `;
+
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
   const [showOperation, setShowOperation] = useState(false);
   const [showFile, setShowFile] = useState(false);
@@ -154,7 +176,7 @@ const ListEB = () => {
       }
     });
   }
-  
+
 
   // Filtering Logic
   Object.keys(filters).forEach((column) => {
@@ -195,40 +217,43 @@ const ListEB = () => {
   return (
     <div className="table-wrapper">
       <Navbar className="barad">
-      <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
+        <Navbar.Collapse className="justify-content-start">
+          <img src={logo} className="imgleft"></img>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
+          <Navbar.Text className="left">
             <h1 href="#login" className="espacee">Espace Demandeur</h1>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Nav>
+          <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout /> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         <Sidebar />
       </Navbar>
-      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
           <tr>
             <th onClick={() => handleSort("Id")}>
-              Id {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              Immatricule {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Objet")}>
               Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort("etat")}>
+              Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Agence")}>
               Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -261,12 +286,12 @@ const ListEB = () => {
               Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Operations")}>
-            <th onClick={handleButtonClick}>
-              Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
+              <th onClick={handleButtonClick}>
+                Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
             </th>
             <th onClick={() => handleSort("Files")}>
-              Files {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
         </thead>
@@ -276,6 +301,7 @@ const ListEB = () => {
               <tr key={idx}>
                 <td>{row.num}</td>
                 <td>{row.objet}</td>
+                <td>{row.etat}</td>
                 <td>{row.agence}</td>
                 <td>{row.observation}</td>
                 <td>{row.prog_nonprog}</td>
@@ -312,7 +338,7 @@ const ListEB = () => {
           <NavIcon className="close-icon" to='#'>
             <AiIcons.AiOutlineClose onClick={handleCloseOperation} />
           </NavIcon>
-          <Operation id={ido}/>
+          <Operation id={ido} />
         </div>
       )}
       {showFile && (
@@ -320,7 +346,7 @@ const ListEB = () => {
           <NavIcon className="close-icon" to='#'>
             <AiIcons.AiOutlineClose onClick={handleCloseFile} />
           </NavIcon>
-          <Files id={ido}/>
+          <Files id={ido} />
         </div>
       )}
     </div>

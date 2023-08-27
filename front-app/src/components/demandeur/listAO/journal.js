@@ -38,6 +38,28 @@ const Journal = (props) => {
   
 `;
 
+const [currentSexe, setCurrentSexe] = useState('');
+const [currentNom, setCurrentNom] = useState('');
+const [currentPrenom, setCurrentPrenom] = useState('');
+const [currentUser, setCurrentUser] = useState('');
+useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const userData = await axios.post("/getCurrentUserData", { id: 0 });
+      console.log(userData.data);
+      setCurrentNom(userData.data["nom"]);
+      setCurrentSexe(userData.data["sexe"]);
+      setCurrentPrenom(userData.data["prenom"]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchUserData();
+}, []);
+useEffect(() => {
+  setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+}, [currentSexe, currentNom, currentPrenom]);
+
 
     const handleSort = (column) => {
         if (sortBy === column) {
@@ -169,8 +191,15 @@ const Journal = (props) => {
         navigate(`/updateJournal/${id}`);
     }
     const deleteRow = async (id) => {
-        await axios.post("/deleteJournal", { id: id });
-        getRows();
+        const confirmDelete = window.confirm("Confirmer la suppression du journal avec l'id " +id);
+
+        if (confirmDelete) {
+            await axios.post("/deleteJournal", { id: id });
+            getRows();
+            alert("le journal a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
     }
     
     const handleLettreJournal = (id) => {
@@ -243,19 +272,19 @@ const Journal = (props) => {
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
+                            title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
                 <Sidebar />
             </Navbar>
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
             {renderFilterDropdown()}
             <table className="table">
                 <thead>

@@ -16,6 +16,28 @@ const ListFilesCM = () => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
   //////////////////////////////////////////////////////////////
   const getFiles = async () => {
     try {
@@ -101,8 +123,15 @@ const ListFilesCM = () => {
   }
 
   const deleteRow = async (id) => {
-    await axios.post("/deleteFile", { id: id });
-    getRows();
+    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " +id);
+
+        if (confirmDelete) {
+          await axios.post("/deleteFile", { id: id });
+          getRows();
+            alert("le fichier a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
   }
 
   // const editRow=(id)=>{
@@ -150,7 +179,7 @@ const ListFilesCM = () => {
   return (
     <div className="table-wrapper">
       <Sidebar/>
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <button onClick={toggleFilterDropdown}>filtre</button>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
@@ -172,7 +201,7 @@ const ListFilesCM = () => {
               Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => this.handleSort(columns[1])}>
-              Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              nom {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
         </thead>

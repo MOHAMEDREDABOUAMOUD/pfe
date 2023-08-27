@@ -6,33 +6,6 @@ import * as RiIcons from 'react-icons/ri';
 
 export const SidebarData = [
   {
-    title: 'Gestion Expression Besoin',
-    path: '',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'create EB',
-        path: '/createEB',
-        icon: <AiIcons.AiFillHome />
-      },
-      {
-        title: 'list EB',
-        path: '/listEB',
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ]
-  },
-  {
-    title: 'List AO',
-    path: '/listAO',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  },
-  {
     title: 'Dashboard',
     path: '/dashboardEB',
     icon: <AiIcons.AiFillHome />,
@@ -40,36 +13,37 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Settings',
+    title: 'Expression des Besoins',
+    path: '',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'creation',
+        path: '/createEB',
+        icon: <AiIcons.AiFillHome />
+      },
+      {
+        title: 'lister',
+        path: '/listEB',
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ]
+  },
+  {
+    title: 'Lister AO',
+    path: '/listAO',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: 'paramètre',
     path: '/settingsEB',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
-  //   ,{
-  //     title: 'Messages',
-  //     path: '/messages',
-  //     icon: <FaIcons.FaEnvelopeOpenText />,
-
-  //     iconClosed: <RiIcons.RiArrowDownSFill />,
-  //     iconOpened: <RiIcons.RiArrowUpSFill />,
-
-  //     subNav: [
-  //       {
-  //         title: 'Message 1',
-  //         path: '/messages/message1',
-  //         icon: <IoIcons.IoIosPaper />
-  //       },
-  //       {
-  //         title: 'Message 2',
-  //         path: '/messages/message2',
-  //         icon: <IoIcons.IoIosPaper />
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     title: 'Support',
-  //     path: '/support',
-  //     icon: <IoIcons.IoMdHelpCircle />
-  //   }
 ];

@@ -9,16 +9,16 @@ import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
-import UpdateLettreCommission from "./LettreCommission/updatelettreCpmmission";
+import UpdateLettreCommission from "./LettreCommission/updateLettreCpmmission";
 const LettreCommission = (props) => {
-    const id=props.id;
+    const id = props.id;
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});
@@ -36,6 +36,28 @@ const LettreCommission = (props) => {
   align-items: center;
   
 `;
+
+    const [currentSexe, setCurrentSexe] = useState('');
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const handleSort = (column) => {
         if (sortBy === column) {
@@ -167,8 +189,15 @@ const LettreCommission = (props) => {
         navigate(`/updateCommission/${id}`);
     }
     const deleteRow = async (id) => {
-        await axios.post("/deleteLettreCommission", { id: id });
-        getRows();
+        const confirmDelete = window.confirm("Confirmer la suppression de la commission avec l'id " + id);
+
+        if (confirmDelete) {
+            await axios.post("/deleteLettreCommission", { id: id });
+            getRows();
+            alert("la commission a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
     }
 
     const handleLettreCommission = (id) => {
@@ -229,31 +258,31 @@ const LettreCommission = (props) => {
     return (
         <div className="table-wrapper">
             <Navbar className="barad">
-            <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+                <Navbar.Collapse className="justify-content-start">
+                    <img src={logo} className="imgleft"></img>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text className="left">
+                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title={currentUser}
+                            menuVariant="dark"
+                        >
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+                <Sidebar />
+            </Navbar>
+            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
@@ -291,7 +320,7 @@ const LettreCommission = (props) => {
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
-                                            //onClick={() => viewFile(row.num)}
+                                        //onClick={() => viewFile(row.num)}
                                         />
                                         <BsBoxArrowDown
                                             className="edit-btn"

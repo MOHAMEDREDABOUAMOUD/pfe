@@ -6,7 +6,7 @@ import Sidebar from '../sidebar/sideBar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { SlLogout } from 'react-icons/sl';
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 import logo from './logo-omrane.png'
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -237,17 +237,43 @@ const UpdateEBCM = () => {
     ];
 
     const [objet, setObjet] = useState('');
+    const [objetError, setObjetError] = useState("");
     const [agence, setAgence] = useState('');
     const [observation, setObservation] = useState('');
+    const [observationError, setObservationError] = useState("");
     const [progNonProgram, setProgNonProgram] = useState(false);
     const [prog_nonprog, setProg_nonprog] = useState("Non");
     const [caution, setCaution] = useState('');
+    const [cautionError, setCautionError] = useState("");
     const [estimation, setEstimation] = useState('');
+    const [estimationError, setEstimationError] = useState("");
     const [modePassation, setModePassation] = useState('');
     const [secteur, setSecteur] = useState('');
     const [qualification, setQualification] = useState('');
     const [numUtilisateur, setNumUtilisateur] = useState('');
     const [validerPar, setValiderPar] = useState('');
+
+    const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
     const [qualificationOptions, setQualificationOptions] = useState([]); // Available qualifications for the selected sector
 
@@ -264,42 +290,55 @@ const UpdateEBCM = () => {
     const handleOperations = (id) => {
         navigate(`/listOperationsCM/${id}`);
     };
+    const handleFiles = (id) => {
+        navigate(`/listFiles/${id}`);
+    };
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
-
-        if (
-            objet === "" ||
-            observation === "" ||
-            caution === "" ||
-            estimation === ""
-        ) {
-            alert("Please fill in all required fields before submitting.");
-            return; // Stop the form submission
+        let hasErrors = false;
+        if (objet.trim() === '') {
+            setObjetError('Ce champ est obligatoire');
+            hasErrors = true;
         }
-
-        const progValue = progNonProgram ? "Oui" : "Non";
-        setProg_nonprog(progValue);
-        console.log("validerPar : "+validerPar+"\nqual : "+qualification);
-
-        try {
-            await axios.post("/updateEBDti", {
-                id: id,
-                objet: objet,
-                agence: agence,
-                observation: observation,
-                prog_nonprog: prog_nonprog,
-                caution: caution,
-                estimation: estimation,
-                modePassation: modePassation,
-                secteur: secteur,
-                qualification: qualification,
-                numUtilisateur: numUtilisateur,
-                validerPar: validerPar
-            });
-        } catch (error) {
-            console.error(error);
+        if (observation.trim() === '') {
+            setObservationError('Ce champ est obligatoire');
+            hasErrors = true;
         }
-        navigate("/listEBCM");
+        if (caution.trim() === '') {
+            setCautionError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (estimation.trim() === '') {
+            setEstimationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (!hasErrors) {
+            const progValue = progNonProgram ? "Oui" : "Non";
+            setProg_nonprog(progValue);
+            console.log("validerPar : " + validerPar + "\nqual : " + qualification);
+
+            try {
+                await axios.post("/updateEBDti", {
+                    id: id,
+                    objet: objet,
+                    agence: agence,
+                    observation: observation,
+                    prog_nonprog: prog_nonprog,
+                    caution: caution,
+                    estimation: estimation,
+                    modePassation: modePassation,
+                    secteur: secteur,
+                    qualification: qualification,
+                    numUtilisateur: numUtilisateur,
+                    validerPar: validerPar
+                });
+                alert("l'expression des besoins a ete bien modifier");
+            } catch (error) {
+                console.error(error);
+                alert("l'expression des besoins n'a pas ete modifier");
+            }
+            navigate("/listEBCM");
+        }
     };
 
     useEffect(() => {
@@ -328,50 +367,54 @@ const UpdateEBCM = () => {
 
     return (
         <div className='formCreateUserup'>
-                        <Navbar className="barad">
-                        <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace CM</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
+            <Navbar className="barad">
+                <Navbar.Collapse className="justify-content-start">
+                    <img src={logo} className="imgleft"></img>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text className="left">
+                        <h1 href="#login" className="espacee">Espace CM</h1>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title={currentUser}
+                            menuVariant="dark"
+                        >
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+                <Sidebar />
+            </Navbar>
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
-                    <center><h3>Creation d'une expression des besoins</h3></center>
+                    <center><h3>Modification d'une expression des besoins</h3></center>
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="objet">objet</label><br />
-                    <input type="text" className="form-control" id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
+                    <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
+                    {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="observation">observation</label><br />
-                    <input type="text" className="form-control" id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
+                    <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
+                    {observationError && <p className='error-message'>{observationError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="caution">caution</label><br />
-                    <input type="text" className="form-control" id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
+                    <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
+                    {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="estimation">estimation</label><br />
-                    <input type="text" className="form-control" id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
+                    <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
+                    {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="progNonProgInput">prog-nonprog</label><br />
@@ -380,7 +423,7 @@ const UpdateEBCM = () => {
 
                 <div className="form-group flex-row">
                     <label htmlFor="agence">Agence</label><br />
-                    <select className="form-control" id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
+                    <select id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
                         <option> Boulemane </option>
                         <option> sefrou </option>
@@ -393,7 +436,7 @@ const UpdateEBCM = () => {
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="modePassation">modePassation</label><br />
-                    <select className="form-control" id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
+                    <select id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
                         <option>B.C</option>
                         <option>A.O.O.</option>
                         <option>A.O.R.</option>
@@ -405,7 +448,6 @@ const UpdateEBCM = () => {
                 <div className="form-group flex-row margin">
                     <label htmlFor="secteur">secteur</label><br />
                     <select
-                        className="form-control"
                         id="secteur"
                         value={secteur}
                         onChange={(e) => handleSectorChange(e.target.value)}
@@ -419,7 +461,6 @@ const UpdateEBCM = () => {
                     </select>
                     <label htmlFor="qualification">qualification</label><br />
                     <select
-                        className="form-control"
                         id="qualification"
                         value={qualification}
                         onChange={(e) => setQualification(e.target.value)}
@@ -432,20 +473,20 @@ const UpdateEBCM = () => {
                         ))}
                     </select>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="formFile" className="form-label">files</label>
+                <div className='form-group'>
+                    <center><h5>files</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">Update files</button>
+                    <button type="submit" className="btn btn-primary" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
                 </div>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>Update operations</button>
+                    <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>modifier les operations</button>
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" className="btn btn-primary big-btn">Update</button></center>
+                    <center><button type="submit" className="btn btn-primary big-btn">modifier</button></center>
                 </div>
             </form>
         </div>

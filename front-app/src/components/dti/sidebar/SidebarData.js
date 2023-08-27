@@ -6,33 +6,6 @@ import * as RiIcons from 'react-icons/ri';
 
 export const SidebarData = [
   {
-    title: 'Gestion Expression des Besoins',
-    path: '',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: 'create EB',
-        path: '/createEBDti',
-        icon: <AiIcons.AiFillHome />
-      },
-      {
-        title: 'list EB',
-        path: '/listEBDti',
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ]
-  },
-  {
-    title: 'list AO',
-    path: '/listAODti',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  },
-  {
     title: 'Dashboard',
     path: '/dashboardEBDti',
     icon: <AiIcons.AiFillHome />,
@@ -40,7 +13,34 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Settings',
+    title: 'Expression des Besoins',
+    path: '',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'creation',
+        path: '/createEBDti',
+        icon: <AiIcons.AiFillHome />
+      },
+      {
+        title: 'lister',
+        path: '/listEBDti',
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ]
+  },
+  {
+    title: 'lister AO',
+    path: '/listAODti',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: 'paramètre',
     path: '/settingsEBDti',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,

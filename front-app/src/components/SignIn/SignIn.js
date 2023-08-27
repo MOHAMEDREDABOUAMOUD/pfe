@@ -76,7 +76,7 @@ function SignIn() {
               <h2 className="mb-3">Sign In</h2>
               <form className="needs-validation" onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
-                  <label className="form-label" htmlFor="userName">User Name</label>
+                  <label className="form-label" htmlFor="userName">nom d'utilisateur</label>
                   <input
                     className="form-control"
                     type="text"
@@ -86,11 +86,11 @@ function SignIn() {
                     onChange={(e) => setUserName(e.target.value)}
                   />
                   <div className="invalid-feedback">
-                    Please enter your username
+                    Entre votre nom d'utilisateur
                   </div>
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label" htmlFor="password">Password</label>
+                  <label className="form-label" htmlFor="password">Mot de passe</label>
                   <input
                     className="form-control"
                     type="password"
@@ -100,11 +100,11 @@ function SignIn() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <div className="invalid-feedback">
-                    Please enter your password
+                    Entre votre mot de passe
                   </div>
                 </div>
                 <div className="form-group form-check mb-2">
-                  <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">Forgot Password?</Link></label>
+                  <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">mot de passe oublié?</Link></label>
                 </div>
                 <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
                 {error && <p className="text-danger mt-2">{error}</p>}

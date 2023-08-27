@@ -100,8 +100,15 @@ const ListFilesDti = ({id}) => {
   }
 
   const deleteRow = async (id) => {
-    await axios.post("/deleteFile", { id: id });
-    getRows();
+    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " +id);
+
+        if (confirmDelete) {
+          await axios.post("/deleteFile", { id: id });
+          getRows();
+            alert("le fichier a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
   }
 
   // const editRow=(id)=>{
@@ -149,7 +156,7 @@ const ListFilesDti = ({id}) => {
   return (
     <div className="table-wrapper">
       <Sidebar/>
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <button onClick={toggleFilterDropdown}>Filtre</button>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
@@ -171,7 +178,7 @@ const ListFilesDti = ({id}) => {
               Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => this.handleSort(columns[1])}>
-              Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              Nom {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
           </tr>
         </thead>

@@ -29,6 +29,29 @@ const ListAODM = () => {
     const [rows, setRows] = useState([]);
     const [columns, setColumns] = useState([]);
 
+    
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
     const NavIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
@@ -263,11 +286,11 @@ const ListAODM = () => {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
                 <SlLogout/> Logout
               </NavDropdown.Item>
             </NavDropdown>
@@ -282,9 +305,6 @@ const ListAODM = () => {
                     <tr>
                         <th onClick={() => handleSort("num")}>
                             Id {sortBy === "num" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("etat")}>
-                            Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
                         <th onClick={() => handleSort("dateOuverturePlis")}>
                             Date OP {sortBy === "dateOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -320,7 +340,6 @@ const ListAODM = () => {
                         return (
                             <tr key={idx}>
                                 <td>{row.num}</td>
-                                <td>{row.etat}</td>
                                 <td>{row.dateOuverturePlis}</td>
                                 <td>{row.heureOuverturePlis}</td>
                                 <td>{row.datePublicationPortail}</td>

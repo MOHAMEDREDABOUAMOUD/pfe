@@ -3,44 +3,128 @@ import React, { Component, useEffect, useState } from 'react'
 import Sidebar from '../sidebar/sideBar';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 import "./updateOp.css"
 import Navbar from 'react-bootstrap/Navbar';
 
 export default function UpdateOp() {
-    const { id} = useParams();
+    const { id } = useParams();
 
     const [agence, setAgence] = useState('');
     const [imputation, setImputation] = useState('');
-    const [nature_projet, setNature_projet] = useState('');
+    const [imputationError, setImputationError] = useState('');
+    const [nature_projet, setNatureProjet] = useState('');
+    const [nature_projetError, setNatureProjetError] = useState('');
     const [operation, setOperation] = useState("");
+    const [operationError, setOperationError] = useState('');
     const [programme, setProgramme] = useState("");
+    const [programmeError, setProgrammeError] = useState('');
     const [situation, setSituation] = useState('');
+    const [situationError, setSituationError] = useState('');
     const [superficie, setSuperficie] = useState('');
-    const [type_projet, setType_projet] = useState('');
-    const [piece, setPiece]=useState([]);
+    const [superficieError, setSuperficieError] = useState('');
+    const [type_projet, setTypeProjet] = useState('');
+    const [type_projetError, setTypeProjetError] = useState('');
+    const [piece, setPiece] = useState([]);
+    const [pieceError, setPieceError] = useState('');
 
-    const navigate=useNavigate();
     
-    const handleUpdate=async(event)=>{
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
+    const navigate = useNavigate();
+
+    const handleUpdate = async (event) => {
         event.preventDefault();
-        await axios.post("/updateOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet:type_projet, piece:piece});
-        navigate(`/listEB`);
+        setImputationError('');
+        setNatureProjetError('');
+        setOperationError('');
+        setProgrammeError('');
+        setSituationError('');
+        setSuperficieError('');
+        setTypeProjetError('');
+        setPieceError('');
+        let hasErrors = false;
+
+        if (imputation.trim() === '') {
+            setImputationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (nature_projet.trim() === '') {
+            setNatureProjetError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (operation.trim() === '') {
+            setOperationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (programme.trim() === '') {
+            setProgrammeError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (situation.trim() === '') {
+            setSituationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (superficie.trim() === '') {
+            setSuperficieError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (type_projet.trim() === '') {
+            setTypeProjetError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (piece === []) {
+            setPieceError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+
+        if (!hasErrors) {
+            await axios.post("/updateOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
+            alert("l'operation a ete bien modifier");
+            navigate(`/listEB`);
+        }
     }
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
-            setPiece(base64FileData);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result; // This is the binary buffer
+                const base64FileData = btoa(fileData);
+                setPiece(base64FileData);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
     useEffect(() => {
         const fetchUserData = async () => {
@@ -48,12 +132,12 @@ export default function UpdateOp() {
                 const userData = await axios.post("/getOperation", { id: id });
                 setAgence(userData.data["agence"]);
                 setImputation(userData.data["imputation"]);
-                setNature_projet(userData.data["natureProjet"]);
+                setNatureProjet(userData.data["natureProjet"]);
                 setOperation(userData.data["operation"]);
                 setProgramme(userData.data["programme"]);
                 setSituation(userData.data["situation"]);
                 setSuperficie(userData.data["superficie"]);
-                setType_projet(userData.data["typeProjet"]);
+                setTypeProjet(userData.data["typeProjet"]);
             } catch (error) {
                 console.error(error);
             }
@@ -63,34 +147,34 @@ export default function UpdateOp() {
 
     return (
         <div className='formCreateUserop'>
-                  <Navbar className="barad">
-                  <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar/>
-      </Navbar>
+            <Navbar className="barad">
+                <Navbar.Collapse className="justify-content-start">
+                    <img src={logo} className="imgleft"></img>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Text className="left">
+                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
+                    </Navbar.Text>
+                </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <NavDropdown
+                            id="nav-dropdown-dark-example"
+                            title={currentUser}
+                            menuVariant="dark"
+                        >
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+                <Sidebar />
+            </Navbar>
             <form onSubmit={handleUpdate}>
                 <div className='form-group'>
-                    <center><h5>Operations</h5></center>
+                    <center><h5>Modification d'une operation</h5></center>
                 </div>
                 <div class="form-group flex-row">
                     <label for="exampleFormControlSelect1">Agence</label><br />
@@ -106,40 +190,48 @@ export default function UpdateOp() {
 
                     </select>
                 </div>
-                <div className="form-group flex-row">
-                    <label for="formFile" className="form-label">DA : </label>
-                    <input className="form-control" type="file" id="formFile" onChange={(e) => handleFileUpload(e)}/>
+                <div class="form-group flex-row">
+                    <label for="formFile">DA : </label>
+                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                    {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">imputation</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="imputation" value={imputation} onChange={(e) => setImputation(e.target.value)}/>
+                    <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
+                    {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">nature projet</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="nature pojet" value={nature_projet} onChange={(e) => setNature_projet(e.target.value)}/>
+                    <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
+                    {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">operation</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="operation" value={operation} onChange={(e) => setOperation(e.target.value)}/>
+                    <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
+                    {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">programme</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="programme" value={programme} onChange={(e) => setProgramme(e.target.value)}/>
+                    <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
+                    {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">situation</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="situation" value={situation} onChange={(e) => setSituation(e.target.value)}/>
+                    <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
+                    {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">superficie</label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="superficie" value={superficie} onChange={(e) => setSuperficie(e.target.value)}/>
+                    <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
+                    {superficieError && <p className='error-message'>{superficieError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div class="form-group flex-row">
                     <label for="exampleFormControlInput1">type projet </label><br />
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="type projet" value={type_projet} onChange={(e) => setType_projet(e.target.value)}/>
+                    <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
+                    {type_projetError && <p className='error-message'>{type_projetError}</p>}
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" className="btn btn-primary big-btn">modify</button></center>
+                    <center><button type="submit" className="btn btn-primary big-btn">Modifier</button></center>
                 </div>
             </form>
         </div>

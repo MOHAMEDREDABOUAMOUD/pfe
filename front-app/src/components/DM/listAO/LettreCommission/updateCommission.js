@@ -39,6 +39,7 @@ export default function UpdateCommission() {
     }, [id]);
 
     const handleSubmitAJ = async () => {
+        alert("la commission a ete bien modifier");
         await axios.post("/updateCommission", { num: id,numEnvoie: numEnvoie, destinataire: destinataire, dateEnvoie: dateEnvoie});
         navigate(`/listAO`);
     }
@@ -55,12 +56,12 @@ export default function UpdateCommission() {
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
+                            title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
@@ -90,7 +91,7 @@ export default function UpdateCommission() {
                     <input type="text" className="form-control" id="formatCommission" placeholder="destinataire" value={destinataire} onChange={(e) => setDestinataire(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <center><button type="button" onClick={handleSubmitAJ} className="btn btn-primary big-btn">Update Commission</button></center>
+                    <center><button type="button" onClick={handleSubmitAJ} className="btn btn-primary big-btn">Modifier</button></center>
                 </div>
             </form>
         </div>

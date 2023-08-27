@@ -5,14 +5,13 @@ const pool = require('./db');
 class AODAO {
   static async create(ao) {
     const _query = `
-      INSERT INTO AO (num, fileName, etat, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO AO (num, fileName, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
       ao.num,
       ao.fileName,
-      ao.etat,
       ao.dateOuverturePlis,
       ao.heureOuverturePlis,
       ao.datePublicationPortail,
@@ -77,12 +76,11 @@ class AODAO {
   static async update(ao) {
     const _query = `
       UPDATE AO
-      SET etat=?, fileName=?, dateOuverturePlis=?, heureOuverturePlis=?, datePublicationPortail=?, dateEntreDM=?, dateAchevementTravauxCommission=?, avis=?, numEB=?, numLettreCommission=?
+      SET fileName=?, dateOuverturePlis=?, heureOuverturePlis=?, datePublicationPortail=?, dateEntreDM=?, dateAchevementTravauxCommission=?, avis=?, numEB=?, numLettreCommission=?
       WHERE num=?
     `;
 
     const values = [
-      ao.etat,
       ao.fileName,
       ao.dateOuverturePlis,
       ao.heureOuverturePlis,
@@ -248,7 +246,7 @@ class AODAO {
   }
 
   static async getByUserId(currentUser) {
-    const _query = 'SELECT AO.num, AO.etat, AO.dateOuverturePlis, AO.heureOuverturePlis, AO.datePublicationPortail, AO.dateEntreDM, AO.dateAchevementTravauxCommission, AO.avis, AO.numEB, AO.numLettreCommission, AO.fileName FROM AO inner join EB on AO.numEB=EB.num where EB.numUtilisateur=?';
+    const _query = 'SELECT AO.num, AO.dateOuverturePlis, AO.heureOuverturePlis, AO.datePublicationPortail, AO.dateEntreDM, AO.dateAchevementTravauxCommission, AO.avis, AO.numEB, AO.numLettreCommission, AO.fileName FROM AO inner join EB on AO.numEB=EB.num where EB.numUtilisateur=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {

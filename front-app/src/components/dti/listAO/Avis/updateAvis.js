@@ -15,29 +15,37 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const UpdateAvis = (props) => {
     const id = props.id;
-    const [piece, setPiece]=useState([]);
-    const [fileName, setFileName]=useState("");
+    const [piece, setPiece] = useState([]);
+    const [fileName, setFileName] = useState("");
 
     const navigate = useNavigate();
 
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileName = selectedFile.name;
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result;
-            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
-            setPiece(base64FileData);
-            setFileName(fileName);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setPiece(base64FileData);
+                setFileName(fileName);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
-    
+
     const handleUpdate = async () => {
-        if(piece!=[]){
-            console.log("enter handle Update : "+fileName+", "+piece);
-            await axios.post("/updateAvis", {piece: piece, fileName: fileName, id: id});
+        if (piece != []) {
+            console.log("enter handle Update : " + fileName + ", " + piece);
+            alert("l'Avis a ete bien modifier");
+            await axios.post("/updateAvis", { piece: piece, fileName: fileName, id: id });
         }
         navigate("/listAO");
     }
@@ -58,8 +66,8 @@ const UpdateAvis = (props) => {
                             menuVariant="dark"
                         >
                             <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
@@ -74,7 +82,7 @@ const UpdateAvis = (props) => {
                         id="file"
                         onChange={(e) => handleFileUpload(e)}
                     />
-                    <button type="button" onClick={handleUpdate}>Update</button>
+                    <button type="button" onClick={handleUpdate}>Modifier</button>
                 </div>
             </center>
         </div>

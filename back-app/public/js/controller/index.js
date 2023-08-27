@@ -134,7 +134,7 @@ app.post("/getEBsCM", async (req, res) => {
 });
 app.post("/getEBsDM", async (req, res) => {
     const { id } = req.body;
-    let r = await EBBusiness.getForDM(currentUser);//
+    let r = await EBBusiness.getForDM(currentUser);
     console.log(r);
     res.status(200).json(r);
 });
@@ -215,26 +215,37 @@ app.post("/deleteFile", async (req, res) => {
 // await axios.post("/createUser", { email:email, nom:nom, prenom:prenom, userName:userName, password:password, fonction:fonction, sexe:sexe });
 
 app.post("/createUser", async (req, res) => {
-    const { email, nom, prenom, userName, password, fonction, sexe } = req.body;
+    const { immatricule, email, nom, prenom, userName, password, fonction, sexe } = req.body;
     try {
-        const r = await UtilisateurBusiness.Add(new Utilisateur({ immatricule: 0, email: email, nom: nom, prenom: prenom, login: userName, pwd: password, fonction: fonction, sexe: sexe }));
-        // console.log(r);
-        res.status(200).json(r);
+        const r = await UtilisateurBusiness.Add(new Utilisateur({ immatricule: immatricule, email: email, nom: nom, prenom: prenom, login: userName, pwd: password, fonction: fonction, sexe: sexe }));
+        //console.log(r);
+        if(r===null){
+            res.status(401).json(error);
+        }
+        else{
+            res.status(200).json(r);
+        }
     } catch (error) {
         console.log(error);
+        res.status(401).json(error);
     }
 });
 
 app.post("/createEB", async (req, res) => {
-    const { objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
+    const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
     console.log("prognonprog : "+progNonProg);
-    EBBusiness.Add(objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
+    EBBusiness.Add("En vours de validation par la dti", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
+});
+app.post("/createEBDti", async (req, res) => {
+    const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
+    console.log("prognonprog : "+progNonProg);
+    EBBusiness.Add("En vours de validation par le CM", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
     const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, fileNameAvis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, fileNameLC, listJournal } = req.body;
     console.log(fileNameAvis+", "+fileNameLC);
     const re = await LettreCommissionBusiness.Add(new LettreCommission({ num: -1, fileName: fileNameLC, numEnvoie: numEnvoieLettreCommission, dateEnvoie: dateEnvoieLettreCommission, destinataire: destinataire, lettreCommission: lettreCommission }));
-    await AOBusiness.Add(new AO({ num: num, fileName: fileNameAvis, etat: 'en cours', dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
+    await AOBusiness.Add(new AO({ num: num, fileName: fileNameAvis, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
     for (let i = 0; i < listJournal.length; i++) {
         await JournalBusiness.Add(new Journal({ num: -1, fileName: listJournal[i]["fileNameJ"], numEnvoie: listJournal[i]["numEnvoieJournal"], format: listJournal[i]["formatJournal"], fournisseur: listJournal[i]["fournisseurJournal"], dateEnvoie: listJournal[i]["dateEnvoieJournal"], datePublication: listJournal[i]["datePublicationJournal"], lettreJournal: listJournal[i]["lettreJournal"], numAo: num }));        
     }
@@ -284,10 +295,10 @@ app.post("/updateLettreCommission", async (req, res) => {
     }
 });
 app.post("/updateEB", async (req, res) => {
-    const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
+    const { id, etat, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
     try {
-        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
+        const eb = new EB({ num: id, etat:etat, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
         console.warn(r);
@@ -322,7 +333,7 @@ app.post("/updateEBDti", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur, validerPar } = req.body;
     console.log("numUtilisateur : " + numUtilisateur);
     try {
-        const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: validerPar, numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, });
+        const eb = new EB({ num: id, etat: etat, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: validerPar, numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, });
         //, secteur:secteur, qualification:qualification 
         const r = await EBBusiness.update(eb);
         console.warn(r);
@@ -353,6 +364,7 @@ app.post("/getCurrentUserData", async (req, res) => {
     const { id } = req.body;
     try {
         const user = await UtilisateurBusiness.searchByNum(currentUser);
+        console.log("user : "+user);
         res.status(200).json(user);
     } catch (error) {
         console.log(error);

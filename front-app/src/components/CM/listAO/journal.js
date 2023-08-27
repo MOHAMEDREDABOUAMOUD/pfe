@@ -164,15 +164,44 @@ const Journal = (props) => {
         });
     });
 
+    const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
     const navigate = useNavigate();
     const editRow = (id) => {
         navigate(`/updateJournal/${id}`);
     }
     const deleteRow = async (id) => {
-        await axios.post("/deleteJournal", { id: id });
-        getRows();
+        const confirmDelete = window.confirm("Confirmer la suppression du journal avec l'id " +id);
+
+        if (confirmDelete) {
+            await axios.post("/deleteJournal", { id: id });
+            getRows();
+            alert("le journal a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
     }
-    
+
     const handleLettreJournal = (id) => {
         setido(id);
         setShowLettreJournal(true);
@@ -231,9 +260,9 @@ const Journal = (props) => {
     return (
         <div className="table-wrapper">
             <Navbar className="barad">
-            <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
+                <Navbar.Collapse className="justify-content-start">
+                    <img src={logo} className="imgleft"></img>
+                </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text className="left">
                         <h1 href="#login" className="espacee">Espace Demandeur</h1>
@@ -243,12 +272,12 @@ const Journal = (props) => {
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
+                            title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

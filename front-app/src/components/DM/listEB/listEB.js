@@ -21,6 +21,29 @@ const ListEBDM = () => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
+  
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
   const handleSort = (column) => {
     if (sortBy === column) {
       setSortAsc((prevSortAsc) => !prevSortAsc);
@@ -178,28 +201,31 @@ const ListEBDM = () => {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout/> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         <Sidebar />
       </Navbar>
-      <button onClick={toggleFilterDropdown}>Filter Rows</button>
+      <button onClick={toggleFilterDropdown}>Filtre</button>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
           <tr>
             <th onClick={() => handleSort("Id")}>
-              Id {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              Immatricule {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Objet")}>
               Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort("etat")}>
+              Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Agence")}>
               Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -245,6 +271,7 @@ const ListEBDM = () => {
               <tr key={idx}>
                 <td>{row.num}</td>
                 <td>{row.objet}</td>
+                <td>{row.etat}</td>
                 <td>{row.agence}</td>
                 <td>{row.observation}</td>
                 <td>{row.prog_nonprog}</td>
@@ -256,7 +283,7 @@ const ListEBDM = () => {
                 <td>{row.qualification}</td>
                 <td>{row.secteur}</td>
                 <td><a onClick={() => handleOperations(row.num)}>operations</a></td>
-                <td><a onClick={() => handleFiles(row.num)}>files</a></td>
+                <td><a onClick={() => handleFiles(row.num)}>Pieces</a></td>
                 <td className="fit">
                   <span className="actions">
                     {/* <BsFillTrashFill

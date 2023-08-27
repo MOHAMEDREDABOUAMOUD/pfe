@@ -100,8 +100,15 @@ const ListFiles = ({id}) => {
   }
 
   const deleteRow = async (id) => {
-    await axios.post("/deleteFile", { id: id });
-    getRows();
+    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " +id);
+
+        if (confirmDelete) {
+          await axios.post("/deleteFile", { id: id });
+          getRows();
+            alert("le fichier a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
   }
 
   // const editRow=(id)=>{
@@ -149,7 +156,7 @@ const ListFiles = ({id}) => {
   return (
     <div className="table-wrapper">
       <Sidebar/>
-      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+      <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (

@@ -7,4 +7,12 @@
   .formCreateUserop{
     margin-top: 430px;
     margin-bottom: 0px;
+  }/* Add red color for error messages */
+.error-message {
+  color: red;
+  }
+  
+  /* Add red border for input fields with errors */
+  .error-border {
+  border-color: red !important;
   }

@@ -18,6 +18,7 @@ import logo from "./logo-omrane.png";
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import axios from 'axios';
 
 function DashboardAllCM() {
     Chart.register(CategoryScale);
@@ -40,6 +41,28 @@ function DashboardAllCM() {
         return [];
     }
   };
+
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
   
   useEffect(() => {
     // Fetch the number of users from your data source or API
@@ -153,11 +176,11 @@ function DashboardAllCM() {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
                 <SlLogout/> Logout
               </NavDropdown.Item>
             </NavDropdown>

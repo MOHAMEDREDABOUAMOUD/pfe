@@ -26,6 +26,28 @@ export default function UpdateJournal() {
 
     const navigate = useNavigate();
 
+    const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
     useEffect(() => {
         const fetchJData = async () => {
             try {
@@ -49,6 +71,7 @@ export default function UpdateJournal() {
 
     const handleSubmitAJ = async () => {
         console.log(lettreJournal);
+        alert("le journal a ete bien modifier");
         await axios.post("/updateJournal", { num: id, numEnvoie: numEnvoie, format: format, fournisseur: fournisseur, dateEnvoie: dateEnvoie, datePublication: datePublication});
         navigate(`/listAO`);
     }
@@ -65,12 +88,12 @@ export default function UpdateJournal() {
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
+                            title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

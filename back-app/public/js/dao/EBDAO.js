@@ -8,11 +8,12 @@ const pool = require('./db');
 class EBDAO {
   static async create(eb) {
     const _query = `
-      INSERT INTO EB (objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, qualification, secteur)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO EB (etat, objet, agence, observation, prog_nonprog, classe, caution, estimation, dateEB, modePassation, dateValidation, validerPar, numUtilisateur, qualification, secteur)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
+      eb.etat,
       eb.objet,
       eb.agence,
       eb.observation,
@@ -51,11 +52,12 @@ class EBDAO {
   static async update(eb) {
     const _query = `
       UPDATE EB
-      SET objet=?, agence=?, observation=?, prog_nonprog=?, classe=?, caution=?, estimation=?, dateEB=?, modePassation=?, dateValidation=?, validerPar=?, numUtilisateur=?, qualification=?, secteur=?
+      SET etat=?, objet=?, agence=?, observation=?, prog_nonprog=?, classe=?, caution=?, estimation=?, dateEB=?, modePassation=?, dateValidation=?, validerPar=?, numUtilisateur=?, qualification=?, secteur=?
       WHERE num=?
     `;
 
     const values = [
+      eb.etat,
       eb.objet,
       eb.agence,
       eb.observation,
@@ -117,7 +119,7 @@ class EBDAO {
   }
 
   static async getByNum(num) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB WHERE EB.num=?';
+    const _query = 'SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB WHERE EB.num=?';
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, [num], (err, rows) => {
@@ -140,7 +142,7 @@ class EBDAO {
   }
 
   static async getByUserId(id) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur, EB.validerPar, EB.numUtilisateur, EB.dateValidation FROM EB WHERE EB.numUtilisateur=? and EB.num not in (select numEB from AO)';
+    const _query = 'SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur, EB.validerPar, EB.numUtilisateur, EB.dateValidation FROM EB WHERE EB.numUtilisateur=? and EB.num not in (select numEB from AO)';
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, [id], (err, rows) => {
@@ -179,7 +181,7 @@ class EBDAO {
   }
 
   static async getByUserId2(id) {
-    const _query = 'SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur, EB.validerPar, EB.numUtilisateur, EB.dateValidation FROM EB WHERE EB.numUtilisateur=?';
+    const _query = 'SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.qualification, EB.secteur, EB.validerPar, EB.numUtilisateur, EB.dateValidation FROM EB WHERE EB.numUtilisateur=?';
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, [id], (err, rows) => {
@@ -302,7 +304,7 @@ class EBDAO {
     }
   }
   static async getDem(currentUser){
-    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on EB.numUtilisateur=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?) and EB.num not in (select numEB from AO)";
+    const _query = "SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on EB.numUtilisateur=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?) and EB.num not in (select numEB from AO)";
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -345,7 +347,7 @@ class EBDAO {
     }
   }
   static async getDem2(currentUser){
-    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on EB.numUtilisateur=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?)";
+    const _query = "SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on EB.numUtilisateur=Utilisateur.immatricule WHERE Utilisateur.fonction='Demandeur' and (EB.validerPar='' or EB.validerPar=?)";
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -388,7 +390,7 @@ class EBDAO {
     }
   }
   static async getForDM(currentUser){
-    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE (Utilisateur.fonction='DTI' or Utilisateur.fonction='CM' or Utilisateur.fonction='DM') and EB.num not in (select numEB from AO)";
+    const _query = "SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE (Utilisateur.fonction='DTI' or Utilisateur.fonction='CM' or Utilisateur.fonction='DM') and EB.num not in (select numEB from AO)";
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -432,7 +434,7 @@ class EBDAO {
   }
 
   static async getForDM2(currentUser){
-    const _query = "SELECT EB.num, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE (Utilisateur.fonction='DTI' or Utilisateur.fonction='CM' or Utilisateur.fonction='DM')";
+    const _query = "SELECT EB.num, EB.etat, EB.objet, EB.agence, EB.observation, EB.prog_nonprog, EB.classe, EB.qualification, EB.secteur, EB.caution, EB.estimation, EB.dateEB, EB.modePassation, EB.numUtilisateur, EB.validerPar, EB.dateValidation FROM EB inner join Utilisateur on cast(EB.validerPar as SIGNED)=Utilisateur.immatricule WHERE (Utilisateur.fonction='DTI' or Utilisateur.fonction='CM' or Utilisateur.fonction='DM')";
 
     try {
       const rows = await new Promise((resolve, reject) => {

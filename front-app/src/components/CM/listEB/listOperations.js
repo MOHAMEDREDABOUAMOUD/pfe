@@ -15,6 +15,28 @@ const ListOperationsCM = () => {
     const [rows, setRows] = useState([]);
     const [columns, setColumns] = useState([]);
 
+    const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
     //////////////////////////////////////////////////////////////
     const getOperations = async () => {
         try {
@@ -118,8 +140,15 @@ const ListOperationsCM = () => {
         });
     });
     const deleteRow=async(id)=>{
-        await axios.post("/deleteOperation", { id: id });
-        getRows();
+        const confirmDelete = window.confirm("Confirmer la suppression de l'operation avec l'id " +id);
+
+        if (confirmDelete) {
+            await axios.post("/deleteOperation", { id: id });
+            getRows();
+            alert("l'operation a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
     }
     const editRow=(id)=>{
         navigate(`/updateOperationCM/${id}`);
@@ -128,7 +157,7 @@ const ListOperationsCM = () => {
     return (
         <div className="table-wrapper">
             <Sidebar/>
-            <button onClick={toggleFilterDropdown}>Filter Rows</button>
+            <button onClick={toggleFilterDropdown}>Filtre</button>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
                     {columns.map((column) => (
@@ -206,7 +235,7 @@ const ListOperationsCM = () => {
                 </tbody>
             </table>
             <div className="form-group">
-                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>add</button>
+                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>Ajouter</button>
             </div>
         </div>
     );

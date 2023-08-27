@@ -1,6 +1,7 @@
 class EB {
   constructor(ebData) {
     this.num = ebData.num;
+    this.etat = ebData.etat;
     this.objet = ebData.objet;
     this.agence = ebData.agence;
     this.observation = ebData.observation;
@@ -13,8 +14,8 @@ class EB {
     this.dateValidation = ebData.dateValidation;
     this.validerPar = ebData.validerPar;
     this.numUtilisateur = ebData.numUtilisateur;
-    this.qualification=ebData.qualification;
-    this.secteur=ebData.secteur;
+    this.qualification = ebData.qualification;
+    this.secteur = ebData.secteur;
   }
 }
 

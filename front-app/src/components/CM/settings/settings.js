@@ -17,6 +17,28 @@ const SettingsCM = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [activeTab, setActiveTab] = useState("informations");
+  
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -41,11 +63,13 @@ const SettingsCM = () => {
   const handleInformationsSubmit = async (event) => {
     event.preventDefault();
     await axios.post("/updateSettingsIP", { email: email, nom: nom, prenom: prenom});
+    alert("les informations personnelles ont ete bien modifier");
   };
 
   const handleSecuriteSubmit = async (event) => {
     event.preventDefault();
     await axios.post("/updateSettingsS", { login: userName, pwd: password});
+    alert("les informations personnelles ont ete bien modifier");
   };
 
   return (
@@ -65,12 +89,12 @@ const SettingsCM = () => {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout/> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -145,7 +169,7 @@ const SettingsCM = () => {
             <h3>Sécurité</h3>
             <form onSubmit={handleSecuriteSubmit}>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">nom d'utilisateur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -155,7 +179,7 @@ const SettingsCM = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">mot de passe</label>
                 <input
                   type="password"
                   className="form-control"
@@ -165,7 +189,7 @@ const SettingsCM = () => {
                 />
               </div>
               <button type="submit" className="btn btn-primary">
-                Save
+                Confirmer
               </button>
             </form>
           </div>

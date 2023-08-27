@@ -6,11 +6,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "./logo-omrane.png";
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -55,17 +55,17 @@ const ListUsers = () => {
     console.log("eeeeeeeeeeeeee")
     const u = await getUsers();
     console.log(u);
-    if(u!=null){
+    if (u != null) {
       setRows(u);
     }
-    else{
+    else {
       setRows([]);
     }
     const c = Object.keys(u[0]);
-    if(c!=null){
+    if (c != null) {
       setColumns(c);
     }
-    else{
+    else {
       setColumns([]);
     }
     console.log(c);
@@ -83,20 +83,20 @@ const ListUsers = () => {
       setSortAsc(true);
     }
   };
-  
+
   // ...
-  
+
   // Sorting Logic
   let sortedRows = [...rows];
   if (sortBy) {
     sortedRows.sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
-  
+
       // Convert values to numbers if applicable
       const aValueAsNumber = isNaN(aValue) ? aValue : parseFloat(aValue);
       const bValueAsNumber = isNaN(bValue) ? bValue : parseFloat(bValue);
-  
+
       if (sortAsc) {
         return aValueAsNumber - bValueAsNumber; // Ascending sort for numbers
       } else {
@@ -117,42 +117,71 @@ const ListUsers = () => {
 
   const deleteRow = async (idx) => {
     console.log(rows[idx]["immatricule"]);
-    await axios.post("/deleteUser", { id: rows[idx]["immatricule"] });
-    getRows();
+
+    const confirmDelete = window.confirm("Confirmer la suppression de l'utilisateur avec l'immatricule " + rows[idx]["immatricule"]);
+
+    if (confirmDelete) {
+      await axios.post("/deleteUser", { id: rows[idx]["immatricule"] });
+      getRows();
+      alert("l'utilisateur a été bien Supprimé");
+    } else {
+      alert("Suppression annulée");
+    }
   }
   const navigate = useNavigate();
   const editRow = async (idx) => {
     navigate(`/updateUser/${rows[idx]["immatricule"]}`);
   }
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
   return (
     <div className="table-wrapper">
       <Navbar className="barad">
-      <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
+        <Navbar.Collapse className="justify-content-start">
+          <img src={logo} className="imgleft"></img>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Admin</h1>
+          <Navbar.Text className="left">
+            <h1 className="espacee">Espace Admin</h1>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Nav>
+          <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout /> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
         <Sidebar />
       </Navbar>
-      <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+      <center><button onClick={toggleFilterDropdown} className="filter">filtre</button></center>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
@@ -193,9 +222,6 @@ const ListUsers = () => {
             <th onClick={() => handleSort(columns[6])}>
               Fonction {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
-            <th onClick={() => handleSort(columns[7])}>
-              Sexe {sortBy === columns[7] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -209,7 +235,6 @@ const ListUsers = () => {
                 <td>{row.login}</td>
                 <td>{row.pwd}</td>
                 <td>{row.fonction}</td>
-                <td>{row.sexe}</td>
                 <td className="fit">
                   <span className="actions">
                     <BsFillTrashFill

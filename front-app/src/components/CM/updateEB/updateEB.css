@@ -85,4 +85,12 @@ label{
 }
 .margin input{
     margin-right: 10px;
-}
+}/* Add red color for error messages */
+.error-message {
+    color: red;
+    }
+    
+    /* Add red border for input fields with errors */
+    .error-border {
+    border-color: red !important;
+    }

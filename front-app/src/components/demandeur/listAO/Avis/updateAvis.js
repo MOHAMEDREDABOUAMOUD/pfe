@@ -15,57 +15,43 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const UpdateAvis = (props) => {
     const id = props.id;
-    const [piece, setPiece]=useState([]);
-    const [fileName, setFileName]=useState("");
+    const [piece, setPiece] = useState([]);
+    const [fileName, setFileName] = useState("");
 
     const navigate = useNavigate();
 
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileName = selectedFile.name;
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result;
-            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
-            setPiece(base64FileData);
-            setFileName(fileName);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setPiece(base64FileData);
+                setFileName(fileName);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
-    
+
     const handleUpdate = async () => {
-        if(piece!=[]){
-            console.log("enter handle Update : "+fileName+", "+piece);
-            await axios.post("/updateAvis", {piece: piece, fileName: fileName, id: id});
+        if (piece != []) {
+            console.log("enter handle Update : " + fileName + ", " + piece);
+            alert("l'Avis a ete bien modifier");
+            await axios.post("/updateAvis", { piece: piece, fileName: fileName, id: id });
         }
         navigate("/listAO");
     }
 
     return (
         <div className="table-wrapper">
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar />
             <center>
                 <div className="center">
                     <input

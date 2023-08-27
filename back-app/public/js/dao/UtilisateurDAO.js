@@ -16,11 +16,11 @@ const pool = require('./db');
 class UtilisateurDAO {
   static async create(user) {
     const _query = `
-      INSERT INTO Utilisateur (login, pwd, nom, prenom, email, fonction, sexe)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO Utilisateur (immatricule, login, pwd, nom, prenom, email, fonction, sexe)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    const values = [user.login, user.pwd, user.nom, user.prenom, user.email, user.fonction, user.sexe];
+    const values = [user.immatricule, user.login, user.pwd, user.nom, user.prenom, user.email, user.fonction, user.sexe];
 
     try {
       const result = await new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
@@ -8,6 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
 import {IoMdNotifications} from 'react-icons/io';
+import "./createEB.css";
 
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -22,11 +23,35 @@ const AddOperationDti = () => {
     const [type_projet, setTypeProjet] = useState('');
     const [piece, setPiece]=useState([]);
 
+    
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
+
     const { id} = useParams();
 
     const navigate=useNavigate();
     const handleAddOperation =async (event) => {
         event.preventDefault();
+        alert("l'operation a ete bien ajouter");
         await axios.post("/addOperationDti", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet:type_projet, piece:piece});
         navigate(`/listEBDti`);
     };
@@ -34,13 +59,20 @@ const AddOperationDti = () => {
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
-            setPiece(base64FileData);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else{
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result; // This is the binary buffer
+                const base64FileData = btoa(fileData);
+                setPiece(base64FileData);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
 
     return (
@@ -58,12 +90,12 @@ const AddOperationDti = () => {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout/> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -72,11 +104,11 @@ const AddOperationDti = () => {
       </Navbar>
             <form onSubmit={handleAddOperation}>
                 <div className='form-group'>
-                    <center><h5>Add operation</h5></center>
+                    <center><h5>Ajouter une operation</h5></center>
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="exampleFormControlSelect1">Agence</label><br />
-                    <select className="form-control" id="agence"onChange={(e) => setAgence(e.target.value)} value={agence}>
+                    <select id="agence"onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
                         <option> Boulemane </option>
                         <option> sefrou </option>
@@ -120,7 +152,7 @@ const AddOperationDti = () => {
                     <input type="text" class="form-control" id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">add</button>
+                    <button type="submit" className="btn btn-primary">Ajouter</button>
                 </div>
             </form>
         </div>

@@ -38,6 +38,28 @@ const ListAODti = () => {
   
 `;
 
+const [currentSexe, setCurrentSexe] = useState('');
+const [currentNom, setCurrentNom] = useState('');
+const [currentPrenom, setCurrentPrenom] = useState('');
+const [currentUser, setCurrentUser] = useState('');
+useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const userData = await axios.post("/getCurrentUserData", { id: 0 });
+      console.log(userData.data);
+      setCurrentNom(userData.data["nom"]);
+      setCurrentSexe(userData.data["sexe"]);
+      setCurrentPrenom(userData.data["prenom"]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchUserData();
+}, []);
+useEffect(() => {
+  setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+}, [currentSexe, currentNom, currentPrenom]);
+
     const [showJournal, setShowJournal] = useState(false);
     const [showEB, setShowEB] = useState(false);
     const [showLettreCommission, setShowLettreCommission] = useState(false);
@@ -261,12 +283,12 @@ const ListAODti = () => {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout/> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -274,16 +296,13 @@ const ListAODti = () => {
         <Sidebar />
       </Navbar>
             
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
                     <tr>
                         <th onClick={() => handleSort("num")}>
                             Id {sortBy === "num" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("etat")}>
-                            Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
                         <th onClick={() => handleSort("dateOuverturePlis")}>
                             Date OP {sortBy === "dateOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -319,7 +338,6 @@ const ListAODti = () => {
                         return (
                             <tr key={idx}>
                                 <td>{row.num}</td>
-                                <td>{row.etat}</td>
                                 <td>{row.dateOuverturePlis}</td>
                                 <td>{row.heureOuverturePlis}</td>
                                 <td>{row.datePublicationPortail}</td>

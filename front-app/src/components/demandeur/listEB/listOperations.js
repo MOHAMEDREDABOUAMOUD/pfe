@@ -122,8 +122,15 @@ const ListOperations = ({id}) => {
 
 
     const deleteRow = async (id) => {
-        await axios.post("/deleteOperation", { id: id });
-        getRows();
+        const confirmDelete = window.confirm("Confirmer la suppression de l'operation avec l'id " +id);
+
+        if (confirmDelete) {
+            await axios.post("/deleteOperation", { id: id });
+            getRows();
+            alert("l'operation a été bien Supprimé");
+        } else {
+            alert("Suppression annulée");
+        }
     }
     const editRow = (id) => {
         navigate(`/updateOperation/${id}`);
@@ -131,7 +138,7 @@ const ListOperations = ({id}) => {
 
     return (
         <div className="table-wrappero">
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
                     {columns.map((column) => (
@@ -211,7 +218,7 @@ const ListOperations = ({id}) => {
             </table>
             <div className="form-group">
                 <center>
-                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>add</button>
+                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>Ajouter</button>
                 </center>
             </div>
         </div>

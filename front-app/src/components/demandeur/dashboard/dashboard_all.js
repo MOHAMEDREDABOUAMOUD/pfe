@@ -18,12 +18,35 @@ import logo from "./logo-omrane.png";
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import axios from 'axios';
 
 function DashboardAllDM() {
     Chart.register(CategoryScale);
   // Sample data for the dashboard
   const [numberOfUsersData, setNumberOfUsersData] = useState(0);
   const [selectedYear, setSelectedYear] = useState("All");
+
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
   const getMarcheDataByYear = (year) => {
     // Sample static data for demonstration
@@ -153,12 +176,12 @@ function DashboardAllDM() {
         <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
-              title="Mohammed Raji"
+              title={currentUser}
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                <SlLogout/> Logout
+              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/">
+                <SlLogout/> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

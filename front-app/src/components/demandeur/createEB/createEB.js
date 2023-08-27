@@ -12,6 +12,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { BsFillTrashFill } from "react-icons/bs";
 
 const CreateEB = () => {
     const sectors = [
@@ -237,19 +238,26 @@ const CreateEB = () => {
         }
     ];
     const [objet, setObjet] = useState("");
+    const [objetError, setObjetError] = useState("");
     const [observation, setObservation] = useState("");
+    const [observationError, setObservationError] = useState("");
     const [caution, setCaution] = useState("");
+    const [cautionError, setCautionError] = useState("");
     const [estimation, setEstimation] = useState("");
+    const [estimationError, setEstimationError] = useState("");
     const [progNonProgram, setProgNonProgram] = useState(true);
     const [progNonProg, setProgNonProg] = useState("Non");
     const [agence, setAgence] = useState("Fes");
-    const [agenceOp, setAgenceOp] = useState("Fes");
-    const [modePassation, setModePassation] = useState("B.C");
-    const [secteur, setSecteur] = useState("122");
-    const [qualification, setQualification] = useState("000");
-    const [libelle, setLibelle] = useState("");
+
     const [piece, setPiece] = useState([]);
     const [fileName, setFileName] = useState("");
+    const [pieceError, setPieceError] = useState('');
+
+    const [agenceOp, setAgenceOp] = useState("Fes");
+    const [modePassation, setModePassation] = useState("B.C");
+    const [secteur, setSecteur] = useState("Terrassements");
+    const [qualification, setQualification] = useState("travaux de terrassements généraux en masse");
+    const [libelle, setLibelle] = useState("");
     const [daFile, setDaFile] = useState([]);
     const [daFileName, setDaFileName] = useState("");
     const [imputation, setImputation] = useState("");
@@ -259,6 +267,7 @@ const CreateEB = () => {
     const [situation, setSituation] = useState("");
     const [superficie, setSuperficie] = useState("");
     const [typeProjet, setTypeProjet] = useState("");
+    const [operationError, setOperationError] = useState('');
 
 
     const [EB, setEB] = useState({}); // Dictionary to store all data
@@ -266,6 +275,28 @@ const CreateEB = () => {
     const [operationList, setOperationList] = useState([]); // List of operations
 
     const [qualificationOptions, setQualificationOptions] = useState([]); // Available qualifications for the selected sector
+
+    const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
     const handleSectorChange = (selectedSector) => {
         setSecteur(selectedSector);
@@ -280,29 +311,43 @@ const CreateEB = () => {
     const handleFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileName = selectedFile.name;
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result;
-            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
-            setPiece(base64FileData);
-            setFileName(fileName);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setPiece(base64FileData);
+                setFileName(fileName);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
 
     const handleDAFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
-        const fileName = selectedFile.name;
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result;
-            const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
-            setDaFile(base64FileData);
-            setDaFileName(fileName);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setDaFile(base64FileData);
+                setDaFileName(fileName);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
 
     const handleAddFile = (event) => {
@@ -318,6 +363,7 @@ const CreateEB = () => {
         setLibelle("");
         setPiece([]);
         setFileName("");
+        setPieceError("");
         //console.log(fileList);
     };
 
@@ -349,6 +395,7 @@ const CreateEB = () => {
         setSituation("");
         setSuperficie("");
         setTypeProjet("");
+        setOperationError("");
         //console.log(operationList);
     }
 
@@ -357,45 +404,70 @@ const CreateEB = () => {
         event.preventDefault();
         // Combine all data into the EB dictionary
         // Check if any of the required fields are empty
-        if (
-            objet === "" ||
-            observation === "" ||
-            caution === "" ||
-            estimation === "" ||
-            fileList.length === 0 ||
-            operationList.length === 0
-        ) {
-            alert("Please fill in all required fields before submitting.");
-            return; // Stop the form submission
+        let hasErrors = false;
+        if (objet.trim() === '') {
+            setObjetError('Ce champ est obligatoire');
+            hasErrors = true;
         }
-        const progValue = progNonProgram ? "Oui" : "Non";
-        setProgNonProg(progValue);
-        const EBData = {
-            objet: objet,
-            observation: observation,
-            caution: caution,
-            estimation: estimation,
-            progNonProg: progNonProg,
-            agence: agence,
-            modePassation: modePassation,
-            secteur: secteur,
-            qualification: qualification,
-            fileList: fileList,
-            operationList: operationList,
-        };
-        setEB(EBData);
-        try {
-            alert("EB bien creer");
-            navigate("/listEB");
-            await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
-        } catch (error) {
-            console.log(error);
+        if (observation.trim() === '') {
+            setObservationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (caution.trim() === '') {
+            setCautionError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (estimation.trim() === '') {
+            setEstimationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (fileList.length === 0) {
+            setPieceError('veuillez ajouter au moins une piece');
+            hasErrors = true;
+        }
+        if (operationList.length === 0) {
+            setOperationError('veuillez ajouter au moins une operation');
+            hasErrors = true;
+        }
+        if (!hasErrors) {
+            const progValue = progNonProgram ? "Oui" : "Non";
+            setProgNonProg(progValue);
+            const EBData = {
+                objet: objet,
+                observation: observation,
+                caution: caution,
+                estimation: estimation,
+                progNonProg: progNonProg,
+                agence: agence,
+                modePassation: modePassation,
+                secteur: secteur,
+                qualification: qualification,
+                fileList: fileList,
+                operationList: operationList,
+            };
+            setEB(EBData);
+            try {
+                alert("l'expression des besoins a ete bien creer");
+                navigate("/listEB");
+                await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
     useEffect(() => {
         console.log("Updated EB:", EB);
     }, [EB]);
+
+    const deleteOp = (index) => {
+        const updatedOperationList = operationList.filter((operation, i) => i !== index);
+        setOperationList(updatedOperationList);
+    }
+    const deleteFile = (index) => {
+        const updatedFileList = fileList.filter((file, i) => i !== index);
+        setFileList(updatedFileList);
+    }
 
     return (
         <div className="formCreateUser">
@@ -412,12 +484,12 @@ const CreateEB = () => {
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
+                            title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                <SlLogout /> Logout
+                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/">
+                                <SlLogout /> Exit
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
@@ -435,48 +507,52 @@ const CreateEB = () => {
                     <br />
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${objetError ? 'error-border' : ''}`}
                         id="objet"
                         placeholder="objet"
                         value={objet}
                         onChange={(e) => setObjet(e.target.value)}
                     />
+                    {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="observation">observation</label>
                     <br />
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${observationError ? 'error-border' : ''}`}
                         id="observation"
                         placeholder="observation"
                         value={observation}
                         onChange={(e) => setObservation(e.target.value)}
                     />
+                    {observationError && <p className='error-message'>{observationError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="caution">caution</label>
                     <br />
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${cautionError ? 'error-border' : ''}`}
                         id="caution"
                         placeholder="caution"
                         value={caution}
                         onChange={(e) => setCaution(e.target.value)}
                     />
+                    {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="estimation">estimation</label>
                     <br />
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${estimationError ? 'error-border' : ''}`}
                         id="estimation"
                         placeholder="estimation"
                         value={estimation}
                         onChange={(e) => setEstimation(e.target.value)}
                     />
+                    {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="progNonProgram">prog-nonprogram</label>
@@ -493,7 +569,6 @@ const CreateEB = () => {
                     <label htmlFor="agence">Agence</label>
                     <br />
                     <select
-                        className="form-control"
                         id="agence"
                         value={agence}
                         onChange={(e) => setAgence(e.target.value)}
@@ -513,7 +588,6 @@ const CreateEB = () => {
                     <label htmlFor="modePassation">modePassation</label>
                     <br />
                     <select
-                        className="form-control"
                         id="modePassation"
                         value={modePassation}
                         onChange={(e) => setModePassation(e.target.value)}
@@ -530,12 +604,11 @@ const CreateEB = () => {
                     <label htmlFor="secteur">secteur</label>
                     <br />
                     <select
-                        className="form-control"
                         id="secteur"
                         value={secteur}
                         onChange={(e) => handleSectorChange(e.target.value)}
                     >
-                        <option value="">Select a sector</option>
+                        <option value="">Terrassements</option>
                         {sectors.map((sector) => (
                             <option key={sector.sector} value={sector.sector}>
                                 {sector.sector}
@@ -545,12 +618,11 @@ const CreateEB = () => {
                     <label htmlFor="qualification">qualification</label>
                     <br />
                     <select
-                        className="form-control"
                         id="qualification"
                         value={qualification}
                         onChange={(e) => setQualification(e.target.value)}
                     >
-                        <option value="">Select a qualification</option>
+                        <option value="">travaux de terrassements généraux en masse</option>
                         {qualificationOptions.map((qual) => (
                             <option key={qual} value={qual}>
                                 {qual}
@@ -560,7 +632,7 @@ const CreateEB = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="libelle" className="form-label">
-                        files
+                        Pieces
                     </label>
                 </div>
                 <div className="form-group files margin">
@@ -583,8 +655,38 @@ const CreateEB = () => {
                         className="btn btn-primary"
                         onClick={(e) => handleAddFile(e)}
                     >
-                        add
+                        Ajouter
                     </button>
+                    {pieceError && <p className='error-message'>{pieceError}</p>}
+                </div>
+                <div className="form-group">
+                    {fileList.length > 0 && (
+                        <div>
+                            <h4>Liste des pieces</h4>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {fileList.map((file, index) => (
+                                        <tr key={index}>
+                                            <td>{file.name}</td>
+                                            <td>
+                                                <span className="actions">
+                                                    <BsFillTrashFill
+                                                        className="delete-btn"
+                                                        onClick={() => deleteFile(index)}
+                                                    />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
                 <div className="form-group">
                     <center>
@@ -595,7 +697,6 @@ const CreateEB = () => {
                     <label htmlFor="agence">Agence</label>
                     <br />
                     <select
-                        className="form-control"
                         id="agenceOp"
                         value={agenceOp}
                         onChange={(e) => setAgenceOp(e.target.value)}
@@ -708,8 +809,55 @@ const CreateEB = () => {
                 </div>
                 <div className="form-group">
                     <button type="button" className="btn btn-primary" onClick={handleAddOperation}>
-                        add
+                        Ajouter
                     </button>
+                    {operationError && <p className='error-message'>{operationError}</p>}
+                </div>
+                <div className="form-group">
+                    {operationList.length > 0 && (
+                        <div>
+                            <h4>Liste des Opérations</h4>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Agence</th>
+                                        <th>Fichier DA</th>
+                                        <th>Imputation</th>
+                                        <th>Nature projet</th>
+                                        <th>operation</th>
+                                        <th>programme</th>
+                                        <th>situation</th>
+                                        <th>superficie</th>
+                                        <th>type projet</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {operationList.map((op, index) => (
+                                        <tr key={index}>
+                                            <td>{op.agence}</td>
+                                            <td>{op.daFileName}</td>
+                                            <td>{op.imputation}</td>
+                                            <td>{op.natureProjet}</td>
+                                            <td>{op.operation}</td>
+                                            <td>{op.programme}</td>
+                                            <td>{op.situation}</td>
+                                            <td>{op.superficie}</td>
+                                            <td>{op.typeProjet}</td>
+                                            <td>
+                                                <span className="actions">
+                                                    <BsFillTrashFill
+                                                        className="delete-btn"
+                                                        onClick={() => deleteOp(index)}
+                                                    />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
                 <div className="form-group">
                     <center>
