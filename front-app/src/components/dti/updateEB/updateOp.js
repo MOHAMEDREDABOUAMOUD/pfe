@@ -6,9 +6,9 @@ import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
-import { IoMdNotifications } from 'react-icons/io';
 import logo from "./logo-omrane.png";
+import { IoMdNotifications } from 'react-icons/io';
+import "./updateOp.css"
 import Navbar from 'react-bootstrap/Navbar';
 
 export default function UpdateOpDti() {
@@ -17,7 +17,7 @@ export default function UpdateOpDti() {
     const [agence, setAgence] = useState('');
     const [imputation, setImputation] = useState('');
     const [imputationError, setImputationError] = useState('');
-    const [nature_projet, setNature_projet] = useState('');
+    const [nature_projet, setNatureProjet] = useState('');
     const [nature_projetError, setNatureProjetError] = useState('');
     const [operation, setOperation] = useState("");
     const [operationError, setOperationError] = useState('');
@@ -27,7 +27,7 @@ export default function UpdateOpDti() {
     const [situationError, setSituationError] = useState('');
     const [superficie, setSuperficie] = useState('');
     const [superficieError, setSuperficieError] = useState('');
-    const [type_projet, setType_projet] = useState('');
+    const [type_projet, setTypeProjet] = useState('');
     const [type_projetError, setTypeProjetError] = useState('');
     const [piece, setPiece] = useState([]);
     const [pieceError, setPieceError] = useState('');
@@ -101,6 +101,7 @@ export default function UpdateOpDti() {
             setPieceError('Ce champ est obligatoire');
             hasErrors = true;
         }
+
         if (!hasErrors) {
             await axios.post("/updateOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
             alert("l'operation a ete bien modifier");
@@ -131,12 +132,12 @@ export default function UpdateOpDti() {
                 const userData = await axios.post("/getOperation", { id: id });
                 setAgence(userData.data["agence"]);
                 setImputation(userData.data["imputation"]);
-                setNature_projet(userData.data["natureProjet"]);
+                setNatureProjet(userData.data["natureProjet"]);
                 setOperation(userData.data["operation"]);
                 setProgramme(userData.data["programme"]);
                 setSituation(userData.data["situation"]);
                 setSuperficie(userData.data["superficie"]);
-                setType_projet(userData.data["typeProjet"]);
+                setTypeProjet(userData.data["typeProjet"]);
             } catch (error) {
                 console.error(error);
             }
@@ -145,38 +146,17 @@ export default function UpdateOpDti() {
     }, [id]);
 
     return (
-        <div className='formCreateUserop'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace DTI</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form onSubmit={handleUpdate}>
-                <div className='form-group'>
-                    <center><h5>Modification d'une operation</h5></center>
-                </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlSelect1">Agence</label><br />
+        <center>
+        <div className='formCreateUser-dem-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+    </div>
+    <center><h1 className='titre'>Modification D'operation</h1></center>
+            <form onSubmit={handleUpdate} className='forma'>
+                <div className='disp'>
+                <div class="form-group1">
+                    <label for="exampleFormControlSelect1" className='lab'>Agence</label><br />
                     <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
                         <option> Boulemane </option>
@@ -189,50 +169,56 @@ export default function UpdateOpDti() {
 
                     </select>
                 </div>
-                <div class="form-group flex-row">
-                    <label for="formFile">DA : </label>
+                <div class="form-group1">
+                    <label for="formFile" className='lab'>DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">imputation</label><br />
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" className='lab'>imputation</label><br />
                     <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                     {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">nature projet</label><br />
-                    <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNature_projet(e.target.value)} />
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" className='lab'>nature projet</label><br />
+                    <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">operation</label><br />
+                    <div className='disp'>
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>operation</label><br />
                     <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
                     {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">programme</label><br />
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>programme</label><br />
                     <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">situation</label><br />
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" className='lab'>situation</label><br />
                     <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                     {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">superficie</label><br />
+                <div className='disp'>
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
                     <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                     {superficieError && <p className='error-message'>{superficieError}</p>}
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">type projet </label><br />
-                    <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setType_projet(e.target.value)} />
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>type projet </label><br />
+                    <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
                     {type_projetError && <p className='error-message'>{type_projetError}</p>}
                 </div>
+                </div>
                 <div className="form-group">
-                    <center><button type="submit" className="btn btn-primary big-btn">Modifier</button></center>
+                    <center><button type="submit" className="botton">Modifier</button></center>
                 </div>
             </form>
         </div>
+        </center>
     )
 }

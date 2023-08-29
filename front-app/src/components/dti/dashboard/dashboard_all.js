@@ -164,31 +164,9 @@ function DashboardAllDTI() {
 
   return (
     <main className='main-container'>
-        <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DTI</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        
-      </Navbar>
+        <div className='appbare'>
+      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+    </div>
       <div className='fixside'>
       <Sidebar/>
       </div>

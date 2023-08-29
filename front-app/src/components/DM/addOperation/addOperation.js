@@ -75,39 +75,16 @@ const AddOperationDM = () => {
     };
 
     return (
-        <div className='formCreateUseraddop'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace DM</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form onSubmit={handleAddOperation}>
-                <div className='form-group'>
-                    <center><h5>Add operation</h5></center>
-                </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="exampleFormControlSelect1">Agence</label><br />
-                    <select id="agence" onChange={(e) => setAgence(e.target.value)} value={agence}>
+        <div className='formCreateUser-dmm-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DM</h1></center>
+    </div>    <center><h1 className='titre'>Ajouter Operation</h1></center>
+            <form onSubmit={handleAddOperation} className='forma'>
+                <div className='disp'>
+                <div className="form-group1">
+                    <label htmlFor="exampleFormControlSelect1" className='lab'>Agence</label><br />
+                    <select className='form-control' id="agence" onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
                         <option> Boulemane </option>
                         <option> sefrou </option>
@@ -118,40 +95,45 @@ const AddOperationDM = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div class="form-group flex-row">
-                    <label for="formFile" class="form-label">DA : </label>
+                <div class="form-group1">
+                    <label for="formFile" class="lab">DA : </label>
                     <input class="form-control" type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">imputation</label><br />
+                </div>
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>imputation</label><br />
                     <input type="text" class="form-control" id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">nature projet</label><br />
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>nature projet</label><br />
                     <input type="text" class="form-control" id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">operation</label><br />
+                <div className='disp'>
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>operation</label><br />
                     <input type="text" class="form-control" id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">programme</label><br />
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>programme</label><br />
                     <input type="text" class="form-control" id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">situation</label><br />
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" className='lab'>situation</label><br />
                     <input type="text" class="form-control" id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">superficie</label><br />
+                <div className='disp'>
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
                     <input type="text" class="form-control" id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                 </div>
-                <div class="form-group flex-row">
-                    <label for="exampleFormControlInput1">type projet </label><br />
+                <div class="form-group1">
+                    <label for="exampleFormControlInput1" className='lab'>type projet </label><br />
                     <input type="text" class="form-control" id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
                 </div>
+                </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">add</button>
+                    <button type="submit" className="botton">add</button>
                 </div>
             </form>
         </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from "./logo-omrane.png";
 import { SlLogout } from 'react-icons/sl';
+import { BsFilterLeft } from 'react-icons/bs';
 import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -155,34 +156,14 @@ const ListUsers = () => {
   }, [currentSexe, currentNom, currentPrenom]);
 
   return (
-    <div className="table-wrapper">
-      <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-start">
-          <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="left">
-            <h1 className="espacee">Espace Admin</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-      <center><button onClick={toggleFilterDropdown} className="filter">filtre</button></center>
-      {showFilterDropdown && (
+    <center>
+    <div className="table-wrapper-admin">
+      <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+    </div>
+    <center><h1 className='titre'>List d'utilisateurs</h1></center>
+    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>{showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
             <div key={column} className="filter-input">
@@ -222,6 +203,8 @@ const ListUsers = () => {
             <th onClick={() => handleSort(columns[6])}>
               Fonction {sortBy === columns[6] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => handleSort(columns[7])}>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -253,6 +236,7 @@ const ListUsers = () => {
         </tbody>
       </table>
     </div>
+    </center>
   );
 };
 

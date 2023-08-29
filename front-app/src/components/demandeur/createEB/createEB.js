@@ -470,40 +470,17 @@ const CreateEB = () => {
     }
 
     return (
-        <div className="formCreateUser">
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form onSubmit={handleFormSubmit}>
-                <div className="form-group">
-                    <center>
-                        <h3>Creation d'une expression des besoins</h3>
-                    </center>
-                </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="objet">objet</label>
+        <center>
+        <div className="formCreateUser-dm-upeb">
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+    </div>
+    <center><h1 className='titre'>Creation Expression Besoins</h1></center>
+            <form onSubmit={handleFormSubmit} className="forma">
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="objet" className="lab">objet</label>
                     <br />
                     <input
                         type="text"
@@ -515,8 +492,8 @@ const CreateEB = () => {
                     />
                     {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="observation">observation</label>
+                <div className="form-group1">
+                    <label htmlFor="observation" className="lab">observation</label>
                     <br />
                     <input
                         type="text"
@@ -528,8 +505,10 @@ const CreateEB = () => {
                     />
                     {observationError && <p className='error-message'>{observationError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="caution">caution</label>
+                </div>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="caution" className="lab">caution</label>
                     <br />
                     <input
                         type="text"
@@ -541,8 +520,8 @@ const CreateEB = () => {
                     />
                     {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="estimation">estimation</label>
+                <div className="form-group1">
+                    <label htmlFor="estimation" className="lab">estimation</label>
                     <br />
                     <input
                         type="text"
@@ -554,22 +533,25 @@ const CreateEB = () => {
                     />
                     {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="progNonProgram">prog-nonprogram</label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="progNonProgram" className="lab">prog-nonprogram</label>
                     <br />
                     <input
+                    
                         type="checkbox"
                         id="progNonProgram"
                         checked={progNonProgram}
                         onChange={(e) => setProgNonProgram(e.target.checked)}
                     />
                 </div>
-
-                <div className="form-group flex-row">
-                    <label htmlFor="agence">Agence</label>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="agence" className="lab">Agence</label>
                     <br />
                     <select
                         id="agence"
+                        className="form-control"
                         value={agence}
                         onChange={(e) => setAgence(e.target.value)}
                     >
@@ -584,11 +566,12 @@ const CreateEB = () => {
                         <option> Ifrane </option>
                     </select>
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="modePassation">modePassation</label>
+                <div className="form-group1">
+                    <label htmlFor="modePassation" className="lab">modePassation</label>
                     <br />
                     <select
                         id="modePassation"
+                        className="form-control"
                         value={modePassation}
                         onChange={(e) => setModePassation(e.target.value)}
                     >
@@ -600,11 +583,14 @@ const CreateEB = () => {
                         <option>concours</option>
                     </select>
                 </div>
-                <div className="form-group flex-row margin">
-                    <label htmlFor="secteur">secteur</label>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="secteur" className="lab">secteur</label>
                     <br />
                     <select
                         id="secteur"
+                        className="form-control"
                         value={secteur}
                         onChange={(e) => handleSectorChange(e.target.value)}
                     >
@@ -615,9 +601,10 @@ const CreateEB = () => {
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="qualification">qualification</label>
+                    <label htmlFor="qualification" className="lab">qualification</label>
                     <br />
                     <select
+                    className="form-control"
                         id="qualification"
                         value={qualification}
                         onChange={(e) => setQualification(e.target.value)}
@@ -635,7 +622,7 @@ const CreateEB = () => {
                         Pieces
                     </label>
                 </div>
-                <div className="form-group files margin">
+                <div className="form-group">
                     <input
                         type="text"
                         className="form-control"
@@ -652,7 +639,7 @@ const CreateEB = () => {
                     />
                     <button
                         type="button"
-                        className="btn btn-primary"
+                        className="botton"
                         onClick={(e) => handleAddFile(e)}
                     >
                         Ajouter
@@ -690,14 +677,16 @@ const CreateEB = () => {
                 </div>
                 <div className="form-group">
                     <center>
-                        <h5>Operations</h5>
+                        <h5 className="titre">Operations</h5>
                     </center>
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="agence">Agence</label>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="agence" className="lab">Agence</label>
                     <br />
                     <select
                         id="agenceOp"
+                        className="form-control"
                         value={agenceOp}
                         onChange={(e) => setAgenceOp(e.target.value)}
                     >
@@ -712,8 +701,8 @@ const CreateEB = () => {
                         <option> Ifrane </option>
                     </select>
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="daFile" className="form-label">
+                <div className="form-group1">
+                    <label htmlFor="daFile" className="lab">
                         DA :
                     </label>
                     <input
@@ -723,8 +712,10 @@ const CreateEB = () => {
                         onChange={(e) => handleDAFileUpload(e)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="impulation">imputation</label>
+                </div>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="impulation" className="lab">imputation</label>
                     <br />
                     <input
                         type="text"
@@ -735,8 +726,8 @@ const CreateEB = () => {
                         onChange={(e) => setImputation(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="natureProjet">nature projet</label>
+                <div className="form-group1">
+                    <label htmlFor="natureProjet" className="lab">nature projet</label>
                     <br />
                     <input
                         type="text"
@@ -747,8 +738,10 @@ const CreateEB = () => {
                         onChange={(e) => setNatureProjet(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="operation">operation</label>
+                </div>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="operation" className="lab">operation</label>
                     <br />
                     <input
                         type="text"
@@ -759,8 +752,8 @@ const CreateEB = () => {
                         onChange={(e) => setOperation(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="programme">programme</label>
+                <div className="form-group1">
+                    <label htmlFor="programme" className="lab">programme</label>
                     <br />
                     <input
                         type="text"
@@ -771,8 +764,10 @@ const CreateEB = () => {
                         onChange={(e) => setProgramme(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="situation">situation</label>
+                </div>
+                <div className="disp">
+                <div className="form-group1">
+                    <label htmlFor="situation" className="lab">situation</label>
                     <br />
                     <input
                         type="text"
@@ -783,8 +778,8 @@ const CreateEB = () => {
                         onChange={(e) => setSituation(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="superficie">superficie</label>
+                <div className="form-group1">
+                    <label htmlFor="superficie" className="lab">superficie</label>
                     <br />
                     <input
                         type="text"
@@ -795,8 +790,9 @@ const CreateEB = () => {
                         onChange={(e) => setSuperficie(e.target.value)}
                     />
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="typeProjet">type projet </label>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="typeProjet" className="lab">type projet </label>
                     <br />
                     <input
                         type="text"
@@ -808,7 +804,7 @@ const CreateEB = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <button type="button" className="btn btn-primary" onClick={handleAddOperation}>
+                    <button type="button" className="botton" onClick={handleAddOperation}>
                         Ajouter
                     </button>
                     {operationError && <p className='error-message'>{operationError}</p>}
@@ -861,13 +857,14 @@ const CreateEB = () => {
                 </div>
                 <div className="form-group">
                     <center>
-                        <button type="submit" className="btn btn-primary big-btn">
+                        <button type="submit" className="botton">
                             Creer
                         </button>
                     </center>
                 </div>
             </form>
         </div>
+        </center>
     );
 };
 

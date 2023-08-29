@@ -7,7 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
-import logo from './logo-omrane.png';
+import logo from './logo-omrane.png'
 
 const Nav = styled.div`
   height: 80px;
@@ -27,7 +27,7 @@ const NavIcon = styled(Link)`
 `;
 
 const SidebarNav = styled.nav`
-  background: #e2e3e5;
+background: #3a3c3f;
   width: 260px;
   height: 100%;
   display: flex;
@@ -37,7 +37,6 @@ const SidebarNav = styled.nav`
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 350ms;
   z-index: 10;
-  
 `;
 
 const SidebarWrap = styled.div`
@@ -52,7 +51,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#000' }}>
+            <IconContext.Provider value={{ color: '#fff' }}>
                 <div className='openMenu'>
                     <Nav>
                         <NavIcon className="open" to='#'>

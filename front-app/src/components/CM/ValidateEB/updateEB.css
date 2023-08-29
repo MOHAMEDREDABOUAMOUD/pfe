@@ -1,6 +1,11 @@
-.formCreateUsercm{
-    height: 100vh;
-    margin-top: 150px;
+.formCreateUser-cm-upeb{
+    text-align: left;
+align-items: left;
+width: 70%;
+background-color: #e2e3e5;
+margin-top: 100px;
+border-radius: 10px;
+padding: 30px;
 }
 .files{
     display: flex;
@@ -16,6 +21,10 @@
     height: 30px;
     margin-top: 0px;
 }
+.formCreateUserup{
+    margin-top: 430px;
+    margin-bottom: 0px;
+  }
 .imgleft{
     position: fixed;
     top: 5px;
@@ -38,6 +47,72 @@ button{
     font-size: 24px;
     font-weight: bold;
   }
+  .botton{
+    width: 100%;
+    color: #fff;
+    margin-top: 30px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #74E39A;
+    }
+    .botton:hover{
+    width: 100%;
+    color: #fff;
+    margin-top: 30px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #01B636;
+    }
+    .lab{
+    margin: 5px;
+    font-size: 24px;
+    }
+    .forma{
+    width: 100%;
+    }
+    .disp{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    }
+    
+    .form-group1{
+    width: 50%;
+    }
+    .form-control{
+    width: 100%;
+    height: 60px;
+    }
+    .appbare{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 50px;
+        width: 100%;
+        background: #3a3c3f;
+        border-radius: 0px 0px 10px 10px;
+      }
+    .titre{
+    font-family: serif;
+    color: #01B636;
+    font-size: 38px;
+    border-bottom: 4px solid #01B636;
+    border-right: 2px solid #01B636;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    box-shadow: 1px 1px 5px;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    }
   .barad{
     position: fixed;
     top: 0;

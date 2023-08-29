@@ -128,39 +128,16 @@ const AddOperationCM = () => {
 
 
     return (
-        <div className='formCreateUseraddop'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace CM</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form onSubmit={handleAddOperation}>
-                <div className='form-group'>
-                    <center><h5>Add operation</h5></center>
-                </div>
-                <div className="form-group flex-row">
+        <div className='formCreateUser-cm-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace CM</h1></center>
+    </div><center><h1 className='titre'>Ajouter Operation</h1></center>
+            <form onSubmit={handleAddOperation} className='forma'>
+                <div className='disp'>
+                <div className="form-group1">
                     <label htmlFor="exampleFormControlSelect1">Agence</label><br />
-                    <select id="agence" onChange={(e) => setAgence(e.target.value)} value={agence}>
+                    <select id="agence" className='form-control' onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
                         <option> Boulemane </option>
                         <option> sefrou </option>
@@ -171,48 +148,53 @@ const AddOperationCM = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div class="form-group flex-row">
+                <div class="form-group1">
                     <label for="formFile">DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                </div>
+                <div className='disp'>
+                <div class="form-group1">
                     <label for="exampleFormControlInput1">imputation</label><br />
                     <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                     {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                <div class="form-group1">
                     <label for="exampleFormControlInput1">nature projet</label><br />
                     <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlInput1">operation</label><br />
                     <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
                     {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                <div class="form-group">
                     <label for="exampleFormControlInput1">programme</label><br />
                     <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                <div className='disp'>
+                <div class="form-group1">
                     <label for="exampleFormControlInput1">situation</label><br />
                     <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                     {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                <div class="form-group1">
                     <label for="exampleFormControlInput1">superficie</label><br />
                     <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                     {superficieError && <p className='error-message'>{superficieError}</p>}
                 </div>
-                <div class="form-group flex-row">
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlInput1">type projet </label><br />
                     <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
                     {type_projetError && <p className='error-message'>{type_projetError}</p>}
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary">Ajouter</button>
+                    <button type="submit" className="botton">Ajouter</button>
                 </div>
             </form>
         </div>

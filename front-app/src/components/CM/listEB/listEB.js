@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
+import { BsFilterLeft } from 'react-icons/bs';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
@@ -185,33 +186,14 @@ const ListEBCM = () => {
   }
 
   return (
-    <div className="table-wrapper">
-                  <Navbar className="barad">
-                  <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace CM</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-      <button onClick={toggleFilterDropdown}>Filtre</button>
+    <center>
+    <div className="table-wrapper-cm">
+          <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace CM</h1></center>
+    </div>
+    <center><h1 className='titre'>List Expression Besoins</h1></center>
+    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
       {renderFilterDropdown()}
       <table className="table">
         <thead>
@@ -309,6 +291,7 @@ const ListEBCM = () => {
         </tbody>
       </table>
     </div>
+    </center>
   );
 };
 

@@ -104,40 +104,18 @@ const CreateUser = () => {
   };
 
   return (
+    <center>
     <div className='all-div'>
-      <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-start">
-          <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="left">
-            <h1 className="espacee">Espace Admin</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href='/'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-      <div className='formCreateUser'>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <center>
-              <h3>Creation d'un utilisateur</h3>
-            </center>
-          </div>
-          <div className='form-group'>
+      <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+    </div>
+      <div className='formCreateUser_admin'>
+      <center><h1 className='titre'>Creation d'utilisateur</h1></center>
+        <form onSubmit={handleSubmit} className='forma'>
+          
+          <div className='disp'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>Immatricule</label><br />
             <input
               type='text'
@@ -149,7 +127,7 @@ const CreateUser = () => {
             />
             {immatriculeError && <p className='error-message'>{immatriculeError}</p>}
           </div>
-          <div className='form-group'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>E-mail</label><br />
             <input
               type='email'
@@ -161,7 +139,9 @@ const CreateUser = () => {
             />
             {emailError && <p className='error-message'>{emailError}</p>}
           </div>
-          <div className='form-group'>
+          </div>
+          <div className='disp'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>Nom</label><br />
             <input
               type='text'
@@ -173,7 +153,7 @@ const CreateUser = () => {
             />
             {nomError && <p className='error-message'>{nomError}</p>}
           </div>
-          <div className='form-group'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>Prenom</label><br />
             <input
               type='text'
@@ -185,7 +165,9 @@ const CreateUser = () => {
             />
             {prenomError && <p className='error-message'>{prenomError}</p>}
           </div>
-          <div className='form-group'>
+          </div>
+          <div className='disp'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>nom d'utilisateur</label><br />
             <input
               type='text'
@@ -197,7 +179,7 @@ const CreateUser = () => {
             />
             {userNameError && <p className='error-message'>{userNameError}</p>}
           </div>
-          <div className='form-group'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlInput1'>mot de passe</label><br />
             <input
               type='text'
@@ -209,9 +191,12 @@ const CreateUser = () => {
             />
             {passwordError && <p className='error-message'>{passwordError}</p>}
           </div>
-          <div className='form-group'>
+          </div>
+          <div className='disp'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlSelect1'>Fonction</label><br />
             <select
+            className='form-control'
               id='exampleFormControlSelect1'
               value={fonction}
               onChange={(e) => setFonction(e.target.value)}
@@ -222,21 +207,24 @@ const CreateUser = () => {
               <option>CM</option>
             </select>
           </div>
-          <div className='form-group'>
+          <div className='form-group1'>
             <label htmlFor='exampleFormControlSelect1'>Sexe</label><br />
             <select
               id='exampleFormControlSelect1'
               value={sexe}
+              className='form-control'
               onChange={(e) => setSexe(e.target.value)}
             >
               <option>M.</option>
               <option>Mme.</option>
             </select>
           </div>
-          <button type='submit' className='btn btn-primary'>Creer</button>
+          </div>
+          <button type='submit' className='botton'>Creer</button>
         </form>
       </div>
     </div>
+    </center>
   );
 };
 export default CreateUser;

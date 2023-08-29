@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import "./updateEB.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import logo from "./logo-omrane.png";
+
 import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -255,28 +256,28 @@ const UpdateEBDti = () => {
 
     const [qualificationOptions, setQualificationOptions] = useState([]); // Available qualifications for the selected sector
 
-    
-  const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+
+    const [currentSexe, setCurrentSexe] = useState('');
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const handleSectorChange = (selectedSector) => {
         setSecteur(selectedSector);
@@ -364,65 +365,44 @@ const UpdateEBDti = () => {
 
     return (
         <center>
-            <div className='all'>
-                <div className='formCreateUserup'>
-                    <Navbar className="barad">
-                        <Navbar.Collapse className="justify-content-start">
-                            <img src={logo} className="imgleft"></img>
-                        </Navbar.Collapse>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text className="left">
-                                <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                            </Navbar.Text>
-                        </Navbar.Collapse>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Nav>
-                                <NavDropdown
-                                    id="nav-dropdown-dark-example"
-                                    title={currentUser}
-                                    menuVariant="dark"
-                                >
-                                    <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">
-                                        <SlLogout /> Exit
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                        <Sidebar />
-                    </Navbar>
-                    <form onSubmit={handleSubmit}>
-                        <div className='form-group'>
-                            <center><h3>Modification d'une expression des besoins</h3></center>
-                        </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="objet">objet</label><br />
+                <div className='formCreateUser-dem-upeb'>
+                <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+    </div><center><h1 className='titre'>Modification Expression Besoins</h1></center>
+                    <form onSubmit={handleSubmit} className='forma'>
+                        <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="objet" className='lab'>objet</label><br />
                             <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
                             {objetError && <p className='error-message'>{objetError}</p>}
                         </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="observation">observation</label><br />
+                        <div className="form-group1">
+                            <label htmlFor="observation" className='lab'>observation</label><br />
                             <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
                             {observationError && <p className='error-message'>{observationError}</p>}
                         </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="caution">caution</label><br />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="caution" className='lab'>caution</label><br />
                             <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
                             {cautionError && <p className='error-message'>{cautionError}</p>}
                         </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="estimation">estimation</label><br />
+                        <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="estimation" className='lab'>estimation</label><br />
                             <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
                             {estimationError && <p className='error-message'>{estimationError}</p>}
                         </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="progNonProgInput">prog-nonprog</label><br />
+                        <div className="form-group1">
+                            <label htmlFor="progNonProgInput" className='lab'>prog-nonprog</label><br />
                             <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
                         </div>
+                        </div>
 
-                        <div className="form-group flex-row">
-                            <label htmlFor="agence">Agence</label><br />
-                            <select id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
+                        <div className="form-group">
+                            <label htmlFor="agence" className='lab'>Agence</label><br />
+                            <select id="agence" className='form-control' value={agence} onChange={(e) => setAgence(e.target.value)}>
                                 <option> Fès </option>
                                 <option> Boulemane </option>
                                 <option> sefrou </option>
@@ -433,9 +413,10 @@ const UpdateEBDti = () => {
                                 <option> ifrane </option>
                             </select>
                         </div>
-                        <div className="form-group flex-row">
-                            <label htmlFor="modePassation">modePassation</label><br />
-                            <select id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
+                        <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="modePassation" className='lab'>mode de passation</label><br />
+                            <select className='form-control' id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
                                 <option>B.C</option>
                                 <option>A.O.O.</option>
                                 <option>A.O.R.</option>
@@ -444,9 +425,10 @@ const UpdateEBDti = () => {
                                 <option>concours</option>
                             </select>
                         </div>
-                        <div className="form-group flex-row margin">
-                            <label htmlFor="secteur">secteur</label><br />
+                        <div className="form-group1">
+                            <label htmlFor="secteur" className='lab'>secteur</label><br />
                             <select
+                            className='form-control'
                                 id="secteur"
                                 value={secteur}
                                 onChange={(e) => handleSectorChange(e.target.value)}
@@ -458,8 +440,9 @@ const UpdateEBDti = () => {
                                     </option>
                                 ))}
                             </select>
-                            <label htmlFor="qualification">qualification</label><br />
+                            <label htmlFor="qualification" className='lab'>qualification</label><br />
                             <select
+                            className='form-control'
                                 id="qualification"
                                 value={qualification}
                                 onChange={(e) => setQualification(e.target.value)}
@@ -471,25 +454,25 @@ const UpdateEBDti = () => {
                                     </option>
                                 ))}
                             </select>
+                            </div>
                         </div>
                         <div className='form-group'>
                             <center><h5>Pieces</h5></center>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary" onClick={() => { handleFiles(id) }}>Modifier les pieces</button>
+                            <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
                         </div>
                         <div className='form-group'>
                             <center><h5>Operations</h5></center>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>modifier les operations</button>
+                            <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifier les operations</button>
                         </div>
                         <div className="form-group">
-                            <center><button type="submit" className="btn btn-primary big-btn">Modifier</button></center>
+                            <center><button type="submit" className="botton">Modifier</button></center>
                         </div>
                     </form>
                 </div>
-            </div>
         </center>
     );
 };

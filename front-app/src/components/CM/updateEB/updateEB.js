@@ -366,63 +366,45 @@ const UpdateEBCM = () => {
     }, [id]);
 
     return (
-        <div className='formCreateUserup'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace CM</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form onSubmit={handleSubmit}>
-                <div className='form-group'>
-                    <center><h3>Modification d'une expression des besoins</h3></center>
-                </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="objet">objet</label><br />
+        <div className='formCreateUser-cm-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+    </div>
+    <center><h1 className='titre'>Modification Expression Besoins</h1></center>
+            <form onSubmit={handleSubmit} className='forma'>
+                <div className='disp'>
+                <div className="form-group1">
+                    <label htmlFor="objet" className='lab'>objet</label><br />
                     <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
                     {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="observation">observation</label><br />
+                <div className="form-group1">
+                    <label htmlFor="observation" className='lab'>observation</label><br />
                     <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
                     {observationError && <p className='error-message'>{observationError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="caution">caution</label><br />
+                </div>
+                <div className='disp'>
+                <div className="form-group1">
+                    <label htmlFor="caution" className='lab'>caution</label><br />
                     <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
                     {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="estimation">estimation</label><br />
+                <div className="form-group1">
+                    <label htmlFor="estimation" className='lab'>estimation</label><br />
                     <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
                     {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="progNonProgInput">prog-nonprog</label><br />
+                </div>
+                <div className='disp'>
+                <div className="form-group1">
+                    <label htmlFor="progNonProgInput" className='lab'>prog-nonprog</label><br />
                     <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
                 </div>
 
-                <div className="form-group flex-row">
-                    <label htmlFor="agence">Agence</label><br />
+                <div className="form-group1">
+                    <label htmlFor="agence" className='lab'>Agence</label><br />
                     <select id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
                         <option> Boulemane </option>
@@ -434,8 +416,9 @@ const UpdateEBCM = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div className="form-group flex-row">
-                    <label htmlFor="modePassation">modePassation</label><br />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="modePassation" className='lab'>modePassation</label><br />
                     <select id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
                         <option>B.C</option>
                         <option>A.O.O.</option>
@@ -445,8 +428,9 @@ const UpdateEBCM = () => {
                         <option>concours</option>
                     </select>
                 </div>
-                <div className="form-group flex-row margin">
-                    <label htmlFor="secteur">secteur</label><br />
+                <div className='disp'>
+                <div className="form-group1">
+                    <label htmlFor="secteur" className='lab'>secteur</label><br />
                     <select
                         id="secteur"
                         value={secteur}
@@ -459,7 +443,7 @@ const UpdateEBCM = () => {
                             </option>
                         ))}
                     </select>
-                    <label htmlFor="qualification">qualification</label><br />
+                    <label htmlFor="qualification" className='lab'>qualification</label><br />
                     <select
                         id="qualification"
                         value={qualification}
@@ -473,20 +457,21 @@ const UpdateEBCM = () => {
                         ))}
                     </select>
                 </div>
+                </div>
                 <div className='form-group'>
                     <center><h5>files</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
+                    <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
                 </div>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>modifier les operations</button>
+                    <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifier les operations</button>
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" className="btn btn-primary big-btn">modifier</button></center>
+                    <center><button type="submit" className="botton">modifier</button></center>
                 </div>
             </form>
         </div>

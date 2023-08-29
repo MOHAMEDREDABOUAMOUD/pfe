@@ -77,33 +77,13 @@ const SettingsDti = () => {
 
   return (
     <center>
-      <div className="all-settings">
+      <div className="settings-all">
+      <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+    </div>
     <div className="container mt-5">
-    <Navbar className="barad">
-    <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DTI</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
+    <center><h1 className='titre'>Parametres DTI</h1></center>
       <ul className="nav nav-tabs">
         <li className="nav-item">
           <button
@@ -160,7 +140,7 @@ const SettingsDti = () => {
                   onChange={(e) => setPrenom(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="botton">
                 Confirmer
               </button>
             </form>
@@ -191,7 +171,7 @@ const SettingsDti = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="botton">
                 Confirmer
               </button>
             </form>

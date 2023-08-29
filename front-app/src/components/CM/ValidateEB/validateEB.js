@@ -384,42 +384,24 @@ const ValidateEBCM = () => {
     }, [id]);
 
     return (
-        <div className='formCreateUsercm'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-start">
-                    <img src={logo} className="imgleft"></img>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace CM</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-                <Sidebar />
-            </Navbar>
-            <form>
-                <div className="form-group flex-row">
+        <div className='formCreateUser-cm-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+    </div>
+    <center><h1 className='titre'>Validation Expression Besoins</h1></center>
+            <form className='forma'>
+                <div className='disp'>
+                <div className="form-group1">
                     <label htmlFor="objet">objet</label><br />
                     <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
                     {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div className="form-group1">
                     <label htmlFor="observation">observation</label><br />
                     <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
                     {observationError && <p className='error-message'>{observationError}</p>}
+                </div>
                 </div>
                 <div className="form-group flex-row">
                     <label htmlFor="caution">caution</label><br />
@@ -431,12 +413,13 @@ const ValidateEBCM = () => {
                     <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
                     {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
-                <div className="form-group flex-row">
+                <div className='disp'>
+                <div className="form-group1">
                     <label htmlFor="progNonProgInput">prog-nonprog</label><br />
-                    <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
+                    <input className='form-control' type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
                 </div>
 
-                <div className="form-group flex-row">
+                <div className="form-group1">
                     <label htmlFor="agence">Agence</label><br />
                     <select id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
@@ -449,7 +432,9 @@ const ValidateEBCM = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div className="form-group flex-row">
+                </div>
+                <div className='disp'>
+                <div className="form-group1">
                     <label htmlFor="modePassation">modePassation</label><br />
                     <select id="modePassation" value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
                         <option>B.C</option>
@@ -460,10 +445,11 @@ const ValidateEBCM = () => {
                         <option>concours</option>
                     </select>
                 </div>
-                <div className="form-group flex-row margin">
+                <div className="form-group1">
                     <label htmlFor="secteur">secteur</label><br />
                     <select
                         id="secteur"
+                        className='form-control'
                         value={secteur}
                         onChange={(e) => handleSectorChange(e.target.value)}
                     >
@@ -476,6 +462,7 @@ const ValidateEBCM = () => {
                     </select>
                     <label htmlFor="qualification">qualification</label><br />
                     <select
+                        className='form-control'
                         id="qualification"
                         value={qualification}
                         onChange={(e) => setQualification(e.target.value)}
@@ -488,23 +475,24 @@ const ValidateEBCM = () => {
                         ))}
                     </select>
                 </div>
+                </div>
                 <div className='form-group'>
                     <center><h5>Pieces</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" onClick={() => { handleFiles(id) }}>modifiers les pieces</button>
+                    <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifiers les pieces</button>
                 </div>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-primary" onClick={() => { handleOperations(id) }}>modifiers les operations</button>
+                    <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifiers les operations</button>
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" onClick={handleSubmitV} className="btn btn-primary big-btn">Valider l'expression des besoins</button></center>
+                    <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>
                 </div>
                 <div className="form-group">
-                    <center><button type="submit" onClick={handleSubmitR} className="btn btn-primary big-btn">Refuser l'expression des besoins</button></center>
+                    <center><button type="submit" onClick={handleSubmitR} className="botton">Refuser l'expression des besoins</button></center>
                 </div>
             </form>
         </div>

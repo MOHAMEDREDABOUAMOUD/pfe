@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
 import Nav from 'react-bootstrap/Nav';
+import { BsFilterLeft } from 'react-icons/bs';
 import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
 import Navbar from 'react-bootstrap/Navbar';
@@ -272,33 +273,14 @@ const ListAODM = () => {
     // }
 
     return (
-        <div className="table-wrapper">
-                        <Navbar className="barad">
-                        <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DM</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
+        <center>
+        <div className="table-wrapper-dmm">
+                <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DM</h1></center>
+    </div>
+    <center><h1 className='titre'>List Appel D'offres</h1></center>
+    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
@@ -419,6 +401,7 @@ const ListAODM = () => {
                 </div>
             )}
         </div>
+        </center>
     );
 };
 

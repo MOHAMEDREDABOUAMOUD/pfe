@@ -110,36 +110,16 @@ const UpdateUser = () => {
 
     return (
         <center>
-            <div className='all'>
+            <div className='all-div'>
                 <div className='formCreateUserad'>
-                    <Navbar className="barad">
-                        <Navbar.Collapse className="justify-content-start">
-                            <img src={logo} className="imgleft"></img>
-                        </Navbar.Collapse>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text className="left">
-                                <h1 href="#login" className="espacee">Espace Admin</h1>
-                            </Navbar.Text>
-                        </Navbar.Collapse>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Nav>
-                                <NavDropdown
-                                    id="nav-dropdown-dark-example"
-                                    title={currentUser}
-                                    menuVariant="dark"
-                                >
-                                    <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                                    <NavDropdown.Item href="/">
-                                        <SlLogout /> Exit
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                        <Sidebar />
-                    </Navbar>
+                <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+    </div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <center><h5>Update User</h5></center>
+                        <center><h1 className='titre'>Modifier d'utilisateur</h1></center>
+                    
                             <label htmlFor="emailInput">E-mail</label><br />
                             <input
                                 type="email"
@@ -150,7 +130,8 @@ const UpdateUser = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className='disp'>
+                        <div className="form-group1">
                             <label htmlFor="nomInput">Nom</label><br />
                             <input
                                 type="text"
@@ -161,7 +142,7 @@ const UpdateUser = () => {
                                 onChange={(e) => setNom(e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group1">
                             <label htmlFor="prenomInput">Prenom</label><br />
                             <input
                                 type="text"
@@ -172,7 +153,9 @@ const UpdateUser = () => {
                                 onChange={(e) => setPrenom(e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        </div>
+                        <div className='disp'>
+                        <div className="form-group1">
                             <label htmlFor="userNameInput">nom d'utilisateur</label><br />
                             <input
                                 type="text"
@@ -183,7 +166,7 @@ const UpdateUser = () => {
                                 onChange={(e) => setUserName(e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group1">
                             <label htmlFor="passwordInput">mot de passe</label><br />
                             <input
                                 type="password"
@@ -194,7 +177,9 @@ const UpdateUser = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        </div>
+                        <div className='disp'>
+                        <div className="form-group1">
                             <label htmlFor="fonctionSelect">Fonction</label><br />
                             <select
                                 id="fonctionSelect"
@@ -207,7 +192,7 @@ const UpdateUser = () => {
                                 <option>CG</option>
                             </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group1">
                             <label htmlFor="sexeSelect">Sexe</label><br />
                             <select
                                 id="sexeSelect"
@@ -218,7 +203,8 @@ const UpdateUser = () => {
                                 <option>Mme.</option>
                             </select>
                         </div>
-                        <button type="submit" className="btn btn-primary">modifier</button>
+                        </div>
+                        <button type="submit" className="botton">modifier</button>
                     </form>
                 </div>
             </div>

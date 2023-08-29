@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./logo-omrane.png";
+import { BsFilterLeft } from 'react-icons/bs';
 import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import Sidebar from '../sidebar/sideBar';
@@ -269,34 +270,14 @@ useEffect(() => {
     // }
 
     return (
-        <div className="table-wrapper">
-                    <Navbar className="barad">
-                    <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace DTI</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
-            
-            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
+        <center>
+        <div className="table-wrapper-dem">
+                    <div className='appbare'>
+    <Sidebar />
+      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+    </div>
+    <center><h1 className='titre'>List Appel D'offres</h1></center>
+    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
@@ -417,6 +398,7 @@ useEffect(() => {
                 </div>
             )}
         </div>
+        </center>
     );
 };
 
