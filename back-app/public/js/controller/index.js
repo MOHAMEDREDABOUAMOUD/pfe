@@ -78,6 +78,17 @@ app.post("/getEBs", async (req, res) => {
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/updateEtatDM", async (req, res) => {
+    const { id } = req.body;
+    const r = await EBBusiness.updateEtatDM(id);
+    res.status(200).json(r);
+});
+app.post("/updateEtatRefuser", async (req, res) => {
+    const { id } = req.body;
+    const e = await UtilisateurBusiness.searchByNum(currentUser);
+    const r = await EBBusiness.updateEtatRefuser(id, e.fonction);
+    res.status(200).json(r);
+});
 app.post("/getJournals", async (req, res) => {
     const { id } = req.body;
     const r = await JournalBusiness.getByNumAO(id);

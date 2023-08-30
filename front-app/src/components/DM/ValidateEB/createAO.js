@@ -93,7 +93,7 @@ export default function CreateAO() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         let hasErrors = false;
-        if (numAO.trim() === "") {
+        if (numAO === "") {
             setNumAOError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -101,11 +101,11 @@ export default function CreateAO() {
             setAvisAOError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (destinataire.trim() === '') {
+        if (destinataire === '') {
             setDestinataireError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (numEnvoieLettreCommission.trim() === '') {
+        if (numEnvoieLettreCommission === '') {
             setNumEnvoieLettreCommissionError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -113,7 +113,7 @@ export default function CreateAO() {
             setLettreCommissionError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (listJournal.length() === 0) {
+        if (listJournal === []) {
             setListJournalError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -125,8 +125,12 @@ export default function CreateAO() {
 
             console.log("enter handleSubmit");
             alert("l'AO a ete bien Creer");
+            navigate("/listAODM");
             await axios.post("/createAO", { num: numAO, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: selectedTime, datePublicationPortail: datePublicationPortail, dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avisAO, fileNameAvis: fileNameAvis, numEB: id, dateEnvoieLettreCommission: dateEnvoieLettreCommission, destinataire: destinataire, numEnvoieLettreCommission: numEnvoieLettreCommission, lettreCommission: lettreCommission, fileNameLC: fileNameLC, listJournal: listJournal });
             navigate("/listEBDM");
+        }
+        else{
+            alert("l'AO n'a pas ete creer");
         }
     }
     const handleFileUpload = (event) => {

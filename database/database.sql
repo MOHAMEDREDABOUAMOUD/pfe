@@ -2,7 +2,7 @@
 create database pfe;
 use pfe;
 create table Utilisateur(immatricule int primary key, login varchar(50), pwd varchar(50), nom varchar(50), prenom varchar(50), email varchar(50), fonction varchar(50), sexe varchar(50));
-create table EB(num  int primary key auto_increment, etat varchar(50), objet varchar(50), agence varchar(50), observation varchar(50), prog_nonprog int, classe varchar(50), caution double, estimation double, dateEB date, modePassation varchar(50), dateValidation date, validerPar varchar(50), numUtilisateur int, secteur varchar(50), qualification varchar(50));
+create table EB(num  int primary key auto_increment, etat varchar(50), objet varchar(50), agence varchar(50), observation varchar(50), prog_nonprog varchar(50), classe varchar(50), caution double, estimation double, dateEB date, modePassation varchar(50), dateValidation date, validerPar varchar(50), numUtilisateur int, secteur varchar(50), qualification varchar(50));
 create table Operation(code int primary key auto_increment, agence varchar(50), DA longblob, imputation varchar(50), natureProjet varchar(50), operation varchar(50), programme varchar(50), situation varchar(50), superficie varchar(50), typeProjet varchar(50), numEB int);
 create table Piece(num int primary key auto_increment, libelle varchar(50), piece longblob, fileName varchar(50), numEB int);
 create table AO(num varchar(50) primary key, dateOuverturePlis date, heureOuverturePlis timestamp, datePublicationPortail date, dateEntreDM date, dateAchevementTravauxCommission date, avis longblob, fileName varchar(50), numEB int, numLettreCommission int);

@@ -248,6 +248,9 @@ const handleButtonClick = () => {
             <th onClick={() => handleSort("Objet")}>
               Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => handleSort("Etat")}>
+              Etat {sortBy === "Etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
             <th onClick={() => handleSort("Agence")}>
               Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>

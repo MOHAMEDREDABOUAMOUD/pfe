@@ -299,19 +299,19 @@ const UpdateEB = () => {
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
         let hasErrors = false;
-        if (objet.trim() === '') {
+        if (objet === '') {
             setObjetError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (observation.trim() === '') {
+        if (observation === '') {
             setObservationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (caution.trim() === '') {
+        if (caution === '') {
             setCautionError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (estimation.trim() === '') {
+        if (estimation === '') {
             setEstimationError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -339,6 +339,9 @@ const UpdateEB = () => {
                 console.error(error);
             }
         }
+        else{
+            alert("l'expression des besoins n'a pas ete modifier");
+        }
     };
 
     useEffect(() => {
@@ -355,6 +358,7 @@ const UpdateEB = () => {
                 setEstimation(userData.data["estimation"]);
                 setModePassation(userData.data["modePassation"]);
                 setSecteur(userData.data["secteur"]);
+                handleSectorChange(userData.data["secteur"]);
                 setQualification(userData.data["qualification"]);
                 setNumUtilisateur(userData.data["numUtilisateur"]);
             } catch (error) {
@@ -446,7 +450,6 @@ const UpdateEB = () => {
                                 value={secteur}
                                 onChange={(e) => handleSectorChange(e.target.value)}
                             >
-                                <option value="">Select a sector</option>
                                 {sectors.map((sector) => (
                                     <option key={sector.sector} value={sector.sector}>
                                         {sector.sector}
@@ -460,7 +463,6 @@ const UpdateEB = () => {
                                 value={qualification}
                                 onChange={(e) => setQualification(e.target.value)}
                             >
-                                <option value="">Select a qualification</option>
                                 {qualificationOptions.map((qual) => (
                                     <option key={qual} value={qual}>
                                         {qual}
