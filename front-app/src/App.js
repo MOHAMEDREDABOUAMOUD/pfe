@@ -107,7 +107,6 @@ function App() {
         <Route path='/view/:id' element={<View/>}></Route>
         <Route path='/listFiles/:id' element={<ListFiles/>}></Route>
         <Route path='/listAO' element={<ListAO/>}></Route>
-        <Route path='/notifications' element={<Notifications/>}></Route>
         
         <Route path='/dti/main' element={<DashboardAllDTI />}></Route>
         <Route path='/createEBDti' element={<CreateEBDti />}></Route>
@@ -149,6 +148,8 @@ function App() {
         <Route path='/viewDM/:id' element={<ViewDM/>}></Route>
         <Route path='/listFilesDM/:id' element={<ListFilesDM/>}></Route>
         <Route path='/listAODM' element={<ListAODM/>}></Route>
+        
+        <Route path='/notifications' element={<Notifications/>}></Route>
 
       </Routes>
     </div>

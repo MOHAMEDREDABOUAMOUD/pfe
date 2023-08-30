@@ -35,11 +35,6 @@ const Notifications = () => {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
 
-  // const addNotification = () => {
-  //     const newNotification = `New notification at ${new Date().toLocaleTimeString()}`+"\n  testttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttttestttttttttttttttttttttttttttttt";
-  //     setNotifications([...notifications, newNotification]);
-  // };
-
   const getNotifications = async () => {
     try {
       const response = await axios.post("/getNotifications", { id: 1 });
@@ -65,13 +60,14 @@ const Notifications = () => {
 
   return (
     <div className="cont">
+      <Sidebar />
       <Navbar className="barad">
         <Navbar.Collapse className="justify-content-start">
           <img src={logo} className="imgleft"></img>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
+            <h1 className="espacee">Espace Demandeur</h1>
           </Navbar.Text>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
@@ -88,11 +84,9 @@ const Notifications = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Sidebar />
       </Navbar>
       <div className="conte">
         <h1>Notifications</h1>
-        {/* <Button variant="primary" onClick={addNotification}>Add Notification</Button> */}
         <div className="mt-4">
           {notifications.map((notification, index) => (
             <Alert key={index} variant="success" className="mb-2 alert">
