@@ -154,9 +154,10 @@ const ListFiles = ({id}) => {
   }
 
   return (
-    <div className="table-wrapper">
-      <Sidebar/>
-      <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
+    <center>
+    <div className="table-wrapper-dem">
+      
+    <span onClick={toggleFilterDropdown} className="searchfil-op"></span>
       {showFilterDropdown && (
         <div className="filter-dropdown">
           {columns.map((column) => (
@@ -180,6 +181,9 @@ const ListFiles = ({id}) => {
             </th>
             <th onClick={() => handleSort(columns[1])}>
               Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort(columns[1])}>
+              
             </th>
           </tr>
         </thead>
@@ -218,6 +222,7 @@ const ListFiles = ({id}) => {
         </tbody>
       </table>
     </div>
+    </center>
   );
 };
 

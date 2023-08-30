@@ -369,6 +369,18 @@ const UpdateEB = () => {
                 <div className='formCreateUser-dem-upeb'>
                 <div className='appbare'>
     <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
       <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
     </div><center><h1 className='titre'>Modification Expression Besoins</h1></center>
                     <form onSubmit={handleSubmit} className='forma'>

@@ -164,6 +164,18 @@ function DashboardAllCM() {
   return (
     <main className='main-container'>
         <div className='appbare'>
+        <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
       <center><h1 className='espace_admin'>Espace CM</h1></center>
     </div>
       <div className='fixside'>

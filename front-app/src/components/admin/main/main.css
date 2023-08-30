@@ -17,7 +17,18 @@
   left: 80px;
   width: 70px;
 }
-
+.nama{
+  color: #fff;
+  position: absolute;
+  top: 5;
+  right: 0;
+  float: left;
+  font-size: 24px;
+}
+.custom-dropdown .nav-link {
+  color: #74E39A;
+  font-weight: bold; /* Set the color to white */
+}
 @media (max-width: 767px) {
     .containt {
         margin-left: 0px;

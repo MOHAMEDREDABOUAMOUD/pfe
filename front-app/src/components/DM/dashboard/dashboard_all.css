@@ -13,6 +13,18 @@
     display: flex;
     justify-content: space-between;
   }
+  .nama{
+    color: #fff;
+    position: absolute;
+    top: 5;
+    right: 0;
+    float: left;
+    font-size: 24px;
+  }
+  .custom-dropdown .nav-link {
+    color: #74E39A;
+    font-weight: bold; /* Set the color to white */
+  }
   .espace_admin{
     color: #74E39A;
     font-family: serif;

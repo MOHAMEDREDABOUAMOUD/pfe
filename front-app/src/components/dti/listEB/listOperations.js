@@ -3,6 +3,7 @@ import { BsFillTrashFill, BsFillPencilFill, BsArrowDown, BsArrowUp } from "react
 import "./listEB.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { BsFilterLeft } from 'react-icons/bs';
 import Sidebar from '../sidebar/sideBar';
 
 const ListOperationsDti = ({id}) => {
@@ -134,9 +135,9 @@ const ListOperationsDti = ({id}) => {
     }
 
     return (
-        <div className="table-wrapper">
+        <div className="table-wrapper-dem">
             <Sidebar/>
-            <button onClick={toggleFilterDropdown}>Filtre</button>
+            <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
                     {columns.map((column) => (

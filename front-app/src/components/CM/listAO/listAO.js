@@ -136,8 +136,9 @@ const ListAOCM = () => {
             <div className="filter-dropdown">
                 {columns.map((column) => (
                     <div key={column} className="filter-input">
-                        <label>{column}</label>
+                        
                         <input
+                        placeholder={column}
                             type="text"
                             className="input-fil"
                             value={filters[column] || ""}
@@ -275,6 +276,18 @@ const ListAOCM = () => {
         <div className="table-wrapper-cm">
         <div className='appbare'>
     <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
       <center><h1 className='espace_admin'>Espace CM</h1></center>
     </div>
     <center><h1 className='titre'>List Appel D'offres</h1></center>

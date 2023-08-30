@@ -110,9 +110,10 @@ const ListEBDM = () => {
       <div className="filter-dropdown">
         {columns.map((column) => (
           <div key={column} className="filter-input">
-            <label>{column}</label>
+            
             <input
               type="text"
+              placeholder={column}
               className="inputat"
               value={filters[column] || ""}
               onChange={(e) => handleFilterChange(column, e.target.value)}
@@ -192,6 +193,18 @@ const ListEBDM = () => {
     <div className="table-wrapper-dmm">
       <div className='appbare'>
     <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
       <center><h1 className='espace_admin'>Espace DM</h1></center>
     </div>
     <center><h1 className='titre'>List Expression Besoins</h1></center>

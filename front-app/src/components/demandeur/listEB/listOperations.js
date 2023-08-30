@@ -137,8 +137,9 @@ const ListOperations = ({id}) => {
     }
 
     return (
-        <div className="table-wrappero">
-            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
+        <center>
+        <div className="table-wrapper-dem">
+            <span onClick={toggleFilterDropdown} className="searchfil-op"></span>
             {showFilterDropdown && (
                 <div className="filter-dropdown">
                     {columns.map((column) => (
@@ -184,6 +185,9 @@ const ListOperations = ({id}) => {
                         <th onClick={() => handleSort(columns[8])}>
                             Type Projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
+                        <th onClick={() => handleSort(columns[8])}>
+                            
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -218,10 +222,11 @@ const ListOperations = ({id}) => {
             </table>
             <div className="form-group">
                 <center>
-                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>Ajouter</button>
+                <button type="submit" class="botton" onClick={() => { handleAddOp() }}>Ajouter</button>
                 </center>
             </div>
         </div>
+        </center>
     );
 };
 

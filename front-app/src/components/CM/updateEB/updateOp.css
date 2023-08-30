@@ -17,6 +17,18 @@ padding: 30px;
 .files input{
   height: 30px;
 }
+.nama{
+  color: #fff;
+  position: absolute;
+  top: 5;
+  right: 0;
+  float: left;
+  font-size: 24px;
+}
+.custom-dropdown .nav-link {
+  color: #74E39A;
+  font-weight: bold; /* Set the color to white */
+}
 .files button{
   height: 30px;
   margin-top: 0px;
