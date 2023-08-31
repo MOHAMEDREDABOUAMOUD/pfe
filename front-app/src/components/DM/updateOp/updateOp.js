@@ -164,7 +164,7 @@ export default function UpdateOpDM() {
     </div><center><h1 className='titre'>Modification Operation</h1></center>
             <form onSubmit={handleUpdate} className='forma'>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlSelect1" className='lab'>Agence</label><br />
                     <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
@@ -178,19 +178,19 @@ export default function UpdateOpDM() {
 
                     </select>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="formFile" className='lab'>DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>imputation</label><br />
                     <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                     {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>nature projet</label><br />
                     <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNature_projet(e.target.value)} />
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
@@ -201,18 +201,18 @@ export default function UpdateOpDM() {
                     <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
                     {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group">
                     <label for="exampleFormControlInput1" className='lab'>programme</label><br />
                     <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>situation</label><br />
                     <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                     {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
                     <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                     {superficieError && <p className='error-message'>{superficieError}</p>}

@@ -97,7 +97,7 @@ const AddOperationDti = () => {
     <center><h1 className='titre'>Ajouter Operation</h1></center>
             <form onSubmit={handleAddOperation} className='forma'>
                 <div className='disp'>
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="exampleFormControlSelect1" className='lab'>Agence</label><br />
                     <select className='form-control' id="agence"onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
@@ -110,7 +110,7 @@ const AddOperationDti = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="formFile" class="lab">DA : </label>
                     <input class="form-control" type="file" id="formFile" onChange={(e) => handleFileUpload(e)}/>
                 </div>
@@ -124,21 +124,21 @@ const AddOperationDti = () => {
                     <input type="text" class="form-control" id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>operation</label><br />
                     <input type="text" class="form-control" id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)}/>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>programme</label><br />
                     <input type="text" class="form-control" id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                 </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>situation</label><br />
                     <input type="text" class="form-control" id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
                     <input type="text" class="form-control" id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                 </div>

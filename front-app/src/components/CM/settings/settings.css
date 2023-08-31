@@ -28,8 +28,14 @@ margin: 0px;
   color: #74E39A;
   font-weight: bold; /* Set the color to white */
 }
-.botton{
-  width: 100%;
+.labo{
+  float: left;
+  margin-left: -70px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.botton3{
+  width: 70%;
   color: #fff;
   margin-top: 30px;
   height: 60px;
@@ -39,8 +45,8 @@ margin: 0px;
   border-radius: 5px;
   background-color: #74E39A;
 }
-.botton:hover{
-  width: 100%;
+.botton3:hover{
+  width: 70%;
   color: #fff;
   margin-top: 30px;
   height: 60px;

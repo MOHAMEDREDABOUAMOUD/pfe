@@ -161,7 +161,7 @@ export default function UpdateOpCM() {
     <center><h1 className='titre'>Modification Operation</h1></center>
             <form onSubmit={handleUpdate} className='forma'>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlSelect1">Agence</label><br />
                     <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
@@ -175,19 +175,19 @@ export default function UpdateOpCM() {
 
                     </select>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="formFile">DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1">imputation</label><br />
                     <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                     {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1">nature projet</label><br />
                     <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNature_projet(e.target.value)} />
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
@@ -200,12 +200,12 @@ export default function UpdateOpCM() {
                     {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1">programme</label><br />
                     <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1">situation</label><br />
                     <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                     {situationError && <p className='error-message'>{situationError}</p>}

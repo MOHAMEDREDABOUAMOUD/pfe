@@ -390,36 +390,36 @@ const UpdateEBCM = () => {
     <center><h1 className='titre'>Modification Expression Besoins</h1></center>
             <form onSubmit={handleSubmit} className='forma'>
                 <div className='disp'>
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="objet" className='lab'>objet</label><br />
                     <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
                     {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="observation" className='lab'>observation</label><br />
                     <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
                     {observationError && <p className='error-message'>{observationError}</p>}
                 </div>
                 </div>
                 <div className='disp'>
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="caution" className='lab'>caution</label><br />
                     <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
                     {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="estimation" className='lab'>estimation</label><br />
                     <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
                     {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
                 </div>
                 <div className='disp'>
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="progNonProgInput" className='lab'>prog-nonprog</label><br />
                     <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
                 </div>
 
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="agence" className='lab'>Agence</label><br />
                     <select id="agence" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
@@ -444,8 +444,8 @@ const UpdateEBCM = () => {
                         <option>concours</option>
                     </select>
                 </div>
-                <div className='disp'>
-                <div className="form-group1">
+                
+                <div className="form-group">
                     <label htmlFor="secteur" className='lab'>secteur</label><br />
                     <select
                         id="secteur"
@@ -471,7 +471,7 @@ const UpdateEBCM = () => {
                         ))}
                     </select>
                 </div>
-                </div>
+                
                 <div className='form-group'>
                     <center><h5>files</h5></center>
                 </div>

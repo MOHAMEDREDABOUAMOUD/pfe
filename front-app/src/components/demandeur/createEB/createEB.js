@@ -576,7 +576,7 @@ const CreateEB = () => {
     <center><h1 className='titre'>Creation Expression Besoins</h1></center>
             <form onSubmit={handleFormSubmit} className="forma">
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="objet" className="lab">objet</label>
                     <br />
                     <input
@@ -589,7 +589,7 @@ const CreateEB = () => {
                     />
                     {objetError && <p className='error-message'>{objetError}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="observation" className="lab">observation</label>
                     <br />
                     <input
@@ -604,7 +604,7 @@ const CreateEB = () => {
                 </div>
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="caution" className="lab">caution</label>
                     <br />
                     <input
@@ -617,7 +617,7 @@ const CreateEB = () => {
                     />
                     {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="estimation" className="lab">estimation</label>
                     <br />
                     <input
@@ -635,7 +635,7 @@ const CreateEB = () => {
                     <label htmlFor="progNonProgram" className="lab">prog-nonprogram</label>
                     <br />
                     <input
-                    
+                        className="chekcboxa"
                         type="checkbox"
                         id="progNonProgram"
                         checked={progNonProgram}
@@ -643,7 +643,7 @@ const CreateEB = () => {
                     />
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="agence" className="lab">Agence</label>
                     <br />
                     <select
@@ -663,7 +663,7 @@ const CreateEB = () => {
                         <option> Ifrane </option>
                     </select>
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="modePassation" className="lab">modePassation</label>
                     <br />
                     <select
@@ -713,9 +713,7 @@ const CreateEB = () => {
                     </select>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="libelle" className="form-label">
-                        Pieces
-                    </label>
+                    <center><h5 className="titrep">Pieces</h5></center>
                 </div>
                 <div className="form-group">
                     <input
@@ -737,7 +735,7 @@ const CreateEB = () => {
                     {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
                     <button
                         type="button"
-                        className="botton"
+                        className="botton2"
                         onClick={(e) => handleAddFile(e)}
                     >
                         Ajouter
@@ -780,7 +778,7 @@ const CreateEB = () => {
                     </center>
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="agence" className="lab">Agence</label>
                     <br />
                     <select
@@ -801,7 +799,7 @@ const CreateEB = () => {
                     </select>
                     {errorMessageAgence && <p className='error-message'>{errorMessageAgence}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="daFile" className="lab">
                         DA :
                     </label>
@@ -815,7 +813,7 @@ const CreateEB = () => {
                 </div>
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="impulation" className="lab">imputation</label>
                     <br />
                     <input
@@ -828,7 +826,7 @@ const CreateEB = () => {
                     />
                     {errorMessageim && <p className='error-message'>{errorMessageim}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="natureProjet" className="lab">nature projet</label>
                     <br />
                     <input
@@ -843,7 +841,7 @@ const CreateEB = () => {
                 </div>
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="operation" className="lab">operation</label>
                     <br />
                     <input
@@ -856,7 +854,7 @@ const CreateEB = () => {
                     />
                     {errorMessageop && <p className='error-message'>{errorMessageop}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="programme" className="lab">programme</label>
                     <br />
                     <input
@@ -871,7 +869,7 @@ const CreateEB = () => {
                 </div>
                 </div>
                 <div className="disp">
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="situation" className="lab">situation</label>
                     <br />
                     <input
@@ -884,7 +882,7 @@ const CreateEB = () => {
                     />
                     {errorMessagesit && <p className='error-message'>{errorMessagesit}</p>}
                 </div>
-                <div className="form-group1">
+                <div className="form-group2ad">
                     <label htmlFor="superficie" className="lab">superficie</label>
                     <br />
                     <input
@@ -912,7 +910,7 @@ const CreateEB = () => {
                     {errorMessagetp && <p className='error-message'>{errorMessagetp}</p>}
                 </div>
                 <div className="form-group">
-                    <button type="button" className="botton" onClick={handleAddOperation}>
+                    <button type="button" className="botton2" onClick={handleAddOperation}>
                         Ajouter
                     </button>
                     {operationError && <p className='error-message'>{operationError}</p>}
