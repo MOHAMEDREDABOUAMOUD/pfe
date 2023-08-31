@@ -487,19 +487,19 @@ const CreateEB = () => {
         // Combine all data into the EB dictionary
         // Check if any of the required fields are empty
         let hasErrors = false;
-        if (objet.trim() === '') {
+        if (objet === '') {
             setObjetError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (observation.trim() === '') {
+        if (observation === '') {
             setObservationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (caution.trim() === '') {
+        if (caution === '') {
             setCautionError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (estimation.trim() === '') {
+        if (estimation === '') {
             setEstimationError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -536,6 +536,9 @@ const CreateEB = () => {
                 console.log(error);
             }
         }
+        else{
+            alert("l'expression des besoins n'a pas ete creer");
+        }
     };
 
     useEffect(() => {
@@ -562,7 +565,7 @@ const CreateEB = () => {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
@@ -688,7 +691,6 @@ const CreateEB = () => {
                         value={secteur}
                         onChange={(e) => handleSectorChange(e.target.value)}
                     >
-                        <option value="">Terrassements</option>
                         {sectors.map((sector) => (
                             <option key={sector.sector} value={sector.sector}>
                                 {sector.sector}
@@ -703,7 +705,6 @@ const CreateEB = () => {
                         value={qualification}
                         onChange={(e) => setQualification(e.target.value)}
                     >
-                        <option value="">travaux de terrassements généraux en masse</option>
                         {qualificationOptions.map((qual) => (
                             <option key={qual} value={qual}>
                                 {qual}

@@ -518,5 +518,11 @@ class EBBusiness {
     static getForDM2(currentUser){
         return EBDAO.getForDM2(currentUser);
     }
+    static updateEtatDM(id){
+        return EBDAO.updateEtatDM(id);
+    }
+    static updateEtatRefuser(id, user){
+        return EBDAO.updateEtatRefuser(id, user);
+    }
 }
 module.exports = EBBusiness;

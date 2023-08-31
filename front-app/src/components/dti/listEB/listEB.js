@@ -228,7 +228,7 @@ const handleButtonClick = () => {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
@@ -247,6 +247,9 @@ const handleButtonClick = () => {
             </th>
             <th onClick={() => handleSort("Objet")}>
               Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+            </th>
+            <th onClick={() => handleSort("Etat")}>
+              Etat {sortBy === "Etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Agence")}>
               Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}

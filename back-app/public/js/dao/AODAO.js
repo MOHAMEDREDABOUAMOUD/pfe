@@ -158,7 +158,7 @@ class AODAO {
         
         const heureOuverturePlis = new Date(ao.heureOuverturePlis);
         heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
-        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[1];
         
         const datePublicationPortail = new Date(ao.datePublicationPortail);
         datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
@@ -214,7 +214,7 @@ class AODAO {
         
         const heureOuverturePlis = new Date(ao.heureOuverturePlis);
         heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
-        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[1];
         
         const datePublicationPortail = new Date(ao.datePublicationPortail);
         datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
@@ -268,7 +268,7 @@ class AODAO {
         
         const heureOuverturePlis = new Date(ao.heureOuverturePlis);
         heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
-        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[1];
         
         const datePublicationPortail = new Date(ao.datePublicationPortail);
         datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);
@@ -322,7 +322,7 @@ class AODAO {
         
         const heureOuverturePlis = new Date(ao.heureOuverturePlis);
         heureOuverturePlis.setDate(heureOuverturePlis.getDate() + 1);
-        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[0];
+        const modifiedheureOuverturePlis = heureOuverturePlis.toISOString().split('T')[1];
         
         const datePublicationPortail = new Date(ao.datePublicationPortail);
         datePublicationPortail.setDate(datePublicationPortail.getDate() + 1);

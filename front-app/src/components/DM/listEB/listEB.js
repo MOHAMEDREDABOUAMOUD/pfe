@@ -199,7 +199,7 @@ const ListEBDM = () => {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
@@ -297,12 +297,10 @@ const ListEBDM = () => {
                         onClick={() => validateRow(row.num)}
                       />
                     )} */}
-                    {(row.validerPar!=row.currentUser)? (
-                      <BsCheckCircle
+                    <BsCheckCircle
                       className="validate-btn"
                       onClick={() => validateRow(row.num)}
                     />
-                    ) : null}
                   </span>
                 </td>
               </tr>

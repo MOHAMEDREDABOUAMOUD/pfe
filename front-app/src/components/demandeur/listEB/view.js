@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
+import { Viewer } from 'react-doc-viewer';
+import "./view.css";
 
 const View = () => {
   const { id } = useParams();
@@ -28,6 +30,8 @@ const View = () => {
       const contentBlob = blob;
       if (contentBlob) {
         const textContent = await contentBlob.text();
+        console.log(textContent);
+        //setData(contentBlob);
         setData(textContent);
       }
     } catch (error) {
@@ -41,9 +45,11 @@ const View = () => {
   }, "");
 
   return (
-    <div className='document'>
+    <div className='doc'>
       <Sidebar/>
-      {data}
+      <pre>
+        {data}
+      </pre>
     </div>
   );
 };

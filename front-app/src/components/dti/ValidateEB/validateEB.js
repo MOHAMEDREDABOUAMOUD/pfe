@@ -256,28 +256,28 @@ const ValidateEBDti = () => {
 
     const [qualificationOptions, setQualificationOptions] = useState([]); // Available qualifications for the selected sector
 
-    
-  const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+
+    const [currentSexe, setCurrentSexe] = useState('');
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const handleSectorChange = (selectedSector) => {
         setSecteur(selectedSector);
@@ -298,19 +298,19 @@ const ValidateEBDti = () => {
     const handleSubmitV = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
         let hasErrors = false;
-        if (objet.trim() === '') {
+        if (objet === '') {
             setObjetError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (observation.trim() === '') {
+        if (observation === '') {
             setObservationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (caution.trim() === '') {
+        if (caution === '') {
             setCautionError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (estimation.trim() === '') {
+        if (estimation === '') {
             setEstimationError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -333,14 +333,23 @@ const ValidateEBDti = () => {
                     numUtilisateur: numUtilisateur
                 });
                 alert("l'expression des besoins a ete bien valider");
-                navigate(`/listEBDti/${id}`);
+                navigate(`/listEBDti`);
             } catch (error) {
                 console.error(error);
             }
         }
+        else {
+            alert("l'expression des besoins n'a pas ete valider");
+        }
     };
     const handleSubmitR = async (event) => {
+        event.preventDefault();
         let email = "";
+        try {
+            await axios.post("/updateEtatRefuser", { id: id, });
+        } catch (error) {
+            console.error(error);
+        }
         if (validerPar.toString() != "") {
             try {
                 const userData = await axios.post("/getUser", { id: validerPar });
@@ -376,6 +385,7 @@ const ValidateEBDti = () => {
                 setEstimation(userData.data["estimation"]);
                 setModePassation(userData.data["modePassation"]);
                 setSecteur(userData.data["secteur"]);
+                handleSectorChange(userData.data["secteur"]);
                 setQualification(userData.data["qualification"]);
                 setValiderPar(userData.data["validerPar"]);
                 setNumUtilisateur(userData.data["numUtilisateur"]);
@@ -388,130 +398,128 @@ const ValidateEBDti = () => {
 
     return (
         <center>
-        <div className='formCreateUser-dmm-upeb'>
-            <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace DTI</h1></center>
-    </div>
-    <center><h1 className='titre'>Validation Expression Besoins</h1></center>
-            <form className='forma'>
-                <div className='disp'>
-                <div className="form-group1">
-                    <label htmlFor="objet" className='lab'>objet</label><br />
-                    <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
-                    {objetError && <p className='error-message'>{objetError}</p>}
-                </div>
-                <div className="form-group1">
-                    <label htmlFor="observation" className='lab'>observation</label><br />
-                    <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
-                    {observationError && <p className='error-message'>{observationError}</p>}
-                </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="caution" className='lab'>caution</label><br />
-                    <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
-                    {cautionError && <p className='error-message'>{cautionError}</p>}
-                </div>
-                <div className='disp'>
-                <div className="form-group1">
-                    <label htmlFor="estimation" className='lab'>estimation</label><br />
-                    <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
-                    {estimationError && <p className='error-message'>{estimationError}</p>}
-                </div>
-                <div className="form-group1box">
-                    <label htmlFor="progNonProgInput" className='lab'>prog-nonprog</label><br />
-                    <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
-                </div>
-                </div>
+            <div className='formCreateUser-dmm-upeb'>
+                <div className='appbare'>
+                    <Sidebar />
+                    <Nav className='namee'>
+                        <NavDropdown
+                            className='nama custom-dropdown'
 
-                <div className="form-group">
-                    <label htmlFor="agence" className='lab'>Agence</label><br />
-                    <select id="agence" className='form-control' value={agence} onChange={(e) => setAgence(e.target.value)}>
-                        <option> Fès </option>
-                        <option> Boulemane </option>
-                        <option> sefrou </option>
-                        <option> Moulay yaacoub </option>
-                        <option> taza </option>
-                        <option> meknes </option>
-                        <option> el hajeb </option>
-                        <option> ifrane </option>
-                    </select>
+                            title={currentUser}
+                        >
+                            <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/" className='it'>
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <center><h1 className='espace_admin'>Espace DTI</h1></center>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="modePassation" className='lab'>modePassation</label><br />
-                    <select id="modePassation" className='form-control' value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
-                        <option>B.C</option>
-                        <option>A.O.O.</option>
-                        <option>A.O.R.</option>
-                        <option>Marché négocié</option>
-                        <option>consultation</option>
-                        <option>concours</option>
-                    </select>
-                </div>
-                <div className='disp'>
-                <div className="form-group1">
-                    <label htmlFor="secteur" className='lab'>secteur</label><br />
-                    <select
-                        id="secteur"
-                        className='form-control'
-                        value={secteur}
-                        onChange={(e) => handleSectorChange(e.target.value)}
-                    >
-                        <option value="">Select a sector</option>
-                        {sectors.map((sector) => (
-                            <option key={sector.sector} value={sector.sector}>
-                                {sector.sector}
-                            </option>
-                        ))}
-                    </select>
-                    <label htmlFor="qualification" className='lab'>qualification</label><br />
-                    <select
-                    className='form-control'
-                        id="qualification"
-                        value={qualification}
-                        onChange={(e) => setQualification(e.target.value)}
-                    >
-                        <option value="">Select a qualification</option>
-                        {qualificationOptions.map((qual) => (
-                            <option key={qual} value={qual}>
-                                {qual}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                </div>
-                <div className='form-group'>
-                    <center><h5 className='titra'>files</h5></center>
-                </div>
-                <div className="form-group">
-                    <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>Update files</button>
-                </div>
-                <div className='form-group'>
-                    <center><h5 className='titra'>Operations</h5></center>
-                </div>
-                <div className="form-group">
-                    <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>Update operations</button>
-                </div>
-                <div className="form-group">
-                    <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>
-                </div>
-                <div className="form-group">
-                    <center><button type="submit" onClick={handleSubmitR} className="botton">Refuser l'expression des besoins</button></center>
-                </div>
-            </form>
-        </div>
+                <center><h1 className='titre'>Validation Expression Besoins</h1></center>
+                <form className='forma'>
+                    <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="objet" className='lab'>objet</label><br />
+                            <input type="text" className={`form-control ${objetError ? 'error-border' : ''}`} id="objet" placeholder="objet" value={objet} onChange={(e) => setObjet(e.target.value)} />
+                            {objetError && <p className='error-message'>{objetError}</p>}
+                        </div>
+                        <div className="form-group1">
+                            <label htmlFor="observation" className='lab'>observation</label><br />
+                            <input type="text" className={`form-control ${observationError ? 'error-border' : ''}`} id="observation" placeholder="obesrvation" value={observation} onChange={(e) => setObservation(e.target.value)} />
+                            {observationError && <p className='error-message'>{observationError}</p>}
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="caution" className='lab'>caution</label><br />
+                        <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
+                        {cautionError && <p className='error-message'>{cautionError}</p>}
+                    </div>
+                    <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="estimation" className='lab'>estimation</label><br />
+                            <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
+                            {estimationError && <p className='error-message'>{estimationError}</p>}
+                        </div>
+                        <div className="form-group1box">
+                            <label htmlFor="progNonProgInput" className='lab'>prog-nonprog</label><br />
+                            <input type="checkbox" id="progNonProg" checked={progNonProgram} onChange={(e) => setProgNonProgram(e.target.checked)} />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="agence" className='lab'>Agence</label><br />
+                        <select id="agence" className='form-control' value={agence} onChange={(e) => setAgence(e.target.value)}>
+                            <option> Fès </option>
+                            <option> Boulemane </option>
+                            <option> sefrou </option>
+                            <option> Moulay yaacoub </option>
+                            <option> taza </option>
+                            <option> meknes </option>
+                            <option> el hajeb </option>
+                            <option> ifrane </option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="modePassation" className='lab'>modePassation</label><br />
+                        <select id="modePassation" className='form-control' value={modePassation} onChange={(e) => setModePassation(e.target.value)}>
+                            <option>B.C</option>
+                            <option>A.O.O.</option>
+                            <option>A.O.R.</option>
+                            <option>Marché négocié</option>
+                            <option>consultation</option>
+                            <option>concours</option>
+                        </select>
+                    </div>
+                    <div className='disp'>
+                        <div className="form-group1">
+                            <label htmlFor="secteur" className='lab'>secteur</label><br />
+                            <select
+                                id="secteur"
+                                className='form-control'
+                                value={secteur}
+                                onChange={(e) => handleSectorChange(e.target.value)}
+                            >
+                                {sectors.map((sector) => (
+                                    <option key={sector.sector} value={sector.sector}>
+                                        {sector.sector}
+                                    </option>
+                                ))}
+                            </select>
+                            <label htmlFor="qualification" className='lab'>qualification</label><br />
+                            <select
+                                className='form-control'
+                                id="qualification"
+                                value={qualification}
+                                onChange={(e) => setQualification(e.target.value)}
+                            >
+                                {qualificationOptions.map((qual) => (
+                                    <option key={qual} value={qual}>
+                                        {qual}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className='form-group'>
+                        <center><h5 className='titra'>files</h5></center>
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>Update files</button>
+                    </div>
+                    <div className='form-group'>
+                        <center><h5 className='titra'>Operations</h5></center>
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>Update operations</button>
+                    </div>
+                    <div className="form-group">
+                        <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>
+                    </div>
+                    <div className="form-group">
+                        <center><button type="submit" onClick={handleSubmitR} className="botton">Refuser l'expression des besoins</button></center>
+                    </div>
+                </form>
+            </div>
         </center>
     );
 };

@@ -275,7 +275,7 @@ useEffect(() => {
                             title={currentUser}
                             menuVariant="dark"
                         >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>{navigate("/notifications")}}><IoMdNotifications /> Notifications</NavDropdown.Item>
                             <NavDropdown.Item href="/">
                                 <SlLogout /> Exit
                             </NavDropdown.Item>

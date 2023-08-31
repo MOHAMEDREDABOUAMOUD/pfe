@@ -284,7 +284,7 @@ const ListAODM = () => {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>

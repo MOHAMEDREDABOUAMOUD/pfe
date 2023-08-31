@@ -11,6 +11,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [email, setEmail] = useState("");
@@ -74,7 +75,7 @@ const Settings = () => {
     alert("les informations personnelles ont ete bien modifier");
     await axios.post("/updateSettingsS", { login: userName, pwd: password});
   };
-
+  const navigate=useNavigate();
   return (
     <center>
       <div className="settings-all">
@@ -86,7 +87,7 @@ const Settings = () => {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>

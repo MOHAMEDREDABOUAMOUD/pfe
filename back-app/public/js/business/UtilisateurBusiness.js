@@ -96,6 +96,7 @@ class UtilisateurBusiness {
                     }
                 }
             }
+            console.log(notifications);
         }
         else if(fonction==="CM"){
             const eb=await EBBusiness.getDem2(currentUser);
@@ -115,9 +116,10 @@ class UtilisateurBusiness {
                         notifications.push("Aujourd'hui la publication portail de l'AO numero : "+ao.num);
                     }
                 }
+                console.log(notifications);
             }
         }
-        else if(fonction==="CM"){
+        else if(fonction==="DM"){
             const eb=await EBBusiness.getForDM2(currentUser);
             for (let i = 0; i < eb.length; i++) {
                 const ao=await AOBusiness.getByEBNum(eb[i].num);
@@ -130,6 +132,7 @@ class UtilisateurBusiness {
                     }
                 }
             }
+            console.log(notifications);
         }
         return notifications;
     }

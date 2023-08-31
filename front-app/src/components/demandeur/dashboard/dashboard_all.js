@@ -19,6 +19,7 @@ import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardAllDM() {
     Chart.register(CategoryScale);
@@ -160,7 +161,7 @@ function DashboardAllDM() {
         },
       ];
      
-
+      const navigate=useNavigate();
   return (
     <main className='main-container'>
         <div className='appbare'>
@@ -170,7 +171,7 @@ function DashboardAllDM() {
               
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
