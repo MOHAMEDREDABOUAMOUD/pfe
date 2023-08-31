@@ -147,7 +147,7 @@ const AddOperationCM = () => {
     </div><center><h1 className='titre'>Ajouter Operation</h1></center>
             <form onSubmit={handleAddOperation} className='forma'>
                 <div className='disp'>
-                <div className="form-group1">
+                <div className="form-group1ad">
                     <label htmlFor="exampleFormControlSelect1">Agence</label><br />
                     <select id="agence" className='form-control' onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
@@ -160,19 +160,19 @@ const AddOperationCM = () => {
                         <option> ifrane </option>
                     </select>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="formFile">DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1">imputation</label><br />
                     <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
                     {imputationError && <p className='error-message'>{imputationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1">nature projet</label><br />
                     <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
@@ -189,12 +189,12 @@ const AddOperationCM = () => {
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1">situation</label><br />
                     <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
                     {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1">superficie</label><br />
                     <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                     {superficieError && <p className='error-message'>{superficieError}</p>}

@@ -123,7 +123,7 @@ const navigate=useNavigate();
             <h3>Informations Personnelles</h3>
             <form onSubmit={handleInformationsSubmit}>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="labo">Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -133,7 +133,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="nom">Nom</label>
+                <label htmlFor="nom" className="labo">Nom</label>
                 <input
                   type="text"
                   className="form-control"
@@ -143,7 +143,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="prenom">Prenom</label>
+                <label htmlFor="prenom" className="labo">Prenom</label>
                 <input
                   type="text"
                   className="form-control"
@@ -152,7 +152,7 @@ const navigate=useNavigate();
                   onChange={(e) => setPrenom(e.target.value)}
                 />
               </div>
-              <button type="submit" className="botton">
+              <button type="submit" className="botton3">
                 Confirmer
               </button>
             </form>
@@ -164,7 +164,7 @@ const navigate=useNavigate();
             <h3>Sécurité</h3>
             <form onSubmit={handleSecuriteSubmit}>
               <div className="form-group">
-                <label htmlFor="username">nom d'utilisateur</label>
+                <label htmlFor="username" className="labo">nom d'utilisateur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -174,7 +174,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">mot de passe</label>
+                <label htmlFor="password" className="labo">mot de passe</label>
                 <input
                   type="password"
                   className="form-control"
@@ -183,7 +183,7 @@ const navigate=useNavigate();
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="botton">
+              <button type="submit" className="botton3">
                 Confirmer
               </button>
             </form>

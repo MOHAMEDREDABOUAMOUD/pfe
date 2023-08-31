@@ -99,6 +99,7 @@ const Settings = () => {
         <div className="container mt-5">
           <center><h1 className='titre'>Parametres Admin</h1></center>
 
+
           <ul className="nav nav-tabs">
             <li className="nav-item">
               <button
@@ -107,6 +108,43 @@ const Settings = () => {
                 onClick={() => handleTabChange("informations")}
               >
                 Informations Personnelles
+      <div className="tab-content mt-3">
+        {activeTab === "informations" && (
+          <div className="tab-pane fade show active">
+            <h3>Informations Personnelles</h3>
+            <form onSubmit={handleInformationsSubmit}>
+              <div className="form-group">
+                <label htmlFor="email" className="labo">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="nom" className="labo">Nom</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="nom"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="prenom" className="labo">Prenom</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="prenom"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="botton">
+                Confirmer
               </button>
             </li>
             <li className="nav-item">
@@ -118,6 +156,7 @@ const Settings = () => {
               </button>
             </li>
           </ul>
+
 
           <div className="tab-content mt-3">
             {activeTab === "informations" && (
@@ -191,6 +230,34 @@ const Settings = () => {
                 </form>
               </div>
             )}
+        {activeTab === "securite" && (
+          <div className="tab-pane fade show active">
+            <h3>Sécurité</h3>
+            <form onSubmit={handleSecuriteSubmit}>
+              <div className="form-group">
+                <label htmlFor="username" className="labo">nom d'utilisateur</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className="labo">mot de passe</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button type="submit" className="botton3">
+                Confirmer
+              </button>
+            </form>
           </div>
         </div>
       </div>

@@ -167,7 +167,7 @@ export default function UpdateOp() {
     <center><h1 className='titre'>Modification D'operation</h1></center>
             <form onSubmit={handleUpdate} className='forma'>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlSelect1" className='lab'>Agence</label><br />
                     <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
                         <option> Fès </option>
@@ -181,7 +181,7 @@ export default function UpdateOp() {
 
                     </select>
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="formFile" className='lab'>DA : </label>
                     <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
@@ -198,12 +198,12 @@ export default function UpdateOp() {
                     {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
                 </div>
                     <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>operation</label><br />
                     <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
                     {operationError && <p className='error-message'>{operationError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>programme</label><br />
                     <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
                     {programmeError && <p className='error-message'>{programmeError}</p>}
@@ -215,12 +215,12 @@ export default function UpdateOp() {
                     {situationError && <p className='error-message'>{situationError}</p>}
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
                     <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
                     {superficieError && <p className='error-message'>{superficieError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="exampleFormControlInput1" className='lab'>type projet </label><br />
                     <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
                     {type_projetError && <p className='error-message'>{type_projetError}</p>}

@@ -190,12 +190,12 @@ export default function CreateAO() {
             <form className='forma'>
             <center><h1 className='titre'>Creation Appel D'offres</h1></center>
             <div className='disp'>
-                <div className='form-group1'>
+                <div className='form-group1ad'>
                     <label htmlFor="numAO" className='lab'>num AO</label><br />
                     <input type="text" className={`form-control ${numAOError ? 'error-border' : ''}`} id="numAO" placeholder="num AO" value={numAO} onChange={(e) => setNumAO(e.target.value)} />
                     {numAOError && <p className='error-message'>{numAOError}</p>}
                 </div>
-                <div className='form-group1'>
+                <div className='form-group2ad'>
                     <label htmlFor="dateOuverturePlis" className='lab'>Date ouverture plis</label><br />
                     <input
                         type="date"
@@ -207,7 +207,7 @@ export default function CreateAO() {
                 </div>
                 </div>
                 <div className='disp'>
-                <div className='form-group1'>
+                <div className='form-group1ad'>
                     <label htmlFor="heureOuverturePlis" className='lab'>heure ouverture du plis</label><br />
                     <input
                         type="time"
@@ -217,7 +217,7 @@ export default function CreateAO() {
                         onChange={(e) => setHeureOuverturePlis(e.target.value)}
                     />
                 </div>
-                <div className='form-group1'>
+                <div className='form-group2ad'>
                     <label htmlFor="datePublicationPortail" className='lab'>Date publication portail</label><br />
                     <input
                         type="date"
@@ -229,12 +229,12 @@ export default function CreateAO() {
                 </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1">
+                <div class="form-group1ad">
                     <label for="avisAO" class="lab">Avis AO : </label>
                     <input className={`form-control ${avisAOError ? 'error-border' : ''}`} type="file" id="avisAO" onChange={(e) => handleFileUpload(e)} />
                     {avisAOError && <p className='error-message'>{avisAOError}</p>}
                 </div>
-                <div className='form-group1'>
+                <div className='form-group2ad'>
                     <label htmlFor="dateEnvoieLettreCommission"className='lab'>Date envoie lettre commission</label><br />
                     <input
                         type="date"
@@ -264,12 +264,12 @@ export default function CreateAO() {
                     {destinataireError && <p className='error-message'>{destinataireError}</p>}
                 </div>
                 <div className='disp'>
-                <div className='form-group1'>
+                <div className='form-group1ad'>
                     <label htmlFor="numEnvoieLettreCommission" className='lab'>num envoie lettre commission</label><br />
                     <input type="text" className={`form-control ${numEnvoieLettreCommissionError ? 'error-border' : ''}`} id="numEnvoieLettreCommission" placeholder="num envoie lettre commission" value={numEnvoieLettreCommission} onChange={(e) => setNumEnvoieLettreCommission(e.target.value)} />
                     {numEnvoieLettreCommissionError && <p className='error-message'>{numEnvoieLettreCommissionError}</p>}
                 </div>
-                <div class="form-group1">
+                <div class="form-group2ad">
                     <label for="lettreCommission" class="lab">Lettre commission : </label>
                     <input className={`form-control ${lettreCommissionError ? 'error-border' : ''}`} type="file" id="lettreCommission" onChange={(e) => handleFileUploadC(e)} />
                     {lettreCommissionError && <p className='error-message'>{lettreCommissionError}</p>}
@@ -277,7 +277,7 @@ export default function CreateAO() {
                 </div>
                 
                 <div className='form-group'>
-                    <center><h3>Journal</h3></center>
+                    <center><h3 className='titrep'>Journal</h3></center>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="dateEnvoieJournal" className='lab'>Date envoie journal</label><br />
@@ -290,7 +290,7 @@ export default function CreateAO() {
                     />
                 </div>
                 <div className='disp'>
-                <div className='form-group1'>
+                <div className='form-group1ad'>
                     <label htmlFor="datePublicationJournal" className='lab'>Date Publication journal</label><br />
                     <input
                         type="date"
@@ -300,17 +300,17 @@ export default function CreateAO() {
                         onChange={(e) => setDatePublicationJournal(e.target.value)}
                     />
                 </div>
-                <div className='form-group1'>
+                <div className='form-group2ad'>
                     <label htmlFor="formatJournal" className='lab'>format journal</label><br />
                     <input type="text" className="form-control" id="formatJournal" placeholder="format journal" value={formatJournal} onChange={(e) => setFormatJournal(e.target.value)} />
                 </div>
                 </div>
                 <div className='disp'>
-                <div className='form-group1'>
+                <div className='form-group1ad'>
                     <label htmlFor="fournisseurJournal" className='lab'>fournisseur journal</label><br />
                     <input type="text" className="form-control" id="fournisseurJournal" placeholder="fournisseur journal" value={fournisseurJournal} onChange={(e) => setFournisseurJournal(e.target.value)} />
                 </div>
-                <div className='form-group1'>
+                <div className='form-group2ad'>
                     <label htmlFor="numEnvoieJournal" className='lab'>num envoie lettre journal</label><br />
                     <input type="text" className="form-control" id="numEnvoieJournal" placeholder="num envoie journal" value={numEnvoieJournal} onChange={(e) => setNumEnvoieJournal(e.target.value)} />
                 </div>
@@ -320,7 +320,7 @@ export default function CreateAO() {
                     <input class="form-control" type="file" id="lettreJournal" onChange={(e) => handleFileUploadJ(e)} />
                 </div>
                 <div className="form-group">
-                    <center><button type="button" onClick={handleSubmitAJ} className="botton">Ajouter</button></center>
+                    <center><button type="button" onClick={handleSubmitAJ} className="botton2">Ajouter</button></center>
                     {listJournalError && <p className='error-message'>{listJournalError}</p>}
                 </div>
                 <div className="form-group">
