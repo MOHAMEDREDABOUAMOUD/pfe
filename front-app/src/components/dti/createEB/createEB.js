@@ -258,6 +258,7 @@ const CreateEBDti = () => {
     const [secteur, setSecteur] = useState("Terrassements");
     const [qualification, setQualification] = useState("travaux de terrassements généraux en masse");
     const [libelle, setLibelle] = useState("");
+    const [file, setFile] = useState(null);
     const [daFile, setDaFile] = useState([]);
     const [daFileName, setDaFileName] = useState("");
     const [imputation, setImputation] = useState("");
@@ -268,6 +269,18 @@ const CreateEBDti = () => {
     const [superficie, setSuperficie] = useState("");
     const [typeProjet, setTypeProjet] = useState("");
     const [operationError, setOperationError] = useState('');
+
+    const [errorMessagelibelle, setErrorMessagelibelle] = useState('');
+    const [errorMessagefile, setErrorMessagefile] = useState('');
+    const [errorMessageAgence, setErrorMessageAgence] = useState('');
+    const [errorMessageDA, setErrorMessageDA] = useState('');
+    const [errorMessageim, setErrorMessageim] = useState('');
+    const [errorMessagenp, setErrorMessagenp] = useState('');
+    const [errorMessageop, setErrorMessageop] = useState('');
+    const [errorMessageprog, setErrorMessageprog] = useState('');
+    const [errorMessagesit, setErrorMessagesit] = useState('');
+    const [errorMessagesup, setErrorMessagesup] = useState('');
+    const [errorMessagetp, setErrorMessagetp] = useState('');
 
 
     const [EB, setEB] = useState({}); // Dictionary to store all data
@@ -351,52 +364,121 @@ const CreateEBDti = () => {
     };
 
     const handleAddFile = (event) => {
-        event.preventDefault();
-        // Handle file upload logic here
-        const filee = {
-            name: libelle,
-            fileName: fileName,
-            file: piece,
-        };
-        console.log("piece : " + piece);
-        setFileList((prevFileList) => [...prevFileList, filee]);
-        setLibelle("");
-        setPiece([]);
-        setFileName("");
-        setPieceError("");
-        //console.log(fileList);
+        let hasErrorsp = false;
+        if (libelle.trim() === '') {
+            // Display the error message if libelle is empty
+            setErrorMessagelibelle('Ce champ est obligatoire');
+            hasErrorsp=true;
+          }else{
+            setErrorMessagelibelle('');
+            let hasErrorsp = false;
+          }
+          if(!hasErrorsp){
+            event.preventDefault();
+            // Handle file upload logic here
+            const filee = {
+                name: libelle,
+                fileName: fileName,
+                file: piece,
+            };
+            console.log("piece : " + piece);
+            setFileList((prevFileList) => [...prevFileList, filee]);
+            setLibelle("");
+            setPiece([]);
+            setFileName("");
+            setPieceError("");
+          }
+          
     };
 
     const handleAddOperation = (event) => {
-        event.preventDefault();
-        //event.preventDefault();
-        // Handle adding operation logic here
-        const op = {
-            agence: agenceOp,
-            daFile: daFile,
-            daFileName: daFileName,
-            imputation: imputation,
-            natureProjet: natureProjet,
-            operation: operation,
-            programme: programme,
-            situation: situation,
-            superficie: superficie,
-            typeProjet: typeProjet,
-        };
-        console.log("da : " + daFile);
-        setOperationList((prevOperationList) => [...prevOperationList, op]);
-        setAgence("Fes");
-        setDaFile([]);
-        setDaFileName("");
-        setImputation("");
-        setNatureProjet("");
-        setOperation("");
-        setProgramme("");
-        setSituation("");
-        setSuperficie("");
-        setTypeProjet("");
-        setOperationError("");
-        //console.log(operationList);
+        let hasErrorspp = false;
+        if (agence.trim() === '') {
+            setErrorMessageAgence('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessageAgence('');
+          }
+          if (imputation.trim() === '') {
+            setErrorMessageim('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessageim('');
+          }
+          if (natureProjet.trim() === '') {
+            setErrorMessagenp('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessagenp('');
+            
+          }
+          if (operation.trim() === '') {
+            setErrorMessageop('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessageop('');
+            
+          }
+          if (programme.trim() === '') {
+            setErrorMessageprog('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessageprog('');
+            
+          }
+          if (situation.trim() === '') {
+            setErrorMessagesit('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessagesit('');
+            
+          }
+          if (superficie.trim() === '') {
+            setErrorMessagesup('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessagesup('');
+            
+          }
+          if (typeProjet.trim() === '') {
+            setErrorMessagetp('Ce champ est obligatoire');
+            hasErrorspp=true;
+          }else{
+            setErrorMessagetp('');
+            
+          }
+          if(!hasErrorspp){
+            event.preventDefault();
+            //event.preventDefault();
+            // Handle adding operation logic here
+            const op = {
+                agence: agenceOp,
+                daFile: daFile,
+                daFileName: daFileName,
+                imputation: imputation,
+                natureProjet: natureProjet,
+                operation: operation,
+                programme: programme,
+                situation: situation,
+                superficie: superficie,
+                typeProjet: typeProjet,
+            };
+            console.log("da : " + daFile);
+            setOperationList((prevOperationList) => [...prevOperationList, op]);
+            setAgence("Fes");
+            setDaFile([]);
+            setDaFileName("");
+            setImputation("");
+            setNatureProjet("");
+            setOperation("");
+            setProgramme("");
+            setSituation("");
+            setSuperficie("");
+            setTypeProjet("");
+            setOperationError("");
+            //console.log(operationList);
+          }
+
     }
 
     const navigate = useNavigate();
@@ -449,7 +531,7 @@ const CreateEBDti = () => {
             try {
                 alert("l'expression des besoins a ete bien creer");
                 navigate("/listEB");
-                await axios.post("/CreateEBDti", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+                await axios.post("/createEBDti", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
             } catch (error) {
                 console.log(error);
             }
@@ -486,7 +568,7 @@ const CreateEBDti = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace DTI</h1></center>
+      <center><h1 className='espace_admin'>Espace Dti</h1></center>
     </div>
     <center><h1 className='titre'>Creation Expression Besoins</h1></center>
             <form onSubmit={handleFormSubmit} className="forma">
@@ -643,12 +725,15 @@ const CreateEBDti = () => {
                         value={libelle}
                         onChange={(e) => setLibelle(e.target.value)}
                     />
+                    {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
                     <input
                         className="form-control"
                         type="file"
                         id="file"
+                        
                         onChange={(e) => handleFileUpload(e)}
                     />
+                    {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
                     <button
                         type="button"
                         className="botton"
@@ -656,6 +741,7 @@ const CreateEBDti = () => {
                     >
                         Ajouter
                     </button>
+                    
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 <div className="form-group">
@@ -712,6 +798,7 @@ const CreateEBDti = () => {
                         <option> El Hajeb </option>
                         <option> Ifrane </option>
                     </select>
+                    {errorMessageAgence && <p className='error-message'>{errorMessageAgence}</p>}
                 </div>
                 <div className="form-group1">
                     <label htmlFor="daFile" className="lab">
@@ -723,6 +810,7 @@ const CreateEBDti = () => {
                         id="daFile"
                         onChange={(e) => handleDAFileUpload(e)}
                     />
+                    
                 </div>
                 </div>
                 <div className="disp">
@@ -737,6 +825,7 @@ const CreateEBDti = () => {
                         value={imputation}
                         onChange={(e) => setImputation(e.target.value)}
                     />
+                    {errorMessageim && <p className='error-message'>{errorMessageim}</p>}
                 </div>
                 <div className="form-group1">
                     <label htmlFor="natureProjet" className="lab">nature projet</label>
@@ -749,6 +838,7 @@ const CreateEBDti = () => {
                         value={natureProjet}
                         onChange={(e) => setNatureProjet(e.target.value)}
                     />
+                    {errorMessagenp && <p className='error-message'>{errorMessagenp}</p>}
                 </div>
                 </div>
                 <div className="disp">
@@ -763,6 +853,7 @@ const CreateEBDti = () => {
                         value={operation}
                         onChange={(e) => setOperation(e.target.value)}
                     />
+                    {errorMessageop && <p className='error-message'>{errorMessageop}</p>}
                 </div>
                 <div className="form-group1">
                     <label htmlFor="programme" className="lab">programme</label>
@@ -775,6 +866,7 @@ const CreateEBDti = () => {
                         value={programme}
                         onChange={(e) => setProgramme(e.target.value)}
                     />
+                    {errorMessageprog && <p className='error-message'>{errorMessageprog}</p>}
                 </div>
                 </div>
                 <div className="disp">
@@ -789,6 +881,7 @@ const CreateEBDti = () => {
                         value={situation}
                         onChange={(e) => setSituation(e.target.value)}
                     />
+                    {errorMessagesit && <p className='error-message'>{errorMessagesit}</p>}
                 </div>
                 <div className="form-group1">
                     <label htmlFor="superficie" className="lab">superficie</label>
@@ -801,6 +894,7 @@ const CreateEBDti = () => {
                         value={superficie}
                         onChange={(e) => setSuperficie(e.target.value)}
                     />
+                    {errorMessagesup && <p className='error-message'>{errorMessagesup}</p>}
                 </div>
                 </div>
                 <div className="form-group">
@@ -814,6 +908,7 @@ const CreateEBDti = () => {
                         value={typeProjet}
                         onChange={(e) => setTypeProjet(e.target.value)}
                     />
+                    {errorMessagetp && <p className='error-message'>{errorMessagetp}</p>}
                 </div>
                 <div className="form-group">
                     <button type="button" className="botton" onClick={handleAddOperation}>
