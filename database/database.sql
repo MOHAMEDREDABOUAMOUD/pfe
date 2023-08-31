@@ -10,6 +10,7 @@ create table Marche(num varchar(50) primary key, numCommande varchar(50), marche
 create table Journal(num int primary key auto_increment, fileName varchar(50), numEnvoie int, format varchar(50), fournisseur varchar(50), dateEnvoie date, datePublication date, lettreJournal longblob, numAo varchar(50));
 create table Facture(num int primary key auto_increment, dateFacture date, montant double, numJournal int);
 create table LettreCommission(num int primary key auto_increment, fileName varchar(50), numEnvoie int, dateEnvoie date, destinataire varchar(50), lettreCommission longblob);
+create table Dashboard(eb int, ebNV int, ebV int, ao int);
 alter table EB add foreign key (numUtilisateur) references Utilisateur(immatricule);
 alter table Operation add foreign key (numEB) references EB(num);
 alter table Piece add foreign key (numEB) references EB(num);
@@ -18,3 +19,5 @@ alter table Marche add foreign key (numAO) references AO(num);
 alter table AO add foreign key (numLettreCommission) references LettreCommission(num);
 alter table Journal add foreign key (numAO) references AO(num);
 alter table Facture add foreign key (numJournal) references Journal(num);
+insert into Dashboard values(0, 0, 0, 0);
+insert into Utilisateur values(1, "admin", "admin", "admin@gmail.com", "admin", "admin", "Admin", "M.");

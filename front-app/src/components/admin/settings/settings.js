@@ -4,14 +4,15 @@ import axios from "axios";
 import logo from "./logo-omrane.png";
 import './settings.css';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [email, setEmail] = useState("");
@@ -66,134 +67,133 @@ const Settings = () => {
 
   const handleInformationsSubmit = async (event) => {
     event.preventDefault();
-    await axios.post("/updateSettingsIP", { email: email, nom: nom, prenom: prenom});
+    await axios.post("/updateSettingsIP", { email: email, nom: nom, prenom: prenom });
     alert("les informations personnelles ont ete bien modifier");
   };
 
   const handleSecuriteSubmit = async (event) => {
     event.preventDefault();
     alert("les informations personnelles ont ete bien modifier");
-    await axios.post("/updateSettingsS", { login: userName, pwd: password});
+    await axios.post("/updateSettingsS", { login: userName, pwd: password });
   };
-
+  const navigate = useNavigate();
   return (
     <center>
-    <div className="settings-all">
-<div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
+      <div className="settings-all">
+        <div className='appbare'>
+          <Sidebar />
+          <Nav className='namee'>
             <NavDropdown
               className='nama custom-dropdown'
-              
+
               title={currentUser}
             >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => { navigate("/notifications") }} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Admin</h1></center>
-    </div>
-    <div className="container mt-5">
-    <center><h1 className='titre'>Parametres Admin</h1></center>
-      
-      <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <button
-            className={`nav-link ${
-              activeTab === "informations" ? "active" : ""
-            }`}
-            onClick={() => handleTabChange("informations")}
-          >
-            Informations Personnelles
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${activeTab === "securite" ? "active" : ""}`}
-            onClick={() => handleTabChange("securite")}
-          >
-            Sécurité
-          </button>
-        </li>
-      </ul>
+          <center><h1 className='espace_admin'>Espace Admin</h1></center>
+        </div>
+        <div className="container mt-5">
+          <center><h1 className='titre'>Parametres Admin</h1></center>
 
-      <div className="tab-content mt-3">
-        {activeTab === "informations" && (
-          <div className="tab-pane fade show active">
-            <h3>Informations Personnelles</h3>
-            <form onSubmit={handleInformationsSubmit}>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="nom">Nom</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="nom"
-                  value={nom}
-                  onChange={(e) => setNom(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="prenom">Prenom</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="prenom"
-                  value={prenom}
-                  onChange={(e) => setPrenom(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="botton">
-                Confirmer
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <button
+                className={`nav-link ${activeTab === "informations" ? "active" : ""
+                  }`}
+                onClick={() => handleTabChange("informations")}
+              >
+                Informations Personnelles
               </button>
-            </form>
-          </div>
-        )}
+            </li>
+            <li className="nav-item">
+              <button
+                className={`nav-link ${activeTab === "securite" ? "active" : ""}`}
+                onClick={() => handleTabChange("securite")}
+              >
+                Sécurité
+              </button>
+            </li>
+          </ul>
 
-        {activeTab === "securite" && (
-          <div className="tab-pane fade show active">
-            <h3>Sécurité</h3>
-            <form onSubmit={handleSecuriteSubmit}>
-              <div className="form-group">
-                <label htmlFor="username">nom d'utilisateur</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="username"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
+          <div className="tab-content mt-3">
+            {activeTab === "informations" && (
+              <div className="tab-pane fade show active">
+                <h3>Informations Personnelles</h3>
+                <form onSubmit={handleInformationsSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="nom">Nom</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="nom"
+                      value={nom}
+                      onChange={(e) => setNom(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="prenom">Prenom</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="prenom"
+                      value={prenom}
+                      onChange={(e) => setPrenom(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="botton">
+                    Confirmer
+                  </button>
+                </form>
               </div>
-              <div className="form-group">
-                <label htmlFor="password">mot de passe</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+            )}
+
+            {activeTab === "securite" && (
+              <div className="tab-pane fade show active">
+                <h3>Sécurité</h3>
+                <form onSubmit={handleSecuriteSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="username">nom d'utilisateur</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="username"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password">mot de passe</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="botton">
+                    Confirmer
+                  </button>
+                </form>
               </div>
-              <button type="submit" className="botton">
-                Confirmer
-              </button>
-            </form>
+            )}
           </div>
-        )}
+        </div>
       </div>
-    </div>
-    </div>
     </center>
   );
 };

@@ -524,5 +524,11 @@ class EBBusiness {
     static updateEtatRefuser(id, user){
         return EBDAO.updateEtatRefuser(id, user);
     }
+    static getDashboardFigures(){
+        return EBDAO.getDashboardFigures();
+    }
+    static getDashboardData(){
+        return EBDAO.getDashboardData();
+    }
 }
 module.exports = EBBusiness;

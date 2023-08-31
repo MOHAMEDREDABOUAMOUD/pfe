@@ -44,7 +44,7 @@ class UtilisateurBusiness {
         const u = await UtilisateurDAO.getByImmatricule(currentUser);
         const fonction = u.fonction;
         console.log(fonction);
-        if(fonction==="Demandeur"){
+        if(fonction==="Demandeur" || fonction==="Admin"){
             const eb=await EBBusiness.getByUserId2(currentUser);
             console.log(eb.length);
             for (let i = 0; i < eb.length; i++) {

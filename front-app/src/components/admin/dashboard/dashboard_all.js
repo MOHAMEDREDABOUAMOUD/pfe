@@ -1,54 +1,100 @@
-import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
- from 'react-icons/bs'
- import 
- { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
- import Chart from 'chart.js/auto';
+import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
+  from 'react-icons/bs'
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
+  from 'recharts';
+import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
- import './dashboard_all.css'
- import './dashboard.css'
- import React, { useState, useEffect } from "react";
- import Sidebar from "../sidebar/sideBar";
+import './dashboard_all.css'
+import './dashboard.css'
+import React, { useState, useEffect } from "react";
+import Sidebar from "../sidebar/sideBar";
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardAll() {
-    Chart.register(CategoryScale);
-  // Sample data for the dashboard
-  const [numberOfUsersData, setNumberOfUsersData] = useState(0);
-  const [selectedYear, setSelectedYear] = useState("All");
+  Chart.register(CategoryScale);
 
-  const getMarcheDataByYear = (year) => {
-    // Sample static data for demonstration
-    switch (year) {
-      case "All":
-        return [25, 35, 30, 40, 20, 50];
-      case "2021":
-        return [10, 20, 15, 30, 5, 25];
-      case "2022":
-        return [15, 25, 20, 35, 15, 40];
-      case "2023":
-        return [20, 30, 25, 45, 25, 60];
-      default:
-        return [];
-    }
-  };
-  
+  const [eb, setEb] = useState('');
+  const [ebV, setEbV] = useState('');
+  const [ebNV, setEbNV] = useState('');
+  const [ao, setAo] = useState('');
+
   useEffect(() => {
-    // Fetch the number of users from your data source or API
-    // For now, I'll simulate the data with a timeout
-    setTimeout(() => {
-      setNumberOfUsersData(40); // Replace this with your actual data
-    }, 1000);
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getDashboardFigures", { id: 0 });
+        setEb(userData.data["eb"]);
+        setEbV(userData.data["ebV"]);
+        setEbNV(userData.data["ebNV"]);
+        setAo(userData.data["ao"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
   }, []);
+
+  const [dataEB, setDataEB] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getDashboardData", { id: 0 });
+        setDataEB(userData.data);
+        console.log(dataEB);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const [dataAO, setDataAO] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getDashboardDataAO", { id: 0 });
+        setDataAO(userData.data);
+        console.log(dataAO);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (dataEB.length > 0) {
+      const newData = dataEB.map((item) => ({
+        name: item["month"],
+        uv: item["eb_count"],
+      }));
+      setData(newData);
+    }
+  }, [dataEB]);
+
+  const [data2, setData2] = useState([]);
+
+  useEffect(() => {
+    if (dataAO.length > 0) {
+      const newData = dataAO.map((item) => ({
+        name: item["month"],
+        uv: item["ao_count"],
+      }));
+      setData2(newData);
+    }
+  }, [dataAO]);
 
   const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
@@ -72,205 +118,109 @@ function DashboardAll() {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
 
-  const ebData = {
-    labels: ["Accepted", "Rejected"],
-    datasets: [
-      {
-        data: [40, 10],
-        backgroundColor: ["#28A745", "#DC3545"],
-        hoverBackgroundColor: ["#28A745", "#DC3545"],
-      },
-    ],
-  };
-
-  const marcheData = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        label: "Number of Marché",
-        data: getMarcheDataByYear(selectedYear), // Replace this function call with your data retrieval logic
-        backgroundColor: "#FF6384",
-        borderColor: "#FF6384",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const barOptions = {
-    scales: {
-      x: {
-        type: "category", // Specify the type of scale for x-axis
-      },
-    },
-  };
-
-  const doughnutOptions = {
-    plugins: {
-      legend: {
-        display: true,
-        position: "right",
-      },
-    },
-  };
-  const handleYearFilter = (event) => {
-    setSelectedYear(event.target.value);
-  };
-    const data = [
-        {
-          name: 'Page A',
-          uv: 4000,
-          pv: 2400,
-          amt: 2400,
-        },
-        {
-          name: 'Page B',
-          uv: 3000,
-          pv: 1398,
-          amt: 2210,
-        },
-        {
-          name: 'Page C',
-          uv: 2000,
-          pv: 9800,
-          amt: 2290,
-        },
-        {
-          name: 'Page D',
-          uv: 2780,
-          pv: 3908,
-          amt: 2000,
-        },
-        {
-          name: 'Page E',
-          uv: 1890,
-          pv: 4800,
-          amt: 2181,
-        },
-        {
-          name: 'Page F',
-          uv: 2390,
-          pv: 3800,
-          amt: 2500,
-        },
-        {
-          name: 'Page G',
-          uv: 3490,
-          pv: 4300,
-          amt: 2100,
-        },
-      ];
-     
-
+  const navigate = useNavigate();
   return (
     <main className='main-container'>
       <div className='appbare'>
-      <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace Admin</h1></center>
-    </div>
-    <Sidebar />
-      <div className='fixside'>
-      
+        <Nav className='namee'>
+          <NavDropdown
+            className='nama custom-dropdown'
+
+            title={currentUser}
+          >
+            <NavDropdown.Item onClick={() => { navigate("/notifications") }} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+            <NavDropdown.Item href="/" className='it'>
+              <SlLogout /> Exit
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <center><h1 className='espace_admin'>Espace Admin</h1></center>
       </div>
-        <div className='main-title'>
-        
-        </div>
+      <Sidebar />
+      <div className='fixside'>
 
-        <div className='main-cards'>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3 className='tit'>All Users</h3>
-                    <BsFillArchiveFill className='card_icon'/>
-                </div>
-                <h1 className='num'>300</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3 className='tit'>Users Dti</h3>
-                    <BsFillGrid3X3GapFill className='card_icon'/>
-                </div>
-                <h1 className='num'>12</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3 className='tit'>Users Demandeur</h3>
-                    <BsPeopleFill className='card_icon'/>
-                </div>
-                <h1 className='num'>33</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3 className='tit'>Users DM</h3>
-                    <BsFillBellFill className='card_icon'/>
-                </div>
-                <h1 className='num'>42</h1>
-            </div>
-            <div className='card'>
-                <div className='card-inner'>
-                    <h3 className='tit'>Users CM</h3>
-                    <BsFillBellFill className='card_icon'/>
-                </div>
-                <h1 className='num'>17</h1>
-            </div>
+      </div>
+      <div className='main-title'>
+      </div>
+      <div className='main-cards'>
+        <div className='card'>
+          <div className='card-inner'>
+            <h3 className='tit'>Expression des besoins creer</h3>
+            <BsFillArchiveFill className='card_icon' />
+          </div>
+          <h1 className='num'>{eb}</h1>
         </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h3 className='tit'>EB non Valider</h3>
+            <BsFillGrid3X3GapFill className='card_icon' />
+          </div>
+          <h1 className='num'>{ebNV}</h1>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h3 className='tit'>EB valider</h3>
+            <BsPeopleFill className='card_icon' />
+          </div>
+          <h1 className='num'>{ebV}</h1>
+        </div>
+        <div className='card'>
+          <div className='card-inner'>
+            <h3 className='tit'>Les appels d'offre</h3>
+            <BsFillBellFill className='card_icon' />
+          </div>
+          <h1 className='num'>{ao}</h1>
+        </div>
+      </div>
 
+      {dataEB ? (
         <div className='charts'>
-            <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%">
             <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
+              width={500}
+              height={300}
+              data={data}
+              margin={{
                 top: 5,
                 right: 30,
                 left: 20,
                 bottom: 5,
-            }}
+              }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="pv" fill="#8884d8" />
-                <Bar dataKey="uv" fill="#82ca9d" />
-                </BarChart>
-            </ResponsiveContainer>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="uv" name="nombre d'EB" fill="#82ca9d" />
+            </BarChart>
+          </ResponsiveContainer>
 
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-            </ResponsiveContainer>
-
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              width={500}
+              height={300}
+              data={data2}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="uv" name="nombre d'ouvertures du plis" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
-    </main>
+      ) : (
+        <p>Loading data...</p>
+      )}
+    </main >
   )
 }
 

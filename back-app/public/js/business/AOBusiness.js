@@ -32,5 +32,10 @@ class AOBusiness {
     static updateAvis(piece, fileName, id){
         return AODAO.updateAvis(piece, fileName, id);
     }
+
+    
+    static getDashboardData(){
+        return AODAO.getDashboardData();
+    }
 }
 module.exports=AOBusiness;

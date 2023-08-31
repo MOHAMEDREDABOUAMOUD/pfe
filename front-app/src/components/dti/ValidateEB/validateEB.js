@@ -317,7 +317,11 @@ const ValidateEBDti = () => {
         if (!hasErrors) {
             const progValue = progNonProgram ? "Oui" : "Non";
             setProg_nonprog(progValue);
-
+            try {
+                await axios.post("/updateEtatDM", { id: id, });
+            } catch (error) {
+                console.error(error);
+            }
             try {
                 await axios.post("/validateEBDti", {
                     id: id,

@@ -78,6 +78,24 @@ app.post("/getEBs", async (req, res) => {
     console.log(r);
     res.status(200).json(r);
 });
+app.post("/getDashboardFigures", async (req, res) => {
+    const { id } = req.body;
+    const r = await EBBusiness.getDashboardFigures();
+    console.log(r);
+    res.status(200).json(r);
+});
+app.post("/getDashboardData", async (req, res) => {
+    const { id } = req.body;
+    const r = await EBBusiness.getDashboardData();
+    console.error("data : "+r);
+    res.status(200).json(r);
+});
+app.post("/getDashboardDataAO", async (req, res) => {
+    const { id } = req.body;
+    const r = await AOBusiness.getDashboardData();
+    console.error("data : "+r);
+    res.status(200).json(r);
+});
 app.post("/updateEtatDM", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.updateEtatDM(id);

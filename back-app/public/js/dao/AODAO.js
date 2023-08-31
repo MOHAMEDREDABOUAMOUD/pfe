@@ -3,6 +3,111 @@ const AO = require('../models/AO');
 const pool = require('./db');
 
 class AODAO {
+  static async addAO(){
+    const _query = `
+      update Dashboard set ao=ao+1
+    `;
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  static async addEBV(){
+    const _query = `
+      update Dashboard set ebV=ebV+1
+    `;
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  static async getDashboardData() {
+    const _query = `
+      SELECT
+        CASE
+          WHEN months.month = 1 THEN 'Janvier'
+          WHEN months.month = 2 THEN 'Février'
+          WHEN months.month = 3 THEN 'Mars'
+          WHEN months.month = 4 THEN 'Avril'
+          WHEN months.month = 5 THEN 'Mai'
+          WHEN months.month = 6 THEN 'Juin'
+          WHEN months.month = 7 THEN 'Juillet'
+          WHEN months.month = 8 THEN 'Août'
+          WHEN months.month = 9 THEN 'Septembre'
+          WHEN months.month = 10 THEN 'Octobre'
+          WHEN months.month = 11 THEN 'Novembre'
+          WHEN months.month = 12 THEN 'Décembre'
+        END AS month,
+        IFNULL(ao_data.ao_count, 0) AS ao_count
+      FROM (
+        SELECT 1 AS month
+        UNION SELECT 2 AS month
+        UNION SELECT 3 AS month
+        UNION SELECT 4 AS month
+        UNION SELECT 5 AS month
+        UNION SELECT 6 AS month
+        UNION SELECT 7 AS month
+        UNION SELECT 8 AS month
+        UNION SELECT 9 AS month
+        UNION SELECT 10 AS month
+        UNION SELECT 11 AS month
+        UNION SELECT 12 AS month
+      ) AS months
+      LEFT JOIN (
+        SELECT
+          MONTH(dateOuverturePlis) AS month,
+          COUNT(*) AS ao_count
+        FROM AO
+        WHERE YEAR(dateOuverturePlis) = YEAR(CURRENT_DATE)
+        GROUP BY YEAR(dateOuverturePlis), MONTH(dateOuverturePlis)
+      ) AS ao_data ON months.month = ao_data.month;
+  
+    `;
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+  
+      if (rows.length === 0) return null;
+      return JSON.parse(JSON.stringify(rows));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  
   static async create(ao) {
     const _query = `
       INSERT INTO AO (num, fileName, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateEntreDM, dateAchevementTravauxCommission, avis, numEB, numLettreCommission)
@@ -24,11 +129,13 @@ class AODAO {
 
     try {
       const result = await new Promise((resolve, reject) => {
-        pool.query(_query, values, (err, result) => {
+        pool.query(_query, values, async (err, result) => {
           if (err) {
             console.error(err);
             reject(err);
           } else {
+            await this.addAO();
+            await this.addEBV();
             resolve(result);
           }
         });
