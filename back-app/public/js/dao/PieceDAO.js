@@ -6,12 +6,12 @@ const pool = require('./db');
 class PieceDAO {
   static async create(piece) {
     const _query = `
-      INSERT INTO Piece (libelle, piece, fileName, numEB)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO Piece (libelle, piece, base64, fileName, numEB)
+      VALUES (?, ?, ?, ?, ?)
     `;
   
-    const values = [piece.libelle, piece.piece, piece.fileName, piece.numEB];
-    console.log(piece.piece);
+    const values = [piece.libelle, piece.piece, piece.base64, piece.fileName, piece.numEB];
+    //console.log(piece.piece);
   
     try {
       const result = await new Promise((resolve, reject) => {
@@ -156,7 +156,7 @@ class PieceDAO {
   }
 
   static async getPiece(id){
-    const _query = 'SELECT piece, fileName FROM Piece WHERE num=?';
+    const _query = 'SELECT piece, base64, fileName FROM Piece WHERE num=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {
@@ -171,7 +171,7 @@ class PieceDAO {
       });
 
       if (rows.length === 0) return null;
-      console.log(rows[0]);
+      //console.log(rows[0]);
       return new Piece(JSON.parse(JSON.stringify(rows[0])));
     } catch (error) {
       console.error(error);

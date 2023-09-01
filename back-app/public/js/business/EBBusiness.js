@@ -463,16 +463,16 @@ class EBBusiness {
     static async Add(etat, object, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser) {
         const eb = new EB({ num: -1, etat:etat, objet: object, agence: agence, observation: observation, prog_nonprog: progNonProg, classe: this.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: this.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: this.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: currentUser, qualification:qualification, secteur:secteur });
         const idEB = await EBDAO.create(eb);
-        console.log("eb added : " + idEB);
+        //console.log("eb added : " + idEB);
         for (let i = 0; i < fileList.length; i++) {
-            await PieceBusiness.Add(new Piece({ num: -1, libelle: fileList[i]["name"], piece: fileList[i]["file"], fileName: fileList[i]["fileName"], numEB: idEB }));
-            console.log(fileList);//[i]["file"]
+            await PieceBusiness.Add(new Piece({ num: -1, libelle: fileList[i]["name"], piece: fileList[i]["file"], base64: fileList[i]["file"], fileName: fileList[i]["fileName"], numEB: idEB }));
+            //console.log(fileList);//[i]["file"]
         }
-        console.log("pieces added");
+        //console.log("pieces added");
         for (let i = 0; i < operationList.length; i++) {
             await OperationBusiness.Add(new Operation({ code: -1, agence: operationList[i]["agence"], DA: operationList[i]["daFile"], imputation: operationList[i]["imputation"], natureProjet: operationList[i]["natureProjet"], operation: operationList[i]["operation"], programme: operationList[i]["programme"], situation: operationList[i]["situation"], superficie: operationList[i]["superficie"], typeProjet: operationList[i]["typeProjet"], numEB: idEB }));
         }
-        console.log("operations added");
+        //console.log("operations added");
     }
 
     static update(eb) {
