@@ -2,13 +2,11 @@
 
 /* Add styles to the outer container */
 .cont {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90%;
+  margin-top: 100px;
+  background-color: #e2e3e5;
+  border-radius: 10px;
+  padding: 30px;
     /* min-height: 100vh;*/
   }
   .imgleft{
@@ -17,15 +15,45 @@
     left: 80px;
     width: 70px;
   }
+  .titre{
+    font-family: serif;
+    color: #01B636;
+    font-size: 38px;
+    border-bottom: 4px solid #01B636;
+    border-right: 2px solid #01B636;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    box-shadow: 1px 1px 5px;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    }
   /* Add styles to the inner content */
   .conte {
-    width: 800%;
-    /* max-width: 600px; /* Set a maximum width to keep the content from getting too wide */
-    /* padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background-color: white; */
+    width: 100%;
   }
-  
+  .appbare{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background: #3a3c3f;
+    border-radius: 0px 0px 10px 10px;
+  }
+  .nama{
+    color: #fff;
+    position: absolute;
+    top: 5;
+    right: 0;
+    float: left;
+    font-size: 24px;
+  }
+  .custom-dropdown .nav-link {
+    color: #74E39A;
+    font-weight: bold; /* Set the color to white */
+  }
   /* Customize button and alert margins */
   .btn-primary {
     margin-top: 20px;

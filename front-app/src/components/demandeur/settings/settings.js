@@ -165,7 +165,7 @@ const Settings = () => {
             <h3>Sécurité</h3>
             <form onSubmit={handleSecuriteSubmit}>
               <div className="form-group">
-                <label htmlFor="username" className="labo">nom d'utilisateur</label>
+                <label htmlFor="username" className="larg">nom d'utilisateur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -175,7 +175,7 @@ const Settings = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password" className="labo">mot de passe</label>
+                <label htmlFor="password" className="larg">mot de passe</label>
                 <input
                   type="password"
                   className="form-control"

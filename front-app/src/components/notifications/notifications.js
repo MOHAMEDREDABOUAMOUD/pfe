@@ -3,12 +3,18 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router-dom';
 import './notifications.css';
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import Sidebar from '../demandeur/sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
 import logo from "./logo-omrane.png";
-import { IoMdNotifications } from 'react-icons/io';
+
+
+import {AiFillDashboard} from 'react-icons/ai';
+
+import Navbar from 'react-bootstrap/Navbar';
+
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -17,6 +23,7 @@ const Notifications = () => {
   const [currentNom, setCurrentNom] = useState('');
   const [currentPrenom, setCurrentPrenom] = useState('');
   const [currentUser, setCurrentUser] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -59,34 +66,25 @@ const Notifications = () => {
   }, []);
 
   return (
+    <center>
     <div className="cont">
-      <Sidebar />
-      <Navbar className="barad">
-        <Navbar.Collapse className="justify-content-start">
-          <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="left">
-            <h1 className="espacee">Espace Demandeur</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
+      <div className='appbare'>
+    
+    <Nav className='namee'>
             <NavDropdown
-              id="nav-dropdown-dark-example"
+              className='nama custom-dropdown'
+              
               title={currentUser}
-              menuVariant="dark"
             >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
+              <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <center><h1 className='espace_admin'>Notifications</h1></center>
+    </div>
       <div className="conte">
-        <h1>Notifications</h1>
+        <h1 className='titre'>Notifications</h1>
         <div className="mt-4">
           {notifications.map((notification, index) => (
             <Alert key={index} variant="success" className="mb-2 alert">
@@ -96,6 +94,7 @@ const Notifications = () => {
         </div>
       </div>
     </div>
+    </center>
   );
 };
 

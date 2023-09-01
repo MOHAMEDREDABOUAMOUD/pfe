@@ -215,7 +215,7 @@ const ListOperationsDti = ({id}) => {
                 </tbody>
             </table>
             <div className="form-group">
-                <button type="submit" class="btn btn-primary" onClick={() => { handleAddOp() }}>Ajouter</button>
+                <button type="submit" class="botton" onClick={() => { handleAddOp() }}>Ajouter</button>
             </div>
         </div>
     );

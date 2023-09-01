@@ -6,6 +6,8 @@ import logo from "./logo-omrane.png";
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
+import ListFiles from '../listEB/listFiles';
+import ListOperations from '../listEB/listOperations';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
@@ -474,13 +476,13 @@ const UpdateEBDti = () => {
                             <center><h5>Pieces</h5></center>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
+                            <ListFiles id={id}/>
                         </div>
                         <div className='form-group'>
                             <center><h5>Operations</h5></center>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifier les operations</button>
+                            <ListOperations id={id}/>
                         </div>
                         <div className="form-group">
                             <center><button type="submit" className="botton">Modifier</button></center>
