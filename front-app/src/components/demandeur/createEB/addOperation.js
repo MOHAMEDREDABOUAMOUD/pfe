@@ -102,9 +102,12 @@ const AddOperation = () => {
         }
 
         if (!hasErrors) {
-            await axios.post("/addOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
             alert("l'operation a ete bien ajouter");
             navigate(`/listEB`);
+            await axios.post("/addOperation", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
+        }
+        else{
+            alert("l'operation n'a pas ete ajouter");
         }
     };
 
@@ -151,7 +154,7 @@ const AddOperation = () => {
                 <div className='disp'>
                 <div className="form-group1">
                     <label htmlFor="exampleFormControlSelect1" className='lab'>Agence</label><br />
-                    <select id="agence" onChange={(e) => setAgence(e.target.value)} value={agence}>
+                    <select id="agence" className='form-control' onChange={(e) => setAgence(e.target.value)} value={agence}>
                         <option> Fès </option>
                         <option> Boulemane </option>
                         <option> sefrou </option>

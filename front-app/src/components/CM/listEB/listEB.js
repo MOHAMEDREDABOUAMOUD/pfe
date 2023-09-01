@@ -9,9 +9,10 @@ import { BsFilterLeft } from 'react-icons/bs';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 import { SlLogout } from 'react-icons/sl';
 import Navbar from 'react-bootstrap/Navbar';
+import UpdatePiece from "./piece/piece";
 
 const ListEBCM = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -20,6 +21,7 @@ const ListEBCM = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+  
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -89,9 +91,9 @@ const ListEBCM = () => {
       <div className="filter-dropdown">
         {columns.map((column) => (
           <div key={column} className="filter-input">
-            
+
             <input
-            placeholder={column}
+              placeholder={column}
               type="text"
               className="inputat"
               value={filters[column] || ""}
@@ -191,13 +193,13 @@ const ListEBCM = () => {
 
   return (
     <center>
-    <div className="table-wrapper-cm">
-          <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
+      <div className="table-wrapper-cm">
+        <div className='appbare'>
+          <Sidebar />
+          <Nav className='namee'>
             <NavDropdown
               className='nama custom-dropdown'
-              
+
               title={currentUser}
             >
               <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
@@ -206,107 +208,107 @@ const ListEBCM = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
-    </div>
-    <center><h1 className='titre'>List Expression Besoins</h1></center>
-    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
-      {renderFilterDropdown()}
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("Id")}>
-              Immatricule {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Objet")}>
-              Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("etat")}>
-              Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Agence")}>
-              Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Observation")} className="expand">
-              Observation {sortBy === "Observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("prog/non pog")}>
-              Prog_nonProg {sortBy === "prog/non pog" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Classe")}>
-              Classe {sortBy === "Classe" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Caution")}>
-              Caution {sortBy === "Caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Estimation")}>
-              Estimation {sortBy === "Estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Date EB")}>
-              Date EB {sortBy === "Date EB" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Mode de passation")}>
-              Mode de Passation {sortBy === "Mode de passation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Qualification")}>
-              Qualification {sortBy === "Qualification" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Secteur")}>
-              Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Operations")}>
-              Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort("Files")}>
-              Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedRows.map((row, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{row.num}</td>
-                <td>{row.objet}</td>
-                <td>{row.etat}</td>
-                <td>{row.agence}</td>
-                <td>{row.observation}</td>
-                <td>{row.prog_nonprog}</td>
-                <td>{row.classe}</td>
-                <td>{row.caution}</td>
-                <td>{row.estimation}</td>
-                <td>{row.dateEB}</td>
-                <td>{row.modePassation}</td>
-                <td>{row.qualification}</td>
-                <td>{row.secteur}</td>
-                <td><a onClick={() => handleOperations(row.num)}>operations</a></td>
-                <td><a onClick={() => handleFiles(row.num)}>files</a></td>
-                <td className="fit">
-                  <span className="actions">
-                    {/* <BsFillTrashFill
+          <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
+        </div>
+        <center><h1 className='titre'>List Expression Besoins</h1></center>
+        <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
+        {renderFilterDropdown()}
+        <table className="table">
+          <thead>
+            <tr>
+              <th onClick={() => handleSort("Id")}>
+                Numero {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Objet")}>
+                Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("etat")}>
+                Etat {sortBy === "etat" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Agence")}>
+                Agence {sortBy === "Agence" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Observation")} className="expand">
+                Observation {sortBy === "Observation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("prog/non pog")}>
+                Prog_nonProg {sortBy === "prog/non pog" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Classe")}>
+                Classe {sortBy === "Classe" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Caution")}>
+                Caution {sortBy === "Caution" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Estimation")}>
+                Estimation {sortBy === "Estimation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Date EB")}>
+                Date EB {sortBy === "Date EB" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Mode de passation")}>
+                Mode de Passation {sortBy === "Mode de passation" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Qualification")}>
+                Qualification {sortBy === "Qualification" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Secteur")}>
+                Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Operations")}>
+                Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort("Files")}>
+                Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedRows.map((row, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>{row.num}</td>
+                  <td>{row.objet}</td>
+                  <td>{row.etat}</td>
+                  <td>{row.agence}</td>
+                  <td>{row.observation}</td>
+                  <td>{row.prog_nonprog}</td>
+                  <td>{row.classe}</td>
+                  <td>{row.caution}</td>
+                  <td>{row.estimation}</td>
+                  <td>{row.dateEB}</td>
+                  <td>{row.modePassation}</td>
+                  <td>{row.qualification}</td>
+                  <td>{row.secteur}</td>
+                  <td><a onClick={() => handleOperations(row.num)}>operations</a></td>
+                  <td><a onClick={() => handleFiles(row.num)}>files</a></td>
+                  <td className="fit">
+                    <span className="actions">
+                      {/* <BsFillTrashFill
                       className="delete-btn"
                       onClick={() => deleteRow(row.num)}
                     /> */}
-                    {(row.validerPar!='')? (
-                      // Render the edit icon if numUtilisateur === currentUser
-                      <BsFillPencilFill
-                        className="edit-btn"
-                        onClick={() => editRow(row.num)}
-                      />
-                    ) : (
-                      // Render the validate icon if validerPar matches currentUser or validerPar is not empty
-                      <BsCheckCircle
-                        className="validate-btn"
-                        onClick={() => validateRow(row.num)}
-                      />
-                    )}
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                      {(row.validerPar != '') ? (
+                        // Render the edit icon if numUtilisateur === currentUser
+                        <BsFillPencilFill
+                          className="edit-btn"
+                          onClick={() => editRow(row.num)}
+                        />
+                      ) : (
+                        // Render the validate icon if validerPar matches currentUser or validerPar is not empty
+                        <BsCheckCircle
+                          className="validate-btn"
+                          onClick={() => validateRow(row.num)}
+                        />
+                      )}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </center>
   );
 };

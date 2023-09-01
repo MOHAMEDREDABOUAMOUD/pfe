@@ -257,8 +257,6 @@ const LettreCommission = (props) => {
 
     return (
         <div className="table-wrapper">
-            <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
-            {renderFilterDropdown()}
             <table className="table">
                 <thead>
                     <tr>

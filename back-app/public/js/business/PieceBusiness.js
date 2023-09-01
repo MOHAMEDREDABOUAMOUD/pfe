@@ -8,6 +8,10 @@ class PieceBusiness {
         return PieceDAO.update(piece);
     }
 
+    static updatePiece(piece, fileName, id){
+        return PieceDAO.updatePiece(piece, fileName, id);
+    }
+
     static delete(num) {
         return PieceDAO.delete(num);
     }

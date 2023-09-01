@@ -217,7 +217,7 @@ const ListEBDM = () => {
         <thead>
           <tr>
             <th onClick={() => handleSort("Id")}>
-              Immatricule {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              Numero {sortBy === "Id" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Objet")}>
               Objet {sortBy === "Objet" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}

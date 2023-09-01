@@ -305,6 +305,15 @@ app.post("/updateAvis", async (req, res) => {
         console.log(error);
     }
 });
+app.post("/updatePiece", async (req, res) => {
+    const { piece, fileName, id } = req.body;
+    try {
+        const r = await PieceBusiness.updatePiece(piece, fileName, id);
+        res.status(200).json(r);
+    } catch (error) {
+        console.log(error);
+    }
+});
 app.post("/updateLettreJournal", async (req, res) => {
     const { piece, fileName, id } = req.body;
     try {

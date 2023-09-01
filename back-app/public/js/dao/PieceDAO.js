@@ -32,6 +32,33 @@ class PieceDAO {
     }
   }
   
+  static async updatePiece(piece, fileName, id){
+    const _query = `
+      UPDATE Piece
+      SET piece=?, fileName=?
+      WHERE num=?
+    `;
+
+    const values = [piece, fileName, id];
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      return result.affectedRows;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 
   static async update(piece) {
     const _query = `

@@ -32,28 +32,28 @@ export default function UpdateOp() {
     const [piece, setPiece] = useState([]);
     const [pieceError, setPieceError] = useState('');
 
-    
-  const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+
+    const [currentSexe, setCurrentSexe] = useState('');
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const navigate = useNavigate();
 
@@ -147,90 +147,90 @@ export default function UpdateOp() {
 
     return (
         <center>
-        <div className='formCreateUser-dem-upeb'>
-            <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
-    </div>
-    <center><h1 className='titre'>Modification D'operation</h1></center>
-            <form onSubmit={handleUpdate} className='forma'>
-                <div className='disp'>
-                <div class="form-group1ad">
-                    <label for="exampleFormControlSelect1" className='lab'>Agence</label><br />
-                    <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
-                        <option> Fès </option>
-                        <option> Boulemane </option>
-                        <option> sefrou </option>
-                        <option> Moulay yaacoub </option>
-                        <option> taza </option>
-                        <option> meknes </option>
-                        <option> el hajeb  </option>
-                        <option> ifrane </option>
+            <div className='formCreateUser-dem-upeb'>
+                <div className='appbare'>
+                    <Sidebar />
+                    <Nav className='namee'>
+                        <NavDropdown
+                            className='nama custom-dropdown'
 
-                    </select>
+                            title={currentUser}
+                        >
+                            <NavDropdown.Item onClick={() => { navigate("/notifications") }} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/" className='it'>
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
                 </div>
-                <div class="form-group2ad">
-                    <label for="formFile" className='lab'>DA : </label>
-                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
-                    {pieceError && <p className='error-message'>{pieceError}</p>}
-                </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1" className='lab'>imputation</label><br />
-                    <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
-                    {imputationError && <p className='error-message'>{imputationError}</p>}
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1" className='lab'>nature projet</label><br />
-                    <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
-                    {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
-                </div>
+                <center><h1 className='titre'>Modification D'operation</h1></center>
+                <form onSubmit={handleUpdate} className='forma'>
                     <div className='disp'>
-                <div class="form-group1ad">
-                    <label for="exampleFormControlInput1" className='lab'>operation</label><br />
-                    <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
-                    {operationError && <p className='error-message'>{operationError}</p>}
-                </div>
-                <div class="form-group2ad">
-                    <label for="exampleFormControlInput1" className='lab'>programme</label><br />
-                    <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
-                    {programmeError && <p className='error-message'>{programmeError}</p>}
-                </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1" className='lab'>situation</label><br />
-                    <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
-                    {situationError && <p className='error-message'>{situationError}</p>}
-                </div>
-                <div className='disp'>
-                <div class="form-group1ad">
-                    <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
-                    <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
-                    {superficieError && <p className='error-message'>{superficieError}</p>}
-                </div>
-                <div class="form-group2ad">
-                    <label for="exampleFormControlInput1" className='lab'>type projet </label><br />
-                    <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
-                    {type_projetError && <p className='error-message'>{type_projetError}</p>}
-                </div>
-                </div>
-                <div className="form-group">
-                    <center><button type="submit" className="botton">Modifier</button></center>
-                </div>
-            </form>
-        </div>
+                        <div class="form-group1ad">
+                            <label for="exampleFormControlSelect1" className='lab'>Agence</label><br />
+                            <select className="form-control" id="exampleFormControlSelect1" value={agence} onChange={(e) => setAgence(e.target.value)}>
+                                <option> Fès </option>
+                                <option> Boulemane </option>
+                                <option> sefrou </option>
+                                <option> Moulay yaacoub </option>
+                                <option> taza </option>
+                                <option> meknes </option>
+                                <option> el hajeb  </option>
+                                <option> ifrane </option>
+
+                            </select>
+                        </div>
+                        <div class="form-group2ad">
+                            <label for="formFile" className='lab'>DA : </label>
+                            <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                            {pieceError && <p className='error-message'>{pieceError}</p>}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" className='lab'>imputation</label><br />
+                        <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} value={imputation} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
+                        {imputationError && <p className='error-message'>{imputationError}</p>}
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" className='lab'>nature projet</label><br />
+                        <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} value={nature_projet} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
+                        {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
+                    </div>
+                    <div className='disp'>
+                        <div class="form-group1ad">
+                            <label for="exampleFormControlInput1" className='lab'>operation</label><br />
+                            <input type="text" className={`form-control ${operationError ? 'error-border' : ''}`} value={operation} id="operation" placeholder="operation" onChange={(e) => setOperation(e.target.value)} />
+                            {operationError && <p className='error-message'>{operationError}</p>}
+                        </div>
+                        <div class="form-group2ad">
+                            <label for="exampleFormControlInput1" className='lab'>programme</label><br />
+                            <input type="text" className={`form-control ${programmeError ? 'error-border' : ''}`} value={programme} id="programme" placeholder="programme" onChange={(e) => setProgramme(e.target.value)} />
+                            {programmeError && <p className='error-message'>{programmeError}</p>}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" className='lab'>situation</label><br />
+                        <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} value={situation} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
+                        {situationError && <p className='error-message'>{situationError}</p>}
+                    </div>
+                    <div className='disp'>
+                        <div class="form-group1ad">
+                            <label for="exampleFormControlInput1" className='lab'>superficie</label><br />
+                            <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} value={superficie} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
+                            {superficieError && <p className='error-message'>{superficieError}</p>}
+                        </div>
+                        <div class="form-group2ad">
+                            <label for="exampleFormControlInput1" className='lab'>type projet </label><br />
+                            <input type="text" className={`form-control ${type_projetError ? 'error-border' : ''}`} value={type_projet} id="type_projet" placeholder="type projet" onChange={(e) => setTypeProjet(e.target.value)} />
+                            {type_projetError && <p className='error-message'>{type_projetError}</p>}
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <center><button type="submit" className="botton">Modifier</button></center>
+                    </div>
+                </form>
+            </div>
         </center>
     )
 }

@@ -6,6 +6,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BsFilterLeft } from 'react-icons/bs';
 import Sidebar from '../sidebar/sideBar';
+import UpdatePiece from "./piece/piece";
+import * as AiIcons from 'react-icons/ai';
+import { styled } from "styled-components";
 
 const ListFilesCM = () => {
   const { id } = useParams();
@@ -16,6 +19,26 @@ const ListFilesCM = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+
+  const [ido, setido]=useState(0);
+
+  const [updatePiece, setUpdatePiece] = useState(false);
+
+  const handleUpdatePiece = (id) => {
+    setido(id);
+    setUpdatePiece(true);
+  }
+  const handleCloseUpdatePiece = () => {
+    setUpdatePiece(false);
+  };
+  const NavIcon = styled(Link)`
+  margin-left: 2rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+`;
 
   const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
@@ -221,7 +244,7 @@ const ListFilesCM = () => {
                     />
                     <BsFillPencilFill
                       className="edit-btn"
-                    // onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                      onClick={() => handleUpdatePiece(row.num)}
                     />
                     <BsFillEyeFill
                       className="edit-btn"
@@ -239,6 +262,14 @@ const ListFilesCM = () => {
           })}
         </tbody>
       </table>
+      {updatePiece && (
+          <div className="overlay">
+            <NavIcon className="close-icon" to='#'>
+              <AiIcons.AiOutlineClose onClick={handleCloseUpdatePiece} />
+            </NavIcon>
+            <UpdatePiece id={ido} />
+          </div>
+        )}
     </div>
   );
 };
