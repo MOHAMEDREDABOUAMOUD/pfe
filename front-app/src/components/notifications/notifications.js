@@ -6,8 +6,9 @@ import './notifications.css';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { Nav, NavDropdown } from 'react-bootstrap';
-import Sidebar from '../demandeur/sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
+import Sidebar from '../demandeur/sidebar/sideBar';
+
 import logo from "./logo-omrane.png";
 
 

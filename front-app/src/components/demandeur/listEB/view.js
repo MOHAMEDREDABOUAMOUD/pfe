@@ -5,10 +5,33 @@ import { useParams } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
 import { Viewer } from 'react-doc-viewer';
 import "./view.css";
+import { Nav, NavDropdown } from 'react-bootstrap';
+import { SlLogout } from 'react-icons/sl';
 
 const View = () => {
   const { id } = useParams();
+  const [currentUser, setCurrentUser] = useState('');
   const [data, setData] = useState("");
+  const [currentSexe, setCurrentSexe] = useState('');
+  const [currentNom, setCurrentNom] = useState('');
+  const [currentPrenom, setCurrentPrenom] = useState('');
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.post("/getCurrentUserData", { id: 0 });
+        console.log(userData.data);
+        setCurrentNom(userData.data["nom"]);
+        setCurrentSexe(userData.data["sexe"]);
+        setCurrentPrenom(userData.data["prenom"]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, []);
+  useEffect(() => {
+    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+  }, [currentSexe, currentNom, currentPrenom]);
 
   const getFile=async()=>{
     try {
@@ -47,12 +70,30 @@ const View = () => {
   }, "");
 
   return (
+    <center>
     <div className='doc'>
-      <Sidebar/>
-      <pre>
-        {data}
+    <div className='appbare'>
+    <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+    </div>
+      <pre className='cadre'>
+      <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
+    {data}
+  </div>
       </pre>
     </div>
+    </center>
   );
 };
 
