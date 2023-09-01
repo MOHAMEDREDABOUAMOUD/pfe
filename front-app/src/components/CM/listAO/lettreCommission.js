@@ -257,31 +257,6 @@ const LettreCommission = (props) => {
 
     return (
         <div className="table-wrapper">
-            <Navbar className="barad">
-            <Navbar.Collapse className="justify-content-start">
-              <img src={logo} className="imgleft"></img>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="left">
-            <h1 href="#login" className="espacee">Espace Demandeur</h1>
-          </Navbar.Text>
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title={currentUser}
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/notifications"><IoMdNotifications/> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/">
-                <SlLogout/> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-        <Sidebar />
-      </Navbar>
             <center><button onClick={toggleFilterDropdown} className="filter">Filter Rows</button></center>
             {renderFilterDropdown()}
             <table className="table">

@@ -5,7 +5,6 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 import './dashboard_all.css'
-import './dashboard.css'
 import React, { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sideBar";
 import { SlLogout } from 'react-icons/sl';
@@ -133,7 +132,7 @@ function DashboardAllCM() {
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        <center><h1 className='espace_admin'>Espace CM</h1></center>
+        <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
       </div>
       <div className='fixside'>
         <Sidebar />

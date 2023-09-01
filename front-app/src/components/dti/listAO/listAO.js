@@ -115,7 +115,11 @@ useEffect(() => {
             setRows(u);
         }
         else setRows([]);
-        const c = Object.keys(u[0]);
+        let c = Object.keys(u[0]);
+        c = c.filter(item => item !== "Avis");
+        c = c.filter(item => item !== "numEB");
+        c = c.filter(item => item !== "numLettreCommission");
+        c = c.filter(item => item !== "fileName");
         if (c != null) {
             setColumns(c);
         }

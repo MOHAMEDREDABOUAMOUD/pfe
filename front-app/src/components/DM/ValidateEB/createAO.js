@@ -185,7 +185,7 @@ export default function CreateAO() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+      <center><h1 className='espace_admin'>Espace Division marché</h1></center>
     </div>
             <form className='forma'>
             <center><h1 className='titre'>Creation Appel D'offres</h1></center>

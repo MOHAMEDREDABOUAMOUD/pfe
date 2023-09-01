@@ -62,7 +62,8 @@ const ListUsers = () => {
     else {
       setRows([]);
     }
-    const c = Object.keys(u[0]);
+    let c = Object.keys(u[0]);
+    c = c.filter(item => item !== "sexe");
     if (c != null) {
       setColumns(c);
     }
@@ -85,26 +86,31 @@ const ListUsers = () => {
     }
   };
 
-  // ...
-
   // Sorting Logic
   let sortedRows = [...rows];
-  if (sortBy) {
-    sortedRows.sort((a, b) => {
-      const aValue = a[sortBy];
-      const bValue = b[sortBy];
+if (sortBy) {
+  sortedRows.sort((a, b) => {
+    const aValue = a[sortBy];
+    const bValue = b[sortBy];
 
-      // Convert values to numbers if applicable
-      const aValueAsNumber = isNaN(aValue) ? aValue : parseFloat(aValue);
-      const bValueAsNumber = isNaN(bValue) ? bValue : parseFloat(bValue);
-
+    if (aValue === bValue) {
+      return 0;
+    } else if (aValue === null || aValue === undefined || aValue === "") {
+      return sortAsc ? -1 : 1;
+    } else if (bValue === null || bValue === undefined || bValue === "") {
+      return sortAsc ? 1 : -1;
+    } else if (typeof aValue === "string" && typeof bValue === "string") {
+      return sortAsc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    } else {
+      // For numbers, dates, or other types of data
       if (sortAsc) {
-        return aValueAsNumber - bValueAsNumber; // Ascending sort for numbers
+        return aValue < bValue ? -1 : 1;
       } else {
-        return bValueAsNumber - aValueAsNumber; // Descending sort for numbers
+        return bValue < aValue ? -1 : 1;
       }
-    });
-  }
+    }
+  });
+}
 
   // Filtering Logic
   let filteredRows = sortedRows;
@@ -193,7 +199,7 @@ const ListUsers = () => {
         </div>
       )}
       <table className="table">
-        <thead>
+      <thead>
           <tr>
             <th onClick={() => handleSort(columns[0])}>
               Immatricule {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
@@ -220,6 +226,7 @@ const ListUsers = () => {
             </th>
           </tr>
         </thead>
+
         <tbody>
           {filteredRows.map((row, idx) => {
             return (

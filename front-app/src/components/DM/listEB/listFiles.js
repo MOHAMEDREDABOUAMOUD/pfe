@@ -157,7 +157,6 @@ const ListFilesDM = () => {
 
   return (
     <div className="table-wrapper-dmm">
-      <Sidebar/>
       <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
       {showFilterDropdown && (
         <div className="filter-dropdown">

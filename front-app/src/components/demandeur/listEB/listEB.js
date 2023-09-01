@@ -112,7 +112,10 @@ const ListEB = () => {
       setRows(u);
     }
     else setRows([]);
-    const c = Object.keys(u[0]);
+    let c = Object.keys(u[0]);
+    c = c.filter(item => item !== "validerPar");
+    c = c.filter(item => item !== "dateValidation");
+    c = c.filter(item => item !== "numUtilisateur");
     if (c != null) {
       setColumns(c);
     }

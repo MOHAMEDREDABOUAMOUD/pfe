@@ -7,14 +7,11 @@ import { useState } from "react";
 import LoginForm from "./components/SignIn/SignIn";
 import ForgotPassword from './components/forgot_password/forgot';
 
-import MainAdmin from './components/admin/main/main';
 import CreateUser from './components/admin/createUser/createUser';
 import ListUsers from './components/admin/listUsers/listUsers';
 import UpdateUser from './components/admin/updateUser/updateUser';
 import Settings from './components/admin/settings/settings';
-import Dashboard from './components/admin/dashboard/dashboard';
 
-import Maindem from './components/demandeur/main/main';
 import ListEB from './components/demandeur/listEB/listEB';
 import CreateEB from './components/demandeur/createEB/createEB';
 import UpdateEB from './components/demandeur/updateEB/updateEB';
@@ -22,14 +19,12 @@ import ListOperations from './components/demandeur/listEB/listOperations';
 import UpdateOp from './components/demandeur/updateEB/updateOp';
 import ListFiles from './components/demandeur/listEB/listFiles';
 import SettingsD from './components/demandeur/settings/settings';
-import DashboardD from './components/demandeur/dashboard/dashboard';
 import AddOperation from './components/demandeur/createEB/addOperation';
 import View from './components/demandeur/listEB/view';
 import UpdateJournal from './components/demandeur/listAO/Journal/updateJournal';
 import UpdateCommission from './components/demandeur/listAO/LettreCommission/updateCommission';
 import Notifications from './components/notifications/notifications';
 
-import Maindti from './components/dti/main/main';
 import CreateEBDti from './components/dti/createEB/createEB';
 import ListEBDti from './components/dti/listEB/listEB';
 import UpdateEBDti from './components/dti/updateEB/updateEB';
@@ -38,11 +33,9 @@ import ListOperationsDti from './components/dti/listEB/listOperations';
 import UpdateOpDti from './components/dti/updateEB/updateOp';
 import ListFilesDti from './components/dti/listEB/listFiles';
 import SettingsDti from './components/dti/settings/settings';
-import DashboardDti from './components/dti/dashboard/dashboard';
 import AddOperationDti from './components/dti/createEB/addOperation';
 import ViewDti from './components/dti/listEB/view';
 
-import MainCM from './components/CM/main/main';
 import ListEBCM from './components/CM/listEB/listEB';
 import UpdateEBCM from './components/CM/updateEB/updateEB';
 import ValidateEBCM from './components/CM/ValidateEB/validateEB';
@@ -50,11 +43,9 @@ import ListOperationsCM from './components/CM/listEB/listOperations';
 import UpdateOpCM from './components/CM/updateEB/updateOp';
 import ListFilesCM from './components/CM/listEB/listFiles';
 import SettingsCM from './components/CM/settings/settings';
-import DashboardCM from './components/CM/dashboard/dashboard';
 import AddOperationCM from './components/CM/addOperation/addOperation';
 import ViewCM from './components/CM/listEB/view';
 
-import MainDM from './components/DM/main/main';
 import ListEBDM from './components/DM/listEB/listEB';
 // import UpdateEBDM from './components/DM/updateEB/updateEB';
 import ValidateEBDM from './components/DM/ValidateEB/validateEB';
@@ -63,7 +54,6 @@ import ListOperationsDM from './components/DM/listEB/listOperations';
 import UpdateOpDM from './components/DM/updateOp/updateOp';
 import ListFilesDM from './components/DM/listEB/listFiles';
 import SettingsDM from './components/DM/settings/settings';
-import DashboardDM from './components/DM/dashboard/dashboard';
 import AddOperationDM from './components/DM/addOperation/addOperation';
 import ViewDM from './components/DM/listEB/view';
 

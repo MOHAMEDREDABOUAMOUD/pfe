@@ -116,7 +116,11 @@ const ListAODM = () => {
             setRows(u);
         }
         else setRows([]);
-        const c = Object.keys(u[0]);
+        let c = Object.keys(u[0]);
+        c = c.filter(item => item !== "Avis");
+        c = c.filter(item => item !== "numEB");
+        c = c.filter(item => item !== "numLettreCommission");
+        c = c.filter(item => item !== "fileName");
         if (c != null) {
             setColumns(c);
         }
@@ -290,7 +294,7 @@ const ListAODM = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace DM</h1></center>
+      <center><h1 className='espace_admin'>Espace Division marché</h1></center>
     </div>
     <center><h1 className='titre'>List Appel D'offres</h1></center>
     <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>

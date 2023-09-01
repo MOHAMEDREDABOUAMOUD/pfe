@@ -413,7 +413,7 @@ const ValidateEBDM = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+      <center><h1 className='espace_admin'>Espace Division marché</h1></center>
     </div>
     <center><h1 className='titre'>Validation Expression Besoins</h1></center>
             <form className='forma'>

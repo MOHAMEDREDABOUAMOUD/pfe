@@ -65,7 +65,10 @@ const ListEBCM = () => {
       setRows(u);
     }
     else setRows([]);
-    const c = Object.keys(u[0]);
+    let c = Object.keys(u[0]);
+    c = c.filter(item => item !== "validerPar");
+    c = c.filter(item => item !== "dateValidation");
+    c = c.filter(item => item !== "numUtilisateur");
     if (c != null) {
       setColumns(c);
     }
@@ -203,7 +206,7 @@ const ListEBCM = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace CM</h1></center>
+      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
     </div>
     <center><h1 className='titre'>List Expression Besoins</h1></center>
     <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>

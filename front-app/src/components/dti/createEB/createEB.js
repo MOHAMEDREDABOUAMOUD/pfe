@@ -316,7 +316,7 @@ const CreateEBDti = () => {
         const selectedSectorObj = sectors.find((sector) => sector.sector === selectedSector);
         if (selectedSectorObj) {
             setQualificationOptions(selectedSectorObj.qualifications);
-            setQualification(""); // Clear the selected qualification when changing sectors
+            setQualification(selectedSectorObj.qualifications[0]); // Clear the selected qualification when changing sectors
         }
     };
 
@@ -539,13 +539,14 @@ const CreateEBDti = () => {
     };
 
     useEffect(() => {
-        console.log("Updated EB:", EB);
-    }, [EB]);
+        handleSectorChange("Terrassements");
+    }, []);
 
     const deleteOp = (index) => {
         const updatedOperationList = operationList.filter((operation, i) => i !== index);
         setOperationList(updatedOperationList);
     }
+
     const deleteFile = (index) => {
         const updatedFileList = fileList.filter((file, i) => i !== index);
         setFileList(updatedFileList);
@@ -553,420 +554,425 @@ const CreateEBDti = () => {
 
     return (
         <center>
-        <div className="formCreateUser-dm-upeb">
-            <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace Dti</h1></center>
-    </div>
-    <center><h1 className='titre'>Creation Expression Besoins</h1></center>
-            <form onSubmit={handleFormSubmit} className="forma">
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="objet" className="lab">objet</label>
-                    <br />
-                    <input
-                        type="text"
-                        className={`form-control ${objetError ? 'error-border' : ''}`}
-                        id="objet"
-                        placeholder="objet"
-                        value={objet}
-                        onChange={(e) => setObjet(e.target.value)}
-                    />
-                    {objetError && <p className='error-message'>{objetError}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="observation" className="lab">observation</label>
-                    <br />
-                    <input
-                        type="text"
-                        className={`form-control ${observationError ? 'error-border' : ''}`}
-                        id="observation"
-                        placeholder="observation"
-                        value={observation}
-                        onChange={(e) => setObservation(e.target.value)}
-                    />
-                    {observationError && <p className='error-message'>{observationError}</p>}
-                </div>
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="caution" className="lab">caution</label>
-                    <br />
-                    <input
-                        type="text"
-                        className={`form-control ${cautionError ? 'error-border' : ''}`}
-                        id="caution"
-                        placeholder="caution"
-                        value={caution}
-                        onChange={(e) => setCaution(e.target.value)}
-                    />
-                    {cautionError && <p className='error-message'>{cautionError}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="estimation" className="lab">estimation</label>
-                    <br />
-                    <input
-                        type="text"
-                        className={`form-control ${estimationError ? 'error-border' : ''}`}
-                        id="estimation"
-                        placeholder="estimation"
-                        value={estimation}
-                        onChange={(e) => setEstimation(e.target.value)}
-                    />
-                    {estimationError && <p className='error-message'>{estimationError}</p>}
-                </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="progNonProgram" className="lab">prog-nonprogram</label>
-                    <br />
-                    <input
-                        className="chekcboxa"
-                        type="checkbox"
-                        id="progNonProgram"
-                        checked={progNonProgram}
-                        onChange={(e) => setProgNonProgram(e.target.checked)}
-                    />
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="agence" className="lab">Agence</label>
-                    <br />
-                    <select
-                        id="agence"
-                        className="form-control"
-                        value={agence}
-                        onChange={(e) => setAgence(e.target.value)}
-                    >
-                        <option> Fès </option>
-                        <option> Boulemane  </option>
-                        <option> Moulay Yaâcoub </option>
-                        <option> Taounate </option>
-                        <option> Taza </option>
-                        <option> Séfrou </option>
-                        <option> Meknès </option>
-                        <option> El Hajeb </option>
-                        <option> Ifrane </option>
-                    </select>
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="modePassation" className="lab">modePassation</label>
-                    <br />
-                    <select
-                        id="modePassation"
-                        className="form-control"
-                        value={modePassation}
-                        onChange={(e) => setModePassation(e.target.value)}
-                    >
-                        <option>B.C</option>
-                        <option>A.O.O.</option>
-                        <option>A.O.R.</option>
-                        <option>Marché négocié</option>
-                        <option>consultation</option>
-                        <option>concours</option>
-                    </select>
-                </div>
-                </div>
+            <div className="formCreateUser-dm-upeb">
+                <div className='appbare'>
+                    <Sidebar />
+                    <Nav className='namee'>
+                        <NavDropdown
+                            className='nama custom-dropdown'
 
-                <div className="form-group">
-                    <label htmlFor="secteur" className="lab">secteur</label>
-                    <br />
-                    <select
-                        id="secteur"
-                        className="form-control"
-                        value={secteur}
-                        onChange={(e) => handleSectorChange(e.target.value)}
-                    >
-                        {sectors.map((sector) => (
-                            <option key={sector.sector} value={sector.sector}>
-                                {sector.sector}
-                            </option>
-                        ))}
-                    </select>
-                    <label htmlFor="qualification" className="lab">qualification</label>
-                    <br />
-                    <select
-                    className="form-control"
-                        id="qualification"
-                        value={qualification}
-                        onChange={(e) => setQualification(e.target.value)}
-                    >
-                        {qualificationOptions.map((qual) => (
-                            <option key={qual} value={qual}>
-                                {qual}
-                            </option>
-                        ))}
-                    </select>
+                            title={currentUser}
+                        >
+                            <NavDropdown.Item onClick={() => { navigate("/notifications") }} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/" className='it'>
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <center><h1 className='espace_admin'>Espace DTI</h1></center>
                 </div>
-                <div className="form-group">
-                    <center><h5 className="titrep">Pieces</h5></center>
-                </div>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="libelle"
-                        placeholder="libelle"
-                        value={libelle}
-                        onChange={(e) => setLibelle(e.target.value)}
-                    />
-                    {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
-                    <input
-                        className="form-control"
-                        type="file"
-                        id="file"
-                        
-                        onChange={(e) => handleFileUpload(e)}
-                    />
-                    {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
-                    <button
-                        type="button"
-                        className="botton2"
-                        onClick={(e) => handleAddFile(e)}
-                    >
-                        Ajouter
-                    </button>
-                    
-                    {pieceError && <p className='error-message'>{pieceError}</p>}
-                </div>
-                <div className="form-group">
-                    {fileList.length > 0 && (
-                        <div>
-                            <h4>Liste des pieces</h4>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {fileList.map((file, index) => (
-                                        <tr key={index}>
-                                            <td>{file.name}</td>
-                                            <td>
-                                                <span className="actions">
-                                                    <BsFillTrashFill
-                                                        className="delete-btn"
-                                                        onClick={() => deleteFile(index)}
-                                                    />
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                <center><h1 className='titre'>Creation Expression Besoins</h1></center>
+                <form onSubmit={handleFormSubmit} className="forma">
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="objet" className="lab">objet</label>
+                            <br />
+                            <input
+                                type="text"
+                                className={`form-control ${objetError ? 'error-border' : ''}`}
+                                id="objet"
+                                placeholder="objet"
+                                value={objet}
+                                onChange={(e) => setObjet(e.target.value)}
+                            />
+                            {objetError && <p className='error-message'>{objetError}</p>}
                         </div>
-                    )}
-                </div>
-                <div className="form-group">
-                    <center>
-                        <h5 className="titre">Operations</h5>
-                    </center>
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="agence" className="lab">Agence</label>
-                    <br />
-                    <select
-                        id="agenceOp"
-                        className="form-control"
-                        value={agenceOp}
-                        onChange={(e) => setAgenceOp(e.target.value)}
-                    >
-                        <option> Fès </option>
-                        <option> Boulemane  </option>
-                        <option> Moulay Yaâcoub </option>
-                        <option> Taounate </option>
-                        <option> Taza </option>
-                        <option> Séfrou </option>
-                        <option> Meknès </option>
-                        <option> El Hajeb </option>
-                        <option> Ifrane </option>
-                    </select>
-                    {errorMessageAgence && <p className='error-message'>{errorMessageAgence}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="daFile" className="lab">
-                        DA :
-                    </label>
-                    <input
-                        className="form-control"
-                        type="file"
-                        id="daFile"
-                        onChange={(e) => handleDAFileUpload(e)}
-                    />
-                    
-                </div>
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="impulation" className="lab">imputation</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="imputation"
-                        placeholder="impulation"
-                        value={imputation}
-                        onChange={(e) => setImputation(e.target.value)}
-                    />
-                    {errorMessageim && <p className='error-message'>{errorMessageim}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="natureProjet" className="lab">nature projet</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="natureProjet"
-                        placeholder="nature projet"
-                        value={natureProjet}
-                        onChange={(e) => setNatureProjet(e.target.value)}
-                    />
-                    {errorMessagenp && <p className='error-message'>{errorMessagenp}</p>}
-                </div>
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="operation" className="lab">operation</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="operation"
-                        placeholder="operation"
-                        value={operation}
-                        onChange={(e) => setOperation(e.target.value)}
-                    />
-                    {errorMessageop && <p className='error-message'>{errorMessageop}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="programme" className="lab">programme</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="programme"
-                        placeholder="programme"
-                        value={programme}
-                        onChange={(e) => setProgramme(e.target.value)}
-                    />
-                    {errorMessageprog && <p className='error-message'>{errorMessageprog}</p>}
-                </div>
-                </div>
-                <div className="disp">
-                <div className="form-group1ad">
-                    <label htmlFor="situation" className="lab">situation</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="situation"
-                        placeholder="situation"
-                        value={situation}
-                        onChange={(e) => setSituation(e.target.value)}
-                    />
-                    {errorMessagesit && <p className='error-message'>{errorMessagesit}</p>}
-                </div>
-                <div className="form-group2ad">
-                    <label htmlFor="superficie" className="lab">superficie</label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="superficie"
-                        placeholder="superficie"
-                        value={superficie}
-                        onChange={(e) => setSuperficie(e.target.value)}
-                    />
-                    {errorMessagesup && <p className='error-message'>{errorMessagesup}</p>}
-                </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="typeProjet" className="lab">type projet </label>
-                    <br />
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="typeProjet"
-                        placeholder="type projet"
-                        value={typeProjet}
-                        onChange={(e) => setTypeProjet(e.target.value)}
-                    />
-                    {errorMessagetp && <p className='error-message'>{errorMessagetp}</p>}
-                </div>
-                <div className="form-group">
-                    <button type="button" className="botton2" onClick={handleAddOperation}>
-                        Ajouter
-                    </button>
-                    {operationError && <p className='error-message'>{operationError}</p>}
-                </div>
-                <div className="form-group">
-                    {operationList.length > 0 && (
-                        <div>
-                            <h4>Liste des Opérations</h4>
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>Agence</th>
-                                        <th>Fichier DA</th>
-                                        <th>Imputation</th>
-                                        <th>Nature projet</th>
-                                        <th>operation</th>
-                                        <th>programme</th>
-                                        <th>situation</th>
-                                        <th>superficie</th>
-                                        <th>type projet</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {operationList.map((op, index) => (
-                                        <tr key={index}>
-                                            <td>{op.agence}</td>
-                                            <td>{op.daFileName}</td>
-                                            <td>{op.imputation}</td>
-                                            <td>{op.natureProjet}</td>
-                                            <td>{op.operation}</td>
-                                            <td>{op.programme}</td>
-                                            <td>{op.situation}</td>
-                                            <td>{op.superficie}</td>
-                                            <td>{op.typeProjet}</td>
-                                            <td>
-                                                <span className="actions">
-                                                    <BsFillTrashFill
-                                                        className="delete-btn"
-                                                        onClick={() => deleteOp(index)}
-                                                    />
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="form-group2ad">
+                            <label htmlFor="observation" className="lab">observation</label>
+                            <br />
+                            <input
+                                type="text"
+                                className={`form-control ${observationError ? 'error-border' : ''}`}
+                                id="observation"
+                                placeholder="observation"
+                                value={observation}
+                                onChange={(e) => setObservation(e.target.value)}
+                            />
+                            {observationError && <p className='error-message'>{observationError}</p>}
                         </div>
-                    )}
-                </div>
-                <div className="form-group">
-                    <center>
-                        <button type="submit" className="botton">
-                            Creer
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="caution" className="lab">caution</label>
+                            <br />
+                            <input
+                                type="text"
+                                className={`form-control ${cautionError ? 'error-border' : ''}`}
+                                id="caution"
+                                placeholder="caution"
+                                value={caution}
+                                onChange={(e) => setCaution(e.target.value)}
+                            />
+                            {cautionError && <p className='error-message'>{cautionError}</p>}
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="estimation" className="lab">estimation</label>
+                            <br />
+                            <input
+                                type="text"
+                                className={`form-control ${estimationError ? 'error-border' : ''}`}
+                                id="estimation"
+                                placeholder="estimation"
+                                value={estimation}
+                                onChange={(e) => setEstimation(e.target.value)}
+                            />
+                            {estimationError && <p className='error-message'>{estimationError}</p>}
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group disp">
+                            <label htmlFor="progNonProgram" className="lab">prog-nonprogram</label>
+                            <br />
+                            <input
+                                className="chekcboxa"
+                                type="checkbox"
+                                id="progNonProgram"
+                                checked={progNonProgram}
+                                onChange={(e) => setProgNonProgram(e.target.checked)}
+                            />
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="agence" className="lab">Agence</label>
+                            <br />
+                            <select
+                                id="agence"
+                                className="form-control"
+                                value={agence}
+                                onChange={(e) => setAgence(e.target.value)}
+                            >
+                                <option> Fès </option>
+                                <option> Boulemane  </option>
+                                <option> Moulay Yaâcoub </option>
+                                <option> Taounate </option>
+                                <option> Taza </option>
+                                <option> Séfrou </option>
+                                <option> Meknès </option>
+                                <option> El Hajeb </option>
+                                <option> Ifrane </option>
+                            </select>
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="modePassation" className="lab">modePassation</label>
+                            <br />
+                            <select
+                                id="modePassation"
+                                className="form-control"
+                                value={modePassation}
+                                onChange={(e) => setModePassation(e.target.value)}
+                            >
+                                <option>B.C</option>
+                                <option>A.O.O.</option>
+                                <option>A.O.R.</option>
+                                <option>Marché négocié</option>
+                                <option>consultation</option>
+                                <option>concours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="secteur" className="lab">secteur</label>
+                            <br />
+                            <select
+                                id="secteur"
+                                className="form-control"
+                                value={secteur}
+                                onChange={(e) => handleSectorChange(e.target.value)}
+                            >
+                                {sectors.map((sector) => (
+                                    <option key={sector.sector} value={sector.sector}>
+                                        {sector.sector}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="qualification" className="lab">qualification</label>
+                            <br />
+                            <select
+                                className="form-control"
+                                id="qualification"
+                                value={qualification}
+                                onChange={(e) => setQualification(e.target.value)}
+                            >
+                                {qualificationOptions.map((qual) => (
+                                    <option key={qual} value={qual}>
+                                        {qual}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <center><h5 className="titrep">Pieces</h5></center>
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="libelle"
+                            placeholder="libelle"
+                            value={libelle}
+                            onChange={(e) => setLibelle(e.target.value)}
+                        />
+                        {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
+                        <input
+                            className="form-control"
+                            type="file"
+                            id="file"
+
+                            onChange={(e) => handleFileUpload(e)}
+                        />
+                        {errorMessagelibelle && <p className='error-message'>{errorMessagelibelle}</p>}
+                        <button
+                            type="button"
+                            className="botton2"
+                            onClick={(e) => handleAddFile(e)}
+                        >
+                            Ajouter
                         </button>
-                    </center>
-                </div>
-            </form>
-        </div>
+
+                        {pieceError && <p className='error-message'>{pieceError}</p>}
+                    </div>
+                    <div className="form-group">
+                        {fileList.length > 0 && (
+                            <div>
+                                <h4>Liste des pieces</h4>
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {fileList.map((file, index) => (
+                                            <tr key={index}>
+                                                <td>{file.name}</td>
+                                                <td>
+                                                    <span className="actions">
+                                                        <BsFillTrashFill
+                                                            className="delete-btn"
+                                                            onClick={() => deleteFile(index)}
+                                                        />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </div>
+                    <div className="form-group">
+                        <center>
+                            <h5 className="titre">Operations</h5>
+                        </center>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="agence" className="lab">Agence</label>
+                            <br />
+                            <select
+                                id="agenceOp"
+                                className="form-control"
+                                value={agenceOp}
+                                onChange={(e) => setAgenceOp(e.target.value)}
+                            >
+                                <option> Fès </option>
+                                <option> Boulemane  </option>
+                                <option> Moulay Yaâcoub </option>
+                                <option> Taounate </option>
+                                <option> Taza </option>
+                                <option> Séfrou </option>
+                                <option> Meknès </option>
+                                <option> El Hajeb </option>
+                                <option> Ifrane </option>
+                            </select>
+                            {errorMessageAgence && <p className='error-message'>{errorMessageAgence}</p>}
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="daFile" className="lab">
+                                DA :
+                            </label>
+                            <input
+                                className="form-control"
+                                type="file"
+                                id="daFile"
+                                onChange={(e) => handleDAFileUpload(e)}
+                            />
+
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="impulation" className="lab">imputation</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="imputation"
+                                placeholder="impulation"
+                                value={imputation}
+                                onChange={(e) => setImputation(e.target.value)}
+                            />
+                            {errorMessageim && <p className='error-message'>{errorMessageim}</p>}
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="natureProjet" className="lab">nature projet</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="natureProjet"
+                                placeholder="nature projet"
+                                value={natureProjet}
+                                onChange={(e) => setNatureProjet(e.target.value)}
+                            />
+                            {errorMessagenp && <p className='error-message'>{errorMessagenp}</p>}
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="operation" className="lab">operation</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="operation"
+                                placeholder="operation"
+                                value={operation}
+                                onChange={(e) => setOperation(e.target.value)}
+                            />
+                            {errorMessageop && <p className='error-message'>{errorMessageop}</p>}
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="programme" className="lab">programme</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="programme"
+                                placeholder="programme"
+                                value={programme}
+                                onChange={(e) => setProgramme(e.target.value)}
+                            />
+                            {errorMessageprog && <p className='error-message'>{errorMessageprog}</p>}
+                        </div>
+                    </div>
+                    <div className="disp">
+                        <div className="form-group1ad">
+                            <label htmlFor="situation" className="lab">situation</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="situation"
+                                placeholder="situation"
+                                value={situation}
+                                onChange={(e) => setSituation(e.target.value)}
+                            />
+                            {errorMessagesit && <p className='error-message'>{errorMessagesit}</p>}
+                        </div>
+                        <div className="form-group2ad">
+                            <label htmlFor="superficie" className="lab">superficie</label>
+                            <br />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="superficie"
+                                placeholder="superficie"
+                                value={superficie}
+                                onChange={(e) => setSuperficie(e.target.value)}
+                            />
+                            {errorMessagesup && <p className='error-message'>{errorMessagesup}</p>}
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="typeProjet" className="lab">type projet </label>
+                        <br />
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="typeProjet"
+                            placeholder="type projet"
+                            value={typeProjet}
+                            onChange={(e) => setTypeProjet(e.target.value)}
+                        />
+                        {errorMessagetp && <p className='error-message'>{errorMessagetp}</p>}
+                    </div>
+                    <div className="form-group">
+                        <button type="button" className="botton2" onClick={handleAddOperation}>
+                            Ajouter
+                        </button>
+                        {operationError && <p className='error-message'>{operationError}</p>}
+                    </div>
+                    <div className="form-group">
+                        {operationList.length > 0 && (
+                            <div>
+                                <h4>Liste des Opérations</h4>
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Agence</th>
+                                            <th>Fichier DA</th>
+                                            <th>Imputation</th>
+                                            <th>Nature projet</th>
+                                            <th>operation</th>
+                                            <th>programme</th>
+                                            <th>situation</th>
+                                            <th>superficie</th>
+                                            <th>type projet</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {operationList.map((op, index) => (
+                                            <tr key={index}>
+                                                <td>{op.agence}</td>
+                                                <td>{op.daFileName}</td>
+                                                <td>{op.imputation}</td>
+                                                <td>{op.natureProjet}</td>
+                                                <td>{op.operation}</td>
+                                                <td>{op.programme}</td>
+                                                <td>{op.situation}</td>
+                                                <td>{op.superficie}</td>
+                                                <td>{op.typeProjet}</td>
+                                                <td>
+                                                    <span className="actions">
+                                                        <BsFillTrashFill
+                                                            className="delete-btn"
+                                                            onClick={() => deleteOp(index)}
+                                                        />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )};
+                    </div>
+                    <div className="form-group">
+                        <center>
+                            <button type="submit" className="botton">
+                                Creer
+                            </button>
+                        </center>
+                    </div>
+                </form>
+            </div>
         </center>
     );
 };

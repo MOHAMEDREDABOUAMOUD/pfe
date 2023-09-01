@@ -89,7 +89,7 @@ const SettingsCM = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace CM</h1></center>
+      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
     </div>
     <div className="container mt-5">
     <center><h1 className='titre'>Parametres CM</h1></center>

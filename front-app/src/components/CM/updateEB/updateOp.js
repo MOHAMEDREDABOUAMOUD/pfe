@@ -156,7 +156,7 @@ export default function UpdateOpCM() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace CM</h1></center>
+      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
     </div>
     <center><h1 className='titre'>Modification Operation</h1></center>
             <form onSubmit={handleUpdate} className='forma'>

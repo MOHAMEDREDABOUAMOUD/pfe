@@ -92,7 +92,7 @@ const navigate=useNavigate();
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Admin</h1></center>
+      <center><h1 className='espace_admin'>Espace Division marché</h1></center>
     </div>
     <div className="container mt-5">
     <center><h1 className='titre'>Parametres DM</h1></center>

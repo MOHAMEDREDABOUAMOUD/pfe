@@ -6,6 +6,13 @@ import * as RiIcons from 'react-icons/ri';
 
 export const SidebarData = [
   {
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
     title: 'Gestion utilisateur',
     path: '',
     icon: <AiIcons.AiFillHome />,
@@ -26,13 +33,6 @@ export const SidebarData = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
       },
     ]
-  },
-  {
-    title: 'Dashboard',
-    path: '/dashboard',
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
     title: 'Settings',
