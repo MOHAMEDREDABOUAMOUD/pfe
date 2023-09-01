@@ -14,6 +14,7 @@ import { IoMdNotifications } from 'react-icons/io';
 import Navbar from 'react-bootstrap/Navbar';
 import { BsFillTrashFill } from "react-icons/bs";
 
+
 const CreateEB = () => {
     const sectors = [
         {
@@ -321,7 +322,7 @@ const CreateEB = () => {
     };
 
 
-    const handleFileUpload = (event) => {
+    const handleFileUpload = async (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
         // Check file size

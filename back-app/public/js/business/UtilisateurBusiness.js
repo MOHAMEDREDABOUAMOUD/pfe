@@ -43,12 +43,12 @@ class UtilisateurBusiness {
         let notifications=[];
         const u = await UtilisateurDAO.getByImmatricule(currentUser);
         const fonction = u.fonction;
-        console.log(fonction);
+        //console.log(fonction);
         if(fonction==="Demandeur" || fonction==="Admin"){
             const eb=await EBBusiness.getByUserId2(currentUser);
-            console.log(eb.length);
+            //console.log(eb.length);
             for (let i = 0; i < eb.length; i++) {
-                console.log(eb[i].dateValidation+" / "+EBBusiness.getCurrentDateInMySQLFormat());
+                //console.log(eb[i].dateValidation+" / "+EBBusiness.getCurrentDateInMySQLFormat());
                 const ao=await AOBusiness.getByEBNum(eb[i].num);
                 if(eb[i].dateValidation===EBBusiness.getCurrentDateInMySQLFormat()){
                     const user= await UtilisateurDAO.getByImmatricule(eb[i].validerPar);
@@ -60,19 +60,19 @@ class UtilisateurBusiness {
                     }
                 }
                 if (ao!=null){
-                    console.log("enter ao");
-                    console.log(ao.dateOuverturePlis+" / "+ao.datePublicationPortail+" / "+EBBusiness.getCurrentDateInMySQLFormat());
+                    //console.log("enter ao");
+                    //console.log(ao.dateOuverturePlis+" / "+ao.datePublicationPortail+" / "+EBBusiness.getCurrentDateInMySQLFormat());
                     if(ao.dateOuverturePlis===EBBusiness.getCurrentDateInMySQLFormat()){
-                        console.log("enter ouvertureplis");
+                        //console.log("enter ouvertureplis");
                         notifications.push("Aujourd'hui l'ouverture du plis de l'AO numero : "+ao.num+" a "+ao.heureOuverturePlis);
                     }
                     if(ao.datePublicationPortail===EBBusiness.getCurrentDateInMySQLFormat()){
-                        console.log("enter pp");
+                        //console.log("enter pp");
                         notifications.push("Aujourd'hui la publication portail de l'AO numero : "+ao.num);
                     }
                 }
             }
-            console.log(notifications);
+            //console.log(notifications);
         }
         else if(fonction==="DTI"){
             const eb=await EBBusiness.getAll2(currentUser);
@@ -96,7 +96,7 @@ class UtilisateurBusiness {
                     }
                 }
             }
-            console.log(notifications);
+            //console.log(notifications);
         }
         else if(fonction==="CM"){
             const eb=await EBBusiness.getDem2(currentUser);
@@ -116,7 +116,7 @@ class UtilisateurBusiness {
                         notifications.push("Aujourd'hui la publication portail de l'AO numero : "+ao.num);
                     }
                 }
-                console.log(notifications);
+                //console.log(notifications);
             }
         }
         else if(fonction==="DM"){
@@ -132,7 +132,7 @@ class UtilisateurBusiness {
                     }
                 }
             }
-            console.log(notifications);
+            //console.log(notifications);
         }
         return notifications;
     }

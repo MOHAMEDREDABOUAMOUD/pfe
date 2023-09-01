@@ -403,7 +403,7 @@ LEFT JOIN (
           dateValidation: modifiedDateValidation,
         };
       });
-      console.log(ebList);
+      //console.log(ebList);
       return ebList;
     } catch (error) {
       console.error(error);

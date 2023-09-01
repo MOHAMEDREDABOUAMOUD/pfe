@@ -43,11 +43,11 @@ app.get("*", (req, res) => {
 
 app.post("/signIn", async (req, res) => {
     const { userName, password } = req.body;
-    console.log(userName + " , " + password);
+    //console.log(userName + " , " + password);
     // Implement your sign-in logic here using Firebase
     // (You should initialize Firebase auth at the beginning of server.js)
     const r = await UtilisateurBusiness.getByUserNameAndPassword(userName, password);
-    console.log(r);
+    //console.log(r);
     if (r == null) {
         res.status(401).json({});
     }
@@ -56,32 +56,32 @@ app.post("/signIn", async (req, res) => {
     }
     else {
         currentUser = r["immatricule"];
-        console.log(currentUser);
+        //console.log(currentUser);
         res.status(200).json(r);
     }
 });
 app.post("/getPassword", async (req, res) => {
     const { email } = req.body;
     const r = await UtilisateurBusiness.getPassword(email);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getUsers", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.getAll();
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getEBs", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.getByUserId(currentUser);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getDashboardFigures", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.getDashboardFigures();
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getDashboardData", async (req, res) => {
@@ -110,134 +110,134 @@ app.post("/updateEtatRefuser", async (req, res) => {
 app.post("/getJournals", async (req, res) => {
     const { id } = req.body;
     const r = await JournalBusiness.getByNumAO(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getJournal", async (req, res) => {
     const { id } = req.body;
     const r = await JournalBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getCommission", async (req, res) => {
     const { id } = req.body;
     const r = await LettreCommissionBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getAOs", async (req, res) => {
     const { id } = req.body;
     const r = await AOBusiness.getByUserId(currentUser);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getAllAOs", async (req, res) => {
     const { id } = req.body;
     const r = await AOBusiness.getAll();
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/sendpassword", async (req, res) => {
     const { email } = req.body;
     const r = await sendEmail(email);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getLettreCommission", async (req, res)=>{
     const { id } = req.body;
     const r = await LettreCommissionBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getEBsDti", async (req, res) => {
     const { id } = req.body;
     let r = await EBBusiness.getAll(currentUser);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getEBsCM", async (req, res) => {
     const { id } = req.body;
     let r = await EBBusiness.getDem(currentUser);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getEBsDM", async (req, res) => {
     const { id } = req.body;
     let r = await EBBusiness.getForDM(currentUser);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getEB", async (req, res) => {
     const { id } = req.body;
-    console.log("numEB : "+id);
+    //console.log("numEB : "+id);
     const r = await EBBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getOperations", async (req, res) => {
     const { id } = req.body;
     const r = await OperationBusiness.searchByEBNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getOperation", async (req, res) => {
     const { id } = req.body;
     const r = await OperationBusiness.searchByNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getFiles", async (req, res) => {
     const { id } = req.body;
     const r = await PieceBusiness.searchByEBNum(id);
-    console.log(r);
+    //console.log(r);
     res.status(200).json(r);
 });
 app.post("/getFile", async (req, res) => {
     const { id } = req.body;
     const r = await PieceBusiness.getPiece(id);
-    console.log(r);
+    console.log("r : "+r);
     res.status(200).json(r);
 });
 app.post("/deleteUser", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 app.post("/deleteJournal", async (req, res) => {
     const { id } = req.body;
     const r = await JournalBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 app.post("/deleteLettreCommission", async (req, res) => {
     const { id } = req.body;
     const r = await LettreCommissionBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 app.post("/deleteEB", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 app.post("/deleteOperation", async (req, res) => {
     const { id } = req.body;
     const r = await OperationBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 app.post("/deleteFile", async (req, res) => {
     const { id } = req.body;
     const r = await PieceBusiness.delete(id);
-    // console.log(r);
+    // //console.log(r);
     res.status(200).json(r);
 });
 //deleteEB
@@ -247,7 +247,7 @@ app.post("/createUser", async (req, res) => {
     const { immatricule, email, nom, prenom, userName, password, fonction, sexe } = req.body;
     try {
         const r = await UtilisateurBusiness.Add(new Utilisateur({ immatricule: immatricule, email: email, nom: nom, prenom: prenom, login: userName, pwd: password, fonction: fonction, sexe: sexe }));
-        //console.log(r);
+        ////console.log(r);
         if(r===null){
             res.status(401).json(error);
         }
@@ -255,24 +255,24 @@ app.post("/createUser", async (req, res) => {
             res.status(200).json(r);
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(401).json(error);
     }
 });
 
 app.post("/createEB", async (req, res) => {
     const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
-    console.log("prognonprog : "+progNonProg);
+    //console.log("prognonprog : "+progNonProg);
     EBBusiness.Add("En cours de validation par la dti", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createEBDti", async (req, res) => {
     const {objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList } = req.body;
-    console.log("prognonprog : "+progNonProg);
+    //console.log("prognonprog : "+progNonProg);
     EBBusiness.Add("En cours de validation par le CM", objet, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser);
 });
 app.post("/createAO", async (req, res) => {
     const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, fileNameAvis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, fileNameLC, listJournal } = req.body;
-    console.log(fileNameAvis+", "+fileNameLC);
+    //console.log(fileNameAvis+", "+fileNameLC);
     const re = await LettreCommissionBusiness.Add(new LettreCommission({ num: -1, fileName: fileNameLC, numEnvoie: numEnvoieLettreCommission, dateEnvoie: dateEnvoieLettreCommission, destinataire: destinataire, lettreCommission: lettreCommission }));
     await AOBusiness.Add(new AO({ num: num, fileName: fileNameAvis, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
     for (let i = 0; i < listJournal.length; i++) {
@@ -282,7 +282,7 @@ app.post("/createAO", async (req, res) => {
 
 app.post("/addOperation", async (req, res) => {
     const { id, agence, imputation, nature_projet, operation, programme, situation, superficie, type_projet, piece } = req.body;
-    //console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
+    ////console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
     OperationBusiness.Add(new Operation({ code: -1, agence: agence, DA: piece, imputation: imputation, natureProjet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, typeProjet: type_projet, numEB: id }));
 });
 
@@ -293,7 +293,7 @@ app.post("/updateUser", async (req, res) => {
         const r = await UtilisateurBusiness.update(user);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateAvis", async (req, res) => {
@@ -302,7 +302,7 @@ app.post("/updateAvis", async (req, res) => {
         const r = await AOBusiness.updateAvis(piece, fileName, id);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updatePiece", async (req, res) => {
@@ -311,7 +311,7 @@ app.post("/updatePiece", async (req, res) => {
         const r = await PieceBusiness.updatePiece(piece, fileName, id);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateLettreJournal", async (req, res) => {
@@ -320,7 +320,7 @@ app.post("/updateLettreJournal", async (req, res) => {
         const r = await JournalBusiness.updateLettreJournal(piece, fileName, id);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateLettreCommission", async (req, res) => {
@@ -329,12 +329,12 @@ app.post("/updateLettreCommission", async (req, res) => {
         const r = await LettreCommissionBusiness.updateLettreCommission(piece, fileName, id);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateEB", async (req, res) => {
     const { id, etat, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
-    console.log("numUtilisateur : " + numUtilisateur);
+    //console.log("numUtilisateur : " + numUtilisateur);
     try {
         const eb = new EB({ num: id, etat:etat, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification });
         //, secteur:secteur, qualification:qualification 
@@ -342,7 +342,7 @@ app.post("/updateEB", async (req, res) => {
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateJournal", async (req, res) => {
@@ -353,7 +353,7 @@ app.post("/updateJournal", async (req, res) => {
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateCommission", async (req, res) => {
@@ -364,12 +364,12 @@ app.post("/updateCommission", async (req, res) => {
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateEBDti", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur, validerPar } = req.body;
-    console.log("numUtilisateur : " + numUtilisateur);
+    //console.log("numUtilisateur : " + numUtilisateur);
     try {
         const eb = new EB({ num: id, etat: etat, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), validerPar: validerPar, numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, });
         //, secteur:secteur, qualification:qualification 
@@ -377,12 +377,12 @@ app.post("/updateEBDti", async (req, res) => {
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/validateEBDti", async (req, res) => {
     const { id, objet, agence, observation, prog_nonprog, caution, estimation, modePassation, secteur, qualification, numUtilisateur } = req.body;
-    console.log("numUtilisateur : " + numUtilisateur);
+    //console.log("numUtilisateur : " + numUtilisateur);
     try {
         const eb = new EB({ num: id, objet: objet, agence: agence, observation: observation, prog_nonprog: prog_nonprog, classe: EBBusiness.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: EBBusiness.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: EBBusiness.getCurrentDateInMySQLFormat(), numUtilisateur: numUtilisateur, secteur: secteur, qualification: qualification, validerPar: currentUser });
         //, secteur:secteur, qualification:qualification 
@@ -390,22 +390,22 @@ app.post("/validateEBDti", async (req, res) => {
         console.warn(r);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateOperation", async (req, res) => {
     const { id, agence, imputation, nature_projet, operation, programme, situation, superficie, type_projet, piece } = req.body;
-    //console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
+    ////console.log(objet+", "+observation+", "+progNonProg+", "+fileList+", "+operationList);
     OperationBusiness.update(new Operation({ code: id, agence: agence, DA: piece, imputation: imputation, natureProjet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, typeProjet: type_projet, numEB: -1 }));
 });
 app.post("/getCurrentUserData", async (req, res) => {
     const { id } = req.body;
     try {
         const user = await UtilisateurBusiness.searchByNum(currentUser);
-        console.log("user : "+user);
+        //console.log("user : "+user);
         res.status(200).json(user);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/getNotifications", async (req, res) => {
@@ -414,7 +414,7 @@ app.post("/getNotifications", async (req, res) => {
         const user = await UtilisateurBusiness.getNotifications(currentUser);
         res.status(200).json(user);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 app.post("/updateSettingsIP", async (req, res) => {
@@ -424,7 +424,7 @@ app.post("/updateSettingsIP", async (req, res) => {
         const r = await UtilisateurBusiness.updateIP(user);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -435,12 +435,12 @@ app.post("/updateSettingsS", async (req, res) => {
         const r = await UtilisateurBusiness.updateS(user);
         res.status(200).json(r);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 //jhjhjhjhjh
 
 // Demarrage du serveur
 app.listen(port, () => {
-    console.log('Serveur bien demare...')
+    //console.log('Serveur bien demare...')
 })
