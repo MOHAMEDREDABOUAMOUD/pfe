@@ -136,7 +136,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="nom">Nom</label>
+                <label htmlFor="nom" className="labo">Nom</label>
                 <input
                   type="text"
                   className="form-control"
@@ -146,7 +146,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="prenom">Prenom</label>
+                <label htmlFor="prenom" className="labo">Prenom</label>
                 <input
                   type="text"
                   className="form-control"
@@ -167,7 +167,7 @@ const navigate=useNavigate();
             <h3>Sécurité</h3>
             <form onSubmit={handleSecuriteSubmit}>
               <div className="form-group">
-                <label htmlFor="username">nom d'utilisateur</label>
+                <label htmlFor="username" className="larg">nom d'utilisateur</label>
                 <input
                   type="text"
                   className="form-control"
@@ -177,7 +177,7 @@ const navigate=useNavigate();
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">mot de passe</label>
+                <label htmlFor="password" className="larg">mot de passe</label>
                 <input
                   type="password"
                   className="form-control"
