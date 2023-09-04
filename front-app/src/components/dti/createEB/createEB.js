@@ -530,7 +530,7 @@ const CreateEBDti = () => {
             setEB(EBData);
             try {
                 alert("l'expression des besoins a ete bien creer");
-                navigate("/listEB");
+                navigate("/listEBDti");
                 await axios.post("/createEBDti", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
             } catch (error) {
                 console.log(error);

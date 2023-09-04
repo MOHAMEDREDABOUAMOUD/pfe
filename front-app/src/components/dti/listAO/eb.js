@@ -196,7 +196,7 @@ const EB = (props) => {
 
     const navigate = useNavigate();
     const editRow = (id) => {
-        navigate(`/updateEB/${id}`);
+        navigate(`/updateEBDti/${id}`);
     }
     const deleteRow = async (id) => {
         await axios.post("/deleteEB", { id: id });

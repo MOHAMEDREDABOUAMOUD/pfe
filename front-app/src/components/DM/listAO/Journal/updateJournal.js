@@ -73,7 +73,7 @@ export default function UpdateJournal() {
         console.log(lettreJournal);
         alert("le journal a ete bien modifier");
         await axios.post("/updateJournal", { num: id, numEnvoie: numEnvoie, format: format, fournisseur: fournisseur, dateEnvoie: dateEnvoie, datePublication: datePublication});
-        navigate(`/listAO`);
+        navigate(`/listAODM`);
     }
 
     return (

@@ -186,7 +186,7 @@ const LettreCommission = (props) => {
 
     const navigate = useNavigate();
     const editRow = (id) => {
-        navigate(`/updateCommission/${id}`);
+        navigate(`/updateCommissionCM/${id}`);
     }
     const deleteRow = async (id) => {
         const confirmDelete = window.confirm("Confirmer la suppression de la commission avec l'id " +id);

@@ -63,7 +63,7 @@ export default function UpdateCommission() {
     const handleSubmitAJ = async () => {
         alert("la commission a ete bien modifier");
         await axios.post("/updateCommission", { num: id,numEnvoie: numEnvoie, destinataire: destinataire, dateEnvoie: dateEnvoie});
-        navigate(`/listAO`);
+        navigate(`/listAODti`);
     }
 
     return (

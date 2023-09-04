@@ -189,7 +189,7 @@ const Journal = (props) => {
 
     const navigate = useNavigate();
     const editRow = (id) => {
-        navigate(`/updateJournal/${id}`);
+        navigate(`/updateJournalDti/${id}`);
     }
     const deleteRow = async (id) => {
         const confirmDelete = window.confirm("Confirmer la suppression du journal avec l'id " + id);

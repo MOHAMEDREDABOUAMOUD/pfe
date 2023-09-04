@@ -47,7 +47,7 @@ const UpdateLettreJournal = (props) => {
             alert("la lettre du journal a ete bien modifier");
             await axios.post("/updateLettreJournal", { piece: piece, fileName: fileName, id: id });
         }
-        navigate("/listAO");
+        navigate("/listAODti");
     }
 
     return (

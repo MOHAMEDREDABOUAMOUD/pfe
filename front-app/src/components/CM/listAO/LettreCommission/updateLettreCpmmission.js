@@ -47,7 +47,7 @@ const UpdateLettreCommission = (props) => {
             alert("la lettre de la commission a ete bien modifier");
             await axios.post("/updateLettreCommission", { piece: piece, fileName: fileName, id: id });
         }
-        navigate("/listAO");
+        navigate("/listAOCM");
     }
 
     return (

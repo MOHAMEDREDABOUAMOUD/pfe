@@ -47,7 +47,7 @@ const UpdateAvis = (props) => {
             alert("l'Avis a ete bien modifier");
             await axios.post("/updateAvis", { piece: piece, fileName: fileName, id: id });
         }
-        navigate("/listAO");
+        navigate("/listAODti");
     }
 
     return (

@@ -293,7 +293,7 @@ const ValidateEBDM = () => {
         navigate(`/listOperationsDM/${id}`);
     };
     const handleFiles = (id) => {
-        navigate(`/listFiles/${id}`);
+        navigate(`/listFilesDM/${id}`);
     };
     const handleSubmitV = async (event) => {
         event.preventDefault(); // Prevent the default form submission behavior

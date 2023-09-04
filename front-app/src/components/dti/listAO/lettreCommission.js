@@ -184,9 +184,9 @@ useEffect(() => {
     });
 
     const navigate = useNavigate();
-    //   const editRow = (id) => {
-    //     navigate(`/updateLettreCommission/${id}`);
-    //   }
+      const editRow = (id) => {
+        navigate(`/updateCommission/${id}`);
+      }
     const deleteRow = async (id) => {
         const confirmDelete = window.confirm("Confirmer la suppression de la commission avec l'id " +id);
 
@@ -212,6 +212,11 @@ useEffect(() => {
     //   const handleCloseFile = () => {
     //     setShowFile(false);
     //   };
+
+    const handleLettreCommission = (id) => {
+        setido(id);
+        setShowLettreCommission(true);
+    }
 
     const handleDownload = async (file, fileName) => {
         try {
@@ -280,7 +285,7 @@ useEffect(() => {
                                     <span className="actions">
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                        //onClick={() => editRow(idEB, idxEB, row.id, idx)}
+                                            onClick={() => handleLettreCommission(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
@@ -300,7 +305,7 @@ useEffect(() => {
                                         />
                                         <BsFillPencilFill
                                             className="edit-btn"
-                                            //onClick={() => editRow(row.num)}
+                                            onClick={() => editRow(row.num)}
                                         />
                                     </span>
                                 </td>
