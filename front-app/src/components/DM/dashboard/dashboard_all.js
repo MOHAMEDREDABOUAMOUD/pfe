@@ -204,7 +204,7 @@ const navigate=useNavigate();
                 <LineChart
                 width={500}
                 height={300}
-                data={data}
+                data={data2}
                 margin={{
                     top: 5,
                     right: 30,

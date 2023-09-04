@@ -96,6 +96,24 @@ app.post("/getDashboardDataAO", async (req, res) => {
     console.error("data : "+r);
     res.status(200).json(r);
 });
+app.post("/addDefaultPiece", async (req, res) => {
+    const { name, file } = req.body;
+    const r = await PieceBusiness.addDefaultPiece(name, file);
+    console.error("data : "+r);
+    res.status(200).json(r);
+});
+app.post("/deleteDefaultPiece", async (req, res) => {
+    const { name } = req.body;
+    const r = await PieceBusiness.deleteDefaultPiece(name);
+    console.error("data : "+r);
+    res.status(200).json(r);
+});
+app.post("/getDPs", async (req, res) => {
+    const { id } = req.body;
+    const r = await PieceBusiness.getDPs();
+    console.error("data : "+r);
+    res.status(200).json(r);
+});
 app.post("/updateEtatDM", async (req, res) => {
     const { id } = req.body;
     const r = await EBBusiness.updateEtatDM(id);

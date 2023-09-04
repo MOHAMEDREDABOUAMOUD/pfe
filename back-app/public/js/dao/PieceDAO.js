@@ -4,6 +4,60 @@
 const Piece = require('../models/Piece');
 const pool = require('./db');
 class PieceDAO {
+
+  static async addDefaultPiece(name, file){
+    const _query = `
+      INSERT INTO defaultPiece (name, piece)
+      VALUES (?, ?)
+    `;
+  
+    const values = [name, file];
+  
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+  
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  static async deleteDefaultPiece(name){
+    const _query = `
+      DELETE FROM defaultPiece WHERE name=?
+    `;
+  
+    const values = [name];
+  
+    try {
+      const result = await new Promise((resolve, reject) => {
+        pool.query(_query, values, (err, result) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+  
+      return result.insertId;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   static async create(piece) {
     const _query = `
       INSERT INTO Piece (libelle, piece, base64, fileName, numEB)
@@ -202,6 +256,31 @@ class PieceDAO {
     } catch (error) {
       console.error(error);
       return null;
+    }
+  }
+
+  static async getDPs(){
+    const _query = 'SELECT * FROM defaultPiece';
+
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        pool.query(_query, (err, rows) => {
+          if (err) {
+            console.error(err);
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      const filesList = rows.map((file) => {
+        return JSON.parse(JSON.stringify(file));
+      });
+      return filesList;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 

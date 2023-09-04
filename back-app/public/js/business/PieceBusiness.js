@@ -6,6 +6,18 @@ class PieceBusiness {
     static Add(piece) {
         return PieceDAO.create(piece);
     }
+    
+    static addDefaultPiece(name, file){
+        return PieceDAO.addDefaultPiece(name, file);
+    }
+
+    static deleteDefaultPiece(name){
+        return PieceDAO.deleteDefaultPiece(name);
+    }
+
+    static getDPs(){
+        return PieceDAO.getDPs();
+    }
 
     static update(piece) {
         return PieceDAO.update(piece);
