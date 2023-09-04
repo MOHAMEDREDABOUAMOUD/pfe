@@ -201,7 +201,7 @@ const UpdateUser = () => {
                                 <option>Demandeur</option>
                                 <option>DM</option>
                                 <option>DTI</option>
-                                <option>CG</option>
+                                <option>CM</option>
                             </select>
                         </div>
                         <div className="form-group1">

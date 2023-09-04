@@ -316,11 +316,6 @@ const ValidateEBCM = () => {
             const progValue = progNonProgram ? "Oui" : "Non";
             setProg_nonprog(progValue);
             try {
-                await axios.post("/updateEtatDM", { id: id, });
-            } catch (error) {
-                console.error(error);
-            }
-            try {
                 await axios.post("/updateEtatDM", {id: id,});
                 await axios.post("/validateEBDti", {
                     id: id,
@@ -335,8 +330,13 @@ const ValidateEBCM = () => {
                     qualification: qualification,
                     numUtilisateur: numUtilisateur
                 });
-                alert("l'expression des besoins a ete bien valider");
-                navigate("/listEBCM");
+                try {
+                    await axios.post("/updateEtatDM", { id: id, });
+                    alert("l'expression des besoins a ete bien valider");
+                    navigate("/listEBCM");
+                } catch (error) {
+                    console.error(error);
+                }
             } catch (error) {
                 console.error(error);
             }

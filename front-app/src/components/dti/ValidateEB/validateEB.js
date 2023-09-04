@@ -318,11 +318,6 @@ const ValidateEBDti = () => {
             const progValue = progNonProgram ? "Oui" : "Non";
             setProg_nonprog(progValue);
             try {
-                await axios.post("/updateEtatDM", { id: id, });
-            } catch (error) {
-                console.error(error);
-            }
-            try {
                 await axios.post("/validateEBDti", {
                     id: id,
                     objet: objet,
@@ -336,8 +331,13 @@ const ValidateEBDti = () => {
                     qualification: qualification,
                     numUtilisateur: numUtilisateur
                 });
-                alert("l'expression des besoins a ete bien valider");
-                navigate(`/listEBDti`);
+                try {
+                    await axios.post("/updateEtatDM", { id: id, });
+                    alert("l'expression des besoins a ete bien valider");
+                    navigate(`/listEBDti`);
+                } catch (error) {
+                    console.error(error);
+                }
             } catch (error) {
                 console.error(error);
             }
