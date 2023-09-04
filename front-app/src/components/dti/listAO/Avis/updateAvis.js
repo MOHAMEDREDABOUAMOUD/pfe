@@ -52,28 +52,6 @@ const UpdateAvis = (props) => {
 
     return (
         <div className="table-wrapper">
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title="Mohammed Raji"
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar />
             <center>
                 <div className="center">
                     <input
@@ -82,7 +60,7 @@ const UpdateAvis = (props) => {
                         id="file"
                         onChange={(e) => handleFileUpload(e)}
                     />
-                    <button type="button" onClick={handleUpdate}>Modifier</button>
+                    <button type="button" className="botton" onClick={handleUpdate}>Update</button>
                 </div>
             </center>
         </div>

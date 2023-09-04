@@ -8,6 +8,8 @@ import logo from "./logo-omrane.png";
 import styled from 'styled-components';
 import * as AiIcons from 'react-icons/ai';
 import { BsFilterLeft } from 'react-icons/bs';
+import { CiMenuKebab } from 'react-icons/ci';
+
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
 import { FaUserTie } from 'react-icons/fa';
@@ -43,6 +45,11 @@ const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
   const [currentPrenom, setCurrentPrenom] = useState('');
   const [currentUser, setCurrentUser] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -200,7 +207,7 @@ const [currentSexe, setCurrentSexe] = useState('');
             return false; // Exclude rows that don't have the specified column or aren't strings
         });
     });
-
+    
     const navigate = useNavigate();
     const editRow = (id) => {
         setido(id);
@@ -343,21 +350,28 @@ const [currentSexe, setCurrentSexe] = useState('');
                                 <td>{row.dateEntreDM}</td>
                                 <td>{row.dateAchevementTravauxCommission}</td>
                                 <td className="fit">
-                                    <span className="actions">
-                                        <BsFillPencilFill
+      <div className="dropdown">
+        <div className="actions">
+          <CiMenuKebab className="dropdown-btn" onClick={handleDropdownClick}/>
+        </div>
+        {isDropdownOpen && (
+          <div className="dropdown-content" style={{ marginTop: '10px', marginBottom: '10px' }}>
+            <BsFillPencilFill
                                             className="edit-btn"
                                             onClick={() => handleUpdateAvis(row.num)}
                                         />
                                         <BsFillEyeFill
                                             className="edit-btn"
-                                        //onClick={() => viewFile(row.num)}
+                                            //onClick={() => viewFile(row.num)}
                                         />
                                         <BsBoxArrowDown
                                             className="edit-btn"
                                             onClick={() => handleDownload(row.avis, row.fileName)}
                                         />
-                                    </span>
-                                </td>
+          </div>
+        )}
+      </div>
+    </td>
                                 <td>
                                     <BsFillEyeFill
                                         className="edit-btn"

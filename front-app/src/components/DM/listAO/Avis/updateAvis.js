@@ -60,7 +60,7 @@ const UpdateAvis = (props) => {
                         id="file"
                         onChange={(e) => handleFileUpload(e)}
                     />
-                    <button type="button" onClick={handleUpdate}>Modifier</button>
+                    <button type="button" className="botton" onClick={handleUpdate}>Update</button>
                 </div>
             </center>
         </div>

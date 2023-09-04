@@ -127,7 +127,7 @@ const CreateUser = () => {
           <form onSubmit={handleSubmit} className='forma'>
 
             <div className='disp'>
-              <div className='form-group1'>
+              <div className='form-group1ad'>
                 <label htmlFor='exampleFormControlInput1'>Immatricule</label><br />
                 <input
                   type='text'
@@ -139,7 +139,7 @@ const CreateUser = () => {
                 />
                 {immatriculeError && <p className='error-message'>{immatriculeError}</p>}
               </div>
-              <div className='form-group1'>
+              <div className='form-group2ad'>
                 <label htmlFor='exampleFormControlInput1'>E-mail</label><br />
                 <input
                   type='email'
@@ -153,7 +153,7 @@ const CreateUser = () => {
               </div>
             </div>
             <div className='disp'>
-              <div className='form-group1'>
+              <div className='form-group1ad'>
                 <label htmlFor='exampleFormControlInput1'>Nom</label><br />
                 <input
                   type='text'
@@ -165,7 +165,7 @@ const CreateUser = () => {
                 />
                 {nomError && <p className='error-message'>{nomError}</p>}
               </div>
-              <div className='form-group1'>
+              <div className='form-group2ad'>
                 <label htmlFor='exampleFormControlInput1'>Prenom</label><br />
                 <input
                   type='text'
@@ -179,7 +179,7 @@ const CreateUser = () => {
               </div>
             </div>
             <div className='disp'>
-              <div className='form-group1'>
+              <div className='form-group1ad'>
                 <label htmlFor='exampleFormControlInput1'>nom d'utilisateur</label><br />
                 <input
                   type='text'
@@ -191,7 +191,7 @@ const CreateUser = () => {
                 />
                 {userNameError && <p className='error-message'>{userNameError}</p>}
               </div>
-              <div className='form-group1'>
+              <div className='form-group2ad'>
                 <label htmlFor='exampleFormControlInput1'>mot de passe</label><br />
                 <input
                   type='text'
@@ -205,7 +205,7 @@ const CreateUser = () => {
               </div>
             </div>
             <div className='disp'>
-              <div className='form-group1'>
+              <div className='form-group1ad'>
                 <label htmlFor='exampleFormControlSelect1'>Fonction</label><br />
                 <select
                   className='form-control'
@@ -219,7 +219,7 @@ const CreateUser = () => {
                   <option value="CM">CM</option>
                 </select>
               </div>
-              <div className='form-group1'>
+              <div className='form-group2ad'>
                 <label htmlFor='exampleFormControlSelect1'>Sexe</label><br />
                 <select
                   className='form-control'

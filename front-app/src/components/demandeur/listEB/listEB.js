@@ -285,11 +285,11 @@ const ListEB = () => {
               Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Operations")}>
-              <th onClick={handleButtonClick}>
+              <th onClick={handleButtonClick} className="ici">
                 Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
             </th>
-            <th onClick={() => handleSort("Files")}>
+            <th onClick={() => handleSort("Files")} className="ici">
               Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Files")}>

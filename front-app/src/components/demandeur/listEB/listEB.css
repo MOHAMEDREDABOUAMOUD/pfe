@@ -33,6 +33,13 @@
   border-radius: 10px;
   padding: 30px;
 }
+.ici{
+  cursor: pointer;
+}
+.ici:hover{
+  font-weight: bold;
+  color: #01B636;
+}
 .espace_admin{
   color: #74E39A;
   font-family: serif;

@@ -15,8 +15,8 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const UpdateLettreJournal = (props) => {
     const id = props.id;
-    const [piece, setPiece]=useState([]);
-    const [fileName, setFileName]=useState("");
+    const [piece, setPiece] = useState([]);
+    const [fileName, setFileName] = useState("");
 
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const UpdateLettreJournal = (props) => {
         if (selectedFile.size > maxSize) {
             alert("La taille du fichier dépasse 10Mo.");
         }
-        else{
+        else {
             const fileName = selectedFile.name;
             const fileReader = new FileReader();
             fileReader.onload = (event) => {
@@ -40,37 +40,15 @@ const UpdateLettreJournal = (props) => {
             fileReader.readAsArrayBuffer(selectedFile);
         }
     };
-    
+
     const handleUpdate = async () => {
-        if(piece!=[]){
-            console.log("enter handle Update : "+fileName+", "+piece);
+        if (piece != []) {
+            console.log("enter handle Update : " + fileName + ", " + piece);
             alert("la lettre du journal a ete bien modifier");
-            await axios.post("/updateLettreJournal", {piece: piece, fileName: fileName, id: id});
+            await axios.post("/updateLettreJournal", { piece: piece, fileName: fileName, id: id });
         }
         navigate("/listAO");
     }
-
-    const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
 
     return (
         <div className="table-wrapper">
@@ -82,7 +60,7 @@ const UpdateLettreJournal = (props) => {
                         id="file"
                         onChange={(e) => handleFileUpload(e)}
                     />
-                    <button type="button" onClick={handleUpdate}>Update</button>
+                    <button type="button" className="botton" onClick={handleUpdate}>Modifier</button>
                 </div>
             </center>
         </div>

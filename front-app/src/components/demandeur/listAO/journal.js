@@ -258,8 +258,7 @@ useEffect(() => {
     };
 
     return (
-        <div className="table-wrapper">
-            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
+        <div className="table-wrapper-dem">
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
@@ -284,6 +283,9 @@ useEffect(() => {
                         </th>
                         <th onClick={() => handleSort("lettreJournal")}>
                             lettre Journal {sortBy === "lettreJournal" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                        </th>
+                        <th onClick={() => handleSort("lettreJournal")}>
+                            
                         </th>
                     </tr>
                 </thead>

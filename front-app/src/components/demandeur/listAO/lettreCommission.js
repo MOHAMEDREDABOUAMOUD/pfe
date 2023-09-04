@@ -256,7 +256,7 @@ const LettreCommission = (props) => {
     };
 
     return (
-        <div className="table-wrapper">
+        <div className="table-wrapper-dem">
             <table className="table">
                 <thead>
                     <tr>

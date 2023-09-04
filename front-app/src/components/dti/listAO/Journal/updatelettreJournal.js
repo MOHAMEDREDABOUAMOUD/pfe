@@ -18,29 +18,6 @@ const UpdateLettreJournal = (props) => {
     const [piece, setPiece] = useState([]);
     const [fileName, setFileName] = useState("");
 
-    
-  const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
-
     const navigate = useNavigate();
 
     const handleFileUpload = (event) => {
@@ -75,28 +52,6 @@ const UpdateLettreJournal = (props) => {
 
     return (
         <div className="table-wrapper">
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="#action/3.1"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar />
             <center>
                 <div className="center">
                     <input
@@ -105,7 +60,7 @@ const UpdateLettreJournal = (props) => {
                         id="file"
                         onChange={(e) => handleFileUpload(e)}
                     />
-                    <button type="button" onClick={handleUpdate}>Modifier</button>
+                    <button type="button" className="botton" onClick={handleUpdate}>Modifier</button>
                 </div>
             </center>
         </div>

@@ -26,27 +26,6 @@ export default function UpdateJournal() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchJData = async () => {
-            try {
-                const jData = await axios.post("/getJournal", { id: id });
-                setNumEnvoie(jData.data["numEnvoie"]);
-                setFormat(jData.data["format"]);
-                setFournisseur(jData.data["fournisseur"]);
-                const backendDateEnvoie = jData.data["dateEnvoie"];
-                const frontendDateEnvoie = new Date(backendDateEnvoie).toISOString().split("T")[0];
-                setDateEnvoie(frontendDateEnvoie);
-
-                const backendDatePublication = jData.data["datePublication"];
-                const frontendDatePublication = new Date(backendDatePublication).toISOString().split("T")[0];
-                setDatePublication(frontendDatePublication);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchJData();
-    }, [id]);
-
     const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
   const [currentPrenom, setCurrentPrenom] = useState('');
@@ -69,6 +48,27 @@ export default function UpdateJournal() {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
 
+    useEffect(() => {
+        const fetchJData = async () => {
+            try {
+                const jData = await axios.post("/getJournal", { id: id });
+                setNumEnvoie(jData.data["numEnvoie"]);
+                setFormat(jData.data["format"]);
+                setFournisseur(jData.data["fournisseur"]);
+                const backendDateEnvoie = jData.data["dateEnvoie"];
+                const frontendDateEnvoie = new Date(backendDateEnvoie).toISOString().split("T")[0];
+                setDateEnvoie(frontendDateEnvoie);
+
+                const backendDatePublication = jData.data["datePublication"];
+                const frontendDatePublication = new Date(backendDatePublication).toISOString().split("T")[0];
+                setDatePublication(frontendDatePublication);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchJData();
+    }, [id]);
+
     const handleSubmitAJ = async () => {
         console.log(lettreJournal);
         alert("le journal a ete bien modifier");
@@ -77,34 +77,30 @@ export default function UpdateJournal() {
     }
 
     return (
-        <div className='formCreateUser'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar />
-            <form>
+        <center>
+        <div className='formCreateUser-dem-upeb'>
+            <div className='appbare'>
+    <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+    </div>
+            <form className='forma'>
                 <div className='form-group'>
-                    <center><h5>modification d'un journal</h5></center>
+                    <center><h5 className='titre'>Journal</h5></center>
                 </div>
-                <div className='form-group'>
+                <div className='disp'>
+                <div className='form-group1ad'>
                     <label htmlFor="dateEnvoieJournal">Date envoie journal</label><br />
                     <input
                         type="date"
@@ -114,7 +110,7 @@ export default function UpdateJournal() {
                         onChange={(e) => setDateEnvoie(e.target.value)}
                     />
                 </div>
-                <div className='form-group'>
+                <div className='form-group2ad'>
                     <label htmlFor="datePublicationJournal">Date Publication journal</label><br />
                     <input
                         type="date"
@@ -124,22 +120,26 @@ export default function UpdateJournal() {
                         onChange={(e) => setDatePublication(e.target.value)}
                     />
                 </div>
-                <div className='form-group'>
+                </div>
+                <div className='disp'>
+                <div className='form-group1ad'>
                     <label htmlFor="formatJournal">format journal</label><br />
                     <input type="text" className="form-control" id="formatJournal" placeholder="format journal" value={format} onChange={(e) => setFormat(e.target.value)} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group2ad'>
                     <label htmlFor="fournisseurJournal">fournisseur journal</label><br />
                     <input type="text" className="form-control" id="fournisseurJournal" placeholder="fournisseur journal" value={fournisseur} onChange={(e) => setFournisseur(e.target.value)} />
+                </div>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="numEnvoieJournal">num envoie lettre commission</label><br />
                     <input type="text" className="form-control" id="numEnvoieJournal" placeholder="num envoie journal" value={numEnvoie} onChange={(e) => setNumEnvoie(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <center><button type="button" onClick={handleSubmitAJ} className="btn btn-primary big-btn">Ajouter</button></center>
+                    <center><button type="button" onClick={handleSubmitAJ} className="botton">Ajouter journal</button></center>
                 </div>
             </form>
         </div>
+        </center>
     )
 }

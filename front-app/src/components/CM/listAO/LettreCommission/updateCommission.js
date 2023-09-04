@@ -20,30 +20,6 @@ export default function UpdateCommission() {
     const [dateEnvoie, setDateEnvoie] = useState("");
     const [destinataire, setDestinataire] = useState('');
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchJData = async () => {
-            try {
-                const jData = await axios.post("/getCommission", { id: id });
-                setNumEnvoie(jData.data["numEnvoie"]);
-                const backendDateEnvoie = jData.data["dateEnvoie"];
-                const frontendDateEnvoie = new Date(backendDateEnvoie).toISOString().split("T")[0];
-                setDateEnvoie(frontendDateEnvoie);
-                setDestinataire(jData.data["destinataire"]);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchJData();
-    }, [id]);
-
-    const handleSubmitAJ = async () => {
-        await axios.post("/updateCommission", { num: id,numEnvoie: numEnvoie, destinataire: destinataire, dateEnvoie: dateEnvoie});
-        alert("la commission a ete bien modifier");
-        navigate(`/listAO`);
-    }
-
     const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
   const [currentPrenom, setCurrentPrenom] = useState('');
@@ -66,39 +42,59 @@ export default function UpdateCommission() {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchJData = async () => {
+            try {
+                const jData = await axios.post("/getCommission", { id: id });
+                setNumEnvoie(jData.data["numEnvoie"]);
+                const backendDateEnvoie = jData.data["dateEnvoie"];
+                const frontendDateEnvoie = new Date(backendDateEnvoie).toISOString().split("T")[0];
+                setDateEnvoie(frontendDateEnvoie);
+                setDestinataire(jData.data["destinataire"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchJData();
+    }, [id]);
+
+    const handleSubmitAJ = async () => {
+        alert("la commission a ete bien modifier");
+        await axios.post("/updateCommission", { num: id,numEnvoie: numEnvoie, destinataire: destinataire, dateEnvoie: dateEnvoie});
+        navigate(`/listAO`);
+    }
+
     return (
-        <div className='formCreateUser'>
-            <Navbar className="barad">
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text className="left">
-                        <h1 href="#login" className="espacee">Espace Demandeur</h1>
-                    </Navbar.Text>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <NavDropdown
-                            id="nav-dropdown-dark-example"
-                            title={currentUser}
-                            menuVariant="dark"
-                        >
-                            <NavDropdown.Item href="/notifications"><IoMdNotifications /> Notifications</NavDropdown.Item>
-                            <NavDropdown.Item href="/">
-                                <SlLogout /> Exit
-                            </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar />
+        <center>
+        <div className='formCreateUser-dem-upeb'>
+        <div className='appbare'>
+    <Sidebar />
+    <Nav className='namee'>
+            <NavDropdown
+              className='nama custom-dropdown'
+              
+              title={currentUser}
+            >
+              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item href="/" className='it'>
+                <SlLogout /> Exit
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+    </div>
             <form>
                 <div className='form-group'>
-                    <center><h5>Commission</h5></center>
+                    <center><h5 className='titre'>Commission</h5></center>
                 </div>
-                <div className='form-group'>
+                <div className='disp'>
+                <div className='form-group1ad'>
                     <label htmlFor="numEnvoieCommission">num envoie lettre commission</label><br />
                     <input type="text" className="form-control" id="numEnvoieCommission" placeholder="num envoie Commission" value={numEnvoie} onChange={(e) => setNumEnvoie(e.target.value)} />
                 </div>
-                <div className='form-group'>
+                <div className='form-group2ad'>
                     <label htmlFor="dateEnvoieCommission">Date envoie Commission</label><br />
                     <input
                         type="date"
@@ -108,14 +104,18 @@ export default function UpdateCommission() {
                         onChange={(e) => setDateEnvoie(e.target.value)}
                     />
                 </div>
+                </div>
+                
                 <div className='form-group'>
                     <label htmlFor="formatCommission">destinataire</label><br />
                     <input type="text" className="form-control" id="formatCommission" placeholder="destinataire" value={destinataire} onChange={(e) => setDestinataire(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <center><button type="button" onClick={handleSubmitAJ} className="btn btn-primary big-btn">modifier</button></center>
+                    <center><button type="button" onClick={handleSubmitAJ} className="botton">Modifier</button></center>
                 </div>
+                
             </form>
         </div>
+        </center>
     )
 }

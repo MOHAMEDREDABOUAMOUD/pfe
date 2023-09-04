@@ -12,6 +12,54 @@
   font-size: 32px;
   margin-top: 3px;
 }
+.three-dots {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.edit-btn{
+  cursor: pointer;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #333;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.dot:nth-child(1) {
+  top: 6px;
+  left: 9px;
+}
+
+.dot:nth-child(2) {
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot:nth-child(3) {
+  top: 6px;
+  right: 9px;
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  display: none; /* Hide the menu by default */
+}
+
+.dropdown-menu.active {
+  display: block; /* Show the menu when active */
+}
 .search{
   font-size: 50px;
   cursor: pointer;
