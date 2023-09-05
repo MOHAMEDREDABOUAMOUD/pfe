@@ -9,6 +9,7 @@ import Sidebar from '../sidebar/sideBar';
 import * as AiIcons from 'react-icons/ai';
 import UpdatePiece from "./piece/piece";
 import { styled } from "styled-components";
+import ViewDti from "./view";
 
 const ListFilesDti = ({id}) => {
   const [sortBy, setSortBy] = useState(null);
@@ -19,8 +20,17 @@ const ListFilesDti = ({id}) => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [ido, setido]=useState(0);
+  const [showFile, setShowFile] = useState(false);
 
   const [updatePiece, setUpdatePiece] = useState(false);
+
+  const handleFile = (id) => {
+    setido(id);
+    setShowFile(true);
+  }
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   const handleUpdatePiece = (id) => {
     setido(id);
@@ -225,7 +235,7 @@ const ListFilesDti = ({id}) => {
                     />
                     <BsFillEyeFill
                       className="edit-btn"
-                      onClick={() => viewFile(row.num)}
+                        onClick={() => handleFile(row.num)}
                     />
                     <BsBoxArrowDown
                       className="edit-btn"
@@ -245,6 +255,14 @@ const ListFilesDti = ({id}) => {
               <AiIcons.AiOutlineClose onClick={handleCloseUpdatePiece} />
             </NavIcon>
             <UpdatePiece id={ido} />
+          </div>
+        )}
+        {showFile && (
+          <div className="overlay">
+            <NavIcon className="close-icon" to='#'>
+              <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+            </NavIcon>
+            <ViewDti id={ido} />
           </div>
         )}
     </div>

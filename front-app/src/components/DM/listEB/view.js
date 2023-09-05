@@ -3,26 +3,27 @@ import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
+import "./view.css";
 
 const ViewDM = () => {
   const { id } = useParams();
   const [data, setData] = useState("");
 
-  const getFile=async()=>{
+  const getFile = async () => {
     try {
       const response = await axios.post("/getFile", { id: id });
       const buffer = new Uint8Array(response.data["piece"].data);
       const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
-  
+
       // Decode the binary data
       const decodedData = atob(binaryString);
-  
+
       // Create a Uint8Array from the decoded data
       const uint8Array = new Uint8Array(decodedData.length);
       for (let i = 0; i < decodedData.length; i++) {
         uint8Array[i] = decodedData.charCodeAt(i);
       }
-  
+
       // Create a Blob from the Uint8Array
       const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
       const contentBlob = blob;
@@ -41,10 +42,11 @@ const ViewDM = () => {
   }, "");
 
   return (
-    <div className='document'>
-      <Sidebar/>
-      {data}
-    </div>
+    <pre className='cadre'>
+      <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
+        {data}
+      </div>
+    </pre>
   );
 };
 

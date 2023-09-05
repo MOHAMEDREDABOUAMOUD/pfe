@@ -79,12 +79,10 @@ class EBDAO {
             console.error(err);
             reject(err);
           } else {
-            await this.addEB();
             resolve(result);
           }
         });
       });
-
       return result.insertId;
     } catch (error) {
       console.error(error);

@@ -74,7 +74,6 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginForm />}></Route>
         <Route path='/forgotPassword' element={<ForgotPassword/>}></Route>
-        <Route path='/forgotpass' element={<ForgotPassword />}></Route>
 
         <Route path='/admin/main' element={<DashboardAll />}></Route>
         <Route path='/createUser' element={<CreateUser />}></Route>

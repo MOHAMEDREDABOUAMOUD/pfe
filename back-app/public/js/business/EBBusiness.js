@@ -462,6 +462,7 @@ class EBBusiness {
 
     static async Add(etat, object, observation, caution, estimation, progNonProg, agence, modePassation, secteur, qualification, fileList, operationList, currentUser) {
         const eb = new EB({ num: -1, etat:etat, objet: object, agence: agence, observation: observation, prog_nonprog: progNonProg, classe: this.getClasse(secteur, estimation), caution: caution, estimation: estimation, dateEB: this.getCurrentDateInMySQLFormat(), modePassation: modePassation, dateValidation: this.getCurrentDateInMySQLFormat(), validerPar: "", numUtilisateur: currentUser, qualification:qualification, secteur:secteur });
+        await EBDAO.addEB();
         const idEB = await EBDAO.create(eb);
         //console.log("eb added : " + idEB);
         for (let i = 0; i < fileList.length; i++) {

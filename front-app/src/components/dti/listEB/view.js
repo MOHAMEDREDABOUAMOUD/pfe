@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../sidebar/sideBar';
+import "./view.css";
 
-const ViewDti = () => {
-  const { id } = useParams();
+const ViewDti = (props) => {
+  const id = props.id;
   const [data, setData] = useState("");
 
   const getFile=async()=>{
@@ -41,10 +42,11 @@ const ViewDti = () => {
   }, "");
 
   return (
-    <div className='document'>
-      <Sidebar/>
-      {data}
-    </div>
+    <pre className='cadre'>
+          <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
+            {data}
+          </div>
+        </pre>
   );
 };
 

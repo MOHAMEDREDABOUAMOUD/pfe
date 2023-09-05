@@ -9,6 +9,7 @@ import Sidebar from '../sidebar/sideBar';
 import * as AiIcons from 'react-icons/ai';
 import UpdatePiece from "./piece/piece";
 import { styled } from "styled-components";
+import ViewDM from "./view";
 
 const ListFilesDM = () => {
   const { id } = useParams();
@@ -20,9 +21,17 @@ const ListFilesDM = () => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
-  const [ido, setido]=useState(0);
+  const [ido, setido] = useState(0);
+  const [showFile, setShowFile] = useState(false);
 
   const [updatePiece, setUpdatePiece] = useState(false);
+  const handleFile = (id) => {
+    setido(id);
+    setShowFile(true);
+  }
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   const handleUpdatePiece = (id) => {
     setido(id);
@@ -54,17 +63,17 @@ const ListFilesDM = () => {
   const getRows = async () => {
     const u = await getFiles();
     console.log(u);
-    if(u!=null){
+    if (u != null) {
       setRows(u);
     }
     else {
       setRows([]);
     }
     const c = Object.keys(u[0]);
-    if(c!=null){
+    if (c != null) {
       setColumns(c);
     }
-    else{
+    else {
       setColumns([]);
     }
     console.log(c);
@@ -125,15 +134,15 @@ const ListFilesDM = () => {
   }
 
   const deleteRow = async (id) => {
-    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " +id);
+    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " + id);
 
-        if (confirmDelete) {
-          await axios.post("/deleteFile", { id: id });
-          getRows();
-            alert("le fichier a été bien Supprimé");
-        } else {
-            alert("Suppression annulée");
-        }
+    if (confirmDelete) {
+      await axios.post("/deleteFile", { id: id });
+      getRows();
+      alert("le fichier a été bien Supprimé");
+    } else {
+      alert("Suppression annulée");
+    }
   }
 
   // const editRow=(id)=>{
@@ -174,7 +183,7 @@ const ListFilesDM = () => {
   };
 
   const navigate = useNavigate();
-  const viewFile=async(id)=>{
+  const viewFile = async (id) => {
     navigate(`/viewDM/${id}`);
   }
 
@@ -226,7 +235,7 @@ const ListFilesDM = () => {
                     />
                     <BsFillEyeFill
                       className="edit-btn"
-                      onClick={() => viewFile(row.num)}
+                      onClick={() => handleFile(row.num)}
                     />
                     <BsBoxArrowDown
                       className="edit-btn"
@@ -241,13 +250,21 @@ const ListFilesDM = () => {
         </tbody>
       </table>
       {updatePiece && (
-          <div className="overlay">
-            <NavIcon className="close-icon" to='#'>
-              <AiIcons.AiOutlineClose onClick={handleCloseUpdatePiece} />
-            </NavIcon>
-            <UpdatePiece id={ido} />
-          </div>
-        )}
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseUpdatePiece} />
+          </NavIcon>
+          <UpdatePiece id={ido} />
+        </div>
+      )}
+      {showFile && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+          </NavIcon>
+          <ViewDM id={ido} />
+        </div>
+      )}
     </div>
   );
 };

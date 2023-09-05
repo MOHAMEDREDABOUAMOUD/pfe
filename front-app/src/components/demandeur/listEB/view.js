@@ -8,8 +8,8 @@ import "./view.css";
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { SlLogout } from 'react-icons/sl';
 
-const View = () => {
-  const { id } = useParams();
+const View = (props) => {
+  const id = props.id;
   const [currentUser, setCurrentUser] = useState('');
   const [data, setData] = useState("");
   const [currentSexe, setCurrentSexe] = useState('');
@@ -33,23 +33,23 @@ const View = () => {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
 
-  const getFile=async()=>{
+  const getFile = async () => {
     try {
       const response = await axios.post("/getFile", { id: id });
       //console.log(response.data);
       setData(response.data["base64"]);
       // const buffer = new Uint8Array(response.data["piece"].data);
       // const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
-  
+
       // // Decode the binary data
       // const decodedData = atob(binaryString);
-  
+
       // // Create a Uint8Array from the decoded data
       // const uint8Array = new Uint8Array(decodedData.length);
       // for (let i = 0; i < decodedData.length; i++) {
       //   uint8Array[i] = decodedData.charCodeAt(i);
       // }
-  
+
       // // Create a Blob from the Uint8Array
       // const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
       // const contentBlob = blob;
@@ -71,9 +71,9 @@ const View = () => {
 
   return (
     <center>
-    <div className='doc'>
-    <div className='appbare'>
-    <Sidebar />
+      {/* <div className='doc'> */}
+        {/* <div className='appbare'>
+          <Sidebar />
     <Nav className='namee'>
             <NavDropdown
               className='nama custom-dropdown'
@@ -85,14 +85,14 @@ const View = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
-    </div>
-      <pre className='cadre'>
-      <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
-    {data}
-  </div>
-      </pre>
-    </div>
+          <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+        </div> */}
+        <pre className='cadre'>
+          <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
+            {data}
+          </div>
+        </pre>
+      {/* </div> */}
     </center>
   );
 };

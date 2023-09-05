@@ -285,11 +285,11 @@ const ListEB = () => {
               Secteur {sortBy === "Secteur" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Operations")}>
-              <th onClick={handleButtonClick} className="ici">
+              <th onClick={handleButtonClick}>
                 Operations {sortBy === "Operations" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
             </th>
-            <th onClick={() => handleSort("Files")} className="ici">
+            <th onClick={() => handleSort("Files")}>
               Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
             <th onClick={() => handleSort("Files")}>
@@ -314,8 +314,8 @@ const ListEB = () => {
                 <td>{row.modePassation}</td>
                 <td>{row.qualification}</td>
                 <td>{row.secteur}</td>
-                <td><a onClick={() => handleOperations(row.num)}>operations</a></td>
-                <td><a onClick={() => handleFiles(row.num)}>files</a></td>
+                <td className="ici"><a onClick={() => handleOperations(row.num)}>operations</a></td>
+                <td className="ici"><a onClick={() => handleFiles(row.num)}>files</a></td>
                 <td className="fit">
                   <span className="actions">
                     {/* <BsFillTrashFill

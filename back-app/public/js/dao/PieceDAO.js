@@ -210,7 +210,7 @@ class PieceDAO {
   }
 
   static async getPiece(id){
-    const _query = 'SELECT piece, base64, fileName FROM Piece WHERE num=?';
+    const _query = 'SELECT * FROM Piece WHERE num=?';
 
     try {
       const rows = await new Promise((resolve, reject) => {

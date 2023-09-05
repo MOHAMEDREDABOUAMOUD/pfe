@@ -17,7 +17,7 @@ class AOBusiness {
         return AODAO.getByNum(num);
     }
 
-    static getByUserId(currentUser){
+    static getByUserId(currentUser) {
         return AODAO.getByUserId(currentUser);
     }
 
@@ -25,17 +25,17 @@ class AOBusiness {
         return AODAO.getAll();
     }
 
-    static getByEBNum(num){
+    static getByEBNum(num) {
         return AODAO.getByEBNum(num);
     }
 
-    static updateAvis(piece, fileName, id){
+    static updateAvis(piece, fileName, id) {
         return AODAO.updateAvis(piece, fileName, id);
     }
 
-    
-    static getDashboardData(){
+
+    static getDashboardData() {
         return AODAO.getDashboardData();
     }
 }
-module.exports=AOBusiness;
+module.exports = AOBusiness;

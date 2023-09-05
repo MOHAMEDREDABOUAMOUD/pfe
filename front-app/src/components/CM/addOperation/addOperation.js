@@ -33,26 +33,26 @@ const AddOperationCM = () => {
     const { id } = useParams();
 
     const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const navigate = useNavigate();
     const handleAddOperation = async (event) => {
@@ -110,12 +110,17 @@ const AddOperationCM = () => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
 
+        // Check file type
+        if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
+            alert("Le fichier doit être au format Word (.docx ou .doc).");
+            return; // Stop processing if the file is not of the required type
+        }
+
         // Check file size
         const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
         if (selectedFile.size > maxSize) {
-            alert("La taille du fichier dépasse 10Mo.");
-        }
-        else {
+            alert("La taille du fichier dépasse 10 Mo.");
+        } else {
             const fileReader = new FileReader();
             fileReader.onload = (event) => {
                 const fileData = event.target.result; // This is the binary buffer
@@ -130,53 +135,53 @@ const AddOperationCM = () => {
     return (
         <div className='formCreateUser-cm-upeb'>
             <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
-    </div><center><h1 className='titre'>Ajouter Operation</h1></center>
+                <Sidebar />
+                <Nav className='namee'>
+                    <NavDropdown
+                        className='nama custom-dropdown'
+
+                        title={currentUser}
+                    >
+                        <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+                        <NavDropdown.Item href="/" className='it'>
+                            <SlLogout /> Exit
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
+                <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
+            </div><center><h1 className='titre'>Ajouter Operation</h1></center>
             <form onSubmit={handleAddOperation} className='forma'>
                 <div className='disp'>
-                <div className="form-group1ad">
-                    <label htmlFor="exampleFormControlSelect1">Agence</label><br />
-                    <select id="agence" className='form-control' onChange={(e) => setAgence(e.target.value)} value={agence}>
-                        <option> Fès </option>
-                        <option> Boulemane </option>
-                        <option> sefrou </option>
-                        <option> Moulay yaacoub </option>
-                        <option> taza </option>
-                        <option> meknes </option>
-                        <option> el hajeb  </option>
-                        <option> ifrane </option>
-                    </select>
-                </div>
-                <div class="form-group2ad">
-                    <label for="formFile">DA : </label>
-                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
-                    {pieceError && <p className='error-message'>{pieceError}</p>}
-                </div>
+                    <div className="form-group1ad">
+                        <label htmlFor="exampleFormControlSelect1">Agence</label><br />
+                        <select id="agence" className='form-control' onChange={(e) => setAgence(e.target.value)} value={agence}>
+                            <option> Fès </option>
+                            <option> Boulemane </option>
+                            <option> sefrou </option>
+                            <option> Moulay yaacoub </option>
+                            <option> taza </option>
+                            <option> meknes </option>
+                            <option> el hajeb  </option>
+                            <option> ifrane </option>
+                        </select>
+                    </div>
+                    <div class="form-group2ad">
+                        <label for="formFile">DA : </label>
+                        <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                        {pieceError && <p className='error-message'>{pieceError}</p>}
+                    </div>
                 </div>
                 <div className='disp'>
-                <div class="form-group1ad">
-                    <label for="exampleFormControlInput1">imputation</label><br />
-                    <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
-                    {imputationError && <p className='error-message'>{imputationError}</p>}
-                </div>
-                <div class="form-group2ad">
-                    <label for="exampleFormControlInput1">nature projet</label><br />
-                    <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
-                    {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
-                </div>
+                    <div class="form-group1ad">
+                        <label for="exampleFormControlInput1">imputation</label><br />
+                        <input type="text" className={`form-control ${imputationError ? 'error-border' : ''}`} id="imputation" placeholder="imputation" onChange={(e) => setImputation(e.target.value)} />
+                        {imputationError && <p className='error-message'>{imputationError}</p>}
+                    </div>
+                    <div class="form-group2ad">
+                        <label for="exampleFormControlInput1">nature projet</label><br />
+                        <input type="text" className={`form-control ${nature_projetError ? 'error-border' : ''}`} id="nature_projet" placeholder="nature pojet" onChange={(e) => setNatureProjet(e.target.value)} />
+                        {nature_projetError && <p className='error-message'>{nature_projetError}</p>}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">operation</label><br />
@@ -189,16 +194,16 @@ const AddOperationCM = () => {
                     {programmeError && <p className='error-message'>{programmeError}</p>}
                 </div>
                 <div className='disp'>
-                <div class="form-group1ad">
-                    <label for="exampleFormControlInput1">situation</label><br />
-                    <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
-                    {situationError && <p className='error-message'>{situationError}</p>}
-                </div>
-                <div class="form-group2ad">
-                    <label for="exampleFormControlInput1">superficie</label><br />
-                    <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
-                    {superficieError && <p className='error-message'>{superficieError}</p>}
-                </div>
+                    <div class="form-group1ad">
+                        <label for="exampleFormControlInput1">situation</label><br />
+                        <input type="text" className={`form-control ${situationError ? 'error-border' : ''}`} id="situation" placeholder="situation" onChange={(e) => setSituation(e.target.value)} />
+                        {situationError && <p className='error-message'>{situationError}</p>}
+                    </div>
+                    <div class="form-group2ad">
+                        <label for="exampleFormControlInput1">superficie</label><br />
+                        <input type="text" className={`form-control ${superficieError ? 'error-border' : ''}`} id="superficie" placeholder="superficie" onChange={(e) => setSuperficie(e.target.value)} />
+                        {superficieError && <p className='error-message'>{superficieError}</p>}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">type projet </label><br />

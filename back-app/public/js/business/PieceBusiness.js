@@ -41,7 +41,7 @@ class PieceBusiness {
 
     static async getPiece(id) {
         const piece = await PieceDAO.getPiece(id);
-        let p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB});;
+        let p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB});
         await this.decodeBase64Docx(piece.base64)
             .then((readableText) => {
                 if (readableText) {

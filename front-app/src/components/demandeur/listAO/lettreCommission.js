@@ -17,6 +17,8 @@ import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import UpdateLettreCommission from "./LettreCommission/updateLettreCpmmission";
+import { CiMenuKebab } from "react-icons/ci";
+import View from "../listEB/view";
 const LettreCommission = (props) => {
     const id = props.id;
     const [sortBy, setSortBy] = useState(null);
@@ -28,6 +30,22 @@ const LettreCommission = (props) => {
     const [ido, setido] = useState(0);
     const [showLettreCommission, setShowLettreCommission] = useState(false);
 
+    const [openDropdownIdx, setOpenDropdownIdx] = useState(null);
+
+    const handleDropdownClick1 = (index) => {
+        setOpenDropdownIdx(openDropdownIdx === index ? null : index);
+    };
+    
+  const [showFile, setShowFile] = useState(false);
+
+
+  const handleFile = (id) => {
+    setido(id);
+    setShowFile(true);
+  }
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
     const NavIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
@@ -225,7 +243,7 @@ const LettreCommission = (props) => {
     const handleDownload = async (file, fileName) => {
         try {
             //const response = await axios.post("/getFile", { id: id });
-            const buffer = new Uint8Array(file);
+            const buffer = new Uint8Array(file.data);
             const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
             //console.log(binaryString);
             // Create a Blob from the Uint8Array
@@ -286,20 +304,30 @@ const LettreCommission = (props) => {
                                 <td>{row.dateEnvoie}</td>
                                 <td>{row.destinataire}</td>
                                 <td className="fit">
-                                    <span className="actions">
-                                        <BsFillPencilFill
-                                            className="edit-btn"
-                                            onClick={() => handleLettreCommission(row.num)}
-                                        />
-                                        <BsFillEyeFill
-                                            className="edit-btn"
-                                        //onClick={() => viewFile(row.num)}
-                                        />
-                                        <BsBoxArrowDown
-                                            className="edit-btn"
-                                            onClick={() => handleDownload(row.lettreJournal, row.fileName)}
-                                        />
-                                    </span>
+                                    <div className="dropdown">
+                                        <div className="actions">
+                                            <CiMenuKebab
+                                                className="dropdown-btn"
+                                                onClick={() => handleDropdownClick1(idx)} // Pass the index here
+                                            />
+                                        </div>
+                                        {openDropdownIdx === idx && ( // Check if the dropdown for this row should be open
+                                            <div className="dropdown-content" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                                <BsFillPencilFill
+                                                    className="edit-btn"
+                                                    onClick={() => handleLettreCommission(row.num)}
+                                                />
+                                                <BsFillEyeFill
+                                                    className="edit-btn"
+                                                    onClick={() => handleFile(row.num)}
+                                                />
+                                                <BsBoxArrowDown
+                                                    className="edit-btn"
+                                                    onClick={() => handleDownload(row.lettreCommission, row.fileName)}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                 </td>
                                 <td className="fit">
                                     <span className="actions">
@@ -325,6 +353,14 @@ const LettreCommission = (props) => {
                     </NavIcon>
                     <UpdateLettreCommission id={ido} />
                 </div>
+            )}
+            {showFile && (
+              <div className="overlay">
+                <NavIcon className="close-icon" to='#'>
+                  <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+                </NavIcon>
+                <View id={ido} />
+              </div>
             )}
         </div>
     );

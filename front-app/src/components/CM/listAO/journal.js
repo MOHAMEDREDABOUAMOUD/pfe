@@ -17,6 +17,8 @@ import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import UpdateLettreJournal from "./Journal/updatelettreJournal";
+import { CiMenuKebab } from "react-icons/ci";
+import ViewCM from "../listEB/view";
 
 const Journal = (props) => {
     const [sortBy, setSortBy] = useState(null);
@@ -28,6 +30,23 @@ const Journal = (props) => {
     const [ido, setido] = useState(0);
     const [showLettreJournal, setShowLettreJournal] = useState(false);
     const id = props.id;
+    const [openDropdownIdx, setOpenDropdownIdx] = useState(null);
+
+    const handleDropdownClick1 = (index) => {
+        setOpenDropdownIdx(openDropdownIdx === index ? null : index);
+    };
+
+    
+  const [showFile, setShowFile] = useState(false);
+
+
+  const handleFile = (id) => {
+    setido(id);
+    setShowFile(true);
+  }
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
     const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -165,33 +184,33 @@ const Journal = (props) => {
     });
 
     const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const navigate = useNavigate();
     const editRow = (id) => {
         navigate(`/updateJournalCM/${id}`);
     }
     const deleteRow = async (id) => {
-        const confirmDelete = window.confirm("Confirmer la suppression du journal avec l'id " +id);
+        const confirmDelete = window.confirm("Confirmer la suppression du journal avec l'id " + id);
 
         if (confirmDelete) {
             await axios.post("/deleteJournal", { id: id });
@@ -227,7 +246,7 @@ const Journal = (props) => {
     const handleDownload = async (file, fileName) => {
         try {
             //const response = await axios.post("/getFile", { id: id });
-            const buffer = new Uint8Array(file);
+            const buffer = new Uint8Array(file.data);
             const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
             //console.log(binaryString);
             // Create a Blob from the Uint8Array
@@ -298,20 +317,30 @@ const Journal = (props) => {
                                 <td>{row.dateEnvoie}</td>
                                 <td>{row.datePublication}</td>
                                 <td className="fit">
-                                    <span className="actions">
-                                        <BsFillPencilFill
-                                            className="edit-btn"
-                                            onClick={() => handleLettreJournal(row.num)}
-                                        />
-                                        <BsFillEyeFill
-                                            className="edit-btn"
-                                        //onClick={() => viewFile(row.num)}
-                                        />
-                                        <BsBoxArrowDown
-                                            className="edit-btn"
-                                            onClick={() => handleDownload(row.lettreJournal, row.fileName)}
-                                        />
-                                    </span>
+                                    <div className="dropdown">
+                                        <div className="actions">
+                                            <CiMenuKebab
+                                                className="dropdown-btn"
+                                                onClick={() => handleDropdownClick1(idx)} // Pass the index here
+                                            />
+                                        </div>
+                                        {openDropdownIdx === idx && ( // Check if the dropdown for this row should be open
+                                            <div className="dropdown-content" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                                <BsFillPencilFill
+                                                    className="edit-btn"
+                                                    onClick={() => handleLettreJournal(row.num)}
+                                                />
+                                                <BsFillEyeFill
+                                                    className="edit-btn"
+                                                    onClick={() => handleFile(row.num)}
+                                                />
+                                                <BsBoxArrowDown
+                                                    className="edit-btn"
+                                                    onClick={() => handleDownload(row.lettreJournal, row.fileName)}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                 </td>
                                 <td className="fit">
                                     <span className="actions">
@@ -337,6 +366,14 @@ const Journal = (props) => {
                     </NavIcon>
                     <UpdateLettreJournal id={ido} />
                 </div>
+            )}
+            {showFile && (
+              <div className="overlay">
+                <NavIcon className="close-icon" to='#'>
+                  <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+                </NavIcon>
+                <ViewCM id={ido} />
+              </div>
             )}
         </div>
     );

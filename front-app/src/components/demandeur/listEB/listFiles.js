@@ -8,8 +8,9 @@ import Sidebar from '../sidebar/sideBar';
 import * as AiIcons from 'react-icons/ai';
 import UpdatePiece from "./piece/piece";
 import { styled } from "styled-components";
+import View from "./view";
 
-const ListFiles = ({id}) => {
+const ListFiles = ({ id }) => {
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
   const [filters, setFilters] = useState({});
@@ -18,9 +19,18 @@ const ListFiles = ({id}) => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
-  const [ido, setido]=useState(0);
-
+  const [ido, setido] = useState(0);
   const [updatePiece, setUpdatePiece] = useState(false);
+  const [showFile, setShowFile] = useState(false);
+
+
+  const handleFile = (id) => {
+    setido(id);
+    setShowFile(true);
+  }
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   const handleUpdatePiece = (id) => {
     setido(id);
@@ -52,17 +62,17 @@ const ListFiles = ({id}) => {
   const getRows = async () => {
     const u = await getFiles();
     console.log(u);
-    if(u!=null){
+    if (u != null) {
       setRows(u);
     }
     else {
       setRows([]);
     }
     const c = Object.keys(u[0]);
-    if(c!=null){
+    if (c != null) {
       setColumns(c);
     }
-    else{
+    else {
       setColumns([]);
     }
     console.log(c);
@@ -123,15 +133,15 @@ const ListFiles = ({id}) => {
   }
 
   const deleteRow = async (id) => {
-    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " +id);
+    const confirmDelete = window.confirm("Confirmer la suppression du fichier avec l'id " + id);
 
-        if (confirmDelete) {
-          await axios.post("/deleteFile", { id: id });
-          getRows();
-            alert("le fichier a été bien Supprimé");
-        } else {
-            alert("Suppression annulée");
-        }
+    if (confirmDelete) {
+      await axios.post("/deleteFile", { id: id });
+      getRows();
+      alert("le fichier a été bien Supprimé");
+    } else {
+      alert("Suppression annulée");
+    }
   }
 
   // const editRow=(id)=>{
@@ -172,79 +182,79 @@ const ListFiles = ({id}) => {
   };
 
   const navigate = useNavigate();
-  const viewFile=async(id)=>{
+  const viewFile = async (id) => {
     navigate(`/view/${id}`);
   }
 
   return (
     <center>
-    <div className="table-wrapper-dem">
-      
-    <span onClick={toggleFilterDropdown} className="searchfil-op"></span>
-      {showFilterDropdown && (
-        <div className="filter-dropdown">
-          {columns.map((column) => (
-            <div key={column} className="filter-input">
-              <label>{column}</label>
-              <input
-                type="text"
-                className="input-fil"
-                value={filters[column] || ""}
-                onChange={(e) => handleFilterChange(column, e.target.value)}
-              />
-            </div>
-          ))}
-        </div>
-      )}
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort(columns[0])}>
-              Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort(columns[1])}>
-              Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-            </th>
-            <th onClick={() => handleSort(columns[1])}>
-              
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedRows.map((row, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{row.num.toString()}</td>
-                <td>{row.libelle.toString()}</td>
+      <div className="table-wrapper-dem">
 
-                <td className="fit">
-                  <span className="actions">
-                    <BsFillTrashFill
-                      className="edit-btn"
-                      id="delete"
-                      onClick={() => deleteRow(row.num)}
-                    />
-                    <BsFillPencilFill
-                      className="edit-btn"
-                      onClick={() => handleUpdatePiece(row.num)}
-                    />
-                    <BsFillEyeFill
-                      className="edit-btn"
-                      onClick={() => viewFile(row.num)}
-                    />
-                    <BsBoxArrowDown
-                      className="edit-btn"
-                      onClick={() => handleDownload(row.num)}
-                    />
+        <span onClick={toggleFilterDropdown} className="searchfil-op"></span>
+        {showFilterDropdown && (
+          <div className="filter-dropdown">
+            {columns.map((column) => (
+              <div key={column} className="filter-input">
+                <label>{column}</label>
+                <input
+                  type="text"
+                  className="input-fil"
+                  value={filters[column] || ""}
+                  onChange={(e) => handleFilterChange(column, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <table className="table">
+          <thead>
+            <tr>
+              <th onClick={() => handleSort(columns[0])}>
+                Id {sortBy === columns[0] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort(columns[1])}>
+                Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+              </th>
+              <th onClick={() => handleSort(columns[1])}>
 
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {updatePiece && (
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedRows.map((row, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>{row.num.toString()}</td>
+                  <td>{row.libelle.toString()}</td>
+
+                  <td className="fit">
+                    <span className="actions">
+                      <BsFillTrashFill
+                        className="edit-btn"
+                        id="delete"
+                        onClick={() => deleteRow(row.num)}
+                      />
+                      <BsFillPencilFill
+                        className="edit-btn"
+                        onClick={() => handleUpdatePiece(row.num)}
+                      />
+                      <BsFillEyeFill
+                        className="edit-btn"
+                        onClick={() => handleFile(row.num)}
+                      />
+                      <BsBoxArrowDown
+                        className="edit-btn"
+                        onClick={() => handleDownload(row.num)}
+                      />
+
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        {updatePiece && (
           <div className="overlay">
             <NavIcon className="close-icon" to='#'>
               <AiIcons.AiOutlineClose onClick={handleCloseUpdatePiece} />
@@ -252,7 +262,15 @@ const ListFiles = ({id}) => {
             <UpdatePiece id={ido} />
           </div>
         )}
-    </div>
+        {showFile && (
+          <div className="overlay">
+            <NavIcon className="close-icon" to='#'>
+              <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+            </NavIcon>
+            <View id={ido} />
+          </div>
+        )}
+      </div>
     </center>
   );
 };

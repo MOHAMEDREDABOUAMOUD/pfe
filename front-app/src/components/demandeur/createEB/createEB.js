@@ -325,6 +325,11 @@ const CreateEB = () => {
     const handleFileUpload = async (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
+        // Check file type
+        if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
+            alert("Le fichier doit être au format Word (.docx ou .doc).");
+            return; // Stop processing if the file is not of the required type
+        }
         // Check file size
         const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
         if (selectedFile.size > maxSize) {
@@ -346,6 +351,11 @@ const CreateEB = () => {
     const handleDAFileUpload = (event) => {
         event.preventDefault();
         const selectedFile = event.target.files[0];
+        // Check file type
+        if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
+            alert("Le fichier doit être au format Word (.docx ou .doc).");
+            return; // Stop processing if the file is not of the required type
+        }
         // Check file size
         const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
         if (selectedFile.size > maxSize) {

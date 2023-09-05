@@ -10,17 +10,19 @@ import * as AiIcons from 'react-icons/ai';
 import { BsFilterLeft } from 'react-icons/bs';
 import Sidebar from '../sidebar/sideBar';
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import {IoMdNotifications} from 'react-icons/io';
+import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Journal from "./journal";
 import EB from "./eb";
 import LettreCommission from "./lettreCommission";
 import UpdateAvis from "./Avis/updateAvis";
+import { CiMenuKebab } from "react-icons/ci";
+import ViewCM from "../listEB/view";
 
 const ListAOCM = () => {
     const [sortBy, setSortBy] = useState(null);
@@ -29,6 +31,23 @@ const ListAOCM = () => {
     const [showFilterDropdown, setShowFilterDropdown] = useState(false);
     const [rows, setRows] = useState([]);
     const [columns, setColumns] = useState([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [openDropdownIdx, setOpenDropdownIdx] = useState(null);
+    const [showFile, setShowFile] = useState(false);
+  
+  
+    const handleFile = (id) => {
+      setido(id);
+      setShowFile(true);
+    }
+    const handleCloseFile = () => {
+      setShowFile(false);
+    };
+
+    const handleDropdownClick1 = (index) => {
+        setOpenDropdownIdx(openDropdownIdx === index ? null : index);
+    };
+    
 
     const NavIcon = styled(Link)`
   margin-left: 2rem;
@@ -46,26 +65,26 @@ const ListAOCM = () => {
     const [ido, setido] = useState(0);
 
     const [currentSexe, setCurrentSexe] = useState('');
-  const [currentNom, setCurrentNom] = useState('');
-  const [currentPrenom, setCurrentPrenom] = useState('');
-  const [currentUser, setCurrentUser] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await axios.post("/getCurrentUserData", { id: 0 });
-        console.log(userData.data);
-        setCurrentNom(userData.data["nom"]);
-        setCurrentSexe(userData.data["sexe"]);
-        setCurrentPrenom(userData.data["prenom"]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUserData();
-  }, []);
-  useEffect(() => {
-    setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
-  }, [currentSexe, currentNom, currentPrenom]);
+    const [currentNom, setCurrentNom] = useState('');
+    const [currentPrenom, setCurrentPrenom] = useState('');
+    const [currentUser, setCurrentUser] = useState('');
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userData = await axios.post("/getCurrentUserData", { id: 0 });
+                console.log(userData.data);
+                setCurrentNom(userData.data["nom"]);
+                setCurrentSexe(userData.data["sexe"]);
+                setCurrentPrenom(userData.data["prenom"]);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    useEffect(() => {
+        setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
+    }, [currentSexe, currentNom, currentPrenom]);
 
     const handleButtonClick = () => {
         setShowJournal(true);
@@ -140,9 +159,9 @@ const ListAOCM = () => {
             <div className="filter-dropdown">
                 {columns.map((column) => (
                     <div key={column} className="filter-input">
-                        
+
                         <input
-                        placeholder={column}
+                            placeholder={column}
                             type="text"
                             className="input-fil"
                             value={filters[column] || ""}
@@ -240,36 +259,36 @@ const ListAOCM = () => {
         setShowUpdateAvis(false);
     };
     const handleDownload = async (file, fileName) => {
-      try {
-        //const response = await axios.post("/getFile", { id: id });
-        const buffer = new Uint8Array(file);
-        const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
-        //console.log(binaryString);
-        // Create a Blob from the Uint8Array
-        const decodedData = atob(binaryString);
-        const uint8Array = new Uint8Array(decodedData.length);
-        for (let i = 0; i < decodedData.length; i++) {
-          uint8Array[i] = decodedData.charCodeAt(i);
+        try {
+            //const response = await axios.post("/getFile", { id: id });
+            const buffer = new Uint8Array(file.data);
+            const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
+            //console.log(binaryString);
+            // Create a Blob from the Uint8Array
+            const decodedData = atob(binaryString);
+            const uint8Array = new Uint8Array(decodedData.length);
+            for (let i = 0; i < decodedData.length; i++) {
+                uint8Array[i] = decodedData.charCodeAt(i);
+            }
+            const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
+
+            // Create a download URL for the Blob
+            const downloadUrl = URL.createObjectURL(blob);
+
+            // Create a link element for downloading
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = fileName; // Specify the desired filename
+            document.body.appendChild(link);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+
+            // Clean up by revoking the Blob URL
+            URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("Error downloading file:", error);
         }
-        const blob = new Blob([uint8Array], { type: 'application/octet-stream' });
-  
-        // Create a download URL for the Blob
-        const downloadUrl = URL.createObjectURL(blob);
-  
-        // Create a link element for downloading
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = fileName; // Specify the desired filename
-        document.body.appendChild(link);
-  
-        // Programmatically click the link to trigger the download
-        link.click();
-  
-        // Clean up by revoking the Blob URL
-        URL.revokeObjectURL(downloadUrl);
-      } catch (error) {
-        console.error("Error downloading file:", error);
-      }
     };
     // const viewFile=async(id)=>{
     //   navigate(`/viewAO/${id}`);
@@ -277,145 +296,163 @@ const ListAOCM = () => {
 
     return (
         <center>
-        <div className="table-wrapper-cm">
-        <div className='appbare'>
-    <Sidebar />
-    <Nav className='namee'>
-            <NavDropdown
-              className='nama custom-dropdown'
-              
-              title={currentUser}
-            >
-              <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
-              <NavDropdown.Item href="/" className='it'>
-                <SlLogout /> Exit
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-      <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
-    </div>
-    <center><h1 className='titre'>List Appel D'offres</h1></center>
-    <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
-            {renderFilterDropdown()}
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th onClick={() => handleSort("num")}>
-                            Id {sortBy === "num" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("dateOuverturePlis")}>
-                            Date OP {sortBy === "dateOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("heureOuverturePlis")} className="expand">
-                            Heure OP {sortBy === "heureOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("datePublicationPortail")}>
-                            date PP {sortBy === "datePublicationPortail" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("dateEntreDM")}>
-                            date entre dm {sortBy === "dateEntreDM" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th onClick={() => handleSort("dateAchevementTravauxCommission")}>
-                            date ATC {sortBy === "dateAchevementTravauxCommission" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
-                        </th>
-                        <th>
-                            Avis
-                        </th>
-                        <th>
-                            EB
-                        </th>
-                        <th>
-                            Journal
-                        </th>
-                        <th>
-                            Lettre commission
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sortedRows.map((row, idx) => {
-                        return (
-                            <tr key={idx}>
-                                <td>{row.num}</td>
-                                <td>{row.dateOuverturePlis}</td>
-                                <td>{row.heureOuverturePlis}</td>
-                                <td>{row.datePublicationPortail}</td>
-                                <td>{row.dateEntreDM}</td>
-                                <td>{row.dateAchevementTravauxCommission}</td>
-                                <td className="fit">
-                                    <span className="actions">
-                                        <BsFillPencilFill
-                                            className="edit-btn"
-                                            onClick={() => handleUpdateAvis(row.num)}
-                                        />
+            <div className="table-wrapper-cm">
+                <div className='appbare'>
+                    <Sidebar />
+                    <Nav className='namee'>
+                        <NavDropdown
+                            className='nama custom-dropdown'
+
+                            title={currentUser}
+                        >
+                            <NavDropdown.Item href="/notifications" className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+                            <NavDropdown.Item href="/" className='it'>
+                                <SlLogout /> Exit
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <center><h1 className='espace_admin'>Espace Chef marché</h1></center>
+                </div>
+                <center><h1 className='titre'>List Appel D'offres</h1></center>
+                <span onClick={toggleFilterDropdown} className="search"><BsFilterLeft className="search" /></span>
+                {renderFilterDropdown()}
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th onClick={() => handleSort("num")}>
+                                Id {sortBy === "num" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th onClick={() => handleSort("dateOuverturePlis")}>
+                                Date OP {sortBy === "dateOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th onClick={() => handleSort("heureOuverturePlis")} className="expand">
+                                Heure OP {sortBy === "heureOuverturePlis" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th onClick={() => handleSort("datePublicationPortail")}>
+                                date PP {sortBy === "datePublicationPortail" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th onClick={() => handleSort("dateEntreDM")}>
+                                date entre dm {sortBy === "dateEntreDM" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th onClick={() => handleSort("dateAchevementTravauxCommission")}>
+                                date ATC {sortBy === "dateAchevementTravauxCommission" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
+                            </th>
+                            <th>
+                                Avis
+                            </th>
+                            <th>
+                                EB
+                            </th>
+                            <th>
+                                Journal
+                            </th>
+                            <th>
+                                Lettre commission
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedRows.map((row, idx) => {
+                            return (
+                                <tr key={idx}>
+                                    <td>{row.num}</td>
+                                    <td>{row.dateOuverturePlis}</td>
+                                    <td>{row.heureOuverturePlis}</td>
+                                    <td>{row.datePublicationPortail}</td>
+                                    <td>{row.dateEntreDM}</td>
+                                    <td>{row.dateAchevementTravauxCommission}</td>
+                                    <td className="fit">
+                                    <div className="dropdown">
+                                            <div className="actions">
+                                                <CiMenuKebab
+                                                    className="dropdown-btn"
+                                                    onClick={() => handleDropdownClick1(idx)} // Pass the index here
+                                                />
+                                            </div>
+                                            {openDropdownIdx === idx && ( // Check if the dropdown for this row should be open
+                                                <div className="dropdown-content" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                                                    <BsFillPencilFill
+                                                        className="edit-btn"
+                                                        onClick={() => handleUpdateAvis(row.num)}
+                                                    />
+                                                    <BsFillEyeFill
+                                                        className="edit-btn"
+                                                        onClick={() => handleFile(row.num)}
+                                                    />
+                                                    <BsBoxArrowDown
+                                                        className="edit-btn"
+                                                        onClick={() => handleDownload(row.avis, row.fileName)}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </td>
+                                    <td>
                                         <BsFillEyeFill
                                             className="edit-btn"
-                                            //onClick={() => viewFile(row.num)}
+                                            onClick={() => handleEB(row.numEB)}
                                         />
-                                        <BsBoxArrowDown
+                                    </td>
+                                    <td>
+
+                                        <BsFillEyeFill
                                             className="edit-btn"
-                                            onClick={() => handleDownload(row.avis, row.fileName)}
+                                            onClick={() => handleJournal(row.num)}
                                         />
-                                    </span>
-                                </td>
-                                <td>
-                                    <BsFillEyeFill
-                                        className="edit-btn"
-                                        onClick={() => handleEB(row.numEB)}
-                                    />
-                                </td>
-                                <td>
+                                    </td>
+                                    <td>
 
-                                    <BsFillEyeFill
-                                        className="edit-btn"
-                                        onClick={() => handleJournal(row.num)}
-                                    />
-                                </td>
-                                <td>
-
-                                    <BsFillEyeFill
-                                        className="edit-btn"
-                                        onClick={() => handleLettreCommission(row.numLettreCommission)}
-                                    />
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-            {showJournal && (
-                <div className="overlay">
+                                        <BsFillEyeFill
+                                            className="edit-btn"
+                                            onClick={() => handleLettreCommission(row.numLettreCommission)}
+                                        />
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+                {showJournal && (
+                    <div className="overlay">
+                        <NavIcon className="close-icon" to='#'>
+                            <AiIcons.AiOutlineClose onClick={handleCloseJournal} />
+                        </NavIcon>
+                        <Journal id={ido} />
+                    </div>
+                )}
+                {showEB && (
+                    <div className="overlay">
+                        <NavIcon className="close-icon" to='#'>
+                            <AiIcons.AiOutlineClose onClick={handleCloseEB} />
+                        </NavIcon>
+                        <EB id={ido} />
+                    </div>
+                )}
+                {showUpdateAvis && (
+                    <div className="overlay">
+                        <NavIcon className="close-icon" to='#'>
+                            <AiIcons.AiOutlineClose onClick={handleCloseUpdateAvis} />
+                        </NavIcon>
+                        <UpdateAvis id={ido} />
+                    </div>
+                )}
+                {showLettreCommission && (
+                    <div className="overlay">
+                        <NavIcon className="close-icon" to='#'>
+                            <AiIcons.AiOutlineClose onClick={handleCloseLettreCommission} />
+                        </NavIcon>
+                        <LettreCommission id={ido} />
+                    </div>
+                )}
+                {showFile && (
+                  <div className="overlay">
                     <NavIcon className="close-icon" to='#'>
-                        <AiIcons.AiOutlineClose onClick={handleCloseJournal} />
+                      <AiIcons.AiOutlineClose onClick={handleCloseFile} />
                     </NavIcon>
-                    <Journal id={ido} />
-                </div>
-            )}
-            {showEB && (
-                <div className="overlay">
-                    <NavIcon className="close-icon" to='#'>
-                        <AiIcons.AiOutlineClose onClick={handleCloseEB} />
-                    </NavIcon>
-                    <EB id={ido} />
-                </div>
-            )}
-            {showUpdateAvis && (
-                <div className="overlay">
-                    <NavIcon className="close-icon" to='#'>
-                        <AiIcons.AiOutlineClose onClick={handleCloseUpdateAvis} />
-                    </NavIcon>
-                    <UpdateAvis id={ido} />
-                </div>
-            )}
-            {showLettreCommission && (
-                <div className="overlay">
-                    <NavIcon className="close-icon" to='#'>
-                        <AiIcons.AiOutlineClose onClick={handleCloseLettreCommission} />
-                    </NavIcon>
-                    <LettreCommission id={ido} />
-                </div>
-            )}
-        </div>
+                    <ViewCM id={ido} />
+                  </div>
+                )}
+            </div>
         </center>
     );
 };
