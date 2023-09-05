@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  
+
   const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
   const [currentPrenom, setCurrentPrenom] = useState('');
@@ -40,10 +40,12 @@ const ForgotPassword = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const r=await axios.post("/getPassword", {email: email});
+    const r = await axios.post("/getPassword", { email: email });
     //password huwa r.pwd
-    await axios.post("/sendPassword", {email: email});
-    alert("le mot de passe a ete envoyer a : "+email);
+    if (r!=null) {
+      await axios.post("/sendPassword", { email: email });
+      alert("le mot de passe a ete envoyer a : " + email);
+    }
     //const sent = await sendEmail(email, "recuperation du mot de passe", "voila votre mot de passe : "+r.pwd); makhdamach
     // if (sent) {
     //   console.log('Email sent successfully');

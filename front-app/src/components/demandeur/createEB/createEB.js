@@ -376,7 +376,7 @@ const CreateEB = () => {
 
     const handleAddFile = (event) => {
         let hasErrorsp = false;
-        if (libelle.trim() === '') {
+        if (libelle === '') {
             // Display the error message if libelle is empty
             setErrorMessagelibelle('Ce champ est obligatoire');
             hasErrorsp = true;
@@ -404,58 +404,65 @@ const CreateEB = () => {
 
     const handleAddOperation = (event) => {
         let hasErrorspp = false;
-        if (agence.trim() === '') {
+        if (agence === '') {
             setErrorMessageAgence('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessageAgence('');
         }
-        if (imputation.trim() === '') {
+        if (imputation === '') {
             setErrorMessageim('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessageim('');
         }
-        if (natureProjet.trim() === '') {
+        if (natureProjet === '') {
             setErrorMessagenp('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessagenp('');
 
         }
-        if (operation.trim() === '') {
+        if (operation === '') {
             setErrorMessageop('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessageop('');
 
         }
-        if (programme.trim() === '') {
+        if (programme === '') {
             setErrorMessageprog('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessageprog('');
 
         }
-        if (situation.trim() === '') {
+        if (situation === '') {
             setErrorMessagesit('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessagesit('');
 
         }
-        if (superficie.trim() === '') {
+        if (superficie === '') {
             setErrorMessagesup('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessagesup('');
 
         }
-        if (typeProjet.trim() === '') {
+        if (typeProjet === '') {
             setErrorMessagetp('Ce champ est obligatoire');
             hasErrorspp = true;
         } else {
             setErrorMessagetp('');
+
+        }
+        if (piece === '') {
+            setErrorMessageDA('Ce champ est obligatoire');
+            hasErrorspp = true;
+        } else {
+            setErrorMessageDA('');
 
         }
         if (!hasErrorspp) {
@@ -464,7 +471,7 @@ const CreateEB = () => {
             // Handle adding operation logic here
             const op = {
                 agence: agenceOp,
-                daFile: daFile,
+                DA: piece,
                 daFileName: daFileName,
                 imputation: imputation,
                 natureProjet: natureProjet,
@@ -477,6 +484,7 @@ const CreateEB = () => {
             console.log("da : " + daFile);
             setOperationList((prevOperationList) => [...prevOperationList, op]);
             setAgence("Fes");
+            setPiece("");
             setDaFile([]);
             setDaFileName("");
             setImputation("");
@@ -619,7 +627,7 @@ const CreateEB = () => {
                             <label htmlFor="caution" className="lab">caution</label>
                             <br />
                             <input
-                                type="text"
+                                type="number"
                                 className={`form-control ${cautionError ? 'error-border' : ''}`}
                                 id="caution"
                                 placeholder="caution"
@@ -632,7 +640,7 @@ const CreateEB = () => {
                             <label htmlFor="estimation" className="lab">estimation</label>
                             <br />
                             <input
-                                type="text"
+                                type="number"
                                 className={`form-control ${estimationError ? 'error-border' : ''}`}
                                 id="estimation"
                                 placeholder="estimation"
@@ -821,11 +829,11 @@ const CreateEB = () => {
                             </label>
                             <input
                                 className="form-control"
-                                type="file"
+                                type="number"
                                 id="daFile"
-                                onChange={(e) => handleDAFileUpload(e)}
+                                onChange={(e) => setPiece(e.target.value)}
                             />
-
+                            {errorMessageDA && <p className='error-message'>{errorMessageDA}</p>}
                         </div>
                     </div>
                     <div className="disp">
@@ -939,7 +947,7 @@ const CreateEB = () => {
                                     <thead>
                                         <tr>
                                             <th>Agence</th>
-                                            <th>Fichier DA</th>
+                                            <th>DA</th>
                                             <th>Imputation</th>
                                             <th>Nature projet</th>
                                             <th>operation</th>
@@ -954,7 +962,7 @@ const CreateEB = () => {
                                         {operationList.map((op, index) => (
                                             <tr key={index}>
                                                 <td>{op.agence}</td>
-                                                <td>{op.daFileName}</td>
+                                                <td>{op.DA}</td>
                                                 <td>{op.imputation}</td>
                                                 <td>{op.natureProjet}</td>
                                                 <td>{op.operation}</td>

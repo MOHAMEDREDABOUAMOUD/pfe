@@ -197,7 +197,8 @@ const ListOperationsDti = ({id}) => {
                                 <td>{row.situation}</td>
                                 <td>{row.superficie}</td>
                                 <td>{row.typeProjet}</td>
-                                <td className="fit">
+                                <td>{row.piece}</td>
+                                {/* <td className="fit">
                                     <span className="actions">
                                         <BsFillTrashFill
                                             className="delete-btn"
@@ -208,7 +209,7 @@ const ListOperationsDti = ({id}) => {
                                             onClick={() => editRow(row.code)}
                                         />
                                     </span>
-                                </td>
+                                </td> */}
                             </tr>
                         );
                     })}

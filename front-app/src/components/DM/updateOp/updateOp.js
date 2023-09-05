@@ -185,7 +185,7 @@ export default function UpdateOpDM() {
                 </div>
                 <div class="form-group2ad">
                     <label for="formFile" className='lab'>DA : </label>
-                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="number" id="formFile" onChange={(e) => handleFileUpload(e)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 </div>

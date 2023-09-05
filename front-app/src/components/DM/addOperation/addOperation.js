@@ -14,13 +14,21 @@ import Sidebar from '../sidebar/sideBar';
 const AddOperationDM = () => {
     const [agence, setAgence] = useState('Fes');
     const [imputation, setImputation] = useState('');
+    const [imputationError, setImputationError] = useState('');
     const [nature_projet, setNatureProjet] = useState('');
+    const [nature_projetError, setNatureProjetError] = useState('');
     const [operation, setOperation] = useState('');
+    const [operationError, setOperationError] = useState('');
     const [programme, setProgramme] = useState('');
+    const [programmeError, setProgrammeError] = useState('');
     const [situation, setSituation] = useState('');
+    const [situationError, setSituationError] = useState('');
     const [superficie, setSuperficie] = useState('');
+    const [superficieError, setSuperficieError] = useState('');
     const [type_projet, setTypeProjet] = useState('');
-    const [piece, setPiece] = useState([]);
+    const [type_projetError, setTypeProjetError] = useState('');
+    const [piece, setPiece] = useState("");
+    const [pieceError, setPieceError] = useState('');
 
     const { id } = useParams();
 
@@ -50,32 +58,55 @@ const AddOperationDM = () => {
     const navigate = useNavigate();
     const handleAddOperation = async (event) => {
         event.preventDefault();
-        alert("l'operation a ete bien ajouter");
-        await axios.post("/addOperationDti", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
-        navigate(`/listEBDM`);
-    };
+        setImputationError('');
+        setNatureProjetError('');
+        setOperationError('');
+        setProgrammeError('');
+        setSituationError('');
+        setSuperficieError('');
+        setTypeProjetError('');
+        setPieceError('');
+        let hasErrors = false;
 
-    const handleFileUpload = (event) => {
-        event.preventDefault();
-        const selectedFile = event.target.files[0];
-        // Check file type
-        if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
-            alert("Le fichier doit être au format Word (.docx ou .doc).");
-            return; // Stop processing if the file is not of the required type
+        if (imputation === '') {
+            setImputationError('Ce champ est obligatoire');
+            hasErrors = true;
         }
-        // Check file size
-        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
-        if (selectedFile.size > maxSize) {
-            alert("La taille du fichier dépasse 10Mo.");
+        if (nature_projet === '') {
+            setNatureProjetError('Ce champ est obligatoire');
+            hasErrors = true;
         }
-        else {
-            const fileReader = new FileReader();
-            fileReader.onload = (event) => {
-                const fileData = event.target.result; // This is the binary buffer
-                const base64FileData = btoa(fileData);
-                setPiece(base64FileData);
-            };
-            fileReader.readAsArrayBuffer(selectedFile);
+        if (operation === '') {
+            setOperationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (programme === '') {
+            setProgrammeError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (situation === '') {
+            setSituationError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (superficie === '') {
+            setSuperficieError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (type_projet === '') {
+            setTypeProjetError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if (piece === "") {
+            setPieceError('Ce champ est obligatoire');
+            hasErrors = true;
+        }
+        if(!hasErrors){
+            alert("l'operation a ete bien ajouter");
+            navigate(`/listEBDM`);
+            await axios.post("/addOperationDti", { id: id, agence: agence, imputation: imputation, nature_projet: nature_projet, operation: operation, programme: programme, situation: situation, superficie: superficie, type_projet: type_projet, piece: piece });
+        }
+        else{
+            alert("l'operation n'a pas ete ajouter");
         }
     };
 
@@ -114,7 +145,7 @@ const AddOperationDM = () => {
                 </div>
                 <div class="form-group2ad">
                     <label for="formFile" class="lab">DA : </label>
-                    <input class="form-control" type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                    <input class="form-control" type="number" id="formFile" onChange={(e) => setPiece(e.target.value)} />
                 </div>
                 </div>
                 <div class="form-group1">

@@ -9,7 +9,7 @@ class AODAO {
     `;
     try {
       const result = await new Promise((resolve, reject) => {
-        pool.query(_query, values, (err, result) => {
+        pool.query(_query, (err, result) => {
           if (err) {
             console.error(err);
             reject(err);
@@ -31,7 +31,7 @@ class AODAO {
     `;
     try {
       const result = await new Promise((resolve, reject) => {
-        pool.query(_query, values, (err, result) => {
+        pool.query(_query, (err, result) => {
           if (err) {
             reject(err);
           } else {

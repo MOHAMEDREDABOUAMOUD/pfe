@@ -203,7 +203,8 @@ const ListOperations = ({id}) => {
                                 <td>{row.situation.toString()}</td>
                                 <td>{row.superficie.toString()}</td>
                                 <td>{row.typeProjet.toString()}</td>
-                                <td className="fit">
+                                <td>{row.piece}</td>
+                                {/* <td className="fit">
                                     <span className="actions">
                                         <BsFillTrashFill
                                             className="delete-btn"
@@ -214,7 +215,7 @@ const ListOperations = ({id}) => {
                                             onClick={() => editRow(row.code)}
                                         />
                                     </span>
-                                </td>
+                                </td> */}
                             </tr>
                         );
                     })}

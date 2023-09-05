@@ -7,12 +7,13 @@ const pool = require('./db');
 
 class EBDAO {
   static async addEB() {
+    console.log("enter add eb");
     const _query = `
       update Dashboard set eb=eb+1
     `;
     try {
       const result = await new Promise((resolve, reject) => {
-        pool.query(_query, values, (err, result) => {
+        pool.query(_query, (err, result) => {
           if (err) {
             reject(err);
           } else {
@@ -33,7 +34,7 @@ class EBDAO {
     `;
     try {
       const result = await new Promise((resolve, reject) => {
-        pool.query(_query, values, (err, result) => {
+        pool.query(_query, (err, result) => {
           if (err) {
             reject(err);
           } else {

@@ -305,7 +305,7 @@ export default function CreateAO() {
                     <div className='disp'>
                         <div className='form-group1ad'>
                             <label htmlFor="numEnvoieLettreCommission" className='lab'>num envoie lettre commission</label><br />
-                            <input type="text" className={`form-control ${numEnvoieLettreCommissionError ? 'error-border' : ''}`} id="numEnvoieLettreCommission" placeholder="num envoie lettre commission" value={numEnvoieLettreCommission} onChange={(e) => setNumEnvoieLettreCommission(e.target.value)} />
+                            <input type="number" className={`form-control ${numEnvoieLettreCommissionError ? 'error-border' : ''}`} id="numEnvoieLettreCommission" placeholder="num envoie lettre commission" value={numEnvoieLettreCommission} onChange={(e) => setNumEnvoieLettreCommission(e.target.value)} />
                             {numEnvoieLettreCommissionError && <p className='error-message'>{numEnvoieLettreCommissionError}</p>}
                         </div>
                         <div class="form-group2ad">
@@ -351,7 +351,7 @@ export default function CreateAO() {
                         </div>
                         <div className='form-group2ad'>
                             <label htmlFor="numEnvoieJournal" className='lab'>num envoie lettre journal</label><br />
-                            <input type="text" className="form-control" id="numEnvoieJournal" placeholder="num envoie journal" value={numEnvoieJournal} onChange={(e) => setNumEnvoieJournal(e.target.value)} />
+                            <input type="number" className="form-control" id="numEnvoieJournal" placeholder="num envoie journal" value={numEnvoieJournal} onChange={(e) => setNumEnvoieJournal(e.target.value)} />
                         </div>
                     </div>
                     <div class="form-group">

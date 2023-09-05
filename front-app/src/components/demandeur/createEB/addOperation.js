@@ -28,7 +28,7 @@ const AddOperation = () => {
     const [superficieError, setSuperficieError] = useState('');
     const [type_projet, setTypeProjet] = useState('');
     const [type_projetError, setTypeProjetError] = useState('');
-    const [piece, setPiece] = useState([]);
+    const [piece, setPiece] = useState("");
     const [pieceError, setPieceError] = useState('');
 
     const [currentSexe, setCurrentSexe] = useState('');
@@ -68,35 +68,35 @@ const AddOperation = () => {
         setPieceError('');
         let hasErrors = false;
 
-        if (imputation.trim() === '') {
+        if (imputation === '') {
             setImputationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (nature_projet.trim() === '') {
+        if (nature_projet === '') {
             setNatureProjetError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (operation.trim() === '') {
+        if (operation === '') {
             setOperationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (programme.trim() === '') {
+        if (programme === '') {
             setProgrammeError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (situation.trim() === '') {
+        if (situation === '') {
             setSituationError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (superficie.trim() === '') {
+        if (superficie === '') {
             setSuperficieError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (type_projet.trim() === '') {
+        if (type_projet === '') {
             setTypeProjetError('Ce champ est obligatoire');
             hasErrors = true;
         }
-        if (piece === []) {
+        if (piece === "") {
             setPieceError('Ce champ est obligatoire');
             hasErrors = true;
         }
@@ -108,30 +108,6 @@ const AddOperation = () => {
         }
         else{
             alert("l'operation n'a pas ete ajouter");
-        }
-    };
-
-    const handleFileUpload = (event) => {
-        event.preventDefault();
-        const selectedFile = event.target.files[0];
-        // Check file type
-        if (!selectedFile.name.endsWith(".docx") && !selectedFile.name.endsWith(".doc")) {
-            alert("Le fichier doit être au format Word (.docx ou .doc).");
-            return; // Stop processing if the file is not of the required type
-        }
-        // Check file size
-        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
-        if (selectedFile.size > maxSize) {
-            alert("La taille du fichier dépasse 10Mo.");
-        }
-        else{
-            const fileReader = new FileReader();
-            fileReader.onload = (event) => {
-                const fileData = event.target.result; // This is the binary buffer
-                const base64FileData = btoa(fileData);
-                setPiece(base64FileData);
-            };
-            fileReader.readAsArrayBuffer(selectedFile);
         }
     };
 
@@ -172,7 +148,7 @@ const AddOperation = () => {
                 </div>
                 <div class="form-group1">
                     <label for="formFile" className='lab'>DA : </label>
-                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="file" id="formFile" onChange={(e) => handleFileUpload(e)} />
+                    <input className={`form-control ${pieceError ? 'error-border' : ''}`} type="number" id="formFile" onChange={(e) => setPiece(e.target.value)} />
                     {pieceError && <p className='error-message'>{pieceError}</p>}
                 </div>
                 </div>

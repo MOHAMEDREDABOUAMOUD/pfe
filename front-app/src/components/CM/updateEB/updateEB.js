@@ -404,12 +404,12 @@ const UpdateEBCM = () => {
                 <div className='disp'>
                 <div className="form-group1ad">
                     <label htmlFor="caution" className='lab'>caution</label><br />
-                    <input type="text" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
+                    <input type="number" className={`form-control ${cautionError ? 'error-border' : ''}`} id="caution" placeholder="caution" value={caution} onChange={(e) => setCaution(e.target.value)} />
                     {cautionError && <p className='error-message'>{cautionError}</p>}
                 </div>
                 <div className="form-group2ad">
                     <label htmlFor="estimation" className='lab'>estimation</label><br />
-                    <input type="text" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
+                    <input type="number" className={`form-control ${estimationError ? 'error-border' : ''}`} id="estimation" placeholder="estimation" value={estimation} onChange={(e) => setEstimation(e.target.value)} />
                     {estimationError && <p className='error-message'>{estimationError}</p>}
                 </div>
                 </div>
