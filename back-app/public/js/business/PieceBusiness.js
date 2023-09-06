@@ -38,6 +38,10 @@ class PieceBusiness {
     static searchByEBNum(id) {
         return PieceDAO.getbyEBNum(id);
     }
+    
+    static getAll() {
+        return PieceDAO.getAll();
+    }
 
     static async getPiece(id) {
         const piece = await PieceDAO.getPiece(id);
@@ -61,9 +65,6 @@ class PieceBusiness {
         return p;
     }
 
-    static getAll() {
-        return PieceDAO.getAll();
-    }
 
     static async decodeBase64Docx(base64Content) {
         // Decode the Base64 content into a buffer
