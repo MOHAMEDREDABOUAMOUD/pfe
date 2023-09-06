@@ -8,11 +8,11 @@ import './dashboard_all.css'
 import React, { useState, useEffect } from "react";
 import Sidebar from "../sidebar/sideBar";
 import { SlLogout } from 'react-icons/sl';
-import { FaUserTie } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
-import { IoMdNotifications } from 'react-icons/io';
+import { IoIosFolder, IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
@@ -146,21 +146,21 @@ function DashboardAllCM() {
         <div className='card'>
           <div className='card-inner'>
             <h3 className='tit'>Expression des besoins creer</h3>
-            <BsFillArchiveFill className='card_icon' />
+            <IoIosFolder className='card_icon' />
           </div>
           <h1 className='num'>{eb}</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
             <h3 className='tit'>EB non Valider</h3>
-            <BsFillGrid3X3GapFill className='card_icon' />
+            <FaTimes className='card_icon' />
           </div>
           <h1 className='num'>{ebNV}</h1>
         </div>
         <div className='card'>
           <div className='card-inner'>
             <h3 className='tit'>EB valider</h3>
-            <BsPeopleFill className='card_icon' />
+            <FaCheck className='card_icon' />
           </div>
           <h1 className='num'>{ebV}</h1>
         </div>

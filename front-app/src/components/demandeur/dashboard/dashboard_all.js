@@ -1,27 +1,25 @@
-import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
- from 'react-icons/bs'
- import 
- { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
- import Chart from 'chart.js/auto';
+import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
+  from 'react-icons/bs'
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line }
+  from 'recharts';
+import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
- import './dashboard_all.css'
- import React, { useState, useEffect } from "react";
- import Sidebar from "../sidebar/sideBar";
+import './dashboard_all.css'
+import React, { useState, useEffect } from "react";
+import Sidebar from "../sidebar/sideBar";
 import { SlLogout } from 'react-icons/sl';
-import {FaUserTie} from 'react-icons/fa';
+import { FaCheck, FaTimes, FaUserTie } from 'react-icons/fa';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
-import {IoMdNotifications} from 'react-icons/io';
+import { IoIosFolder, IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function DashboardAllDM() {
-    Chart.register(CategoryScale);
+  Chart.register(CategoryScale);
   // Sample data for the dashboard
   const [numberOfUsersData, setNumberOfUsersData] = useState(0);
   const [selectedYear, setSelectedYear] = useState("All");
@@ -51,7 +49,7 @@ function DashboardAllDM() {
   const [ebV, setEbV] = useState('');
   const [ebNV, setEbNV] = useState('');
   const [ao, setAo] = useState('');
-  
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -66,7 +64,7 @@ function DashboardAllDM() {
     };
     fetchUserData();
   }, []);
-  
+
 
   const [dataEB, setDataEB] = useState([]);
 
@@ -123,109 +121,109 @@ function DashboardAllDM() {
   }, [dataAO]);
 
 
-      const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <center>
-    <main className='main-container'>
+      <main className='main-container'>
         <div className='appbare'>
-        <Nav className='namee'>
+          <Nav className='namee'>
             <NavDropdown
               className='nama custom-dropdown'
-              
+
               title={currentUser}
             >
-              <NavDropdown.Item onClick={()=>{navigate("/notifications")}} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => { navigate("/notifications") }} className='it'><IoMdNotifications /> Notifications</NavDropdown.Item>
               <NavDropdown.Item href="/" className='it'>
                 <SlLogout /> Exit
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-      <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
-    </div>
-      <div className='fixside'>
-      <Sidebar/>
-      </div>
+          <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
+        </div>
+        <div className='fixside'>
+          <Sidebar />
+        </div>
         <div className='main-title'>
         </div>
         <center>
-        <div className='main-cards'>
-          <div className='gg'>
-        <div className='card'>
+          <div className='main-cards'>
+            <div className='gg'>
+              <div className='card'>
                 <div className='card-inner'>
-                    <h3 className='tit'>Expression des besoins creer</h3>
-                    <BsFillArchiveFill className='card_icon'/>
+                  <h3 className='tit'>Expression des besoins creer</h3>
+                  <IoIosFolder className='card_icon' />
                 </div>
                 <h1 className='num'>{eb}</h1>
-            </div>
-            <div className='card'>
+              </div>
+              <div className='card'>
                 <div className='card-inner'>
-                    <h3 className='tit'>EB non Valider</h3>
-                    <BsFillGrid3X3GapFill className='card_icon'/>
+                  <h3 className='tit'>EB non Valider</h3>
+                  <FaTimes className='card_icon' />
                 </div>
                 <h1 className='num'>{ebNV}</h1>
-            </div>
-            <div className='card'>
+              </div>
+              <div className='card'>
                 <div className='card-inner'>
-                    <h3 className='tit'>EB valider</h3>
-                    <BsPeopleFill className='card_icon'/>
+                  <h3 className='tit'>EB valider</h3>
+                  <FaCheck className='card_icon' />
                 </div>
                 <h1 className='num'>{ebV}</h1>
-            </div>
-            <div className='card'>
+              </div>
+              <div className='card'>
                 <div className='card-inner'>
-                    <h3 className='tit'>Les appels d'offre</h3>
-                    <BsFillBellFill className='card_icon'/>
+                  <h3 className='tit'>Les appels d'offre</h3>
+                  <BsFillBellFill className='card_icon' />
                 </div>
                 <h1 className='num'>{ao}</h1>
+              </div>
             </div>
-            </div>
-        </div>
+          </div>
         </center>
         <div className='charts'>
-            <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%">
             <BarChart
-            width={490}
-            height={300}
-            data={data}
-            margin={{
+              width={490}
+              height={300}
+              data={data}
+              margin={{
                 top: 5,
                 right: 30,
                 left: 20,
                 bottom: 5,
-            }}
+              }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="uv" name="nombre d'EB" fill="#82ca9d" />
-                </BarChart>
-            </ResponsiveContainer>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="uv" name="nombre d'EB" fill="#82ca9d" />
+            </BarChart>
+          </ResponsiveContainer>
 
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                width={490}
-                height={300}
-                data={data2}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="uv" name="nombre d'ouvertures du plis" stroke="#82ca9d" />
-                </LineChart>
-            </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              width={490}
+              height={300}
+              data={data2}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="uv" name="nombre d'ouvertures du plis" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
 
         </div>
-    </main>
+      </main>
     </center>
   )
 }
