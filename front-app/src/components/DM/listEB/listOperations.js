@@ -6,8 +6,8 @@ import axios from "axios";
 import { BsFilterLeft } from 'react-icons/bs';
 import Sidebar from '../sidebar/sideBar';
 
-const ListOperationsDM = () => {
-    const { id } = useParams();
+const ListOperationsDM = (props) => {
+    const  id  = props.id;
     const [sortBy, setSortBy] = useState(null);
     const [sortAsc, setSortAsc] = useState(true);
     const [filters, setFilters] = useState({});

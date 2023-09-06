@@ -8,11 +8,15 @@ import Sidebar from '../sidebar/sideBar';
 import Nav from 'react-bootstrap/Nav';
 import { BsFilterLeft } from 'react-icons/bs';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Operation from './listOperations';
+import Files from './listFiles';
+import * as AiIcons from 'react-icons/ai';
 
 import { SlLogout } from 'react-icons/sl';
 import {IoMdNotifications} from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { styled } from "styled-components";
 
 const ListEBDM = () => {
   const [sortBy, setSortBy] = useState(null);
@@ -22,6 +26,14 @@ const ListEBDM = () => {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
 
+  const NavIcon = styled(Link)`
+  margin-left: 2rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+`;
   
   const [currentSexe, setCurrentSexe] = useState('');
   const [currentNom, setCurrentNom] = useState('');
@@ -44,6 +56,10 @@ const ListEBDM = () => {
   useEffect(() => {
     setCurrentUser(currentSexe + " " + currentNom + " " + currentPrenom);
   }, [currentSexe, currentNom, currentPrenom]);
+
+  const [showOperation, setShowOperation] = useState(false);
+  const [showFile, setShowFile] = useState(false);
+  const [ido, setido] = useState(0);
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -185,11 +201,19 @@ const ListEBDM = () => {
   //   getRows();
   // }
   const handleFiles = (id) => {
-    navigate(`/listFilesDM/${id}`);
+    setido(id);
+    setShowFile(true);
   }
   const handleOperations = (id) => {
-    navigate(`/listOperationsDM/${id}`);
+    setido(id);
+    setShowOperation(true);
   }
+  const handleCloseOperation = () => {
+    setShowOperation(false);
+  };
+  const handleCloseFile = () => {
+    setShowFile(false);
+  };
 
   return (
     <center>
@@ -281,7 +305,7 @@ const ListEBDM = () => {
                 <td>{row.qualification}</td>
                 <td>{row.secteur}</td>
                 <td className="ici"><a onClick={() => handleOperations(row.num)}>operations</a></td>
-                <td className="ici"><a onClick={() => handleFiles(row.num)}>Pieces</a></td>
+                <td className="ici"><a onClick={() => handleFiles(row.num)}>pieces</a></td>
                 <td className="fit">
                   <span className="actions">
                     {/* <BsFillTrashFill
@@ -311,6 +335,22 @@ const ListEBDM = () => {
           })}
         </tbody>
       </table>
+      {showOperation && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseOperation} />
+          </NavIcon>
+          <Operation id={ido} />
+        </div>
+      )}
+      {showFile && (
+        <div className="overlay">
+          <NavIcon className="close-icon" to='#'>
+            <AiIcons.AiOutlineClose onClick={handleCloseFile} />
+          </NavIcon>
+          <Files id={ido} />
+        </div>
+      )}
     </div>
     </center>
   );

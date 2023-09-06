@@ -315,7 +315,7 @@ const ListEB = () => {
                 <td>{row.qualification}</td>
                 <td>{row.secteur}</td>
                 <td className="ici"><a onClick={() => handleOperations(row.num)}>operations</a></td>
-                <td className="ici"><a onClick={() => handleFiles(row.num)}>files</a></td>
+                <td className="ici"><a onClick={() => handleFiles(row.num)}>pieces</a></td>
                 <td className="fit">
                   <span className="actions">
                     {/* <BsFillTrashFill

@@ -11,8 +11,8 @@ import UpdatePiece from "./piece/piece";
 import { styled } from "styled-components";
 import ViewDM from "./view";
 
-const ListFilesDM = () => {
-  const { id } = useParams();
+const ListFilesDM = (props) => {
+  const  id  = props.id;
   const [sortBy, setSortBy] = useState(null);
   const [sortAsc, setSortAsc] = useState(true);
   const [filters, setFilters] = useState({});
