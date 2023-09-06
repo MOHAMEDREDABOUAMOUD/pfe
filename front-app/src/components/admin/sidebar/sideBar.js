@@ -7,6 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
+import {AiOutlineDashboard,AiOutlineProfile,AiOutlineFileDone,AiOutlineSetting} from 'react-icons/ai';
 import logo from './logo-omrane.png'
 
 const Nav = styled.div`
@@ -52,17 +53,43 @@ const Sidebar = () => {
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
+                
+                <div className='main22'>
                 <div className='openMenu'>
                     <Nav>
                         <NavIcon className="open" to='#'>
-                            <FaIcons.FaBars onClick={showSidebar} />
+                            <img src={logo} className='tswiraa' onClick={showSidebar} />
                         </NavIcon>
                     </Nav>
                 </div>
+                            <div className='ooo'>
+                            <center>
+                            <div className='hadii'>
+                                <AiOutlineDashboard className='hadokk' onMouseEnter={showSidebar}/>
+                            </div>
+                            </center>
+                            <center>
+                            <div className='hadii'>
+                                <AiOutlineProfile className='hadokk' onMouseEnter={showSidebar}/>
+                            </div>
+                            </center>
+                            <center>
+                            <div className='hadii'>
+                                <AiOutlineFileDone className='hadokk' onMouseEnter={showSidebar}/>
+                            </div>
+                            </center>
+                            <center>
+                            <div className='hadiss'>
+                                <AiOutlineSetting className='hadokk' onMouseEnter={showSidebar}/>
+                            </div>
+                            </center>
+                            </div>
+                            </div>
                 <SidebarNav sidebar={sidebar}>
-                    <SidebarWrap>
+                    <SidebarWrap onMouseLeave={showSidebar}>
                         <NavIcon className="close" to='#'>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
+                            
                         </NavIcon>
                         <center><img src={logo} className='espace'></img></center>
                         {SidebarData.map((item, index) => {

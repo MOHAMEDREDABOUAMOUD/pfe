@@ -118,6 +118,7 @@ function DashboardAllCM() {
 
 
   return (
+    <center>
     <main className='main-container'>
       <div className='appbare'>
         <Nav className='namee'>
@@ -141,6 +142,7 @@ function DashboardAllCM() {
       </div>
 
       <div className='main-cards'>
+      <div className='gg'>
         <div className='card'>
           <div className='card-inner'>
             <h3 className='tit'>Expression des besoins creer</h3>
@@ -168,6 +170,7 @@ function DashboardAllCM() {
             <BsFillBellFill className='card_icon' />
           </div>
           <h1 className='num'>{ao}</h1>
+        </div>
         </div>
       </div>
 
@@ -216,6 +219,7 @@ function DashboardAllCM() {
 
       </div>
     </main>
+    </center>
   )
 }
 

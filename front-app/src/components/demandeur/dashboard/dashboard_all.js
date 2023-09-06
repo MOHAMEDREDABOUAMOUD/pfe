@@ -125,6 +125,7 @@ function DashboardAllDM() {
 
       const navigate=useNavigate();
   return (
+    <center>
     <main className='main-container'>
         <div className='appbare'>
         <Nav className='namee'>
@@ -146,8 +147,9 @@ function DashboardAllDM() {
       </div>
         <div className='main-title'>
         </div>
-
+        <center>
         <div className='main-cards'>
+          <div className='gg'>
         <div className='card'>
                 <div className='card-inner'>
                     <h3 className='tit'>Expression des besoins creer</h3>
@@ -176,13 +178,13 @@ function DashboardAllDM() {
                 </div>
                 <h1 className='num'>{ao}</h1>
             </div>
-            
+            </div>
         </div>
-
+        </center>
         <div className='charts'>
             <ResponsiveContainer width="100%" height="100%">
             <BarChart
-            width={500}
+            width={490}
             height={300}
             data={data}
             margin={{
@@ -203,7 +205,7 @@ function DashboardAllDM() {
 
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
-                width={500}
+                width={490}
                 height={300}
                 data={data2}
                 margin={{
@@ -224,6 +226,7 @@ function DashboardAllDM() {
 
         </div>
     </main>
+    </center>
   )
 }
 

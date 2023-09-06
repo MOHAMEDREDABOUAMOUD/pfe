@@ -125,6 +125,7 @@ function DashboardAllDMM() {
      
 const navigate=useNavigate();
   return (
+    <center>
     <main className='main-container'>
         <div className='appbare'>
         <Nav className='namee'>
@@ -146,8 +147,9 @@ const navigate=useNavigate();
       </div>
         <div className='main-title'>
         </div>
-
+        <center>
         <div className='main-cards'>
+        <div className='gg'>
             <div className='card'>
                 <div className='card-inner'>
                     <h3 className='tit'>Expression des besoins creer</h3>
@@ -176,8 +178,9 @@ const navigate=useNavigate();
                 </div>
                 <h1 className='num'>{ao}</h1>
             </div>
+            </div>
         </div>
-
+        </center>
         <div className='charts'>
             <ResponsiveContainer width="100%" height="100%">
             <BarChart
@@ -222,7 +225,9 @@ const navigate=useNavigate();
             </ResponsiveContainer>
 
         </div>
+        
     </main>
+    </center>
   )
 }
 

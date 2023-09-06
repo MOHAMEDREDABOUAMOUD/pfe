@@ -3,33 +3,34 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+import {AiOutlineDashboard,AiOutlineProfile,AiOutlineFileDone,AiOutlineSetting,AiOutlinePlusCircle} from 'react-icons/ai';
 
 export const SidebarData = [
   {
     title: 'Dashboard',
     path: '/dashboardEBDM',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineDashboard />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
     title: 'lister EB',
     path: '/listEBDM',
-    icon: <AiIcons.AiFillHome />,
+    icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
     title: 'lister AO',
     path: '/listAODM',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineFileDone />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
     title: 'paramètre',
     path: '/settingsEBDM',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineSetting />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },

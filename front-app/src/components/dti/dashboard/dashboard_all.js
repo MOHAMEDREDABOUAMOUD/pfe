@@ -126,7 +126,8 @@ function DashboardAllDTI() {
 
 const navigate=useNavigate();
   return (
-    <main className='main-container'>
+    <center>
+    <main className='main-containerr'>
         <div className='appbare'>
         <Nav className='namee'>
             <NavDropdown
@@ -140,15 +141,17 @@ const navigate=useNavigate();
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          
       <center><h1 className='espace_admin'>Espace DTI</h1></center>
-    </div>
       <div className='fixside'>
       <Sidebar/>
       </div>
+    </div>
         <div className='main-title'>
         </div>
 
         <div className='main-cards'>
+        <div className='gg'>
             <div className='card'>
                 <div className='card-inner'>
                     <h3 className='tit'>Expression des besoins creer</h3>
@@ -177,7 +180,7 @@ const navigate=useNavigate();
                 </div>
                 <h1 className='num'>{ao}</h1>
             </div>
-            
+            </div>
         </div>
 
         <div className='charts'>
@@ -225,6 +228,7 @@ const navigate=useNavigate();
 
         </div>
     </main>
+    </center>
   )
 }
 

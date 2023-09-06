@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import './style.css'
 
 const SidebarLink = styled(Link)`
   display: flex;
@@ -48,10 +49,11 @@ const SubMenu = ({ item }) => {
 
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
+      <SidebarLink to={item.path}  onClick={item.subNav && showSubnav}>
+        
+        <div className='disppp'>
+          <div className='i9onat'>{item.icon}</div>
+          <SidebarLabel className='zid'>{item.title}</SidebarLabel>
         </div>
         <div>
           {item.subNav && subnav
@@ -60,6 +62,7 @@ const SubMenu = ({ item }) => {
             ? item.iconClosed
             : null}
         </div>
+        
       </SidebarLink>
       {subnav &&
         item.subNav.map((item, index) => {

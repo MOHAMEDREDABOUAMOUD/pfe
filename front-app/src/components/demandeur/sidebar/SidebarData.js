@@ -3,19 +3,20 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+import {AiOutlineDashboard,AiOutlineProfile,AiOutlineFileDone,AiOutlineSetting,AiOutlinePlusCircle} from 'react-icons/ai';
 
 export const SidebarData = [
     {
       title: 'Dashboard',
       path: '/dashboardEB',
-      icon: <AiIcons.AiFillHome />,
+      icon: <AiOutlineDashboard />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,
     },
     {
       title: 'Expression des Besoins',
       path: '',
-      icon: <AiIcons.AiFillHome />,
+      icon: <AiOutlineProfile />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,
   
@@ -23,7 +24,7 @@ export const SidebarData = [
         {
           title: 'creation',
           path: '/createEB',
-          icon: <AiIcons.AiFillHome />
+          icon: <AiOutlinePlusCircle />
         },
         {
           title: 'lister',
@@ -35,14 +36,14 @@ export const SidebarData = [
     {
       title: 'Lister AO',
       path: '/listAO',
-      icon: <AiIcons.AiFillHome />,
+      icon: <AiOutlineFileDone />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,
     },
     {
       title: 'paramètre',
       path: '/settingsEB',
-      icon: <AiIcons.AiFillHome />,
+      icon: <AiOutlineSetting />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,
     },

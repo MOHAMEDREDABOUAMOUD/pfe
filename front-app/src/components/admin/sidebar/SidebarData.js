@@ -3,30 +3,31 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+import {AiOutlineDashboard,AiOutlineUsergroupAdd,AiOutlineUser,AiOutlineProfile,AiOutlineFileDone,AiOutlineSetting,AiOutlinePlusCircle} from 'react-icons/ai';
 
 export const SidebarData = [
   {
     title: 'Dashboard',
     path: '/dashboard',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineDashboard />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Gestion utilisateur',
+    title: 'Gestion utilisateurs',
     path: '',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineUser />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
 
     subNav: [
       {
-        title: 'create user',
+        title: 'creation',
         path: '/createUser',
-        icon: <AiIcons.AiFillHome />
+        icon: <AiOutlineUsergroupAdd />
       },
       {
-        title: 'list users',
+        title: 'lister',
         path: '/listUsers',
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -35,9 +36,9 @@ export const SidebarData = [
     ]
   },
   {
-    title: 'Settings',
+    title: 'paramètre',
     path: '/settings',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiOutlineSetting />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },

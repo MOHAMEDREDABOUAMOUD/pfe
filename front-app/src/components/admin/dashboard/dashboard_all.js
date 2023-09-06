@@ -119,6 +119,7 @@ function DashboardAll() {
 
   const navigate = useNavigate();
   return (
+    <center>
     <main className='main-container'>
       <div className='appbare'>
         <Nav className='namee'>
@@ -135,13 +136,14 @@ function DashboardAll() {
         </Nav>
         <center><h1 className='espace_admin'>Espace Admin</h1></center>
       </div>
-      <Sidebar />
+      
       <div className='fixside'>
-
+      <Sidebar />
       </div>
       <div className='main-title'>
       </div>
       <div className='main-cards'>
+      <div className='gg'>
         <div className='card'>
           <div className='card-inner'>
             <h3 className='tit'>Expression des besoins creer</h3>
@@ -169,6 +171,7 @@ function DashboardAll() {
             <BsFillBellFill className='card_icon' />
           </div>
           <h1 className='num'>{ao}</h1>
+        </div>
         </div>
       </div>
 
@@ -220,6 +223,7 @@ function DashboardAll() {
         <p>Loading data...</p>
       )}
     </main >
+    </center>
   )
 }
 
