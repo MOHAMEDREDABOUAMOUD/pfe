@@ -11,6 +11,7 @@ create table Journal(num int primary key auto_increment, fileName varchar(50), n
 create table Facture(num int primary key auto_increment, dateFacture date, montant double, numJournal int);
 create table LettreCommission(num int primary key auto_increment, fileName varchar(50), numEnvoie int, dateEnvoie date, destinataire varchar(50), lettreCommission longblob);
 create table Dashboard(eb int, ebNV int, ebV int, ao int);
+create table defaultPiece(id int primary key auto_increment, name varchar(50), piece longblob);
 alter table EB add foreign key (numUtilisateur) references Utilisateur(immatricule);
 alter table Operation add foreign key (numEB) references EB(num);
 alter table Piece add foreign key (numEB) references EB(num);
