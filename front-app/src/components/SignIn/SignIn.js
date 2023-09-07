@@ -66,21 +66,22 @@ function SignIn() {
 
   return (
     <div className="App">
-      <div className='app2'>
-        <div className="bara">
-          <img src={logo} className="image"></img>
-        </div>
         <div>
-          <div className="wrapper d-flex align-items-center justify-content-center w-100">
+              
+          <div>
+          <center>
+              <img src={logo} className="imagee"></img>
+              </center>
+              <center>
             <div className="login">
-              <h2 className="mb-3">Sign In</h2>
               <form className="needs-validation" onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
-                  <label className="form-label" htmlFor="userName">nom d'utilisateur</label>
+                  <label className="form-labell" htmlFor="userName">nom d'utilisateur</label>
                   <input
                     className="form-control"
                     type="text"
                     required
+                    placeholder='nom d utilisateur'
                     name="login"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
@@ -90,11 +91,12 @@ function SignIn() {
                   </div>
                 </div>
                 <div className="form-group mb-2">
-                  <label className="form-label" htmlFor="password">Mot de passe</label>
+                  <label className="form-labell" htmlFor="password">Mot de passe</label>
                   <input
                     className="form-control"
                     type="password"
                     required
+                    placeholder='Mot de passe'
                     name="pwd"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -104,16 +106,16 @@ function SignIn() {
                   </div>
                 </div>
                 <div className="form-group form-check mb-2">
-                  <label htmlFor="check" className="form-check-label"><Link to="/forgotPassword">mot de passe oublié?</Link></label>
+                  <label htmlFor="check" ><Link to="/forgotPassword" className='check'>mot de passe oublié?</Link></label>
                 </div>
-                <button type="submit" className="btn btn-success w-100 mt-2">Sign In</button>
+                <button type="submit" className="button">Sign In</button>
                 {error && <p className="text-danger mt-2">{error}</p>}
               </form>
             </div>
+            </center>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

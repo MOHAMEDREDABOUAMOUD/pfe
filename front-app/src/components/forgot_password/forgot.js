@@ -59,17 +59,15 @@ const ForgotPassword = () => {
 
   return (
     <div className="App">
-      <div className='app2'>
-        <div className="bara">
-          <img src={logo} className="image"></img>
-        </div>
+        
         <div>
-          <div className="wrapper d-flex align-items-center justify-content-center w-100">
-            <div className="login">
-              <h2 className="mb-3">Recuperer le mot de passe</h2>
+          <div >
+          <center><img src={logo} className="imagee"></img></center>
+          <center>
+            <div className="loginn">
               <form className="needs-validation" onSubmit={handleSubmit}>
                 <div className="form-group mb-2">
-                  <label className="form-label" htmlFor="userName">Email</label>
+                  <label className="form-labelll" htmlFor="userName">Email</label>
                   <input
                     type="email"
                     className="form-control"
@@ -79,13 +77,13 @@ const ForgotPassword = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-success w-100 mt-2">Envoyer</button>
+                <button type="submit" className="button">Envoyer</button>
               </form>
             </div>
+            </center>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
