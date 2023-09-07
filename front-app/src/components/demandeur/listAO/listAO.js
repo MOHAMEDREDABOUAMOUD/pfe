@@ -263,8 +263,8 @@ const ListAO = () => {
     const handleDownload = async (file, fileName) => {
         try {
             //const response = await axios.post("/getFile", { id: id });
-            console.log(file.data);
-            const buffer = new Uint8Array(file.data);
+            console.log(file["data"]);
+            const buffer = new Uint8Array(file["data"]);
             const binaryString = buffer.reduce((str, byte) => str + String.fromCharCode(byte), '');
             //console.log(binaryString);
             // Create a Blob from the Uint8Array

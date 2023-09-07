@@ -147,7 +147,7 @@ app.post("/getCommission", async (req, res) => {
 app.post("/getAOs", async (req, res) => {
     const { id } = req.body;
     const r = await AOBusiness.getByUserId(currentUser);
-    //console.log(r);
+    console.log("r : "+JSON.stringify(r));
     res.status(200).json(r);
 });
 app.post("/getAllAOs", async (req, res) => {
@@ -227,7 +227,7 @@ app.post("/getFiles", async (req, res) => {
 app.post("/getFile", async (req, res) => {
     const { id } = req.body;
     const r = await PieceBusiness.getPiece(id);
-    console.log("r : "+r);
+    console.log("r : "+JSON.stringify(r));
     res.status(200).json(r);
 });
 app.post("/deleteUser", async (req, res) => {
@@ -298,7 +298,7 @@ app.post("/createEBDti", async (req, res) => {
 });
 app.post("/createAO", async (req, res) => {
     const { num, dateOuverturePlis, heureOuverturePlis, datePublicationPortail, dateAchevementTravauxCommission, avis, fileNameAvis, numEB, dateEnvoieLettreCommission, destinataire, numEnvoieLettreCommission, lettreCommission, fileNameLC, listJournal } = req.body;
-    //console.log(fileNameAvis+", "+fileNameLC);
+    console.log("Avis : "+avis);
     const re = await LettreCommissionBusiness.Add(new LettreCommission({ num: -1, fileName: fileNameLC, numEnvoie: numEnvoieLettreCommission, dateEnvoie: dateEnvoieLettreCommission, destinataire: destinataire, lettreCommission: lettreCommission }));
     await AOBusiness.Add(new AO({ num: num, fileName: fileNameAvis, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: heureOuverturePlis, datePublicationPortail: datePublicationPortail, dateEntreDM: EBBusiness.getCurrentDateInMySQLFormat(), dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avis, numEB: numEB, numLettreCommission: re }));
     for (let i = 0; i < listJournal.length; i++) {

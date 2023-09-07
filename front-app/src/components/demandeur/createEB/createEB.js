@@ -549,8 +549,8 @@ const CreateEB = () => {
             setEB(EBData);
             try {
                 alert("l'expression des besoins a ete bien creer");
-                navigate("/listEB");
                 await axios.post("/createEB", { objet: objet, observation: observation, caution: caution, estimation: estimation, progNonProg: progValue, agence: agence, modePassation: modePassation, secteur: secteur, qualification: qualification, fileList: fileList, operationList: operationList });
+                navigate("/listEB");
             } catch (error) {
                 console.log(error);
             }

@@ -150,8 +150,8 @@ export default function CreateAO() {
 
             console.log("enter handleSubmit");
             alert("l'AO a ete bien Creer");
-            navigate("/listAODM");
             await axios.post("/createAO", { num: numAO, dateOuverturePlis: dateOuverturePlis, heureOuverturePlis: selectedTime, datePublicationPortail: datePublicationPortail, dateAchevementTravauxCommission: dateAchevementTravauxCommission, avis: avisAO, fileNameAvis: fileNameAvis, numEB: id, dateEnvoieLettreCommission: dateEnvoieLettreCommission, destinataire: destinataire, numEnvoieLettreCommission: numEnvoieLettreCommission, lettreCommission: lettreCommission, fileNameLC: fileNameLC, listJournal: listJournal });
+            navigate("/listAODM");
         }
         else {
             alert("l'AO n'a pas ete creer");
@@ -169,14 +169,22 @@ export default function CreateAO() {
             alert("Le fichier doit être au format Word (.docx ou .doc).");
             return; // Stop processing if the file is not of the required type
         }
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
-            setAvisAO(base64FileData);
-            setFileNameAvis(selectedFile.name);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setAvisAO(base64FileData);
+                setFileNameAvis(selectedFile.name);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
     const handleFileUploadC = (event) => {
         event.preventDefault();
@@ -186,14 +194,22 @@ export default function CreateAO() {
             alert("Le fichier doit être au format Word (.docx ou .doc).");
             return; // Stop processing if the file is not of the required type
         }
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
-            setLettreCommission(base64FileData);
-            setFileNameLC(selectedFile.name);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setLettreCommission(base64FileData);
+                setFileNameLC(selectedFile.name);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
     const handleFileUploadJ = (event) => {
         event.preventDefault();
@@ -203,14 +219,22 @@ export default function CreateAO() {
             alert("Le fichier doit être au format Word (.docx ou .doc).");
             return; // Stop processing if the file is not of the required type
         }
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const fileData = event.target.result; // This is the binary buffer
-            const base64FileData = btoa(fileData);
-            setLettreJournal(base64FileData);
-            setFileNameJ(selectedFile.name);
-        };
-        fileReader.readAsArrayBuffer(selectedFile);
+        // Check file size
+        const maxSize = 10 * 1024 * 1024; // 10 MB in bytes
+        if (selectedFile.size > maxSize) {
+            alert("La taille du fichier dépasse 10Mo.");
+        }
+        else {
+            const fileName = selectedFile.name;
+            const fileReader = new FileReader();
+            fileReader.onload = (event) => {
+                const fileData = event.target.result;
+                const base64FileData = btoa(String.fromCharCode(...new Uint8Array(fileData)));
+                setLettreJournal(base64FileData);
+                setFileNameJ(selectedFile.name);
+            };
+            fileReader.readAsArrayBuffer(selectedFile);
+        }
     };
     return (
         <center>
