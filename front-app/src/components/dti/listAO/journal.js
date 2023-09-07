@@ -279,7 +279,7 @@ const Journal = (props) => {
 
     return (
         <div className="table-wrapper">
-            <center><button onClick={toggleFilterDropdown} className="filter">Filtre</button></center>
+            
             {renderFilterDropdown()}
             <table className="table">
                 <thead>
