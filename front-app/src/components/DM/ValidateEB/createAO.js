@@ -10,6 +10,7 @@ import { SlLogout } from 'react-icons/sl';
 import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 export default function CreateAO() {
     const { id } = useParams();
@@ -155,6 +156,10 @@ export default function CreateAO() {
         else {
             alert("l'AO n'a pas ete creer");
         }
+    }
+    const deleteOp = (index) => {
+        const updatedOperationList = listJournal.filter((operation, i) => i !== index);
+        setListJournal(updatedOperationList);
     }
     const handleFileUpload = (event) => {
         event.preventDefault();
@@ -361,6 +366,43 @@ export default function CreateAO() {
                     <div className="form-group">
                         <center><button type="button" onClick={handleSubmitAJ} className="botton2">Ajouter</button></center>
                         {listJournalError && <p className='error-message'>{listJournalError}</p>}
+                    </div>
+                    <div className="form-group">
+                        {listJournal.length > 0 && (
+                            <div>
+                                <h4>Liste des Journaux</h4>
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th>num envoie</th>
+                                            <th>format</th>
+                                            <th>fournisseur</th>
+                                            <th>date envoie</th>
+                                            <th>date de publication</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {listJournal.map((op, index) => (
+                                            <tr key={index}>
+                                                <td>{op.numEnvoieJournal}</td>
+                                                <td>{op.formatJournal}</td>
+                                                <td>{op.fournisseurJournal}</td>
+                                                <td>{op.dateEnvoieJournal}</td>
+                                                <td>{op.datePublicationJournal}</td>
+                                                <td>
+                                                    <span className="actions">
+                                                        <BsFillTrashFill
+                                                            className="delete-btn"
+                                                            onClick={() => deleteOp(index)}
+                                                        />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )};
                     </div>
                     <div className="form-group">
                         <center><button type="button" onClick={handleSubmit} className="botton">Creer</button></center>
