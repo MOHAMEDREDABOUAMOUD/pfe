@@ -14,6 +14,19 @@ padding: 30px;
   margin: 10px;
   align-items: center;
 }
+.titre10{
+  font-family: serif;
+  color: #000;
+  font-size: 32px;
+
+  border-radius: 6px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  box-shadow: 1px 1px 5px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+}
 .nama{
   color: #fff;
   position: absolute;

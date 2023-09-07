@@ -88,10 +88,10 @@ const Sidebar = () => {
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap onMouseLeave={showSidebar}>
                         <NavIcon className="close" to='#'>
-                            <AiIcons.AiOutlineClose onClick={showSidebar} />
+                        <img src={logo} className='tswiraa' onClick={showSidebar} />
                             
                         </NavIcon>
-                        <center><img src={logo} className='espace'></img></center>
+                        
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}

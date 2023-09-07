@@ -473,13 +473,13 @@ const UpdateEBCM = () => {
                 </div>
                 
                 <div className='form-group'>
-                    <center><h5>files</h5></center>
+                    <center><h5 className='titre10'>files</h5></center>
                 </div>
                 <div className="form-group">
                     <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifier les pieces</button>
                 </div>
                 <div className='form-group'>
-                    <center><h5>Operations</h5></center>
+                    <center><h5 className='titre10'>Operations</h5></center>
                 </div>
                 <div className="form-group">
                     <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifier les operations</button>

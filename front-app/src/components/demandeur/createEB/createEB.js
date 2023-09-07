@@ -737,7 +737,7 @@ const CreateEB = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <center><h5 className="titrep">Pieces</h5></center>
+                        <center><h5 className="titre10">Pieces</h5></center>
                     </div>
                     <div className="form-group">
                         <input
@@ -798,7 +798,7 @@ const CreateEB = () => {
                     </div>
                     <div className="form-group">
                         <center>
-                            <h5 className="titre">Operations</h5>
+                            <h5 className="titre10">Operations</h5>
                         </center>
                     </div>
                     <div className="disp">

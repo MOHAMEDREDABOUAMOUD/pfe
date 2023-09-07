@@ -14,8 +14,6 @@
   top: 10px;
   color: #42a942;
   right: 10px;
-  margin-top: 250px;
-  margin-right: 25%;
   cursor: pointer;
   font-size: 24px;
 }
@@ -67,6 +65,19 @@
   font-size: 38px;
   border-bottom: 4px solid #01B636;
   border-right: 2px solid #01B636;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  box-shadow: 1px 1px 5px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+}
+.titre10{
+  font-family: serif;
+  color: #000;
+  font-size: 32px;
+
   border-radius: 6px;
   margin-bottom: 20px;
   margin-top: 5px;

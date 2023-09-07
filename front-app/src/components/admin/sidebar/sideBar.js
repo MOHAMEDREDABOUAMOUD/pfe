@@ -7,7 +7,7 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 import "./style.css";
-import {AiOutlineDashboard,AiOutlineProfile,AiOutlineFileDone,AiOutlineSetting} from 'react-icons/ai';
+import {AiOutlineDashboard,AiOutlineProfile,AiOutlineFileDone,AiOutlineUser,AiOutlineSetting} from 'react-icons/ai';
 import logo from './logo-omrane.png'
 
 const Nav = styled.div`
@@ -70,14 +70,10 @@ const Sidebar = () => {
                             </center>
                             <center>
                             <div className='hadii'>
-                                <AiOutlineProfile className='hadokk' onMouseEnter={showSidebar}/>
+                                <AiOutlineUser className='hadokk' onMouseEnter={showSidebar}/>
                             </div>
                             </center>
-                            <center>
-                            <div className='hadii'>
-                                <AiOutlineFileDone className='hadokk' onMouseEnter={showSidebar}/>
-                            </div>
-                            </center>
+                            
                             <center>
                             <div className='hadiss'>
                                 <AiOutlineSetting className='hadokk' onMouseEnter={showSidebar}/>
@@ -88,10 +84,10 @@ const Sidebar = () => {
                 <SidebarNav sidebar={sidebar}>
                     <SidebarWrap onMouseLeave={showSidebar}>
                         <NavIcon className="close" to='#'>
-                            <AiIcons.AiOutlineClose onClick={showSidebar} />
+                        <img src={logo} className='tswiraa' onClick={showSidebar} />
                             
                         </NavIcon>
-                        <center><img src={logo} className='espace'></img></center>
+                        
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;
                         })}

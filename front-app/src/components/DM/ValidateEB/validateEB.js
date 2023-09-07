@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logo from "./logo-omrane.png";
 import { SlLogout } from 'react-icons/sl';
+import ListFiles from '../listEB/listFiles';
+import ListOperations from '../listEB/listOperations';
 import { IoMdNotifications } from 'react-icons/io';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -499,16 +501,16 @@ const ValidateEBDM = () => {
                         </div>
                     </div>
                     <div className='form-group'>
-                        <center><h5 className='titra'>files</h5></center>
+                        <center><h5 className='titr10'>files</h5></center>
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>Update files</button>
+                        <ListFiles id={id} />
                     </div>
                     <div className='form-group'>
-                        <center><h5 className='titra'>Operations</h5></center>
+                        <center><h5 className='titr10'>Operations</h5></center>
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>Update operations</button>
+                        <ListOperations id={id}/>
                     </div>
                     <div className="form-group">
                         <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>

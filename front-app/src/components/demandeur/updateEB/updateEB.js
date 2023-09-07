@@ -472,13 +472,13 @@ const UpdateEB = () => {
                             </div>
                         </div>
                         <div className='form-group'>
-                            <center><h5>Pieces</h5></center>
+                            <center><h5 className='titre10'>Pieces</h5></center>
                         </div>
                         <div className="form-group">
                             <ListFiles id={id}/>
                         </div>
                         <div className='form-group'>
-                            <center><h5>Operations</h5></center>
+                            <center><h5 className='titre10'>Operations</h5></center>
                         </div>
                         <div className="form-group">
                             <ListOperations id={id}/>
