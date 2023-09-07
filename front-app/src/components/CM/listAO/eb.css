@@ -1,0 +1,7 @@
+.ici{
+    cursor: pointer;
+  }
+  .ici:hover{
+    font-weight: bold;
+    color: #01B636;
+  }

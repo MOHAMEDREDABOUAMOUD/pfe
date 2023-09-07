@@ -18,7 +18,7 @@ const sendEmail = async (to, subject, text) => {
             to: to, // list of receivers
             subject: subject, // Subject line
             text: text, // plain text body
-            html: "<b>Send mail</b>", // html body
+            html: "<b>"+text+"</b>", // html body
           });
         console.log('Email sent: ', info.response);
         return true;

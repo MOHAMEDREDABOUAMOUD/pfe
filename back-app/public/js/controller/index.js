@@ -18,6 +18,7 @@ const LettreCommission = require('../models/LettreCommission');
 const Journal = require('../models/Journal');
 const AO = require('../models/AO');
 const sendEmail = require('../business/sendMail');
+const UtilisateurDAO = require('../dao/UtilisateurDAO');
 
 const app = express();
 app.use(bodyParser.json());
@@ -157,7 +158,14 @@ app.post("/getAllAOs", async (req, res) => {
 });
 app.post("/sendpassword", async (req, res) => {
     const { email } = req.body;
-    const r = await sendEmail(email);
+    const pwd= await UtilisateurBusiness.getPassword(email);
+    const r = await sendEmail(email, "recuperation du mot de passe", "Votre mot de passe est : '"+pwd.pwd+"'\nSi vous voulez le modifier, vous pouvez acceder a l'espace parametres pour faire cela.");
+    //console.log(r);
+    res.status(200).json(r);
+});
+app.post("/refus", async (req, res) => {
+    const { email, num } = req.body;
+    const r = await sendEmail(email, "Refus d'une expression des besoins par la DM", "L'expression des besoins avec le numero : '"+num+"' a ete refuser par la division marché.");
     //console.log(r);
     res.status(200).json(r);
 });

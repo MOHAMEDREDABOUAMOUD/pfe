@@ -46,6 +46,9 @@ const ForgotPassword = () => {
       await axios.post("/sendPassword", { email: email });
       alert("le mot de passe a ete envoyer a : " + email);
     }
+    else{
+      alert(email+"ne se trouve pas sur la base de données");
+    }
     //const sent = await sendEmail(email, "recuperation du mot de passe", "voila votre mot de passe : "+r.pwd); makhdamach
     // if (sent) {
     //   console.log('Email sent successfully');

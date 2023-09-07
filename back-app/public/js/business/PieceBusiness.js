@@ -6,16 +6,16 @@ class PieceBusiness {
     static Add(piece) {
         return PieceDAO.create(piece);
     }
-    
-    static addDefaultPiece(name, file){
+
+    static addDefaultPiece(name, file) {
         return PieceDAO.addDefaultPiece(name, file);
     }
 
-    static deleteDefaultPiece(name){
+    static deleteDefaultPiece(name) {
         return PieceDAO.deleteDefaultPiece(name);
     }
 
-    static getDPs(){
+    static getDPs() {
         return PieceDAO.getDPs();
     }
 
@@ -38,31 +38,34 @@ class PieceBusiness {
     static searchByEBNum(id) {
         return PieceDAO.getbyEBNum(id);
     }
-    
+
     static getAll() {
         return PieceDAO.getAll();
     }
 
     static async getPiece(id) {
         const piece = await PieceDAO.getPiece(id);
-        let p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB});
-        await this.decodeBase64Docx(piece.base64)
-            .then((readableText) => {
-                if (readableText) {
-                    p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: readableText, fileName: piece.fileName, numEB: piece.numEB});
+        if (piece != null) {
+            let p = new Piece({ num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB });
+            await this.decodeBase64Docx(piece.base64)
+                .then((readableText) => {
+                    if (readableText) {
+                        p = new Piece({ num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: readableText, fileName: piece.fileName, numEB: piece.numEB });
+                        console.log(p);
+                    } else {
+                        console.log('Failed to decode the DOCX content.');
+                        p = new Piece({ num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB });
+                        console.log(p);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    p = new Piece({ num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB });
                     console.log(p);
-                } else {
-                    console.log('Failed to decode the DOCX content.');
-                    p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB});
-                    console.log(p);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                p=new Piece({num: piece.num, libelle: piece.libelle, piece: piece.piece, base64: "reda", fileName: piece.fileName, numEB: piece.numEB});
-                console.log(p);
-            });
-        return p;
+                });
+            return p;
+        }
+        else return null;
     }
 
 
