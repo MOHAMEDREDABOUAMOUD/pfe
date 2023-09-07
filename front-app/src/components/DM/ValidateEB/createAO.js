@@ -46,27 +46,27 @@ export default function CreateAO() {
     const [defaultPiece, setDefaultPiece] = useState([]);
 
     ///////////////////////////////////////////////////////////////////////
-    const getDPs = async () => {
-        try {
-            const response = await axios.post("/getDPs", { id: "1" });
-            return response.data;
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
+    // const getDPs = async () => {
+    //     try {
+    //         const response = await axios.post("/getDPs", { id: "1" });
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error(error);
+    //         return [];
+    //     }
+    // };
 
-    const getRows = async () => {
-        const u = await getDPs();
-        if (u != null) {
-            setDefaultPiece(u);
-        }
-        else setDefaultPiece([]);
-    };
+    // const getRows = async () => {
+    //     const u = await getDPs();
+    //     if (u != null) {
+    //         setDefaultPiece(u);
+    //     }
+    //     else setDefaultPiece([]);
+    // };
 
-    useEffect(() => {
-        getRows();
-    }, []);
+    // useEffect(() => {
+    //     getRows();
+    // }, []);
     //////////////////////////////////////////////////
 
     const [currentSexe, setCurrentSexe] = useState('');
@@ -134,11 +134,11 @@ export default function CreateAO() {
             hasErrors = true;
         }
         if (lettreCommission === []) {
-            setLettreCommissionError('Ce champ est obligatoire');
+            setLettreCommissionError('Veuillez ajouter une lettre de commission');
             hasErrors = true;
         }
         if (listJournal === []) {
-            setListJournalError('Ce champ est obligatoire');
+            setListJournalError('Veuillez ajouter au moins une lettre du journal');
             hasErrors = true;
         }
 
