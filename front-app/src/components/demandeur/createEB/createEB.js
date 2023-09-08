@@ -770,11 +770,12 @@ const CreateEB = () => {
                     <div className="form-group">
                         {fileList.length > 0 && (
                             <div>
-                                <h4>Liste des pieces</h4>
-                                <table className="table">
+                                <center>
+                                <table className="table" style={{marginTop:'10px'}}>
                                     <thead>
                                         <tr>
                                             <th>name</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -793,6 +794,7 @@ const CreateEB = () => {
                                         ))}
                                     </tbody>
                                 </table>
+                                </center>
                             </div>
                         )}
                     </div>
@@ -942,8 +944,8 @@ const CreateEB = () => {
                     <div className="form-group">
                         {operationList.length > 0 && (
                             <div>
-                                <h4>Liste des Opérations</h4>
-                                <table className="table">
+                                <center>
+                                <table className="table" style={{marginTop:'10px'}}>
                                     <thead>
                                         <tr>
                                             <th>Agence</th>
@@ -956,6 +958,7 @@ const CreateEB = () => {
                                             <th>superficie</th>
                                             <th>type projet</th>
                                             <th>Actions</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -982,6 +985,7 @@ const CreateEB = () => {
                                         ))}
                                     </tbody>
                                 </table>
+                                </center>
                             </div>
                         )};
                     </div>

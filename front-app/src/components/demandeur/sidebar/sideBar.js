@@ -52,9 +52,9 @@ const Sidebar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#fff' }} onMouseEnter={showSidebar}>
+            <IconContext.Provider value={{ color: '#fff' }}>
                 
-                <div className='main22'>
+                <div className='main222' onMouseEnter={showSidebar}>
                 <div className='openMenu'>
                     <Nav>
                         <NavIcon className="open" to='#'>
@@ -62,25 +62,25 @@ const Sidebar = () => {
                         </NavIcon>
                     </Nav>
                 </div>
-                            <div className='ooo' onMouseEnter={showSidebar}>
+                            <div className='ooo'>
                             <center>
                             <div className='hadii'>
-                                <AiOutlineDashboard className='hadokk' onMouseEnter={showSidebar}/>
+                                <AiOutlineDashboard className='hadokk' />
                             </div>
                             </center>
                             <center>
                             <div className='hadii'>
-                                <AiOutlineProfile className='hadokk' onMouseEnter={showSidebar}/>
+                                <AiOutlineProfile className='hadokk' />
                             </div>
                             </center>
                             <center>
                             <div className='hadii'>
-                                <AiOutlineFileDone className='hadokk' onMouseEnter={showSidebar}/>
+                                <AiOutlineFileDone className='hadokk' />
                             </div>
                             </center>
                             <center>
                             <div className='hadiss'>
-                                <AiOutlineSetting className='hadokk' onMouseEnter={showSidebar}/>
+                                <AiOutlineSetting className='hadokk' />
                             </div>
                             </center>
                             </div>

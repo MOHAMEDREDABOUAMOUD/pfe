@@ -182,6 +182,9 @@ const ListOperationsDti = ({id}) => {
                         <th onClick={() => this.handleSort(columns[8])}>
                             type projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
+                        <th onClick={() => this.handleSort(columns[9])}>
+                            
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

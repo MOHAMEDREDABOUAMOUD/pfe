@@ -290,6 +290,9 @@ const handleButtonClick = () => {
             <th onClick={() => handleSort("Files")}>
               Pieces {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => handleSort("Files")}>
+              
+            </th>
           </tr>
         </thead>
         <tbody>

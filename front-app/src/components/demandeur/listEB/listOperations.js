@@ -185,7 +185,7 @@ const ListOperations = ({id}) => {
                         <th onClick={() => handleSort(columns[8])}>
                             Type Projet {sortBy === columns[8] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
                         </th>
-                        <th onClick={() => handleSort(columns[8])}>
+                        <th onClick={() => handleSort(columns[9])}>
                             
                         </th>
                     </tr>

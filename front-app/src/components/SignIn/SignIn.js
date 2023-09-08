@@ -109,7 +109,7 @@ function SignIn() {
                   <label htmlFor="check" ><Link to="/forgotPassword" className='check'>mot de passe oublié?</Link></label>
                 </div>
                 <button type="submit" className="button">Sign In</button>
-                {error && <p className="text-danger mt-2">{error}</p>}
+                {error && <p className="err">{error}</p>}
               </form>
             </div>
             </center>
