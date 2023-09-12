@@ -88,7 +88,7 @@ const View = (props) => {
           <center><h1 className='espace_admin'>Espace Demandeur</h1></center>
         </div> */}
         <pre className='cadre'>
-          <div style={{ maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
+          <div style={{ maxWidth: '800px',height:'850px', whiteSpace: 'pre-wrap',marginTop:'50px',padding:'20px'}}>
             {data}
           </div>
         </pre>

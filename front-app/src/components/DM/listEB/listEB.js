@@ -285,6 +285,9 @@ const ListEBDM = () => {
             <th onClick={() => handleSort("Files")}>
               Files {sortBy === "Files" && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => handleSort("Files")}>
+              
+            </th>
           </tr>
         </thead>
         <tbody>

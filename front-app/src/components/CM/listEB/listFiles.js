@@ -236,6 +236,9 @@ const ListFilesCM = () => {
             <th onClick={() => this.handleSort(columns[1])}>
               nom {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => this.handleSort(columns[2])}>
+              
+            </th>
           </tr>
         </thead>
         <tbody>

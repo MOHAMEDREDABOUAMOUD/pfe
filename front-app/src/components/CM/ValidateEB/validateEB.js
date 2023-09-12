@@ -9,6 +9,8 @@ import logo from './logo-omrane.png'
 import { IoMdNotifications } from 'react-icons/io';
 import { SlLogout } from 'react-icons/sl';
 import Navbar from 'react-bootstrap/Navbar';
+import ListFiles from '../listEB/listFiles';
+import ListOperations from '../listEB/listOperations';
 
 const ValidateEBCM = () => {
     const { id } = useParams();
@@ -505,14 +507,14 @@ const ValidateEBCM = () => {
                 <div className='form-group'>
                     <center><h5>Pieces</h5></center>
                 </div>
-                <div className="form-group">
-                    <button type="submit" className="botton" onClick={() => { handleFiles(id) }}>modifiers les pieces</button>
+                <div className="form-group7">
+                    <center><ListFiles id={id}/></center>
                 </div>
                 <div className='form-group'>
                     <center><h5>Operations</h5></center>
                 </div>
-                <div className="form-group">
-                    <button type="submit" className="botton" onClick={() => { handleOperations(id) }}>modifiers les operations</button>
+                <div className="form-group7">
+                    <center><ListOperations /></center>
                 </div>
                 <div className="form-group">
                     <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>

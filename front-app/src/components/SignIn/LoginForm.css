@@ -57,6 +57,11 @@ html,body{
     color: #01B636;
     margin-left: -220px;
   }
+  .err{
+    margin-top: 50px;
+    color: red;
+    font-size: 20px;
+  }
   .titro{
     color: #01B636;
     padding-bottom: 10px;

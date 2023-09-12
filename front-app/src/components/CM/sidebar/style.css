@@ -35,13 +35,13 @@ color: #fff;
   width: 100px;
   height: 100px;
 }
-.main22{
+.main222{
   position: fixed;
   top: 50px;
   left: 0;
+  height: 100%;
   width: 60px;
   background-color: #3a3c3f;
-  height: 880px;
 }
 .tswiraa{
   width: 55px;
@@ -80,6 +80,7 @@ color: #fff;
 }
 .ooo{
   margin-top: 60px;
+
 }
 .hadiss{
   margin-top: 30px;

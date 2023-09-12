@@ -503,14 +503,14 @@ const ValidateEBDM = () => {
                     <div className='form-group'>
                         <center><h5 className='titr10'>files</h5></center>
                     </div>
-                    <div className="form-group">
-                        <ListFiles id={id} />
+                    <div className="form-group7">
+                        <center><ListFiles id={id} /></center>
                     </div>
                     <div className='form-group'>
                         <center><h5 className='titr10'>Operations</h5></center>
                     </div>
-                    <div className="form-group">
-                        <ListOperations id={id}/>
+                    <div className="form-group7">
+                        <center><ListOperations id={id}/></center>
                     </div>
                     <div className="form-group">
                         <center><button type="submit" onClick={handleSubmitV} className="botton">Valider l'expression des besoins</button></center>

@@ -189,7 +189,7 @@ const ListFiles = ({ id }) => {
 
   return (
     <center>
-      <div className="table-wrapper-dem">
+      <div className="table-wrapper-dmm">
 
         <span onClick={toggleFilterDropdown} className="searchfil-op"></span>
         {showFilterDropdown && (
@@ -216,7 +216,7 @@ const ListFiles = ({ id }) => {
               <th onClick={() => handleSort(columns[1])}>
                 Name {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
               </th>
-              <th onClick={() => handleSort(columns[1])}>
+              <th onClick={() => handleSort(columns[2])}>
 
               </th>
             </tr>

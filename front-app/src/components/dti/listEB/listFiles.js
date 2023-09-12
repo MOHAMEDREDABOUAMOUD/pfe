@@ -213,6 +213,9 @@ const ListFilesDti = ({id}) => {
             <th onClick={() => this.handleSort(columns[1])}>
               Nom {sortBy === columns[1] && (sortAsc ? <BsArrowUp /> : <BsArrowDown />)}
             </th>
+            <th onClick={() => this.handleSort(columns[2])}>
+              
+            </th>
           </tr>
         </thead>
         <tbody>
