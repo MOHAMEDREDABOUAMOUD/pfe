@@ -62,7 +62,12 @@ jobs:
                                               alter table Journal add foreign key (numAO) references AO(num);
                                               alter table Facture add foreign key (numJournal) references Journal(num);
                                               insert into Dashboard values(0, 0, 0, 0);
-                                              insert into Utilisateur values(1, "1", "1", "ELHAZZAZ", "BOUBKER", "admin@gmail.com", "Admin", "M."), (2, "raji", "raji", "raji", "Mohammed", "raji@gmail.com", "Demandeur", "M."), (3, "reda", "reda", "Bouamoud", "Mohamed-Reda", "mohamedredabouamoud@gmail.com", "DTI", "M."), (4, "aya", "aya", "Amrani", "Aya", "aya@gmail.com", "CM", "Mme."), (5, "hassan", "hassan", "Hassan", "Hassan", "hassan@gmail.com", "DM", "M.");"
+                                              insert into Utilisateur values
+                                              (1, '1', '1', 'ELHAZZAZ', 'BOUBKER', 'admin@gmail.com', 'Admin', 'M.'),
+                                              (2, 'raji', 'raji', 'raji', 'Mohammed', 'raji@gmail.com', 'Demandeur', 'M.'),
+                                              (3, 'reda', 'reda', 'Bouamoud', 'Mohamed-Reda', 'mohamedredabouamoud@gmail.com', 'DTI', 'M.'),
+                                              (4, 'aya', 'aya', 'Amrani', 'Aya', 'aya@gmail.com', 'CM', 'Mme.'),
+                                              (5, 'hassan', 'hassan', 'Hassan', 'Hassan', 'hassan@gmail.com', 'DM', 'M.');"
 
 
       # 📦 FRONTEND: Install and build React
