@@ -11,14 +11,14 @@ const OperationBusiness = require('../business/OperationBusiness');
 const PieceBusiness = require('../business/PieceBusiness');
 const UtilisateurBusiness = require('../business/UtilisateurBusiness');
 const bodyParser = require('body-parser');
-const Utilisateur = require('../models/utilisateur');
+const Utilisateur = require('../models/Utilisateur');
 const EB = require('../models/EB');
 const Operation = require('../models/Operation');
 const LettreCommission = require('../models/LettreCommission');
 const Journal = require('../models/Journal');
 const AO = require('../models/AO');
 const sendEmail = require('../business/sendMail');
-const UtilisateurDAO = require('../dao/UtilisateurDAO');
+const UtilisateurDAO = require('../dao/UtilisateurDAO').default;
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,21 +30,21 @@ app.use(express.static('public'));
 const port = 8080;
 let currentUser = -1;
 
-const frontendBuildPath = path.join(__dirname, "../../../../front-app/build");
-app.use(express.static(frontendBuildPath));
+//const frontendBuildPath = path.join(__dirname, "../../../../front-app/build");
+//app.use(express.static(frontendBuildPath));
 
-app.get("/", (req, res) => {
-    const filePath = path.join(__dirname, "../../../../front-app/public/index.html");
-    res.sendFile(filePath);
-});
+// app.get("/", (req, res) => {
+//     const filePath = path.join(__dirname, "../../../../front-app/public/index.html");
+//     res.sendFile(filePath);
+// });
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../../../front-app/src/index.js"));
-});
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../../../../front-app/src/index.js"));
+// });
 
 app.post("/signIn", async (req, res) => {
     const { userName, password } = req.body;
-    //console.log(userName + " , " + password);
+    console.log(userName + " , " + password);
     // Implement your sign-in logic here using Firebase
     // (You should initialize Firebase auth at the beginning of server.js)
     const r = await UtilisateurBusiness.getByUserNameAndPassword(userName, password);
@@ -67,7 +67,7 @@ app.post("/getPassword", async (req, res) => {
     //console.log(r);
     res.status(200).json(r);
 });
-app.post("/getUsers", async (req, res) => {
+app.get("/getUsers", async (req, res) => {
     const { id } = req.body;
     const r = await UtilisateurBusiness.getAll();
     //console.log(r);
@@ -468,5 +468,5 @@ app.post("/updateSettingsS", async (req, res) => {
 
 // Demarrage du serveur
 app.listen(port, () => {
-    //console.log('Serveur bien demare...')
-})
+    console.log(`Server running on port ${port}`);
+  });  

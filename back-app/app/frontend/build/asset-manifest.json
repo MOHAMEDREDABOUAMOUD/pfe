@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.611af4b7.css",
+    "main.js": "/static/js/main.6db7341c.js",
+    "static/js/787.1bb0025b.chunk.js": "/static/js/787.1bb0025b.chunk.js",
+    "static/media/titre.png": "/static/media/titre.f54cac1034829f207283.png",
+    "static/media/logo-omrane.png": "/static/media/logo-omrane.510425b03d9136bdda69.png",
+    "index.html": "/index.html",
+    "main.611af4b7.css.map": "/static/css/main.611af4b7.css.map",
+    "main.6db7341c.js.map": "/static/js/main.6db7341c.js.map",
+    "787.1bb0025b.chunk.js.map": "/static/js/787.1bb0025b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.611af4b7.css",
+    "static/js/main.6db7341c.js"
+  ]
+}

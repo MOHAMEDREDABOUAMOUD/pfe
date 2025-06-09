@@ -1,6 +1,6 @@
 // utilisateurDAO.js
 
-const Utilisateur = require('../models/utilisateur');
+const Utilisateur = require('../models/Utilisateur');
 const pool = require('./db');
 // const { createPool } = require('mysql');
 
@@ -233,7 +233,6 @@ class UtilisateurDAO {
 
   static async getAll() {
     const _query = 'SELECT immatricule, email, nom, prenom, login, pwd, fonction, sexe FROM Utilisateur';
-
     try {
       const rows = await new Promise((resolve, reject) => {
         pool.query(_query, (err, rows) => {

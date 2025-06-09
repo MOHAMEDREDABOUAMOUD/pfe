@@ -23,7 +23,7 @@ function SignIn() {
         const formData = new FormData();
         formData.append('login', userName);
         formData.append('pwd', password);
-
+        console.log(formData);
         await axios
           .post("/signIn", { userName: userName, password: password })
           .then((response) => {
